@@ -6,7 +6,7 @@ reviews made by the user as well as the businesses the user has reviewd) -->
 <!-- Change title to display the following as well the id of the user. (Optional?) -->
 <title> Operation Repo - User </title>
      <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" >
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"
 </head>
 
 <body>

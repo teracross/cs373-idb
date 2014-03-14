@@ -6,7 +6,7 @@ should link back to user reviewing and business reviewed-->
 <!-- Change title to display the following as well the id of review. (Optional?) -->
 <title> Operation Repo - Review </title>
      <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" >
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"
 </head>
 
 <body>
