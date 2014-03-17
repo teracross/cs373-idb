@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+SETTINGS_DIR = os.path.dirname(__file__)
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -51,6 +54,11 @@ ROOT_URLCONF = 'idb.urls'
 
 WSGI_APPLICATION = 'idb.wsgi.application'
 
+TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
+
+TEMPLATE_DIRS = (
+    TEMPLATE_PATH,
+)
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
