@@ -7,6 +7,6 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'idb.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^OperationRepo/', include('OperationRepo.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
