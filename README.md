@@ -1,4 +1,4 @@
 cs373-idb
 =========
 
-cs373 repo for 
+cs373 repo for Operation Repo
