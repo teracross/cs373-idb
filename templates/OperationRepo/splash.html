@@ -10,15 +10,42 @@
 
 <body>
     <div class='container'>
-        <h1>Operation Repo Splash Page</h1>
+        <h1>Operation Repo - Index </h1>
         <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
-                  <ul class="nav">
+                  <ul class="nav nav-tabs">
                     <li class="active"><a href="{% url 'splash' %}">Splash Page</a></li>
-                    <li><a href="{% url 'business' %}">Businesses</a></li>            
-                    <li><a href="{% url 'review' %}">Reviews</a></li>
-                    <li><a href="{% url 'user' %}">Users</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Businesses <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Business 3 </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Reviews <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Review 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Review 3 </a></li>
+                        </ul>
+                    </li>   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Users <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> User 2 </a></li>
+                            <li><a href="{% url 'business' %}"> User 3 </a></li>
+                        </ul>
+                    </li>          
                   </ul>
                 </div>
               </div>
@@ -30,50 +57,25 @@
 
           <!--  <a href="#" class="btn btn-large btn-success">Get Started</a> -->
             
-            <h3> Phase 1 Static Pages </h3>
-            <div class = "btn-group">
-			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Businesses <span class="caret"></span></a>
-			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
-				<li><a href="{% url 'business' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
-				<li><a href="{% url 'business' %}"> Business 2 </a></li>
-				<li><a href="{% url 'business' %}"> Business 3 </a></li>
-			</ul>
-			</div>
-            <div class = "btn-group">
-			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Reviews <span class="caret"></span></a>
-			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
-            		<li><a href="{% url 'review' %}" > Review 1 </a></li> <!-- need to add review id to make them unique -->
-            		<li><a href="{% url 'review' %}" > Review 2 </a></li>
-            		<li><a href="{% url 'review' %}" > Review 3 </a></li>
-            </ul>
-            </div>
-            <div class = "btn-group">
-			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Users <span class="caret"></span></a>
-			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
-            		<li><a href="{% url 'user' %}"> User 1 </a></li> <!-- need to add user id to make them unique -->
-            		<li><a href="{% url 'user' %}"> User 2 </a></li>
-            		<li><a href="{% url 'user' %}"> User 3 </a></li>
-            </ul>
-            </div>
         </div>
-		
-		<div class="row">
+        
+        <div class="row">
          <div class="span4">
             <ul class="nav nav-list">
-				<li class="nav-header">Group Members</li>
-				<li class="active"><a href="#">Ed Lee</a></li>
-				<li><a href="#">Anthony Garza</a></li>
-				<li><a href="#">Xavier Beynon</a></li>
-				<li><a href="#">Po-Chen Yang</a></li>
-				<li><a href="#">Chukwudi Iwueze</a></li>
-				<li><a href="#">William Nation</a></li>
-			</ul>
+                <li class="nav-header">Group Members</li>
+                <li class="active"><a href="#">Ed Lee</a></li>
+                <li><a href="#">Anthony Garza</a></li>
+                <li><a href="#">Xavier Beynon</a></li>
+                <li><a href="#">Po-Chen Yang</a></li>
+                <li><a href="#">Chukwudi Iwueze</a></li>
+                <li><a href="#">William Nation</a></li>
+            </ul>
         </div>
         <div class="span8">
             <p class="nav-header">Member Information</p>
         </div>
-		</div>
-		
+        </div>
+        
     </div>
 
      <!-- Bootstrap -->
