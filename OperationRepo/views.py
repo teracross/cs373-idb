@@ -31,7 +31,7 @@ def user(request):
     context_dict = {'message': "Hello World, user page"}
     return render_to_response('OperationRepo/user.html', context_dict, context)
     
-def splash(request):
+def splash(index):
 	context = RequestContext(request)
-	context_dict = {'message' : "Hello World, splash page"}
-	return render_to_response('OperationRepo/splash.html', context_dict, context)
+	#context_dict = {'message' : "Hello World, splash page"}
+	return render_to_response('OperationRepo/index.html', context_dict, context)
