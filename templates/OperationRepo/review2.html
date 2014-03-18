@@ -16,7 +16,7 @@ should link back to user reviewing and business reviewed-->
               <div class="navbar-inner">
                 <div class="container">
                   <ul class="nav nav-tabs">
-                    <li class="active"><a href="{% url 'index' %}">Splash Page</a></li>
+                    <li ><a href="{% url 'index' %}">Splash Page</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Businesses <span class="caret"></span>
@@ -33,7 +33,7 @@ should link back to user reviewing and business reviewed-->
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'review1' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'review2' %}"> Review 2 </a></li>
+                            <li class = "active"><a href="{% url 'review2' %}"> Review 2 </a></li>
                             <li><a href="{% url 'review3' %}"> Review 3 </a></li>
                         </ul>
                     </li>   
@@ -51,6 +51,33 @@ should link back to user reviewing and business reviewed-->
                 </div>
               </div>
         </div>
+
+        <div class="hero-unit">
+        	<a href="{% url 'business2' %}"><h3>Review for Salon Lola</h3></a>
+            <table>
+                <tbody>
+                <tr><td>votes</td><td>
+                <div>
+                    <table>
+                        <tbody><!--<tr><th>Name</th><th>Value</th></tr>-->
+                        <tr><td>funny</td><td>0</td></tr>
+                        <tr><td>useful</td><td>0</td></tr>
+                        <tr><td>cool</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                </td></tr>
+                <tr><td>user </td><td> <a href="{% url 'user2' %}"> link </a> </td></tr>
+                <tr><td>review_id</td><td>VyAKIaj_Rmsf_ZCHcGJyUw</td></tr>
+                <tr><td>stars</td><td>5</td></tr>
+				<tr><td>date</td><td>2010-05-30</td></tr>
+                
+                <tr><td>comments</td><td>I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
 
     <script src="http://code.jquery.com/jquery.js"></script>
