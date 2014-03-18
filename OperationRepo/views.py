@@ -16,22 +16,57 @@ def index(request):
     # Note that the first parameter is the template we wish to use.
     return render_to_response('OperationRepo/index.html', context_dict, context)
 
-def business(request):
+# Businesses
+def business1(request):
     context = RequestContext(request)
-    context_dict = {'message': "Hello World, business page"}
-    return render_to_response('OperationRepo/business.html', context_dict, context)
+    context_dict = {'message': "Hello World, business page 1"}
+    return render_to_response('OperationRepo/business1.html', context_dict, context)
 
-def review(request):
+def business2(request):
     context = RequestContext(request)
-    context_dict = {'message': "Hello World, review page"}
-    return render_to_response('OperationRepo/review.html', context_dict, context)
+    context_dict = {'message': "Hello World, business page 2"}
+    return render_to_response('OperationRepo/business2.html', context_dict, context)
 
-def user(request):
+def business3(request):
     context = RequestContext(request)
-    context_dict = {'message': "Hello World, user page"}
-    return render_to_response('OperationRepo/user.html', context_dict, context)
+    context_dict = {'message': "Hello World, business page 3"}
+    return render_to_response('OperationRepo/business3.html', context_dict, context)
+
+# Reviews
+def review1(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, review page 1"}
+    return render_to_response('OperationRepo/review1.html', context_dict, context)
+
+def review2(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, review page 2"}
+    return render_to_response('OperationRepo/review2.html', context_dict, context)
+
+def review3(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, review page 3"}
+    return render_to_response('OperationRepo/review3.html', context_dict, context)
+
+
+# Users
+def user1(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, user page 1"}
+    return render_to_response('OperationRepo/user1.html', context_dict, context)
     
-def splash(request):
-	context = RequestContext(request)
-	context_dict = {'message' : "Hello World, splash page"}
-	return render_to_response('OperationRepo/splash.html', context_dict, context)
+def user2(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, user page 2"}
+    return render_to_response('OperationRepo/user2.html', context_dict, context)
+
+def user3(request):
+    context = RequestContext(request)
+    context_dict = {'message': "Hello World, user page 3"}
+    return render_to_response('OperationRepo/user3.html', context_dict, context)
+
+def splash(index):
+	  context = RequestContext(request)
+	  context_dict = {'message' : "Hello World, splash page"}
+	  return render_to_response('OperationRepo/index.html', context_dict, context)
+
