@@ -1,21 +1,125 @@
-<!-- Users Page - layout for displaying the information on each user (should eventually link to 
-reviews made by the user as well as the businesses the user has reviewd) -->
 <!DOCTYPE html>
 <html>
 <head> 
-<!-- Change title to display the following as well the id of the user. (Optional?) -->
-<title> Operation Repo - User </title>
-     <!-- Bootstrap -->
-    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" >
+    <meta charset='utf-8'>
+    <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+     
 </head>
 
 <body>
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    {{message}}
-    {"yelping_since": "2011-07", "votes": {"funny": 64, "useful": 442, "cool": 166}, "review_count": 381, "name": "Melissa", "user_id": "fR6Vch-D0L6OBnLMl8f9Sg", "friends": ["fczQCSmaWF78toLEmb0Zsw", "uBp2Jmip2qXQ0iWHUDY9sQ", "KM9I3k5D7aCtqBG5DiqHeA", "IyxFBaOOAMke-ER4RVhuqQ", "Za9CEz4x9Ks-94W0lqvuPg", "5_2BuK-IWiuLhZ9VGBRYYw", "2_tOvm9THqfuxiXSxbE7Zw", "rSbqoimVUWPEbNSGwyjI-Q", "lC0KGXmIhyjzghBUlVnkhQ", "4ISIH0HF6h2FuRm41s_NzQ", "rF7PJO_wur7GMr7rIR7ntw", "WnKrxD7P4CQGXyOrMyLIjw", "J2JfCaiaZku8HgfNceU8Rg", "cRyNICH0mhjxagvSyVr60Q", "23-FXvM7P1ZJFawV3ccZ1Q", "LTc0zVEC1mOwsxeZTMer0A", "AbO18pf8bXG1qF9bb9L6wQ", "-Nfj9wmdsm0cbH6aIJHKsQ", "xAVu2pZ6nIvkdHh8vGs84Q", "HnqzojvN3AyZHjslUlxiJQ", "v6rb-4YhADpuD99f3RKmgg", "gQMuqiadl4WXnB58fljphw", "_YtM7pgpvrEWUJdpY-_S-A", "HestW1GKSkmUs_vpnauE_w"], "fans": 8, "average_stars": 4.1600000000000001, "type": "user", "compliments": {"profile": 1, "funny": 1, "plain": 11, "writer": 10, "note": 9, "photos": 1, "hot": 11, "cool": 9, "more": 5}, "elite": []}
-
+    <div class='container'>
+        <h1>Melissa</h1>
+        <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="{% url 'index' %}">Splash Page</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Businesses <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business1' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business2' %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business3' %}"> Business 3 </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Reviews <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'review1' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'review2' %}"> Review 2 </a></li>
+                            <li><a href="{% url 'review3' %}"> Review 3 </a></li>
+                        </ul>
+                    </li>   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Users <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'user1' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'user2' %}"> User 2 </a></li>
+                            <li><a href="{% url 'user3' %}"> User 3 </a></li>
+                        </ul>
+                    </li>          
+                  </ul>
+                </div>
+              </div>
+        </div>  
+        <div class="hero-unit">
+		    User ID: fR6Vch-D0L6OBnLMl8f9Sg
+		    <br>
+		    Name: Melissa
+		    <br>
+			Joined: 2011-07
+			<br>
+			Reviews: 381
+			<br>
+			Average Stars: 4.16
+			<br>
+			Fans: 8
+			<br>
+			Voted funny : 64
+			<br>
+			Voted useful : 442
+			<br>
+			Voted cool : 166
+			<br>
+			Fans: 0
+			<br>
+			Friends: 32
+			<br>
+			Compliments:
+			<table>
+				<tr>
+					<td>Compliment></td>
+					<td>Number</td>
+				</tr>
+				<tr>
+					<td>Profile</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>Funny</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>Plain</td>
+					<td>11</td>
+				</tr>
+				<tr>
+					<td>Writer</td>
+					<td>10</td>
+				</tr>		
+				<tr>
+					<td>Note</td>
+					<td>9</td>
+				</tr>
+				<tr>
+					<td>Photos</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>Hot</td>
+					<td>11</td>
+				</tr>
+				<tr>
+					<td>Cool</td>
+					<td>9</td>
+				</tr>
+				<tr>
+					<td>More</td>
+					<td>5</td>
+				</tr>															
+			</table>
+			Elite: No            
+			<br>
+			<a href="{% url 'review3' %}">Melissa's Reviews</a>
+			<br>
+        </div>
 </body>
 </html>
 
