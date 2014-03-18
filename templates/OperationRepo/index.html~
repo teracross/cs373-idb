@@ -2,15 +2,84 @@
 <!DOCTYPE html>
 <html>
 <head> 
-<title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
-
-     <!-- Bootstrap -->
-     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <meta charset='utf-8'>
+    <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+     
 </head>
 
 <body>
+    <div class='container'>
+        <h1>Operation Repo - Index </h1>
+        <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="{% url 'splash' %}">Splash Page</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Businesses <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Business 3 </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Reviews <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Review 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Review 3 </a></li>
+                        </ul>
+                    </li>   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Users <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> User 2 </a></li>
+                            <li><a href="{% url 'business' %}"> User 3 </a></li>
+                        </ul>
+                    </li>          
+                  </ul>
+                </div>
+              </div>
+        </div>
+        <div class="hero-unit">
+            <h1>Yelp Dataset Challenge Interactive Application</h1>
+
+            <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
+
+          <!--  <a href="#" class="btn btn-large btn-success">Get Started</a> -->
+            
+        </div>
+        
+        <div class="row">
+         <div class="span4">
+            <ul class="nav nav-list">
+                <li class="nav-header">Group Members</li>
+                <li class="active"><a href="#">Ed Lee</a></li>
+                <li><a href="#">Anthony Garza</a></li>
+                <li><a href="#">Xavier Beynon</a></li>
+                <li><a href="#">Po-Chen Yang</a></li>
+                <li><a href="#">Chukwudi Iwueze</a></li>
+                <li><a href="#">William Nation</a></li>
+            </ul>
+        </div>
+        <div class="span8">
+            <p class="nav-header">Member Information</p>
+        </div>
+        </div>
+        
+    </div>
+
+     <!-- Bootstrap -->
      <script src="http://code.jquery.com/jquery.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-    {{message}}
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
