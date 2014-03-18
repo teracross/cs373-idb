@@ -1,9 +1,10 @@
-<!-- Businesses Page - layout for -->
+<!-- Reviews Page - layout for displaying the information on each review - 
+should link back to user reviewing and business reviewed-->
 <!DOCTYPE html>
 <html>
 <head> 
-<!-- Change title to display the following as well the name of the business. (Optional?) -->
-<title> Operation Repo - Businesses </title>
+<!-- Change title to display the following as well the id of review. (Optional?) -->
+<title> Operation Repo - Review </title>
      <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" >
 </head>
@@ -11,6 +12,7 @@
 <body>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
     {{message}}
 </body>
 </html>

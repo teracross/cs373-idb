@@ -81,3 +81,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# Template Path
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates'),
+)

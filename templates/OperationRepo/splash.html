@@ -15,22 +15,40 @@
               <div class="navbar-inner">
                 <div class="container">
                   <ul class="nav">
-                    <li class="active"><a href="#">Splash Page</a></li>
-                    <li><a href="#">Businesses</a></li>            
-                    <li><a href="#">Reviews</a></li>
-                    <li><a href="#">Users</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li class="active"><a href="{% url 'splash' %}">Splash Page</a></li>
+                    <li><a href="{% url 'business' %}">Businesses</a></li>            
+                    <li><a href="{% url 'review' %}">Reviews</a></li>
+                    <li><a href="{% url 'user' %}">Users</a></li>
                   </ul>
                 </div>
               </div>
         </div>
         <div class="hero-unit">
-            <h1>Marketing stuff! </h1>
+            <h1>Yelp Dataset Challenge Interactive Application</h1>
 
-            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
 
             <a href="#" class="btn btn-large btn-success">Get Started</a>
+            
+            <h3> Phase 1 Static Pages </h3>
+            <p> Businesses </p>
+            <div class ="row">
+            		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 1 </a> <!-- need to add business id to make them unique -->
+            		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 2 </a>
+            		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 3 </a>
+            </div>
+            <p> Reviews </p>
+            <div class ="row">
+            		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 1 </a> <!-- need to add review id to make them unique -->
+            		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 2 </a>
+            		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 3 </a>
+            </div>
+            <p> Users </p>
+            <div class ="row">
+            		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 1 </a> <!-- need to add user id to make them unique -->
+            		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 2 </a>
+            		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 3 </a>
+            </div>
         </div>
 		
 		<div class="row">
@@ -54,6 +72,6 @@
 
      <!-- Bootstrap -->
      <script src="http://code.jquery.com/jquery.js"></script>
-     <script src="js/bootstrap.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
