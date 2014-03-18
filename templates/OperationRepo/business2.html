@@ -1,0 +1,55 @@
+<!-- Homepage - links to our various html pages for business, users and reviews.-->
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset='utf-8'>
+    <title> Operation Repo - Businesses 1 </title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+     
+</head>
+
+<body>
+    <div class='container'>
+        <h1>Operation Repo - Index </h1>
+        <div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="{% url 'index' %}">Splash Page</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Businesses <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Business 3 </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Reviews <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> Review 2 </a></li>
+                            <li><a href="{% url 'business' %}"> Review 3 </a></li>
+                        </ul>
+                    </li>   
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Users <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'business' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' %}"> User 2 </a></li>
+                            <li><a href="{% url 'business' %}"> User 3 </a></li>
+                        </ul>
+                    </li>          
+                  </ul>
+                </div>
+              </div>
+        </div>
+    </div>
+</body>
+</html>
