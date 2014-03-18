@@ -29,26 +29,34 @@
             <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
 
             <a href="#" class="btn btn-large btn-success">Get Started</a>
+            
+            <h3> Phase 1 Static Pages </h3>
+            <div class = "btn-group">
+			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Businesses <span class="caret"></span></a>
+			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
+				<li><a href="{% url 'business' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+				<li><a href="{% url 'business' %}"> Business 2 </a></li>
+				<li><a href="{% url 'business' %}"> Business 3 </a></li>
+			</ul>
+			</div>
+            <div class = "btn-group">
+			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Reviews <span class="caret"></span></a>
+			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
+            		<li><a href="{% url 'review' %}" > Review 1 </a></li> <!-- need to add review id to make them unique -->
+            		<li><a href="{% url 'review' %}" > Review 2 </a></li>
+            		<li><a href="{% url 'review' %}" > Review 3 </a></li>
+            </ul>
+            </div>
+            <div class = "btn-group">
+			<a class = "btn dropdown-toggle" data-toggle="dropdown" href="#">Users <span class="caret"></span></a>
+			<ul class ="dropdown-menu" role = "menu" aria-labelledby="dLabel">
+            		<li><a href="{% url 'user' %}"> User 1 </a></li> <!-- need to add user id to make them unique -->
+            		<li><a href="{% url 'user' %}"> User 2 </a></li>
+            		<li><a href="{% url 'user' %}"> User 3 </a></li>
+            </ul>
+            </div>
         </div>
-		 <h3> Phase 1 Static Pages </h3>
-        <p> Businesses </p>
-        <div class ="row">
-        		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 1 </a> <!-- need to add business id to make them unique -->
-        		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 2 </a>
-        		<a href="{% url 'business' %}" class = "btn btn-large btn-success"> Business 3 </a>
-        </div>
-        <p> Reviews </p>
-        <div class ="row">
-        		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 1 </a> <!-- need to add review id to make them unique -->
-        		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 2 </a>
-        		<a href="{% url 'review' %}" class = "btn btn-large btn-success"> Review 3 </a>
-        </div>
-        <p> Users </p>
-        <div class ="row">
-        		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 1 </a> <!-- need to add user id to make them unique -->
-        		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 2 </a>
-        		<a href="{% url 'user' %}" class = "btn btn-large btn-success"> User 3 </a>
-        </div>		
+		
 		<div class="row">
          <div class="span4">
             <ul class="nav nav-list">
