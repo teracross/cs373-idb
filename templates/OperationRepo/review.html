@@ -11,7 +11,7 @@ should link back to user reviewing and business reviewed-->
 
 <body>
     <div class="container">
-        <h1>Operation Repo - Review 1</h1>
+        <h1>Operation Repo - Review {{ a }} </h1>
         <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
@@ -22,9 +22,9 @@ should link back to user reviewing and business reviewed-->
                             Businesses <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'business1' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'business2' %}"> Business 2 </a></li>
-                            <li><a href="{% url 'business3' %}"> Business 3 </a></li>
+                            <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
                         </ul>
                     </li>
                     <li class="active dropdown">
@@ -32,9 +32,9 @@ should link back to user reviewing and business reviewed-->
                             Reviews <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="active"><a href="{% url 'review1' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'review2' %}"> Review 2 </a></li>
-                            <li><a href="{% url 'review3' %}"> Review 3 </a></li>
+                            <li><a href="{% url 'review' 1 %}"> Review 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
+                            <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
                         </ul>
                     </li>   
                     <li class="dropdown">
@@ -42,9 +42,9 @@ should link back to user reviewing and business reviewed-->
                             Users <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'user1' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'user2' %}"> User 2 </a></li>
-                            <li><a href="{% url 'user3' %}"> User 3 </a></li>
+                            <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
+                            <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
                         </ul>
                     </li>          
                   </ul>
@@ -53,26 +53,26 @@ should link back to user reviewing and business reviewed-->
         </div>
 
         <div class="hero-unit">
-            <a href="{% url 'business1' %}"><h3>Review for Thai Pan Fresh Exotic Cuisine</h3></a>
+            <a href="{% url 'business' a %}"><h3> Review for {{ name }} </h3></a>
             <table>
                 <tbody>
                 <tr><td>votes</td><td>
                 <div>
                     <table>
                         <tbody><!--<tr><th>Name</th><th>Value</th></tr>-->
-                        <tr><td>funny</td><td>1</td></tr>
+                        <tr><td>funny</td><td>1 </td></tr>
                         <tr><td>useful</td><td>1</td></tr>
                         <tr><td>cool</td><td>1</td></tr>
                         </tbody>
                     </table>
                 </div>
                 </td></tr>
-                <tr><td>user </td><td> <a href="{% url 'user1' %}"> link </a> </td></tr>
-                <tr><td>review_id </td><td> 0ESSqLfOae77muWTv_zUqA </td></tr>
+                <tr><td>user </td><td> <a href="{% url 'user' a %}"> link </a> </td></tr>
+                <tr><td>review_id </td><td> {{ review_id }} </td></tr>
                 <tr><td>stars</td><td>3</td></tr>
                 <tr><td>date</td><td>2011-02-11</td></tr>
                 
-                <tr><td>comments</td><td>Lately i have been feeling homesick for asian food and been hitting up places that i haven't been to in awhile.  Recently re-visited Thai Pan for a quick lunch and quickly ordered without spending too much time perusing the menu.  It looked more diverse than I remembered including some Vietnamese additions.  I remembered the curries and stir-fry dishes were ok but nothing really memorable.  A quick summary for my latest visit:<br><br>Pros:<br>- convenient order-at-the counter setup<br>- self-serve drink station<br>- brown and white rice mixture<br>- friendly and gracious owners<br><br>Cons:<br>- too much napa cabbage in comparison to green vegetables <br>- wish the owner/chef would be back in the kitchen vs. managing<br>- spice level on the weak side</td></tr>
+                <tr><td>comments</td><td> {{ text }} </td></tr>
                 </tbody>
             </table>
         </div>

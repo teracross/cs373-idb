@@ -10,7 +10,7 @@
 
 <body>
     <div class='container'>
-        <h1>Fred </h1>
+        <h1>Operation Repo - User {{ name }} </h1>
         <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
@@ -21,9 +21,9 @@
                             Businesses <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'business1' %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'business2' %}"> Business 2 </a></li>
-                            <li><a href="{% url 'business3' %}"> Business 3 </a></li>
+                            <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
+                            <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -31,9 +31,9 @@
                             Reviews <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'review1' %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'review2' %}"> Review 2 </a></li>
-                            <li><a href="{% url 'review3' %}"> Review 3 </a></li>
+                            <li><a href="{% url 'review' 1 %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
+                            <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
                         </ul>
                     </li>   
                     <li class="active dropdown">
@@ -41,9 +41,9 @@
                             Users <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'user1' %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'user2' %}"> User 2 </a></li>
-                            <li><a href="{% url 'user3' %}"> User 3 </a></li>
+                            <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
+                            <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
                         </ul>
                     </li>          
                   </ul>
@@ -128,7 +128,7 @@
 				</table>
 				Elite: 2008            
 				<br>
-				<a href="{% url 'review1' %}">Fred's Reviews</a>
+				<a href="{% url 'review' a %}"> {{ name }}'s Reviews</a>
 				<br>
 			</table>
         </div>
