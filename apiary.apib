@@ -1,47 +1,549 @@
-FORMAT: 1A
-HOST: http://www.google.com
+--- Operation Repo ---
+---
+RESTful API documentation for Operation Repo's Yelp Dataset Challenge (add more detailed description later)
+---
+--
+Business Data
+--
+Lists every Business in the database
+GET /api/businesses
+< 200
+< Content-Type: application/json
+[
+    {
+        "id": 1,
+        "business_id": "O_X3PGhk3Y5JWVi866qlJg",
+        "name": "Turf Paradise Race Course"
+    },
+    {
+        "id": 2,
+        "business_id": "QbrM7wqtmoNncqjc6GtFaQ",
+        "name": "Sam's Club Members Only"
+    }
+]
 
-# OpRepo
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+Creates a new Business entry
+POST /api/businesses
+> Content-Type: application-json
+{ 
+    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
+    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
+    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
+            "Tuesday": {"close": "18:00", "open": "11:00"},
+            "Friday": {"close": "18:00", "open": "11:00"},
+            "Wednesday": {"close": "18:00", "open": "11:00"},
+            "Thursday": {"close": "18:00", "open": "11:00"}, 
+            "Sunday": {"close": "18:00", "open": "11:00"},
+            "Saturday": {"close": "18:00","open": "11:00"}},
+    "open": true,
+    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
+    "city": "Phoenix",
+    "review_count": 29,
+    "name": "Turf Paradise Race Course",
+    "neighborhoods": [],
+    "longitude": -112.0923293,
+    "state": "AZ",
+    "stars": 4.0,
+    "latitude": 33.638572699999997,
+    "attributes": {"Take-out": false,
+                "Wi-Fi": "free",
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
+                "Noise Level": "average"m
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
+                "Attire": "casual",
+                "Alcohol": "full_bar",
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
+                "Price Range": 2},
+    "type": "business",
+}
+< 201
+< Content-Type: application-json
+{ id: 1 }
 
-# Group Notes
-Notes related resources of the **Notes API**
+Retrieves a Business by its id
+GET /api/businesses/{id}
+< 200
+< Content-Type: application/json
+{ 
+    "id": 1,
+    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
+    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
+    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
+            "Tuesday": {"close": "18:00", "open": "11:00"},
+            "Friday": {"close": "18:00", "open": "11:00"},
+            "Wednesday": {"close": "18:00", "open": "11:00"},
+            "Thursday": {"close": "18:00", "open": "11:00"}, 
+            "Sunday": {"close": "18:00", "open": "11:00"},
+            "Saturday": {"close": "18:00","open": "11:00"}},
+    "open": true,
+    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
+    "city": "Phoenix",
+    "review_count": 29,
+    "name": "Turf Paradise Race Course",
+    "neighborhoods": [],
+    "longitude": -112.0923293,
+    "state": "AZ",
+    "stars": 4.0,
+    "latitude": 33.638572699999997,
+    "attributes": {"Take-out": false,
+                "Wi-Fi": "free",
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
+                "Noise Level": "average"m
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
+                "Attire": "casual",
+                "Alcohol": "full_bar",
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
+                "Price Range": 2},
+    "type": "business",
+}
 
-## Notes Collection [/notes]
-### List all Notes [GET]
-+ Response 200 (application/json)
+Updates an existing Business using its id
+PUT /api/businesses/{id}
+> Content-Type: application-json
+{ 
+    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
+    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
+    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
+            "Tuesday": {"close": "18:00", "open": "11:00"},
+            "Friday": {"close": "18:00", "open": "11:00"},
+            "Wednesday": {"close": "18:00", "open": "11:00"},
+            "Thursday": {"close": "18:00", "open": "11:00"}, 
+            "Sunday": {"close": "18:00", "open": "11:00"},
+            "Saturday": {"close": "18:00","open": "11:00"}},
+    "open": true,
+    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
+    "city": "Phoenix",
+    "review_count": 29,
+    "name": "Turf Paradise Race Course",
+    "neighborhoods": [],
+    "longitude": -112.0923293,
+    "state": "AZ",
+    "stars": 4.0,
+    "latitude": 33.638572699999997,
+    "attributes": {"Take-out": false,
+                "Wi-Fi": "free",
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
+                "Noise Level": "average"m
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
+                "Attire": "casual",
+                "Alcohol": "full_bar",
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
+                "Price Range": 2},
+    "type": "business",
+}
+< 204
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
 
-### Create a Note [POST]
-+ Request (application/json)
+Deletes an existing Business using its id
+DELETE /api/businesses/{id}
+< 204
 
-        { "title": "Buy cheese and bread for breakfast." }
 
-+ Response 201 (application/json)
+Lists all Users who have reviewed the identified Business
+GET /api/businesses/{id}/users
+< 200
+< Content-Type: application/json
+[
+    {
+        "yelping_since": "2008-04",
+        "votes": {"funny": 25,
+                "useful": 122,
+                "cool": 31},
+        "review_count": 69,
+        "name": "Mindi",
+        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
+        "friends": ["OroGqv0t7fy-Q3E2PzTEwQ", "SEDFpR4oMPKqXMjbJiMGog", "AYGHNy8gPxl2Q-etTT3hZw", "34gJ_KlP3RM6jotNT6TcDQ", "fHv7k5vWd6ryt8jH4J3teg", "lmiDCrmas8TxRsbIGZX9Pg", "Ts2ipR4zCYClEQTAuJuIjw", "4SFf4irFi5s8Q4QIxFhvUQ"]
+        "fans": 1
+        "average_stars": 3.5800000000000001
+        "type": "user"
+        "compliments": {"note": 4,
+                    "funny": 1,
+                    "writer": 3,
+                    "cool": 2},
+        "elite": []
+    }
+]
 
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+Lists all Reviews for the identified Business
+GET /api/businesses/{id}/reviews
+< 200
+< Content-Type: application/json
+[
+    {
+        "votes": {"funny": 0,
+                "useful": 1,
+                "cool": 0},
+        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
+        "review_id": "s8g8kFZ4JXFAGksbQnEqLw",
+        "stars": 4,
+        "date": "2012-01-07",
+        "text": "I have never been to a race track before so when I saw a Livingsocial deal for this place I thought I'd try it out. It was the best $30 I ever spent! We sat in the Turf Club which I guess is the nicest viewing area. There wasn't a bad table in the place, even the 2 tops which is what we had. The menu is mostly lunch type items, salad, sandwiches, burgers, with a few breakfast options, but the food was surprisingly good and very reasonably priced. I had the tuna melt and it was stuffed with tuna salad and cheese. The BF had the chicken caprese sandwich. The sandwich arrived, I looked up a second later and it was gone. He inhaled it,  he thought it was that good. The bread pudding was ok. The only thing that wasn't awesome was the service. Our waitress was very slow to come around and she didn't have much of a personality. Any time we needed anything I had to flag her down but who knows it could have been an off day for her. We walked around and went to the grandstand and outside viewing area as well. There are stadium type food booths and a couple of bars out there and it looked fun. We would definitely go back again and pay the full price. So worth it.",
+        "type": "review",
+        "business_id": "O_X3PGhk3Y5JWVi866qlJg"
+    }
+]
 
-## Note [/notes/{id}]
-A single Note object with all its details
+--
+User Data
+--
+Lists every User in the database
+GET /api/users
+< 200
+< Content-Type: application/json
+[
+    {
+        "id": 1,
+        "user_id": "2WyMjf6TYATFwg6NA",
+        "name": "Glen"
+    },
+    {
+        "id": 2,
+        "business_id": "gYV6bmTSgbZMGkvXHVCowg",
+        "name": "Paul"
+    }
+]
 
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+Creates a new User entry
+POST /api/users
+> Content-Type: application-json
+{ 
+    "yelping_since": "2011-08",
+    "votes": {"funny": 0,
+            "useful": 1,
+            "cool": 1},
+    "review_count": 5,
+    "name": "Glen",
+    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
+    "friends": [],
+    "fans": 0,
+    "average_stars": 3.6000000000000001,
+    "type": "user",
+    "compliments": {},
+    "elite": [],
+}
+< 201
+< Content-Type: application-json
+{ id: 1 }
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
+Retrieves a User by its id
+GET /api/users/{id}
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ 
+    "id": 1,
+    "yelping_since": "2011-08",
+    "votes": {"funny": 0,
+            "useful": 1,
+            "cool": 1},
+    "review_count": 5,
+    "name": "Glen",
+    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
+    "friends": [],
+    "fans": 0,
+    "average_stars": 3.6000000000000001,
+    "type": "user",
+    "compliments": {},
+    "elite": [],
+}
 
-    + Header
+Updates an existing User using its id
+PUT /api/users/{id}
+> Content-Type: application-json
+{ 
+    "yelping_since": "2011-08",
+    "votes": {"funny": 0,
+            "useful": 1,
+            "cool": 1},
+    "review_count": 5,
+    "name": "Glen",
+    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
+    "friends": [],
+    "fans": 0,
+    "average_stars": 3.6000000000000001,
+    "type": "user",
+    "compliments": {},
+    "elite": [],
+}
+< 204
 
-            X-My-Header: The Value
 
-    + Body
+Deletes an existing User using its id
+DELETE /api/users/{id}
+< 204
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
 
-### Remove a Note [DELETE]
-+ Response 204
+Lists all Businesses the identified User has reviewed
+GET /api/users/{id}/business
+< 200
+< Content-Type: application/json
+[
+    {
+        "business_id": "KWo4geULVPzCirc0Scpcow",
+        "full_address": "3701-3965 Sky Harbor Blvd\nPhoenix, AZ 85034",
+        "hours": {},
+        "open": true,
+        "categories": ["Bakeries", "Food", "French", "Restaurants"],
+        "city": "Phoenix",
+        "review_count": 12,
+        "name": "La Madeleine",
+        "neighborhoods": [],
+        "longitude": -112.001445002113,
+        "state": "AZ",
+        "stars": 3.5,
+        "latitude": 33.433677495519298,
+        "attributes": {"Wi-Fi": "free",
+                    "Good For": {"dessert": false,
+                                "latenight": false,
+                                "lunch": false,
+                                "dinner": false,
+                                "brunch": false,
+                                "breakfast": false},
+                    "Delivery": false,
+                    "Outdoor Seating": false,
+                    "Attire": "casual",
+                    "Waiter Service": false,
+                    "Accepts Credit Cards": true},
+        "type": "business"
+    }
+]
+
+Lists all Reviews by the identified User
+GET /api/users/{id}/reviews
+< 200
+< Content-Type: application/json
+[
+    {
+        "votes": {"funny": 0,
+                "useful": 1,
+                "cool": 1},
+        "user_id": "HzLh-2WyMjf6TYATFwg6NA",
+        "review_id": "q2H0J8iJvwUgINvUb8L5Bw",
+        "stars": 1,
+        "date": "2013-12-08",
+        "text": "Epic fail. So I order a sandwich that clearly says it comes with Pesto on it, and instead comes drowned in mayo. So I take it back to the counter, point out the error and they take it back. I hear the manager correcting the staff, who mouths off to him. The manager comes back and says that the fixed sandwich will be right back out. They give me the same sandwich, with all the mayo still on it and a gallon of pink goo which I assume is the tomato Pesto. Not going back again. What a waste.",
+        "type": "review",
+        "business_id": "KWo4geULVPzCirc0Scpcow"
+    }
+]
+
+--
+Review Data
+--
+
+Lists every Review in the database
+GET /api/reviews
+< 200
+< Content-Type: application/json
+[
+    {
+        "id": 1,
+        "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
+        "review_id": "0ESSqLfOae77muWTv_zUqA",
+        "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
+    },
+    {
+        "id": 2,
+        "user_id": "SS85hfTApRnbTPcJadra8A",
+        "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
+        "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+    }
+]
+
+Creates a new Review entry
+POST /api/reviews
+> Content-Type: application-json
+{ 
+    "votes": {"funny": 0,
+            "useful": 0,
+            "cool": 0},
+    "user_id": "SS85hfTApRnbTPcJadra8A",
+    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
+    "stars": 5,
+    "date": "2010-05-30",
+    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
+    "type": "review",
+    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+}
+< 201
+< Content-Type: application-json
+{ id: 2 }
+
+Retrieves a Review by its id
+GET /api/reviews/{id}
+< 200
+< Content-Type: application/json
+{ 
+    "id": 2,
+    "votes": {"funny": 0,
+            "useful": 0,
+            "cool": 0},
+    "user_id": "SS85hfTApRnbTPcJadra8A",
+    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
+    "stars": 5,
+    "date": "2010-05-30",
+    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
+    "type": "review",
+    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+}
+
+Updates an existing Review using its id
+PUT /api/reviews/{id}
+> Content-Type: application-json
+{ 
+    "votes": {"funny": 0,
+            "useful": 0,
+            "cool": 0},
+    "user_id": "SS85hfTApRnbTPcJadra8A",
+    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
+    "stars": 5,
+    "date": "2010-05-30",
+    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
+    "type": "review",
+    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+}
+< 204
+
+
+Deletes an existing Review using its id
+DELETE /api/reviews/{id}
+< 204
+
+
+Lists the User who gave the identified Review
+GET /api/reviews/{id}/user
+< 200
+< Content-Type: application/json
+[
+    {
+        "yelping_since": "2010-05",
+        "votes": {"funny": 0,
+                "useful": 4,
+                "cool": 0},
+        "review_count": 1,
+        "name": "Christi",
+        "user_id": "SS85hfTApRnbTPcJadra8A",
+        "friends": [],
+        "fans": 0,
+        "average_stars": 5.0,
+        "type": "user",
+        "compliments": {},
+        "elite": []
+    }
+]
+
+Lists the Business of the identified Review
+GET /api/reviews/{id}/business
+< 200
+< Content-Type: application/json
+[
+    {
+        "business_id": "70p94Ejeu1v5XlIkbKORYQ",
+        "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234",
+        "hours": {"Monday": {"close": "19:00", "open": "09:00"},
+                "Tuesday": {"close": "19:00", "open": "09:00"},
+                "Friday": {"close": "19:00", "open": "09:00"},
+                "Wednesday": {"close": "19:00", "open": "09:00"},
+                "Thursday": {"close": "19:00", "open": "09:00"},
+                "Saturday": {"close": "19:00", "open": "09:00"}},
+        "open": true,
+        "categories": ["Hair Salons", "Beauty & Spas"],
+        "city": "Gilbert",
+        "review_count": 9,
+        "name": "Salon Lola",
+        "neighborhoods": [],
+        "longitude": -111.75560249999999,
+        "state": "AZ",
+        "stars": 5.0,
+        "latitude": 33.379065699999998,
+        "attributes": {"Price Range": 2,
+                    "Parking": {"garage": false,
+                                "street": false,
+                                "validated": false,
+                                "lot": true,
+                                "valet": false},
+                    "By Appointment Only": true,
+                    "Accepts Credit Cards": true,
+                    "Good for Kids": true,
+                    "Wheelchair Accessible": true},
+        "type": "business"}
+    }
+]
