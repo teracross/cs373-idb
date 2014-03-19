@@ -1,11 +1,23 @@
---- Operation Repo ---
+--- Operation Repo API ---
 ---
-RESTful API documentation for Operation Repo's Yelp Dataset Challenge (add more detailed description later)
+RESTful API documentation for Operation Repo's Yelp Dataset Challenge.
+POST requests are used to create, while PUT requests are used to update endpoints.
+
+HTTP status codes as stated below are expected to be followed:
+
+- 200 `OK` - the request was successful (some API calls may return 201 instead).
+- 201 `Created` - the request was successful and a resource was created.
+- 204 `No Content` - the request was successful but there is no representation to return (i.e. the response is empty).
+- 400 `Bad Request` - the request could not be understood or was missing required parameters.
+- 401 `Unauthorized` - authentication failed or user doesn't have permissions for requested operation.
+- 403 `Forbidden` - access denied.
+- 404 `Not Found` - resource was not found
+- 405 `Method Not Allowed` - requested method is not supported for resource.
 ---
 --
 Business Data
 --
-Lists every Business in the database
+Lists every business in the database
 GET /api/businesses
 < 200
 < Content-Type: application/json
@@ -22,7 +34,7 @@ GET /api/businesses
     }
 ]
 
-Creates a new Business entry
+Creates a new business entry
 POST /api/businesses
 > Content-Type: application-json
 { 
@@ -86,7 +98,7 @@ POST /api/businesses
 < Content-Type: application-json
 { id: 1 }
 
-Retrieves a Business by its id
+Retrieves the information for a particular business. id is the primary key for the database
 GET /api/businesses/{id}
 < 200
 < Content-Type: application/json
@@ -149,7 +161,7 @@ GET /api/businesses/{id}
     "type": "business",
 }
 
-Updates an existing Business using its id
+Updates an existing business
 PUT /api/businesses/{id}
 > Content-Type: application-json
 { 
@@ -212,12 +224,12 @@ PUT /api/businesses/{id}
 < 204
 
 
-Deletes an existing Business using its id
+Deletes an existing business
 DELETE /api/businesses/{id}
 < 204
 
 
-Lists all Users who have reviewed the identified Business
+Lists all related users
 GET /api/businesses/{id}/users
 < 200
 < Content-Type: application/json
@@ -242,7 +254,7 @@ GET /api/businesses/{id}/users
     }
 ]
 
-Lists all Reviews for the identified Business
+Lists all related reviews
 GET /api/businesses/{id}/reviews
 < 200
 < Content-Type: application/json
@@ -264,7 +276,7 @@ GET /api/businesses/{id}/reviews
 --
 User Data
 --
-Lists every User in the database
+Lists every user in the database
 GET /api/users
 < 200
 < Content-Type: application/json
@@ -281,7 +293,7 @@ GET /api/users
     }
 ]
 
-Creates a new User entry
+Creates a new user entry
 POST /api/users
 > Content-Type: application-json
 { 
@@ -303,7 +315,7 @@ POST /api/users
 < Content-Type: application-json
 { id: 1 }
 
-Retrieves a User by its id
+Retrieves the information for a particular user. id is the primary key for the database
 GET /api/users/{id}
 > Accept: application/json
 < 200
@@ -325,7 +337,7 @@ GET /api/users/{id}
     "elite": [],
 }
 
-Updates an existing User using its id
+Updates an existing user
 PUT /api/users/{id}
 > Content-Type: application-json
 { 
@@ -346,13 +358,13 @@ PUT /api/users/{id}
 < 204
 
 
-Deletes an existing User using its id
+Deletes an existing user
 DELETE /api/users/{id}
 < 204
 
 
-Lists all Businesses the identified User has reviewed
-GET /api/users/{id}/business
+Lists all related businesses
+GET /api/users/{id}/businesses
 < 200
 < Content-Type: application/json
 [
@@ -386,7 +398,7 @@ GET /api/users/{id}/business
     }
 ]
 
-Lists all Reviews by the identified User
+Lists all related reviews
 GET /api/users/{id}/reviews
 < 200
 < Content-Type: application/json
@@ -409,7 +421,7 @@ GET /api/users/{id}/reviews
 Review Data
 --
 
-Lists every Review in the database
+Lists every review in the database
 GET /api/reviews
 < 200
 < Content-Type: application/json
@@ -428,7 +440,7 @@ GET /api/reviews
     }
 ]
 
-Creates a new Review entry
+Creates a new review entry
 POST /api/reviews
 > Content-Type: application-json
 { 
@@ -447,7 +459,7 @@ POST /api/reviews
 < Content-Type: application-json
 { id: 2 }
 
-Retrieves a Review by its id
+Retrieves the information for a particular review. id is the primary key for the database
 GET /api/reviews/{id}
 < 200
 < Content-Type: application/json
@@ -465,7 +477,7 @@ GET /api/reviews/{id}
     "business_id": "70p94Ejeu1v5XlIkbKORYQ"
 }
 
-Updates an existing Review using its id
+Updates an existing review
 PUT /api/reviews/{id}
 > Content-Type: application-json
 { 
@@ -483,13 +495,13 @@ PUT /api/reviews/{id}
 < 204
 
 
-Deletes an existing Review using its id
+Deletes an existing review
 DELETE /api/reviews/{id}
 < 204
 
 
-Lists the User who gave the identified Review
-GET /api/reviews/{id}/user
+Lists all related users
+GET /api/reviews/{id}/users
 < 200
 < Content-Type: application/json
 [
@@ -510,8 +522,8 @@ GET /api/reviews/{id}/user
     }
 ]
 
-Lists the Business of the identified Review
-GET /api/reviews/{id}/business
+Lists all related businesses
+GET /api/reviews/{id}/businesses
 < 200
 < Content-Type: application/json
 [
