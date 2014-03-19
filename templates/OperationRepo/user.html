@@ -57,41 +57,46 @@
 	        		<td>Value</td>
 	        	</tr>
 
-			    User ID: JgDkCER12uiv4lbpmkZ9VA
+			    User ID: {{user_id}}
 			    <br>
-			    Name: Fred
+			    Name: {{name}}
 			    <br>
-				Joined: "2008-05"
+				Joined: {{yelping_since}}
 				<br>
-				Reviews: 425
+				Reviews: {{review_count}}
 				<br>
-				Average Stars: 3.44
+				Average Stars: {{average_stars}}
 				<br>
-				Fans: 10
+				Fans: {{fans}}
 				<br>
-				Voted funny : 535
+				Voted funny : {{votes.funny}}
 				<br>
-				Voted useful : 975
+				Voted useful : {{votes.useful}}
 				<br>
-				Voted cool : 503
+				Voted cool : {{votes.cool}}
 				<br>
-				Fans: 10
-				<br>
-				Friends: 89
+				Friends: 89 <!-- where'd this come from? --> 
 				<br>
 				Compliments:
 					<table>
 					<tr>
-						<td>Compliment></td>
+						<td>Compliment</td>
 						<td>Number</td>
 					</tr>
+					{% for k,v in compliments %}
+						<tr>
+							<td>{{ k }}</td>
+							<td>{{ v }}</td>
+						</tr>
+					{% endfor %}
+					<!--
 					<tr>
 						<td>Profile</td>
-						<td>2</td>
+						<td>{{compliments.profile}}</td>
 					</tr>
 					<tr>
 						<td>Funny</td>
-						<td>18</td>
+						<td>{{compliments.funny}}</td>
 					</tr>
 					<tr>
 						<td>Plain</td>
@@ -124,9 +129,10 @@
 					<tr>
 						<td>More</td>
 						<td>1</td>
-					</tr>													
+					</tr>
+					-->													
 				</table>
-				Elite: 2008            
+				Elite: {{elite}}            
 				<br>
 				<a href="{% url 'review' a %}"> {{ name }}'s Reviews</a>
 				<br>
