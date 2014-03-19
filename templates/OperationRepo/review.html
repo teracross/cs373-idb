@@ -59,18 +59,18 @@ should link back to user reviewing and business reviewed-->
                 <tr><td>votes</td><td>
                 <div>
                     <table>
-                        <tbody><!--<tr><th>Name</th><th>Value</th></tr>-->
-                        <tr><td>funny</td><td>1 </td></tr>
-                        <tr><td>useful</td><td>1</td></tr>
-                        <tr><td>cool</td><td>1</td></tr>
+                        <tbody>
+                        <tr><td>funny</td><td> {{ votes.funny }} </td></tr>
+                        <tr><td>useful</td><td> {{ votes.useful }} </td></tr>
+                        <tr><td>cool</td><td> {{ votes.cool }} </td></tr>
                         </tbody>
                     </table>
                 </div>
                 </td></tr>
                 <tr><td>user </td><td> <a href="{% url 'user' a %}"> link </a> </td></tr>
                 <tr><td>review_id </td><td> {{ review_id }} </td></tr>
-                <tr><td>stars</td><td>3</td></tr>
-                <tr><td>date</td><td>2011-02-11</td></tr>
+                <tr><td>stars</td><td>{{ stars }}</td></tr>
+                <tr><td>date</td><td>{{ date }}</td></tr>
                 
                 <tr><td>comments</td><td> {{ text }} </td></tr>
                 </tbody>
