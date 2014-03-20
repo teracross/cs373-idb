@@ -5,101 +5,88 @@
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-     
+    <style type="text/css">
+        .key {width: 100px;display:inline-block;}
+    </style>
 </head>
 
 <body>
     <div class='container'>
-        <h1>Operation Repo - Business {{ a }} </h1>
+        <h1>{{name}}</h1>
         <div class="navbar">
-              <div class="navbar-inner">
-                <div class="container">
-                  <ul class="nav nav-tabs">
-                    <li><a href="{% url 'index' %}">Home Page</a></li>
-                    <li class="active dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Businesses <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
-                            <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Reviews <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'review' 1 %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
-                            <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
-                        </ul>
-                    </li>   
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Users <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
-                            <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
-                            <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
-                        </ul>
-                    </li>          
-                  </ul>
-                </div>
-              </div>
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav nav-tabs">
+                <li><a href="{% url 'index' %}">Home Page</a></li>
+                <li class="active dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Businesses <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                        <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
+                        <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Reviews <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'review' 1 %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                        <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
+                        <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
+                    </ul>
+                </li>   
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        Users <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                        <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
+                        <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
+                    </ul>
+                </li>          
+            </ul>
         </div>
+    </div>
+</div>
 
-        <div class="hero-unit">
-            <table class="objecttable" style="">
-                <tbody>
-                    <tr><th>Name</th><th>Value</th></tr>
-                    <tr><td>business_id</td><td><span class="string">{{ business_id }}</span></td></tr>
-                    <tr><td>full_address</td><td><span class="string">{{ full_address }}</span></td></tr>
-                    <tr><td>hours</td>
-                        <td>{{ hours|linebreaks }}</td>
-                    <tr>
-<tr><td>open</td><td><span class="boolean">{{ open}}</span></td></tr>
-<tr><td>categories</td><td>{{categories}}</td></tr>
-<tr><td>city</td><td><span class="string">{{city}}</span></td></tr>
-<tr><td>review_count</td><td><span class="number">{{review_count}}</span></td></tr>
-<tr><td>name</td><td><span class="string">{{name}}</span></td></tr>
-<tr><td>longitude</td><td><span class="number">{{longitude}}</span></td></tr>
-<tr><td>state</td><td><span class="string">{{state}}</span></td></tr>
-<tr><td>stars</td><td><span class="number">{{stars}}</span></td></tr>
-<tr><td>latitude</td><td><span class="number">{{latitude}}</span></td></tr>
-<tr>
-    <td>attributes</td>
-    <td>
-        <table>
+<div class="hero-unit">
+    <p><span class="key">ID: </span><span class="value">{{business_id }} </span></p>
+    <p><span class="key">Still Running:</span><span class="value">{{ open}}</span></p>
+    <div>  
+            <h2>Location:</h2>
+            <p><span class="key">Address:</span><span class="value">{{ full_address}}</span></p>
+            <p><span class="key">Longitude:</span><span class="value">{{ longitude}}</span></p>
+            <p><span class="key">Latitude:</span><span class="value">{{ latitude}}</span></p>    
+            <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+    </div>
+    <div>  
+            <h2>Hours:</h2>
+            {{ hours|linebreaks }}
+    </div>
+    <div>  
+            <h2>Reviews:</h2>
+            <p><span class="key"># Reviews:</span><span class="value">{{ review_count}}</span></p>    
+            <p><span class="key">Stars:</span><span class="value">{{ stars}}</span></p>
+            <p><a href="{% url 'review' a %}"><span class="string">Review</span></a></p>
+            <p><a href="{% url 'user' a %}">User who has reviewed</span></a></p>
+    </div>    
+    <div>  
+            <h2>Metadata:</h2>
+            <p>Categories:</span><span class="value">{{categories}}</span></p>
             {% for key,value in attributes.items %}
-            <tr><td>{{ key }} : </td><td> {{ value }}</td></tr>
+            <p><span class="key">{{ key }}</span> : <span class="value">{{ value }}</span></p>
             {%endfor%}
-        </table>
-    </td>
-</tr>
-<tr><td>type</td><td><span class="string">{{type}}</span></td></tr>
-<tr>
-    <td>review</td>
-    <td>
-        <a href="{% url 'review' a %}"><span class="string">Review</span></a>
-    </td>
-</tr>
-<tr>
-    <td>Users who have reviewed</td>
-    <td>
-        <a href="{% url 'user' a %}">
-            <span class="string">User</span>
-        </a>
-    </td>
-</tr>
-</tbody></table><div class="clear"></div>
-</div>
+            <p>Type:</span><span class="value">{{type}}</span></p>
+    </div>
+    </div>
 </div>
 
-     <!-- Bootstrap -->
-     <script src="http://code.jquery.com/jquery.js"></script>
-     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+<!-- Bootstrap -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
