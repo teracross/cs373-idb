@@ -36,7 +36,7 @@ class Categories(models.Model):
 class Attritubes(models.Model):
   business = models.Foreignkey(Business)
   name = models.CharField(max_length=128, unique=True)
-  value = models.CharField(max_length=128, unique=True)
+  value = models.CharField(max_length=128)
   
   def __unicode__(self):
     return self.name
@@ -65,7 +65,7 @@ class User(models.Model):
 #############################################################
 ## subkeys for User
 #############################################################
-class Votes(models.Model):
+class User_Votes(models.Model):
   user = models.Foreignkey(User)
   vote_type = models.CharField(max_length=128, unique=True)
   count = models.IntegerField(default=0)
@@ -110,7 +110,7 @@ class Review(models.Model):
 #############################################################
 ## subkeys for Review
 #############################################################
-class Votes(models.Model):
+class Review_Votes(models.Model):
   review = models.Foreignkey(Review)
   vote_type = models.CharField(max_length=128, unique=True)
   count = models.IntegerField(default=0)

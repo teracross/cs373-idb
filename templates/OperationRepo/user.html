@@ -51,92 +51,54 @@
               </div>
         </div>
         <div class="hero-unit">
-	        <table>
-	        	<tr>
-	        		<td>Field</td>
-	        		<td>Value</td>
-	        	</tr>
-
-			    User ID: {{user_id}}
-			    <br>
-			    Name: {{name}}
-			    <br>
-				Joined: {{yelping_since}}
-				<br>
-				Reviews: {{review_count}}
-				<br>
-				Average Stars: {{average_stars}}
-				<br>
-				Fans: {{fans}}
-				<br>
-				Voted funny : {{votes.funny}}
-				<br>
-				Voted useful : {{votes.useful}}
-				<br>
-				Voted cool : {{votes.cool}}
-				<br>
-				Friends: 89 <!-- where'd this come from? --> 
-				<br>
-				Compliments:
-					<table>
-					<tr>
-						<td>Compliment</td>
-						<td>Number</td>
+        	<div class="table-responsive">
+		        <table class="table">
+		        	<tr>
+		        		<th>Field</th><th>Value</th>
+		        	</tr>
+		        	<tr>
+				    	<td>User ID: </td><td>{{user_id}}</td>
 					</tr>
-					{% for k,v in compliments %}
-						<tr>
-							<td>{{ k }}</td>
-							<td>{{ v }}</td>
-						</tr>
-					{% endfor %}
-					<!--
+				    <tr>
+				    	<td>Name: </td><td>{{name}}</td>
+				    </tr>
 					<tr>
-						<td>Profile</td>
-						<td>{{compliments.profile}}</td>
+						<td>Joined: </td><td>{{yelping_since}}</td>
 					</tr>
 					<tr>
-						<td>Funny</td>
-						<td>{{compliments.funny}}</td>
+						<td>Reviews: </td><td>{{review_count}}</td>
 					</tr>
 					<tr>
-						<td>Plain</td>
-						<td>41</td>
+						<td>Average Stars: </td><td>{{average_stars}}</td>
 					</tr>
 					<tr>
-						<td>Writer</td>
-						<td>12</td>
+						<td>Fans: </td><td>{{fans}}</td>
 					</tr>
 					<tr>
-						<td>List</td>
-						<td>4</td>
-					</tr>			
-					<tr>
-						<td>Note</td>
-						<td>36</td>
+						<td>Voted funny :</td><td> {{votes.funny}}</td>
 					</tr>
 					<tr>
-						<td>Photos</td>
-						<td>1</td>
+						<td>Voted useful :</td><td>{{votes.useful}}</td>
 					</tr>
 					<tr>
-						<td>Hot</td>
-						<td>25</td>
+						<td>Voted cool : </td><td>{{votes.cool}}</td>
 					</tr>
 					<tr>
-						<td>Cool</td>
-						<td>22</td>
+						<td>Friends: </td><td> {{ friends|length }} </td> 
 					</tr>
+					<tr colspan="1"><th>Compliments:</th><td>
+						{% for k,v in compliments.items %}
+							{{ k }} : {{v}}<br/>
+						{% endfor %}
+					</td></tr>
 					<tr>
-						<td>More</td>
-						<td>1</td>
+						<td>Elite Since: </td><td>{% if elite %} {{ elite.0 }} {% else %} N/A {% endif %}</td>
 					</tr>
-					-->													
+					
+					<tr><td><a href="{% url 'review' a %}"> {{ name }}'s Reviews</a></td><td></td></tr>
+					
 				</table>
-				Elite: {{elite}}            
-				<br>
-				<a href="{% url 'review' a %}"> {{ name }}'s Reviews</a>
-				<br>
-			</table>
+			</div>
         </div>
     </div>
 
