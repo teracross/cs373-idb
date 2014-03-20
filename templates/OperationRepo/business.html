@@ -12,8 +12,7 @@
 
 <body>
     <div class='container'>
-<<<<<<< HEAD
-        <h1>Operation Repo - Business {{ a }} </h1>
+        <h1>Operation Repo - Business {{ name }} </h1>
         <!-- Responsive Nav Bar -->
         <div class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
@@ -57,48 +56,6 @@
                   </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
               </div>
-=======
-        <h1>{{name}}</h1>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav nav-tabs">
-                <li><a href="{% url 'index' %}">Home Page</a></li>
-                <li class="active dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Businesses <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
-                        <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
-                        <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Reviews <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'review' 1 %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
-                        <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
-                        <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
-                    </ul>
-                </li>   
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Users <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
-                        <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
-                        <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
-                    </ul>
-                </li>          
-            </ul>
-        </div>
-    </div>
-</div>
->>>>>>> master
 
 <div class="jumbotron">
     <p><span class="key">ID: </span><span class="value">{{business_id }} </span></p>
