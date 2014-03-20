@@ -7,13 +7,13 @@
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <style type="text/css">
-    .key {width: 130px;display:inline-block;}
+    .key {width: 150px;display:inline-block;}
     </style>
 </head>
 
 <body>
     <div class='container'>
-        <h1>Operation Repo - Business {{ name }} </h1>
+        <h1>Operation Repo - Businesses</h1>
         <!-- Responsive Nav Bar -->
         <div class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -59,6 +59,7 @@
             </div><!--/.container-fluid -->
         </div>
         <div class="jumbotron">
+            <h1><a href="{{url}}">{{name}}</a></h1>
             <div><span class="key">ID: </span><span class="value">{{business_id }} </span></div>
             <div><span class="key">Still Running:</span><span class="value">{{ open}}</span></div>
             <div>  
@@ -66,11 +67,13 @@
                 <div><span class="key">Address:</span><span class="value">{{ full_address}}</span></div>
                 <div><span class="key">Longitude:</span><span class="value">{{ longitude}}</span></div>
                 <div><span class="key">Latitude:</span><span class="value">{{ latitude}}</span></div>    
-                <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+                <iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044" style="color:#0000FF;text-align:left">View Larger Map</a></small>
             </div>
             <div>  
                 <h2>Hours:</h2>
-                {{ hours|safe}}
+                {% for dict in hours %}
+                    <div><span class="key">{{dict.day}}:</span><span class="value">{{dict.open}} - {{dict.close}}</span></div>
+                {%endfor %}
             </div>
             <div>  
                 <h2>Reviews:</h2>
@@ -82,21 +85,22 @@
                         <td>
                             {% for key,value in goodfor.items %}
                                 {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
                                 {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span> : <span class="value">No</span></div>
+                                    <div class="btn-danger"><span>{{ key }}:</span><span class="value">No</span></div>
                                 {%endifequal%}
                             {%endfor%}
                         </td>
                     </tr>
+                    <tr><td></td><td><br></td></tr>
                     <tr>
                         <td class="key">Parking:</td>
                         <td>
                             {% for key,value in Parking.items %}
                                 {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
                                 {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span> : <span class="value">No</span></div>
+                                    <div class="btn-danger"><span>{{ key }}:</span> <span class="value">No</span></div>
                                 {%endifequal%}
                             {%endfor%}
                         </td>
@@ -110,12 +114,12 @@
                 <div>Categories:</span><span class="value">{{categories}}</span></div>
                 {% for key,value in attributes.items %}
                     {% ifequal value True %}
-                        <div ><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                        <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
                     {%else%}
                         {% ifequal value False %}
-                            <div><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                            <div><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
                         {%else%}
-                            <div><span>{{ key }}:</span> : <span class="value">{{value}}</span></div>
+                            <div><span class="key">{{ key }}:</span><span class="value">{{value}}</span></div>
                         {%endifequal%}
                     {%endifequal%}
                 {%endfor%}
