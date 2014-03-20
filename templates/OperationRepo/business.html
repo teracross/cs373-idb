@@ -6,7 +6,7 @@
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <style type="text/css">
-        .key {width: 100px;display:inline-block;}
+        .key {width: 130px;display:inline-block;}
     </style>
 </head>
 
@@ -71,6 +71,20 @@
             <h2>Reviews:</h2>
             <p><span class="key"># Reviews:</span><span class="value">{{ review_count}}</span></p>    
             <p><span class="key">Stars:</span><span class="value">{{ stars}}</span></p>
+            <table>
+                <tr><td class="key">Good for:</td>
+                <td>
+            {% for key,value in goodfor.items %}
+                <p><span>{{ key }}:</span> : <span class="value">{{ value }}</span></p>
+            {%endfor%}
+            </td></tr></table>       
+            <table>
+                <tr><td class="key">Parking:</td>
+                <td>
+            {% for key,value in Parking.items %}
+                <p><span>{{ key }}:</span> <span class="value">{{ value }}</span></p>
+            {%endfor%}
+            </td></tr></table>   
             <p><a href="{% url 'review' a %}"><span class="string">Review</span></a></p>
             <p><a href="{% url 'user' a %}">User who has reviewed</span></a></p>
     </div>    
@@ -78,9 +92,9 @@
             <h2>Metadata:</h2>
             <p>Categories:</span><span class="value">{{categories}}</span></p>
             {% for key,value in attributes.items %}
-            <p><span class="key">{{ key }}</span> : <span class="value">{{ value }}</span></p>
+                <p><span class="key">{{ key }}:</span><span class="value">{{ value }}</span></p>
             {%endfor%}
-            <p>Type:</span><span class="value">{{type}}</span></p>
+            <p><span class="key">Type:</span><span class="value">{{type}}</span></p>
     </div>
     </div>
 </div>
