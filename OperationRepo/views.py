@@ -30,12 +30,205 @@ def business(request, *z):
     context = RequestContext(request)
     a = int(z[0])
     if a == 1 :
-        context_dict = {"a" : a , "business_id": "WIcDFpHEnC3ihNmS7-6-ZA", "full_address": "7605 E Pinnacle Peak Rd\nScottsdale, AZ 85255", "hours": {"Monday": {"close": "20:30", "open": "11:00"}, "Tuesday": {"close": "20:30", "open": "11:00"}, "Friday": {"close": "21:00", "open": "11:00"}, "Wednesday": {"close": "20:30", "open": "11:00"}, "Thursday": {"close": "20:30", "open": "11:00"}, "Saturday": {"close": "21:00", "open": "17:00"}} , "close": "21:00", "open": "17:00", "open": False, "categories": "Thai,Restaurants", "city": "Scottsdale", "review_count": 21, "name": "Thai Pan Fresh Exotic Cuisine", "longitude": -111.9174872, "state": "AZ", "stars": 3.5, "latitude": 33.698649699999997, "attributes": {"Take-out": True,  "Takes Reservations": False, "Delivery": False, "Wheelchair Accessible": True, "Outdoor Seating": False, "Attire": "casual", "Alcohol": "beer_and_wine", "Waiter Service": False, "Accepts Credit Cards": True, "Good for Kids": True, "Good For Groups": True, "Price Range": 2}, "goodfor": {"dessert": False, "latenight": False, "lunch": True, "dinner": True, "brunch": False, "breakfast": False}, "Parking": {"garage": False, "street": False, "validated": False, "lot": True, "valet": False}, "type": "business", "url" : "http://www.yelp.com/biz/thai-pan-fresh-exotic-cuisine-scottsdale"}
+        context_dict = {"a" : a , "business_id": "WIcDFpHEnC3ihNmS7-6-ZA", "full_address": "7605 E Pinnacle Peak Rd\nScottsdale, AZ 85255", "hours": {"Monday": {"close": "20:30", "open": "11:00"}, "Tuesday": {"close": "20:30", "open": "11:00"}, "Friday": {"close": "21:00", "open": "11:00"}, "Wednesday": {"close": "20:30", "open": "11:00"}, "Thursday": {"close": "20:30", "open": "11:00"}, "Saturday": {"close": "21:00", "open": "17:00"}} , "close": "21:00", "open": "17:00", "open": False, "categories": "Thai,Restaurants", "city": "Scottsdale", "review_count": 21, "name": "Thai Pan Fresh Exotic Cuisine", "longitude": -111.9174872, "state": "AZ", "stars": 3.5, "latitude": 33.698649699999997, "attributes": {"Take-out": True,  "Takes Reservations": False, "Delivery": False, "Wheelchair Accessible": True, "Outdoor Seating": False, "Attire": "casual", "Alcohol": "beer_and_wine", "Waiter Service": False, "Accepts Credit Cards": True, "Good for Kids": True, "Good For Groups": True, "Price Range": 2}, "goodfor": {"dessert": False, "latenight": False, "lunch": True, "dinner": True, "brunch": False, "breakfast": False}, "Parking": {"garage": False, "street": False, "validated": False, "lot": True, "valet": False}, "type": "business", "url" : "http://www.yelp.com/biz/thai-pan-fresh-exotic-cuisine-scottsdale", "json" : """{
+    "business_id": "WIcDFpHEnC3ihNmS7-6-ZA",
+    "full_address": "7605 E Pinnacle Peak Rd\nScottsdale, AZ 85255",
+    "hours": {
+        "Monday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Tuesday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Friday": {
+            "close": "21:00",
+            "open": "11:00"
+        },
+        "Wednesday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Thursday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Saturday": {
+            "close": "21:00",
+            "open": "17:00"
+        }
+    },
+    "open": false,
+    "categories": [
+        "Thai",
+        "Restaurants"
+    ],
+    "city": "Scottsdale",
+    "review_count": 21,
+    "name": "Thai Pan Fresh Exotic Cuisine",
+    "neighborhoods": [],
+    "longitude": -111.9174872,
+    "state": "AZ",
+    "stars": 3.5,
+    "latitude": 33.6986497,
+    "attributes": {
+        "Take-out": true,
+        "Good For": {
+            "dessert": false,
+            "latenight": false,
+            "lunch": true,
+            "dinner": true,
+            "brunch": false,
+            "breakfast": false
+        },
+        "Takes Reservations": false,
+        "Delivery": false,
+        "Parking": {
+            "garage": false,
+            "street": false,
+            "validated": false,
+            "lot": true,
+            "valet": false
+        },
+        "Wheelchair Accessible": true,
+        "Outdoor Seating": false,
+        "Attire": "casual",
+        "Alcohol": "beer_and_wine",
+        "Waiter Service": false,
+        "Accepts Credit Cards": true,
+        "Good for Kids": true,
+        "Good For Groups": true,
+        "Price Range": 2
+    },
+    "type": "business"
+}"""}
         context_dict = sortHours(context_dict)
     elif a == 2 :
-        context_dict = {"a" : a , "business_id": "70p94Ejeu1v5XlIkbKORYQ", "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234", "hours": {"Monday": {"close": "19:00", "open": "09:00"}, "Tuesday": {"close": "19:00", "open": "09:00"}, "Friday": {"close": "19:00", "open": "09:00"}, "Wednesday": {"close": "19:00", "open": "09:00"}, "Thursday": {"close": "19:00", "open": "09:00"}, "Saturday": {"close": "19:00", "open": "09:00"}} , "open": "True", "categories": "Hair Salons,Beauty & Spas", "city": "Gilbert", "review_count": 9, "name": "Salon Lola", "longitude": -111.75560249999999, "state": "AZ", "stars": 5.0, "latitude": 33.379065699999998, "attributes": {"Price Range": 2, "By Appointment Only": "True", "Accepts Credit Cards": "True", "Good for Kids": "True", "Wheelchair Accessible": "True"}, "Parking": {"garage": "False", "street": "False", "validated": "False", "lot": "True", "valet": "False"}, "type": "business"}
+        context_dict = {"a" : a , "business_id": "70p94Ejeu1v5XlIkbKORYQ", "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234", "hours": {"Monday": {"close": "19:00", "open": "09:00"}, "Tuesday": {"close": "19:00", "open": "09:00"}, "Friday": {"close": "19:00", "open": "09:00"}, "Wednesday": {"close": "19:00", "open": "09:00"}, "Thursday": {"close": "19:00", "open": "09:00"}, "Saturday": {"close": "19:00", "open": "09:00"}} , "open": "True", "categories": "Hair Salons,Beauty & Spas", "city": "Gilbert", "review_count": 9, "name": "Salon Lola", "longitude": -111.75560249999999, "state": "AZ", "stars": 5.0, "latitude": 33.379065699999998, "attributes": {"Price Range": 2, "By Appointment Only": "True", "Accepts Credit Cards": "True", "Good for Kids": "True", "Wheelchair Accessible": "True"}, "Parking": {"garage": "False", "street": "False", "validated": "False", "lot": "True", "valet": "False"}, "type": "business", "json" : """{
+    "business_id": "70p94Ejeu1v5XlIkbKORYQ",
+    "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234",
+    "hours": {
+        "Monday": {
+            "close": "19:00",
+            "open": "09:00"
+        },
+        "Tuesday": {
+            "close": "19:00",
+            "open": "09:00"
+        },
+        "Friday": {
+            "close": "19:00",
+            "open": "09:00"
+        },
+        "Wednesday": {
+            "close": "19:00",
+            "open": "09:00"
+        },
+        "Thursday": {
+            "close": "19:00",
+            "open": "09:00"
+        },
+        "Saturday": {
+            "close": "19:00",
+            "open": "09:00"
+        }
+    },
+    "open": true,
+    "categories": [
+        "Hair Salons",
+        "Beauty & Spas"
+    ],
+    "city": "Gilbert",
+    "review_count": 9,
+    "name": "Salon Lola",
+    "neighborhoods": [],
+    "longitude": -111.7556025,
+    "state": "AZ",
+    "stars": 5,
+    "latitude": 33.3790657,
+    "attributes": {
+        "Price Range": 2,
+        "Parking": {
+            "garage": false,
+            "street": false,
+            "validated": false,
+            "lot": true,
+            "valet": false
+        },
+        "By Appointment Only": true,
+        "Accepts Credit Cards": true,
+        "Good for Kids": true,
+        "Wheelchair Accessible": true
+    },
+    "type": "business"
+}"""}
     else :
-        context_dict = {"a" : a , "business_id": "WcGTSRku3mrVK7V9GKq4UQ", "full_address": "1084 S Gilbert Rd\nGilbert, AZ 85296", "hours": {}, "open": "True", "categories": "Fast Food,Tex-Mex,Restaurants", "city": "Gilbert", "review_count": 31, "name": "Chipotle Mexican Grill", "longitude": -111.790869, "state": "AZ", "stars": 4.0, "latitude": 33.329841999999999, "attributes": {"Take-out": "True", "Noise Level": "average", "Good for Kids": "True", "Takes Reservations": "False", "Has TV": "False", "BYOB/Corkage": "yes_free", "Delivery": "False", "Ambience": {"romantic": "False", "intimate": "False", "touristy": "False", "hipster": "False", "divey": "False", "classy": "False", "trendy": "False", "upscale": "False", "casual": "False"},"Wheelchair Accessible": "True", "Corkage": "False", "Outdoor Seating": "True", "Attire": "casual", "Alcohol": "none", "Waiter Service": "False", "Accepts Credit Cards": "True", "Good For Kids": "True", "Good For Groups": "False", "Price Range": 1}, "goodfor": {"dessert": "False", "latenight": "False", "lunch": "True", "dinner": "True", "brunch": "False", "breakfast": "False"},  "Parking": {"garage": "False", "street": "False", "validated": "False", "lot": "True", "valet": "False"}, "type": "business"}
+        context_dict = {"a" : a , "business_id": "WcGTSRku3mrVK7V9GKq4UQ", "full_address": "1084 S Gilbert Rd\nGilbert, AZ 85296", "hours": {}, "open": "True", "categories": "Fast Food,Tex-Mex,Restaurants", "city": "Gilbert", "review_count": 31, "name": "Chipotle Mexican Grill", "longitude": -111.790869, "state": "AZ", "stars": 4.0, "latitude": 33.329841999999999, "attributes": {"Take-out": "True", "Noise Level": "average", "Good for Kids": "True", "Takes Reservations": "False", "Has TV": "False", "BYOB/Corkage": "yes_free", "Delivery": "False", "Ambience": {"romantic": "False", "intimate": "False", "touristy": "False", "hipster": "False", "divey": "False", "classy": "False", "trendy": "False", "upscale": "False", "casual": "False"},"Wheelchair Accessible": "True", "Corkage": "False", "Outdoor Seating": "True", "Attire": "casual", "Alcohol": "none", "Waiter Service": "False", "Accepts Credit Cards": "True", "Good For Kids": "True", "Good For Groups": "False", "Price Range": 1}, "goodfor": {"dessert": "False", "latenight": "False", "lunch": "True", "dinner": "True", "brunch": "False", "breakfast": "False"},  "Parking": {"garage": "False", "street": "False", "validated": "False", "lot": "True", "valet": "False"}, "type": "business", "json" : """{
+    "business_id": "WcGTSRku3mrVK7V9GKq4UQ",
+    "full_address": "1084 S Gilbert Rd\nGilbert, AZ 85296",
+    "hours": {},
+    "open": true,
+    "categories": [
+        "Fast Food",
+        "Tex-Mex",
+        "Restaurants"
+    ],
+    "city": "Gilbert",
+    "review_count": 31,
+    "name": "Chipotle Mexican Grill",
+    "neighborhoods": [],
+    "longitude": -111.790869,
+    "state": "AZ",
+    "stars": 4,
+    "latitude": 33.329842,
+    "attributes": {
+        "Take-out": true,
+        "Good For": {
+            "dessert": false,
+            "latenight": false,
+            "lunch": true,
+            "dinner": true,
+            "brunch": false,
+            "breakfast": false
+        },
+        "Noise Level": "average",
+        "Good for Kids": true,
+        "Takes Reservations": false,
+        "Has TV": false,
+        "BYOB/Corkage": "yes_free",
+        "Delivery": false,
+        "Ambience": {
+            "romantic": false,
+            "intimate": false,
+            "touristy": false,
+            "hipster": false,
+            "divey": false,
+            "classy": false,
+            "trendy": false,
+            "upscale": false,
+            "casual": false
+        },
+        "Parking": {
+            "garage": false,
+            "street": false,
+            "validated": false,
+            "lot": true,
+            "valet": false
+        },
+        "Wheelchair Accessible": true,
+        "Corkage": false,
+        "Outdoor Seating": true,
+        "Attire": "casual",
+        "Alcohol": "none",
+        "Waiter Service": false,
+        "Accepts Credit Cards": true,
+        "Good For Kids": true,
+        "Good For Groups": false,
+        "Price Range": 1
+    },
+    "type": "business"
+}"""}
     return render_to_response('OperationRepo/business.html', context_dict, context)
 
 # Reviews
