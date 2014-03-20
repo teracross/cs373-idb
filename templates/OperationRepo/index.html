@@ -3,15 +3,17 @@
 <html>
 <head> 
     <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-     
 </head>
 
 <body>
     <div class='container'>
         <h1>Operation Repo - Index </h1>
-        <div class="navbar">
+
+        <!-- <div class="navbar">
               <div class="navbar-inner">
                 <div class="container">
                   <ul class="nav nav-tabs">
@@ -21,7 +23,7 @@
                             Businesses <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'business' 1 %}"> Business 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'business' 1 %}"> Business 1 </a> </li>
                             <li><a href="{% url 'business' 2 %}"> Business 2 </a></li>
                             <li><a href="{% url 'business' 3 %}"> Business 3 </a></li>
                         </ul>
@@ -31,7 +33,7 @@
                             Reviews <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'review' 1 %}"> Reivew 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'review' 1 %}"> Reivew 1 </a></li>
                             <li><a href="{% url 'review' 2 %}"> Review 2 </a></li>
                             <li><a href="{% url 'review' 3 %}"> Review 3 </a></li>
                         </ul>
@@ -41,7 +43,7 @@
                             Users <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{% url 'user' 1 %}"> User 1 </a> <!-- need to add business id to make them unique --></li>
+                            <li><a href="{% url 'user' 1 %}"> User 1 </a> </li>
                             <li><a href="{% url 'user' 2 %}"> User 2 </a></li>
                             <li><a href="{% url 'user' 3 %}"> User 3 </a></li>
                         </ul>
@@ -50,7 +52,44 @@
                 </div>
               </div>
         </div>
-        <div class="hero-unit">
+        <div class="container"> -->
+
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb1">CS 373 IDB1</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home Page</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="#">Salon Lola</a></li>
+                  <li><a href="#">Another action</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
+                  <li><a href="{% url 'review' 3 %}">Review for </a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+
+        <div class="jumbotron">
             <h1>Yelp Dataset Challenge Interactive Application</h1>
 
             <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
@@ -60,7 +99,7 @@
         </div>
         
         <div class="row">
-         <div class="span4">
+        <div class="span4">
             <ul class="nav nav-list">
                 <li class="nav-header">Group Members</li>
                 <li class="active"><a href="#">Ed Lee</a></li>
@@ -71,15 +110,12 @@
                 <li><a href="#">William Nation</a></li>
             </ul>
         </div>
-        <div class="span8">
-            <p class="nav-header">Member Information</p>
-        </div>
         </div>
         
     </div>
 
      <!-- Bootstrap -->
-     <script src="http://code.jquery.com/jquery.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
