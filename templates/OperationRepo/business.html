@@ -5,6 +5,7 @@
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <style type="text/css">
     .key {width: 130px;display:inline-block;}
     </style>
@@ -80,7 +81,11 @@
                         <td class="key">Good for:</td>
                         <td>
                             {% for key,value in goodfor.items %}
-                            <div><span>{{ key }}:</span> : <span class="value">{{ value }}</span></div>
+                                {% ifequal value True %}
+                                    <div class="btn-success"><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                                {% else %}
+                                    <div class="btn-danger"><span>{{ key }}:</span> : <span class="value">No</span></div>
+                                {%endifequal%}
                             {%endfor%}
                         </td>
                     </tr>
@@ -88,7 +93,11 @@
                         <td class="key">Parking:</td>
                         <td>
                             {% for key,value in Parking.items %}
-                            <div><span>{{ key }}:</span> <span class="value">{{ value }}</span></div>
+                                {% ifequal value True %}
+                                    <div class="btn-success"><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                                {% else %}
+                                    <div class="btn-danger"><span>{{ key }}:</span> : <span class="value">No</span></div>
+                                {%endifequal%}
                             {%endfor%}
                         </td>
                     </tr>
@@ -100,10 +109,94 @@
                 <h2>Metadata:</h2>
                 <div>Categories:</span><span class="value">{{categories}}</span></div>
                 {% for key,value in attributes.items %}
-                <div><span class="key">{{ key }}:</span><span class="value">{{ value }}</span></div>
+                    {% ifequal value True %}
+                        <div ><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                    {%else%}
+                        {% ifequal value False %}
+                            <div><span>{{ key }}:</span> : <span class="value">Yes</span></div>
+                        {%else%}
+                            <div><span>{{ key }}:</span> : <span class="value">{{value}}</span></div>
+                        {%endifequal%}
+                    {%endifequal%}
                 {%endfor%}
                 <div><span class="key">Type:</span><span class="value">{{type}}</span></div>
             </div>
+            <div>
+                <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
+                <pre class="prettyprint collapse" id="collapseJSON">{
+    "business_id": "WIcDFpHEnC3ihNmS7-6-ZA",
+    "full_address": "7605 E Pinnacle Peak Rd\nScottsdale, AZ 85255",
+    "hours": {
+        "Monday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Tuesday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Friday": {
+            "close": "21:00",
+            "open": "11:00"
+        },
+        "Wednesday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Thursday": {
+            "close": "20:30",
+            "open": "11:00"
+        },
+        "Saturday": {
+            "close": "21:00",
+            "open": "17:00"
+        }
+    },
+    "open": false,
+    "categories": [
+        "Thai",
+        "Restaurants"
+    ],
+    "city": "Scottsdale",
+    "review_count": 21,
+    "name": "Thai Pan Fresh Exotic Cuisine",
+    "neighborhoods": [],
+    "longitude": -111.9174872,
+    "state": "AZ",
+    "stars": 3.5,
+    "latitude": 33.6986497,
+    "attributes": {
+        "Take-out": true,
+        "Good For": {
+            "dessert": false,
+            "latenight": false,
+            "lunch": true,
+            "dinner": true,
+            "brunch": false,
+            "breakfast": false
+        },
+        "Takes Reservations": false,
+        "Delivery": false,
+        "Parking": {
+            "garage": false,
+            "street": false,
+            "validated": false,
+            "lot": true,
+            "valet": false
+        },
+        "Wheelchair Accessible": true,
+        "Outdoor Seating": false,
+        "Attire": "casual",
+        "Alcohol": "beer_and_wine",
+        "Waiter Service": false,
+        "Accepts Credit Cards": true,
+        "Good for Kids": true,
+        "Good For Groups": true,
+        "Price Range": 2
+    },
+    "type": "business"
+}</pre>
+            </div>            
 
         </div>
     </div>
