@@ -35,8 +35,8 @@ should link back to user reviewing and business reviewed-->
                           <li><a href="{% url 'business' 3 %}">Chipotle Mexican Grill</a></li>
                         </ul>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="active dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                      <li class="active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                           <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
                           <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
@@ -57,7 +57,7 @@ should link back to user reviewing and business reviewed-->
               </div>
 
         <div class="jumbotron">
-            <a href="{% url 'business' a %}"><h3> Review for {{ name }} </h3></a>
+            <h3>Review for <a href="{% url 'business' a %}"> {{ name }} </a> </h3>
             <table>
                 <tbody>
                 <tr><td>votes</td><td>
@@ -71,7 +71,7 @@ should link back to user reviewing and business reviewed-->
                     </table>
                 </div>
                 </td></tr>
-                <tr><td>user </td><td> <a href="{% url 'user' a %}"> link </a> </td></tr>
+                <tr><td>user </td><td> <a href="{% url 'user' a %}"> {{ user }} </a> </td></tr>
                 <tr><td>review_id </td><td> {{ review_id }} </td></tr>
                 <tr><td>stars</td><td>{{ stars }}</td></tr>
                 <tr><td>date</td><td>{{ date }}</td></tr>

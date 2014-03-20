@@ -1,16 +1,190 @@
-<!-- Businesses Page - layout for -->
+<!-- Homepage - links to our various html pages for business, users and reviews.-->
 <!DOCTYPE html>
 <html>
 <head> 
-<!-- Change title to display the following as well the name of the business. (Optional?) -->
-<title> Operation Repo - Businesses </title>
-     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" >
+    <meta charset='utf-8'>
+    <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <style type="text/css">
+    .key {width: 130px;display:inline-block;}
+    </style>
 </head>
 
 <body>
+    <div class='container'>
+        <h1>Operation Repo - Business {{ name }} </h1>
+        <!-- Responsive Nav Bar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb1">CS 373 IDB1</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+<<<<<<< HEAD
+                      <li><a href="{% url 'index' %}">Home Page</a></li>
+                      <li class="active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'business' 1 %}">Thai Pan Fresh Exotic Cuisine</a></li>
+                          <li><a href="{% url 'business' 2 %}">Salon Lola</a></li>
+                          <li><a href="{% url 'business' 3 %}">Chipotle Mexican Grill</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
+                          <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
+                          <li><a href="{% url 'review' 3 %}">Review for Chipotle Mexican Grill</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'user' 1 %}">User 1</a></li>
+                          <li><a href="{% url 'user' 2 %}">User 2</a></li>
+                          <li><a href="{% url 'user' 3 %}">User 3</a></li>
+                        </ul>
+                      </li>
+=======
+                        <li><a href="{% url 'index' %}">Home Page</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="active dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'business' 1 %}">Thai Pan Fresh Exotic Cuisine</a></li>
+                                <li><a href="{% url 'business' 2 %}">Salon Lola</a></li>
+                                <li><a href="{% url 'business' 3 %}">Chipotle Mexican Grill</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
+                                <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
+                                <li><a href="{% url 'review' 3 %}">Review for Chipotle Mexican Grill</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'user' 1 %}">User 1</a></li>
+                                <li><a href="{% url 'user' 2 %}">User 2</a></li>
+                                <li><a href="{% url 'user' 3 %}">User 3</a></li>
+                            </ul>
+                        </li>
+>>>>>>> acc3166a1d6bd7fd19940dde2bf45cd8dc1675ba
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container-fluid -->
+        </div>
+
+<<<<<<< HEAD
+<div class="jumbotron">
+  <div class = "table-responsive">
+    <p><span class="key">ID: </span><span class="value">{{business_id }} </span></p>
+    <p><span class="key">Still Running:</span><span class="value">{{ open}}</span></p>
+    <div>  
+            <h2>Location:</h2>
+            <p><span class="key">Address:</span><span class="value">{{ full_address}}</span></p>
+            <p><span class="key">Longitude:</span><span class="value">{{ longitude}}</span></p>
+            <p><span class="key">Latitude:</span><span class="value">{{ latitude}}</span></p>    
+            <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+    </div>
+    <div>  
+            <h2>Hours:</h2>
+            {{ hours|linebreaks }}
+    </div>
+    <div>  
+            <h2>Reviews:</h2>
+            <p><span class="key"># Reviews:</span><span class="value">{{ review_count}}</span></p>    
+            <p><span class="key">Stars:</span><span class="value">{{ stars}}</span></p>
+            <table>
+                <tr><td class="key">Good for:</td>
+                <td>
+            {% for key,value in goodfor.items %}
+                <p><span>{{ key }}:</span> : <span class="value">{{ value }}</span></p>
+            {%endfor%}
+            </td></tr></table>       
+            <table>
+                <tr><td class="key">Parking:</td>
+                <td>
+            {% for key,value in Parking.items %}
+                <p><span>{{ key }}:</span> <span class="value">{{ value }}</span></p>
+            {%endfor%}
+            </td></tr></table>   
+            <p><a href="{% url 'review' a %}"><span class="string">Review</span></a></p>
+            <p><a href="{% url 'user' a %}">User who has reviewed</span></a></p>
+    </div>    
+    <div>  
+            <h2>Metadata:</h2>
+            <p>Categories:</span><span class="value">{{categories}}</span></p>
+            {% for key,value in attributes.items %}
+                <p><span class="key">{{ key }}:</span><span class="value">{{ value }}</span></p>
+            {%endfor%}
+            <p><span class="key">Type:</span><span class="value">{{type}}</span></p>
+    </div>
+=======
+        <div class="jumbotron">
+            <div><span class="key">ID: </span><span class="value">{{business_id }} </span></div>
+            <div><span class="key">Still Running:</span><span class="value">{{ open}}</span></div>
+            <div>  
+                <h2>Location:</h2>
+                <div><span class="key">Address:</span><span class="value">{{ full_address}}</span></div>
+                <div><span class="key">Longitude:</span><span class="value">{{ longitude}}</span></div>
+                <div><span class="key">Latitude:</span><span class="value">{{ latitude}}</span></div>    
+                <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=7605+E+Pinnacle+Peak+Rd+Scottsdale,+AZ+85255&amp;aq=&amp;sll=30.307761,-97.753401&amp;sspn=1.158312,2.113495&amp;ie=UTF8&amp;hq=&amp;hnear=7605+E+Pinnacle+Peak+Rd,+Scottsdale,+Arizona+85255&amp;t=m&amp;z=14&amp;ll=33.696815,-111.916044" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+            </div>
+            <div>  
+                <h2>Hours:</h2>
+                {{ hours|safe}}
+            </div>
+            <div>  
+                <h2>Reviews:</h2>
+                <div><span class="key"># Reviews:</span><span class="value">{{ review_count}}</span></div>    
+                <div><span class="key">Stars:</span><span class="value">{{ stars}}</span></div>
+                <table>
+                    <tr>
+                        <td class="key">Good for:</td>
+                        <td>
+                            {% for key,value in goodfor.items %}
+                            <div><span>{{ key }}:</span> : <span class="value">{{ value }}</span></div>
+                            {%endfor%}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="key">Parking:</td>
+                        <td>
+                            {% for key,value in Parking.items %}
+                            <div><span>{{ key }}:</span> <span class="value">{{ value }}</span></div>
+                            {%endfor%}
+                        </td>
+                    </tr>
+                </table>   
+                <div><a href="{% url 'review' a %}"><span class="string">Review</span></a></div>
+                <div><a href="{% url 'user' a %}">User who has reviewed</span></a></div>
+            </div>
+            <div>  
+                <h2>Metadata:</h2>
+                <div>Categories:</span><span class="value">{{categories}}</span></div>
+                {% for key,value in attributes.items %}
+                <div><span class="key">{{ key }}:</span><span class="value">{{ value }}</span></div>
+                {%endfor%}
+                <div><span class="key">Type:</span><span class="value">{{type}}</span></div>
+            </div>
+
+        </div>
+>>>>>>> acc3166a1d6bd7fd19940dde2bf45cd8dc1675ba
+    </div>
+
+    <!-- Bootstrap -->
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    {{message}}
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
