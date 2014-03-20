@@ -36,7 +36,7 @@ GET /api/businesses
 
 Creates a new business entry
 POST /api/businesses
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
@@ -95,7 +95,7 @@ POST /api/businesses
     "type": "business",
 }
 < 201
-< Content-Type: application-json
+< Content-Type: application/json
 { id: 1 }
 
 Retrieves the information for a particular business. id is the primary key for the database
@@ -163,7 +163,7 @@ GET /api/businesses/{id}
 
 Updates an existing business
 PUT /api/businesses/{id}
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
@@ -242,10 +242,10 @@ GET /api/businesses/{id}/users
         "review_count": 69,
         "name": "Mindi",
         "user_id": "oexyVjQSZ62qT7tpxgOcKg",
-        "friends": ["OroGqv0t7fy-Q3E2PzTEwQ", "SEDFpR4oMPKqXMjbJiMGog", "AYGHNy8gPxl2Q-etTT3hZw", "34gJ_KlP3RM6jotNT6TcDQ", "fHv7k5vWd6ryt8jH4J3teg", "lmiDCrmas8TxRsbIGZX9Pg", "Ts2ipR4zCYClEQTAuJuIjw", "4SFf4irFi5s8Q4QIxFhvUQ"]
-        "fans": 1
-        "average_stars": 3.5800000000000001
-        "type": "user"
+        "friends": ["OroGqv0t7fy-Q3E2PzTEwQ", "SEDFpR4oMPKqXMjbJiMGog", "AYGHNy8gPxl2Q-etTT3hZw", "34gJ_KlP3RM6jotNT6TcDQ", "fHv7k5vWd6ryt8jH4J3teg", "lmiDCrmas8TxRsbIGZX9Pg", "Ts2ipR4zCYClEQTAuJuIjw", "4SFf4irFi5s8Q4QIxFhvUQ"],
+        "fans": 1,
+        "average_stars": 3.5800000000000001,
+        "type": "user",
         "compliments": {"note": 4,
                     "funny": 1,
                     "writer": 3,
@@ -295,7 +295,7 @@ GET /api/users
 
 Creates a new user entry
 POST /api/users
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
@@ -312,7 +312,7 @@ POST /api/users
     "elite": [],
 }
 < 201
-< Content-Type: application-json
+< Content-Type: application/json
 { id: 1 }
 
 Retrieves the information for a particular user. id is the primary key for the database
@@ -339,7 +339,7 @@ GET /api/users/{id}
 
 Updates an existing user
 PUT /api/users/{id}
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
@@ -442,7 +442,7 @@ GET /api/reviews
 
 Creates a new review entry
 POST /api/reviews
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "votes": {"funny": 0,
             "useful": 0,
@@ -456,7 +456,7 @@ POST /api/reviews
     "business_id": "70p94Ejeu1v5XlIkbKORYQ"
 }
 < 201
-< Content-Type: application-json
+< Content-Type: application/json
 { id: 2 }
 
 Retrieves the information for a particular review. id is the primary key for the database
@@ -479,7 +479,7 @@ GET /api/reviews/{id}
 
 Updates an existing review
 PUT /api/reviews/{id}
-> Content-Type: application-json
+> Content-Type: application/json
 { 
     "votes": {"funny": 0,
             "useful": 0,
