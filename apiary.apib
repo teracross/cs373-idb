@@ -36,7 +36,7 @@ GET /api/businesses
 
 Creates a new business entry
 POST /api/businesses
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
@@ -47,7 +47,7 @@ POST /api/businesses
             "Thursday": {"close": "18:00", "open": "11:00"}, 
             "Sunday": {"close": "18:00", "open": "11:00"},
             "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": True,
+    "open": true,
     "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
     "city": "Phoenix",
     "review_count": 29,
@@ -57,45 +57,45 @@ POST /api/businesses
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": False,
+    "attributes": {"Take-out": false,
                 "Wi-Fi": "free",
-                "Good For": {"dessert": False,
-                            "latenight": False,
-                            "lunch": False,
-                            "dinner": False,
-                            "brunch": False,
-                            "breakfast": False},
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
                 "Noise Level": "average",
-                "Takes Reservations": True,
-                "Has TV": True,
-                "Delivery": False,
-                "Ambience": {"romantic": False,
-                            "intimate": False,
-                            "touristy": False,
-                            "hipster": False,
-                            "divey": False,
-                            "classy": False,
-                            "trendy": False,
-                            "upscale": False,
-                            "casual": False},
-                "Parking": {"garage": False,
-                            "street": False,
-                            "validated": False,
-                            "lot": True,
-                            "valet": True},
-                "Wheelchair Accessible": True,
-                "Outdoor Seating": True,
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
                 "Attire": "casual",
                 "Alcohol": "full_bar",
-                "Waiter Service": True,
-                "Accepts Credit Cards": True,
-                "Good for Kids": False,
-                "Good For Groups": True,
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
                 "Price Range": 2},
-    "type": "business",
+    "type": "business"
 }
 < 201
-< Content-Type: application/json
+< Content-Type: application-json
 { id: 1 }
 
 Retrieves the information for a particular business. id is the primary key for the database
@@ -113,7 +113,7 @@ GET /api/businesses/{id}
             "Thursday": {"close": "18:00", "open": "11:00"}, 
             "Sunday": {"close": "18:00", "open": "11:00"},
             "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": True,
+    "open": true,
     "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
     "city": "Phoenix",
     "review_count": 29,
@@ -123,47 +123,47 @@ GET /api/businesses/{id}
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": False,
+    "attributes": {"Take-out": false,
                 "Wi-Fi": "free",
-                "Good For": {"dessert": False,
-                            "latenight": False,
-                            "lunch": False,
-                            "dinner": False,
-                            "brunch": False,
-                            "breakfast": False},
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
                 "Noise Level": "average",
-                "Takes Reservations": True,
-                "Has TV": True,
-                "Delivery": False,
-                "Ambience": {"romantic": False,
-                            "intimate": False,
-                            "touristy": False,
-                            "hipster": False,
-                            "divey": False,
-                            "classy": False,
-                            "trendy": False,
-                            "upscale": False,
-                            "casual": False},
-                "Parking": {"garage": False,
-                            "street": False,
-                            "validated": False,
-                            "lot": True,
-                            "valet": True},
-                "Wheelchair Accessible": True,
-                "Outdoor Seating": True,
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
                 "Attire": "casual",
                 "Alcohol": "full_bar",
-                "Waiter Service": True,
-                "Accepts Credit Cards": True,
-                "Good for Kids": False,
-                "Good For Groups": True,
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
                 "Price Range": 2},
-    "type": "business",
+    "type": "business"
 }
 
 Updates an existing business
 PUT /api/businesses/{id}
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
@@ -174,7 +174,7 @@ PUT /api/businesses/{id}
             "Thursday": {"close": "18:00", "open": "11:00"}, 
             "Sunday": {"close": "18:00", "open": "11:00"},
             "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": True,
+    "open": true,
     "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
     "city": "Phoenix",
     "review_count": 29,
@@ -184,42 +184,42 @@ PUT /api/businesses/{id}
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": False,
+    "attributes": {"Take-out": false,
                 "Wi-Fi": "free",
-                "Good For": {"dessert": False,
-                            "latenight": False,
-                            "lunch": False,
-                            "dinner": False,
-                            "brunch": False,
-                            "breakfast": False},
+                "Good For": {"dessert": false,
+                            "latenight": false,
+                            "lunch": false,
+                            "dinner": false,
+                            "brunch": false,
+                            "breakfast": false},
                 "Noise Level": "average",
-                "Takes Reservations": True,
-                "Has TV": True,
-                "Delivery": False,
-                "Ambience": {"romantic": False,
-                            "intimate": False,
-                            "touristy": False,
-                            "hipster": False,
-                            "divey": False,
-                            "classy": False,
-                            "trendy": False,
-                            "upscale": False,
-                            "casual": False},
-                "Parking": {"garage": False,
-                            "street": False,
-                            "validated": False,
-                            "lot": True,
-                            "valet": True},
-                "Wheelchair Accessible": True,
-                "Outdoor Seating": True,
+                "Takes Reservations": true,
+                "Has TV": true,
+                "Delivery": false,
+                "Ambience": {"romantic": false,
+                            "intimate": false,
+                            "touristy": false,
+                            "hipster": false,
+                            "divey": false,
+                            "classy": false,
+                            "trendy": false,
+                            "upscale": false,
+                            "casual": false},
+                "Parking": {"garage": false,
+                            "street": false,
+                            "validated": false,
+                            "lot": true,
+                            "valet": true},
+                "Wheelchair Accessible": true,
+                "Outdoor Seating": true,
                 "Attire": "casual",
                 "Alcohol": "full_bar",
-                "Waiter Service": True,
-                "Accepts Credit Cards": True,
-                "Good for Kids": False,
-                "Good For Groups": True,
+                "Waiter Service": true,
+                "Accepts Credit Cards": true,
+                "Good for Kids": false,
+                "Good For Groups": true,
                 "Price Range": 2},
-    "type": "business",
+    "type": "business"
 }
 < 204
 
@@ -295,7 +295,7 @@ GET /api/users
 
 Creates a new user entry
 POST /api/users
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
@@ -309,10 +309,10 @@ POST /api/users
     "average_stars": 3.6000000000000001,
     "type": "user",
     "compliments": {},
-    "elite": [],
+    "elite": []
 }
 < 201
-< Content-Type: application/json
+< Content-Type: application-json
 { id: 1 }
 
 Retrieves the information for a particular user. id is the primary key for the database
@@ -334,12 +334,12 @@ GET /api/users/{id}
     "average_stars": 3.6000000000000001,
     "type": "user",
     "compliments": {},
-    "elite": [],
+    "elite": []
 }
 
 Updates an existing user
 PUT /api/users/{id}
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
@@ -353,7 +353,7 @@ PUT /api/users/{id}
     "average_stars": 3.6000000000000001,
     "type": "user",
     "compliments": {},
-    "elite": [],
+    "elite": []
 }
 < 204
 
@@ -372,7 +372,7 @@ GET /api/users/{id}/businesses
         "business_id": "KWo4geULVPzCirc0Scpcow",
         "full_address": "3701-3965 Sky Harbor Blvd\nPhoenix, AZ 85034",
         "hours": {},
-        "open": True,
+        "open": true,
         "categories": ["Bakeries", "Food", "French", "Restaurants"],
         "city": "Phoenix",
         "review_count": 12,
@@ -383,17 +383,17 @@ GET /api/users/{id}/businesses
         "stars": 3.5,
         "latitude": 33.433677495519298,
         "attributes": {"Wi-Fi": "free",
-                    "Good For": {"dessert": False,
-                                "latenight": False,
-                                "lunch": False,
-                                "dinner": False,
-                                "brunch": False,
-                                "breakfast": False},
-                    "Delivery": False,
-                    "Outdoor Seating": False,
+                    "Good For": {"dessert": false,
+                                "latenight": false,
+                                "lunch": false,
+                                "dinner": false,
+                                "brunch": false,
+                                "breakfast": false},
+                    "Delivery": false,
+                    "Outdoor Seating": false,
                     "Attire": "casual",
-                    "Waiter Service": False,
-                    "Accepts Credit Cards": True},
+                    "Waiter Service": false,
+                    "Accepts Credit Cards": true},
         "type": "business"
     }
 ]
@@ -442,7 +442,7 @@ GET /api/reviews
 
 Creates a new review entry
 POST /api/reviews
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "votes": {"funny": 0,
             "useful": 0,
@@ -456,7 +456,7 @@ POST /api/reviews
     "business_id": "70p94Ejeu1v5XlIkbKORYQ"
 }
 < 201
-< Content-Type: application/json
+< Content-Type: application-json
 { id: 2 }
 
 Retrieves the information for a particular review. id is the primary key for the database
@@ -479,7 +479,7 @@ GET /api/reviews/{id}
 
 Updates an existing review
 PUT /api/reviews/{id}
-> Content-Type: application/json
+> Content-Type: application-json
 { 
     "votes": {"funny": 0,
             "useful": 0,
@@ -536,7 +536,7 @@ GET /api/reviews/{id}/businesses
                 "Wednesday": {"close": "19:00", "open": "09:00"},
                 "Thursday": {"close": "19:00", "open": "09:00"},
                 "Saturday": {"close": "19:00", "open": "09:00"}},
-        "open": True,
+        "open": true,
         "categories": ["Hair Salons", "Beauty & Spas"],
         "city": "Gilbert",
         "review_count": 9,
@@ -547,17 +547,18 @@ GET /api/reviews/{id}/businesses
         "stars": 5.0,
         "latitude": 33.379065699999998,
         "attributes": {"Price Range": 2,
-                    "Parking": {"garage": False,
-                                "street": False,
-                                "validated": False,
-                                "lot": True,
-                                "valet": False},
-                    "By Appointment Only": True,
-                    "Accepts Credit Cards": True,
-                    "Good for Kids": True,
-                    "Wheelchair Accessible": True},
-        "type": "business"}
+                    "Parking": {"garage": false,
+                                "street": false,
+                                "validated": false,
+                                "lot": true,
+                                "valet": false},
+                    "By Appointment Only": true,
+                    "Accepts Credit Cards": true,
+                    "Good for Kids": true,
+                    "Wheelchair Accessible": true},
+        "type": "business"
     }
 ]
+
 
 
