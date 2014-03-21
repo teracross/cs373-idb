@@ -71,9 +71,10 @@
             </div>
             <div>  
                 <h2>Hours:</h2>
+
                 {% if hours|length > 0 %}
-                    {% for day, hrs in hours.items %}
-                        <div><span class="key">{{day}}:</span><span class="value">{{hrs.open}} - {{hrs.close}}</span></div>
+                    {% for dict in hours %}
+                        <div><span class="key">{{dict.day}}:</span><span class="value">{{dict.open}} - {{dict.close}}</span></div>
                     {%endfor %}
                 {% else %}
                     <div>Hours not available. </div>
