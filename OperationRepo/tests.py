@@ -7,8 +7,8 @@ class API_Test(TestCase) :
 	# -----
 	# get all
 	# -----
-	def test_get_businesses(self) :
-		request = Request("http://oprepo.apiary.io/api/businesses")
+	def test_get_business(self) :
+		request = Request("http://oprepo.apiary.io/api/business")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -30,8 +30,8 @@ class API_Test(TestCase) :
 		self.assertTrue(content == actual)
 
 		
-	def test_get_users(self) :
-		request = Request("http://oprepo.apiary.io/api/users")
+	def test_get_user(self) :
+		request = Request("http://oprepo.apiary.io/api/user")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -53,8 +53,8 @@ class API_Test(TestCase) :
 		self.assertTrue(content == actual)
 
 		
-	def test_get_reviews(self) :
-		request = Request("http://oprepo.apiary.io/api/reviews")
+	def test_get_review(self) :
+		request = Request("http://oprepo.apiary.io/api/review")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -140,7 +140,7 @@ class API_Test(TestCase) :
 			"type": "business"
 		})
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/businesses", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/business", data=values.encode("utf-8"), headers=headers)
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 201)
 
@@ -164,7 +164,7 @@ class API_Test(TestCase) :
 			"elite": []
 		})
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/users", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/user", data=values.encode("utf-8"), headers=headers)
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 201)
 
@@ -185,7 +185,7 @@ class API_Test(TestCase) :
 			"business_id": "70p94Ejeu1v5XlIkbKORYQ"
 		})
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/reviews", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/review", data=values.encode("utf-8"), headers=headers)
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 201)
 
@@ -196,8 +196,8 @@ class API_Test(TestCase) :
 	# -----
 	# get single
 	# -----		
-	def test_get_businesses_single(self) :
-		request = Request("http://oprepo.apiary.io/api/businesses/{id}")
+	def test_get_business_single(self) :
+		request = Request("http://oprepo.apiary.io/api/business/{id}")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -264,8 +264,8 @@ class API_Test(TestCase) :
 		self.assertTrue(content == actual)
 
 		
-	def test_get_users_single(self) :
-		request = Request("http://oprepo.apiary.io/api/users/{id}")
+	def test_get_user_single(self) :
+		request = Request("http://oprepo.apiary.io/api/user/{id}")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -290,8 +290,8 @@ class API_Test(TestCase) :
 		self.assertTrue(content == actual)
 	
 		
-	def test_get_reviews_single(self) :
-		request = Request("http://oprepo.apiary.io/api/reviews/{id}")
+	def test_get_review_single(self) :
+		request = Request("http://oprepo.apiary.io/api/review/{id}")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -317,7 +317,7 @@ class API_Test(TestCase) :
 	# delete
 	# -----
 	def test_delete_business(self) : 
-		request = Request("http://oprepo.apiary.io/api/businesses/{id}")
+		request = Request("http://oprepo.apiary.io/api/business/{id}")
 		request.get_method = lambda: 'DELETE'
 		response = urlopen(request)
 
@@ -325,7 +325,7 @@ class API_Test(TestCase) :
 
 
 	def test_delete_user(self) : 
-		request = Request("http://oprepo.apiary.io/api/users/{id}")
+		request = Request("http://oprepo.apiary.io/api/user/{id}")
 		request.get_method = lambda: 'DELETE'
 		response = urlopen(request)
 
@@ -333,7 +333,7 @@ class API_Test(TestCase) :
 
 
 	def test_delete_review(self) : 
-		request = Request("http://oprepo.apiary.io/api/reviews/{id}")
+		request = Request("http://oprepo.apiary.io/api/review/{id}")
 		request.get_method = lambda: 'DELETE'
 		response = urlopen(request)
 
@@ -341,10 +341,10 @@ class API_Test(TestCase) :
 
 
 	# -----
-	# get reviews for business
+	# get review for business
 	# -----
-	def test_get_business_reviews(self) :
-		request = Request("http://oprepo.apiary.io/api/businesses/{id}/reviews")
+	def test_get_business_review(self) :
+		request = Request("http://oprepo.apiary.io/api/business/{id}/review")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -368,10 +368,10 @@ class API_Test(TestCase) :
 
 
 	# -----
-	# get users who reviewed business 
+	# get user who reviewed business 
 	# -----
-	def test_get_business_users(self) :
-		request = Request("http://oprepo.apiary.io/api/businesses/{id}/users")
+	def test_get_business_user(self) :
+		request = Request("http://oprepo.apiary.io/api/business/{id}/user")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -402,10 +402,10 @@ class API_Test(TestCase) :
 
 	
 	# -----
-	# get businesses reviewed by user
+	# get business reviewed by user
 	# -----
-	def test_get_user_businesses(self) :
-		request = Request("http://oprepo.apiary.io/api/users/{id}/businesses")
+	def test_get_user_business(self) :
+		request = Request("http://oprepo.apiary.io/api/user/{id}/business")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -445,10 +445,10 @@ class API_Test(TestCase) :
 
 
 	# -----
-	# get reviews by user
+	# get review by user
 	# -----
-	def test_get_user_reviews(self) :
-		request = Request("http://oprepo.apiary.io/api/users/{id}/reviews")
+	def test_get_user_review(self) :
+		request = Request("http://oprepo.apiary.io/api/user/{id}/review")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -475,7 +475,7 @@ class API_Test(TestCase) :
 	# get business from review
 	# -----
 	def test_get_review_business(self) :
-		request = Request("http://oprepo.apiary.io/api/reviews/{id}/businesses")
+		request = Request("http://oprepo.apiary.io/api/review/{id}/business")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -521,7 +521,7 @@ class API_Test(TestCase) :
 	# get user from review
 	# -----
 	def test_get_review_user(self) :
-		request = Request("http://oprepo.apiary.io/api/reviews/{id}/users")
+		request = Request("http://oprepo.apiary.io/api/review/{id}/user")
 		response = urlopen(request)
 		self.assertEqual(response.getcode(), 200)
 
@@ -554,7 +554,7 @@ class API_Test(TestCase) :
 	def test_put_business(self) :
 		values = "{ \n    \"business_id\": \"O_X3PGhk3Y5JWVi866qlJg\",\n    \"full_address\": \"1501 W Bell Rd\\nPhoenix, AZ 85023\",\n    \"hours\": {\"Monday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Tuesday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Friday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Wednesday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Thursday\": {\"close\": \"18:00\", \"open\": \"11:00\"}, \n            \"Sunday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Saturday\": {\"close\": \"18:00\",\"open\": \"11:00\"}},\n    \"open\": true,\n    \"categories\": [\"Active Life\", \"Arts \u0026 Entertainment\", \"Stadiums \u0026 Arenas\", \"Horse Racing\"],\n    \"city\": \"Phoenix\",\n    \"review_count\": 29,\n    \"name\": \"Turf Paradise Race Course\",\n    \"neighborhoods\": [],\n    \"longitude\": -112.0923293,\n    \"state\": \"AZ\",\n    \"stars\": 4.0,\n    \"latitude\": 33.638572699999997,\n    \"attributes\": {\"Take-out\": false,\n                \"Wi-Fi\": \"free\",\n                \"Good For\": {\"dessert\": false,\n                            \"latenight\": false,\n                            \"lunch\": false,\n                            \"dinner\": false,\n                            \"brunch\": false,\n                            \"breakfast\": false},\n                \"Noise Level\": \"average\",\n                \"Takes Reservations\": true,\n                \"Has TV\": true,\n                \"Delivery\": false,\n                \"Ambience\": {\"romantic\": false,\n                            \"intimate\": false,\n                            \"touristy\": false,\n                            \"hipster\": false,\n                            \"divey\": false,\n                            \"classy\": false,\n                            \"trendy\": false,\n                            \"upscale\": false,\n                            \"casual\": false},\n                \"Parking\": {\"garage\": false,\n                            \"street\": false,\n                            \"validated\": false,\n                            \"lot\": true,\n                            \"valet\": true},\n                \"Wheelchair Accessible\": true,\n                \"Outdoor Seating\": true,\n                \"Attire\": \"casual\",\n                \"Alcohol\": \"full_bar\",\n                \"Waiter Service\": true,\n                \"Accepts Credit Cards\": true,\n                \"Good for Kids\": false,\n                \"Good For Groups\": true,\n                \"Price Range\": 2},\n    \"type\": \"business\"\n}"
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/businesses/{id}", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/business/{id}", data=values.encode("utf-8"), headers=headers)
 		request.get_method = lambda: 'PUT'
 		response = urlopen(request)
 		self.assertTrue(response.getcode() == 204)
@@ -563,7 +563,7 @@ class API_Test(TestCase) :
 	def test_put_user(self) :
 		values = "{ \n    \"yelping_since\": \"2011-08\",\n    \"votes\": {\"funny\": 0,\n            \"useful\": 1,\n            \"cool\": 1},\n    \"review_count\": 5,\n    \"name\": \"Glen\",\n    \"user_id\": \"HzLh-2WyMjf6TYATFwg6NA\",\n    \"friends\": [],\n    \"fans\": 0,\n    \"average_stars\": 3.6000000000000001,\n    \"type\": \"user\",\n    \"compliments\": {},\n    \"elite\": [],\n}"
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/users/{id}", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/user/{id}", data=values.encode("utf-8"), headers=headers)
 		request.get_method = lambda: 'PUT'
 		response = urlopen(request)
 		self.assertTrue(response.getcode() == 204)
@@ -572,7 +572,7 @@ class API_Test(TestCase) :
 	def test_put_review(self) :
 		values = "{ \n    \"votes\": {\"funny\": 0,\n            \"useful\": 0,\n            \"cool\": 0},\n    \"user_id\": \"SS85hfTApRnbTPcJadra8A\",\n    \"review_id\": \"VyAKIaj_Rmsf_ZCHcGJyUw\",\n    \"stars\": 5,\n    \"date\": \"2010-05-30\",\n    \"text\": \"I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.\",\n    \"type\": \"review\",\n    \"business_id\": \"70p94Ejeu1v5XlIkbKORYQ\"\n}"
 		headers = {"Content-Type": "application-json"}
-		request = Request("http://oprepo.apiary.io/api/reviews/{id}", data=values.encode("utf-8"), headers=headers)
+		request = Request("http://oprepo.apiary.io/api/review/{id}", data=values.encode("utf-8"), headers=headers)
 		request.get_method = lambda: 'PUT'
 		response = urlopen(request)
 		response_body = response.read()
