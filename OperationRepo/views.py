@@ -105,7 +105,6 @@ def business(request, *z):
     },
     "type": "business"
 }"""}
-        context_dict = sortHours(context_dict)
     elif a == 2 :
         context_dict = {"a" : a , "business_id": "70p94Ejeu1v5XlIkbKORYQ", "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234", "hours": {"Monday": {"close": "19:00", "open": "09:00"}, "Tuesday": {"close": "19:00", "open": "09:00"}, "Friday": {"close": "19:00", "open": "09:00"}, "Wednesday": {"close": "19:00", "open": "09:00"}, "Thursday": {"close": "19:00", "open": "09:00"}, "Saturday": {"close": "19:00", "open": "09:00"}} , "open": "True", "categories": "Hair Salons,Beauty & Spas", "city": "Gilbert", "review_count": 9, "name": "Salon Lola", "longitude": -111.75560249999999, "state": "AZ", "stars": 5.0, "latitude": 33.379065699999998, "attributes": {"Price Range": 2, "By Appointment Only": "True", "Accepts Credit Cards": "True", "Good for Kids": "True", "Wheelchair Accessible": "True"}, "Parking": {"garage": "False", "street": "False", "validated": "False", "lot": "True", "valet": "False"}, "type": "business", "yelpurl" : "http://www.yelp.com/biz/salon-lola-gilbert", "iframeurl" : """<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=3479+E+Baseline+Rd+Ste+18+Gilbert,+AZ+85234&amp;aq=&amp;sll=33.696815,-111.916044&amp;sspn=0.008301,0.016512&amp;ie=UTF8&amp;hq=&amp;hnear=3479+E+Baseline+Rd+%2318,+Gilbert,+Arizona+85234&amp;ll=33.379066,-111.755602&amp;spn=0.008332,0.016512&amp;t=m&amp;z=14&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=3479+E+Baseline+Rd+Ste+18+Gilbert,+AZ+85234&amp;aq=&amp;sll=33.696815,-111.916044&amp;sspn=0.008301,0.016512&amp;ie=UTF8&amp;hq=&amp;hnear=3479+E+Baseline+Rd+%2318,+Gilbert,+Arizona+85234&amp;ll=33.379066,-111.755602&amp;spn=0.008332,0.016512&amp;t=m&amp;z=14" style="color:#0000FF;text-align:left">View Larger Map</a></small>""", "json" : """{
     "business_id": "70p94Ejeu1v5XlIkbKORYQ",
@@ -231,6 +230,7 @@ def business(request, *z):
     },
     "type": "business"
 }"""}
+    context_dict = sortHours(context_dict)
     return render_to_response('OperationRepo/business.html', context_dict, context)
 
 # Reviews
