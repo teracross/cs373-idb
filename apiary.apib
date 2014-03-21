@@ -18,7 +18,7 @@ HTTP status codes as stated below are expected to be followed:
 Business Data
 --
 Lists every business in the database
-GET /api/businesses
+GET /api/business
 < 200
 < Content-Type: application/json
 [
@@ -35,7 +35,7 @@ GET /api/businesses
 ]
 
 Creates a new business entry
-POST /api/businesses
+POST /api/business
 > Content-Type: application/json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
@@ -99,7 +99,7 @@ POST /api/businesses
 { id: 1 }
 
 Retrieves the information for a particular business. id is the primary key for the database
-GET /api/businesses/{id}
+GET /api/business/{id}
 < 200
 < Content-Type: application/json
 { 
@@ -162,7 +162,7 @@ GET /api/businesses/{id}
 }
 
 Updates an existing business
-PUT /api/businesses/{id}
+PUT /api/business/{id}
 > Content-Type: application/json
 { 
     "business_id": "O_X3PGhk3Y5JWVi866qlJg",
@@ -225,12 +225,12 @@ PUT /api/businesses/{id}
 
 
 Deletes an existing business
-DELETE /api/businesses/{id}
+DELETE /api/business/{id}
 < 204
 
 
-Lists all related users
-GET /api/businesses/{id}/users
+Lists all related user
+GET /api/business/{id}/user
 < 200
 < Content-Type: application/json
 [
@@ -254,8 +254,8 @@ GET /api/businesses/{id}/users
     }
 ]
 
-Lists all related reviews
-GET /api/businesses/{id}/reviews
+Lists all related review
+GET /api/business/{id}/review
 < 200
 < Content-Type: application/json
 [
@@ -277,7 +277,7 @@ GET /api/businesses/{id}/reviews
 User Data
 --
 Lists every user in the database
-GET /api/users
+GET /api/user
 < 200
 < Content-Type: application/json
 [
@@ -294,7 +294,7 @@ GET /api/users
 ]
 
 Creates a new user entry
-POST /api/users
+POST /api/user
 > Content-Type: application/json
 { 
     "yelping_since": "2011-08",
@@ -316,7 +316,7 @@ POST /api/users
 { id: 1 }
 
 Retrieves the information for a particular user. id is the primary key for the database
-GET /api/users/{id}
+GET /api/user/{id}
 > Accept: application/json
 < 200
 < Content-Type: application/json
@@ -338,7 +338,7 @@ GET /api/users/{id}
 }
 
 Updates an existing user
-PUT /api/users/{id}
+PUT /api/user/{id}
 > Content-Type: application/json
 { 
     "yelping_since": "2011-08",
@@ -359,12 +359,12 @@ PUT /api/users/{id}
 
 
 Deletes an existing user
-DELETE /api/users/{id}
+DELETE /api/user/{id}
 < 204
 
 
-Lists all related businesses
-GET /api/users/{id}/businesses
+Lists all related business
+GET /api/user/{id}/business
 < 200
 < Content-Type: application/json
 [
@@ -398,8 +398,8 @@ GET /api/users/{id}/businesses
     }
 ]
 
-Lists all related reviews
-GET /api/users/{id}/reviews
+Lists all related review
+GET /api/user/{id}/review
 < 200
 < Content-Type: application/json
 [
@@ -422,7 +422,7 @@ Review Data
 --
 
 Lists every review in the database
-GET /api/reviews
+GET /api/review
 < 200
 < Content-Type: application/json
 [
@@ -441,7 +441,7 @@ GET /api/reviews
 ]
 
 Creates a new review entry
-POST /api/reviews
+POST /api/review
 > Content-Type: application/json
 { 
     "votes": {"funny": 0,
@@ -460,7 +460,7 @@ POST /api/reviews
 { id: 2 }
 
 Retrieves the information for a particular review. id is the primary key for the database
-GET /api/reviews/{id}
+GET /api/review/{id}
 < 200
 < Content-Type: application/json
 { 
@@ -478,7 +478,7 @@ GET /api/reviews/{id}
 }
 
 Updates an existing review
-PUT /api/reviews/{id}
+PUT /api/review/{id}
 > Content-Type: application/json
 { 
     "votes": {"funny": 0,
@@ -496,12 +496,12 @@ PUT /api/reviews/{id}
 
 
 Deletes an existing review
-DELETE /api/reviews/{id}
+DELETE /api/review/{id}
 < 204
 
 
-Lists all related users
-GET /api/reviews/{id}/users
+Lists all related user
+GET /api/review/{id}/user
 < 200
 < Content-Type: application/json
 [
@@ -522,8 +522,8 @@ GET /api/reviews/{id}/users
     }
 ]
 
-Lists all related businesses
-GET /api/reviews/{id}/businesses
+Lists all related business
+GET /api/review/{id}/business
 < 200
 < Content-Type: application/json
 [
@@ -558,4 +558,3 @@ GET /api/reviews/{id}/businesses
                     "Wheelchair Accessible": true},
         "type": "business"
     }
-]
