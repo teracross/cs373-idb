@@ -56,9 +56,15 @@ WSGI_APPLICATION = 'idb.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'))
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'deso8mn255r48h',
+    'HOST': 'ec2-54-197-246-197.compute-1.amazonaws.com',
+    'PORT': 5432,
+    'USER': 'mrptrwcgqdpavw',
+    'PASSWORD': 'exLhPO8jMr2-7qGT9yYiavmLQu'
+  }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
