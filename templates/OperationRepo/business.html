@@ -59,14 +59,14 @@
             </div><!--/.container-fluid -->
         </div>
         <div class="jumbotron">
-            <h1><a href="{{yelpurl}}">{{name}}</a></h1>
-            <div><span class="key">ID: </span><span class="value">{{business_id }} </span></div>
-            <div><span class="key">Still Running:</span><span class="value">{{ open}}</span></div>
+            <h1><a href="{{yelpurl}}">{{business.name}}</a></h1>
+            <div><span class="key">ID: </span><span class="value">{{business.business_id }} </span></div>
+            <div><span class="key">Still Running:</span><span class="value">{{ business.is_open}}</span></div>
             <div>  
                 <h2>Location:</h2>
-                <div><span class="key">Address:</span><span class="value">{{ full_address}}</span></div>
-                <div><span class="key">Longitude:</span><span class="value">{{ longitude}}</span></div>
-                <div><span class="key">Latitude:</span><span class="value">{{ latitude}}</span></div>    
+                <div><span class="key">Address:</span><span class="value">{{ business.full_address}}</span></div>
+                <div><span class="key">Longitude:</span><span class="value">{{ business.longitude}}</span></div>
+                <div><span class="key">Latitude:</span><span class="value">{{ business.latitude}}</span></div>    
                 {{iframeurl|safe}}
             </div>
             <div>  
@@ -82,8 +82,8 @@
             </div>
             <div>  
                 <h2>Reviews:</h2>
-                <div><span class="key"># Reviews:</span><span class="value">{{ review_count}}</span></div>    
-                <div><span class="key">Stars:</span><span class="value">{{ stars}}</span></div>
+                <div><span class="key"># Reviews:</span><span class="value">{{ business.review_count}}</span></div>    
+                <div><span class="key">Stars:</span><span class="value">{{ business.stars}}</span></div>
                 <table>
                     <tr>
                         <td class="key">Good for:</td>
