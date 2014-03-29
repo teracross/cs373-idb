@@ -23,12 +23,10 @@ GET /api/business
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "business_id": "O_X3PGhk3Y5JWVi866qlJg",
         "name": "Turf Paradise Race Course"
     },
     {
-        "id": 2,
         "business_id": "QbrM7wqtmoNncqjc6GtFaQ",
         "name": "Sam's Club Members Only"
     }
@@ -96,15 +94,13 @@ POST /api/business
 }
 < 201
 < Content-Type: application/json
-{ id: 1 }
+{ "business_id": "O_X3PGhk3Y5JWVi866qlJg" }
 
 Retrieves the information for a particular business. id is the primary key for the database
 GET /api/business/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 1,
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
     "hours": {"Monday": {"close": "18:00", "open": "11:00"},
             "Tuesday": {"close": "18:00", "open": "11:00"},
@@ -123,8 +119,8 @@ GET /api/business/{id}
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": false,
-                "Wi-Fi": "free",
+    "attributes": {"takeout": false,
+                "wifi": "free",
                 "Good For": {"dessert": false,
                             "latenight": false,
                             "lunch": false,
@@ -165,7 +161,6 @@ Updates an existing business
 PUT /api/business/{id}
 > Content-Type: application/json
 { 
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
     "hours": {"Monday": {"close": "18:00", "open": "11:00"},
             "Tuesday": {"close": "18:00", "open": "11:00"},
@@ -282,12 +277,10 @@ GET /api/user
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "user_id": "2WyMjf6TYATFwg6NA",
         "name": "Glen"
     },
     {
-        "id": 2,
         "business_id": "gYV6bmTSgbZMGkvXHVCowg",
         "name": "Paul"
     }
@@ -313,7 +306,7 @@ POST /api/user
 }
 < 201
 < Content-Type: application/json
-{ id: 1 }
+{ "user_id": "HzLh-2WyMjf6TYATFwg6NA" }
 
 Retrieves the information for a particular user. id is the primary key for the database
 GET /api/user/{id}
@@ -321,7 +314,6 @@ GET /api/user/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 1,
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
             "useful": 1,
@@ -427,13 +419,11 @@ GET /api/review
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
         "review_id": "0ESSqLfOae77muWTv_zUqA",
         "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
     },
     {
-        "id": 2,
         "user_id": "SS85hfTApRnbTPcJadra8A",
         "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
         "business_id": "70p94Ejeu1v5XlIkbKORYQ"
@@ -457,14 +447,13 @@ POST /api/review
 }
 < 201
 < Content-Type: application/json
-{ id: 2 }
+{ "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw" }
 
 Retrieves the information for a particular review. id is the primary key for the database
 GET /api/review/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 2,
     "votes": {"funny": 0,
             "useful": 0,
             "cool": 0},
