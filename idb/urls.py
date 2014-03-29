@@ -7,6 +7,9 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'idb.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+
+    #add in regex to handle this
     url(r'^OperationRepo/', include('OperationRepo.urls')),
+    url(r'^operationrepo/', include('OperationRepo.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
