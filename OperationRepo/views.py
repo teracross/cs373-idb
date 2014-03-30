@@ -323,11 +323,11 @@ def getDatabase(cursor):
     for row in cursor.fetchall() :
         yield row
 
-def business_splash (request, *z):
+def business_splash (request):
     context = RequestContext(request)
     cursor = connections['default'].cursor()
     #just need the first 20 businesses
     cursor.execute("SELECT data->>'name', data->>'business_id' from businesses limit 20")
     business_dict = dict(getDatabase(cursor))
 
-    return render_to_response('OperationRepo/business_splash.html', business_dict)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict":business_dict},context)

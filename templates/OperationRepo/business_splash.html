@@ -26,8 +26,8 @@
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home Page</a></li>
-          <li><a href="{% url 'business' 'all'%}">Businesses</a></li>
+          <li><a href="{% url 'index' %}">Home Page</a></li>
+          <li class="active"><a href="{% url 'business_splash' %}">Businesses</a></li>
           <li><a href="{% url 'review' 'all'%}">Reviews</a></li>
           <li><a href="{% url 'user' 'all'%}">Users</a></li>
         </ul>
@@ -36,11 +36,13 @@
   </div>
 <!-- END Responsive Nav Bar --> 
 
-<!--- display first 50 businesses from the database -
+<!--- display first 50 businesses from the database -->
 
-{% for key,value in goodfor.items %}
-
-{%endfor%} -->
+<ul>
+{% for business_name,business_ID in bdict.items %}
+<li><a href ="{% url 'business' business_ID%}">{{business_name}}</a></li>  
+{%endfor%}
+</ul>
 </div>
 
 
