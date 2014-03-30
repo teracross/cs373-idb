@@ -318,8 +318,16 @@ def user(request, *z):
 }"""}
     return render_to_response('OperationRepo/user.html', context_dict, context)
 
+def getDatabase(cursor):
+    "Returns all rows from a cursor as a dict"
+    for row in cursor.fetchall() :
+        yield row
+
 def business_splash (request, *z):
     context = RequestContext(request)
-    cursor.execute("SELECT data->>'name', data->>'business_id' from businesses")
+    cursor = connections['default'].cursor()
+    #just need the first 20 businesses
+    cursor.execute("SELECT data->>'name', data->>'business_id' from businesses limit 20")
+    business_dict = dict(getDatabase(cursor))
 
-    return render_to_response('OperationRepo/user.html', context_dict, context)
+    return render_to_response('OperationRepo/business_splash.html', business_dict)
