@@ -1,4 +1,5 @@
 from django.db import models
+import json
 
 """
 Business objects contain basic information about local businesses.
@@ -14,49 +15,52 @@ class Business(models.Model):
   longitude = models.FloatField()
   stars = models.FloatField()
   review_count = models.IntegerField(default=0)
+  neighborhoods = models.CharField(max_length=128)
+  hours = models.CharField(max_length=128)
+  attributes = models.CharField(max_length=128)
+  categories = models.CharField(max_length=128)
   #open is a keyword in Python, so use is_open instead
   is_open = models.BooleanField()
+  json_type = models.CharField(max_length=128)
+
   
   def __unicode__(self):
     return self.business_id
 
-#############################################################
-## subkeys for Business
-#############################################################
-  """
-  	Neighborhoods holds a foreign key to a business. 
-  	name is the name of the neighborhood
-  """
-class Neighborhoods(models.Model):
-  business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
-  
-  def __unicode__(self):
-    return self.name
+  def categoryList(self) :
+    result = str(self.categories)
+    result = result.replace("[", "")
+    result = result.replace("]", "")
+    result = result.replace("'", "")
+    return result.split(",")
 
-class Categories(models.Model):
-  business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
-  
-  def __unicode__(self):
-    return self.name
+  def neighborhoodList(self) :
+    result = str(self.neighborhoods)
+    if result == "[]":
+      return []
+    result = result.replace("[", "")
+    result = result.replace("]", "")
+    result = result.replace("'", "")
+    return result.split(",")
 
-class Attritubes(models.Model):
-  business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
-  value = models.CharField(max_length=128)
-  
-  def __unicode__(self):
-    return self.name
+  def getHours(self) :
+    s1 = str(self.hours)
+    s1 = s1.replace("'","\"")
+    s1 = s1.replace("True","true")
+    s1 = s1.replace("False","false")
+    s1 = s1.replace("(","")
+    s1 = s1.replace(",)","")
+    return json.loads(s1)
 
-class Hours(models.Model):
-  business = models.ForeignKey(Business)
-  day_of_week = models.CharField(max_length=50)
-  open_hour = models.TimeField()
-  close_hour = models.TimeField()
-  
-  def __unicode__(self):
-    return self.name
+  def getAttributes(self) :
+    s1 = str(self.attributes)
+    s1 = s1.replace("'","\"")
+    s1 = s1.replace("True","true")
+    s1 = s1.replace("False","false")
+    s1 = s1.replace("(","")
+    s1 = s1.replace(",)","")
+    return json.loads(s1)
+
 #############################################################
 """
 Review objects contain the review text, the star rating, and information on votes Yelp users have cast on the review. 

@@ -61,14 +61,17 @@ def business(request, *z):
     s1 = s1.replace("(","")
     s1 = s1.replace(",)","")
     j = json.loads(s1)
-    j.pop("neighborhoods", None)
-    j.pop("type", None)
-    j.pop("hours", None)
-    j.pop("attributes", None)
+    json_type = j.pop("type", None)
+    #j.pop("hours", None)
+    #j.pop("attributes", None)
+    #hours = models.Hours(json.loads(j.pop("hours", None)))
+    #attributes = models.Attributes(json.loads(j.pop("attributes", None)))
     is_open = j.pop("open", None)
-    j.pop("categories", None)
+    #hours = json.load(hours)
     business = models.Business(**j)
+
     business.is_open = is_open
+    business.json_type = json_type
     #return HttpResponse(business.business_id)
     #return render_to_response('OperationRepo/business.html', d, context)
     #context_dict = sortHours(context_dict)
