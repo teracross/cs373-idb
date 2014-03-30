@@ -42,9 +42,9 @@ def getJsonOneRow(cursor):
 # Businesses
 def business(request, *z):
     context = RequestContext(request)
-    businessID = int(z[0])
+    businessID = z[0]
     cursor = connections['default'].cursor()
-    cursor.execute("SELECT data from businesses where pkbusinessid="+str(businessID));
+    cursor.execute("SELECT data from businesses where data->>\'business_id\' = \'"+str(businessID) + "\'")
 
     s1 = getJsonOneRow(cursor)
     s1 = s1.replace("'","\"")
