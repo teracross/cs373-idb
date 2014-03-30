@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.db import connections
+
+from OperationRepo import models
+from django.http import HttpResponse
+import json
 
 def index(request):
     # Request the context of the request.
@@ -483,4 +488,10 @@ def user(request, *z):
     },
     "elite": []
 }"""}
+    return render_to_response('OperationRepo/user.html', context_dict, context)
+
+def business_splash (request, *z):
+    context = RequestContext(request)
+    cursor.execute("SELECT data->>'name', data->>'business_id' from businesses")
+
     return render_to_response('OperationRepo/user.html', context_dict, context)
