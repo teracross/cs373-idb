@@ -110,8 +110,10 @@ User objects contain aggregate information about a single user across all of Yel
 """
 class Review(models.Model):
   business = models.ForeignKey(Business)
-  user = models.ForeignKey(User)
+  user_id = models.CharField(max_length=128)
+  username = models.CharField(max_length=128)
   review_id = models.CharField(max_length=128, primary_key=True)
+  business_id = models.CharField(max_length=128)
   stars = models.FloatField()
   text = models.TextField()
   date = models.DateField()

@@ -6,6 +6,7 @@ from django.db import connections
 from OperationRepo import models
 from django.http import HttpResponse
 import json
+import ast
 
 def index(request):
     # Request the context of the request.
@@ -37,7 +38,14 @@ def getJsonOneRow(cursor):
     "Returns all rows from a cursor as a dict"
     desc = cursor.description
     for row in cursor.fetchall() :
-        return str(row)
+        return str(row[1])
+
+def getJsonColumns(cursor, l) :
+     for row in cursor.fetchall() :
+        d = {}
+        for index in l :
+            d.update(row[index])
+        return str(d)
 
 # Businesses
 def business(request, *z):
@@ -66,59 +74,33 @@ def business(request, *z):
     #context_dict = sortHours(context_dict)
     return render_to_response('OperationRepo/business.html', {"business" : business, "a" : businessID, "json" : j},context)
 
+
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
-    a = int(z[0])
-    if a == 1 :
-        context_dict = {"a" : a , "user": "Fred", "name": "Thai Pan Fresh Exotic Cuisine", "votes": {"funny": 1, "useful": 1, "cool": 1}, "user_id": "r-t7IiTSD0QZdt8lOUCqeQ", "review_id": "0ESSqLfOae77muWTv_zUqA", "stars": 3, "date": "2011-02-11", "text": "Lately i have been feeling homesick for asian food and been hitting up places that i haven't been to in awhile.  Recently re-visited Thai Pan for a quick lunch and quickly ordered without spending too much time perusing the menu.  It looked more diverse than I remembered including some Vietnamese additions.  I remembered the curries and stir-fry dishes were ok but nothing really memorable.  A quick summary for my latest visit:\n\nPros:\n- convenient order-at-the counter setup\n- self-serve drink station\n- brown and white rice mixture\n- friendly and gracious owners\n\nCons:\n- too much napa cabbage in comparison to green vegetables \n- wish the owner/chef would be back in the kitchen vs. managing\n- spice level on the weak side", "type": "review", "business_id": "WIcDFpHEnC3ihNmS7-6-ZA","json" : """{
-    "votes": {
-        "funny": 1,
-        "useful": 1,
-        "cool": 1
-    },
-    "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
-    "review_id": "0ESSqLfOae77muWTv_zUqA",
-    "stars": 3,
-    "date": "2011-02-11",
-    "text": "Lately i have been feeling homesick for asian food and been hitting up places that i haven't been to in awhile.  Recently re-visited Thai Pan for a quick lunch and quickly ordered without spending too much time perusing the menu.  It looked more diverse than I remembered including some Vietnamese additions.  I remembered the curries and stir-fry dishes were ok but nothing really memorable.  A quick summary for my latest visit:\n\nPros:\n- convenient order-at-the counter setup\n- self-serve drink station\n- brown and white rice mixture\n- friendly and gracious owners\n\nCons:\n- too much napa cabbage in comparison to green vegetables \n- wish the owner/chef would be back in the kitchen vs. managing\n- spice level on the weak side",
-    "type": "review",
-    "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
-}"""}
-        context_dict["shortname"] = truncateName(context_dict["name"])
-    elif a == 2 :
-        context_dict = {"a" : a , "user": "Christi", "name": "Salon Lola", "votes": {"funny": 0, "useful": 0, "cool": 0}, "user_id": "SS85hfTApRnbTPcJadra8A", "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw", "stars": 5, "date": "2010-05-30", "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.", "type": "review", "business_id": "70p94Ejeu1v5XlIkbKORYQ", "json" : """{
-    "votes": {
-        "funny": 0,
-        "useful": 0,
-        "cool": 0
-    },
-    "user_id": "SS85hfTApRnbTPcJadra8A",
-    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-    "stars": 5,
-    "date": "2010-05-30",
-    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-    "type": "review",
-    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
-}"""}    
-        context_dict["shortname"] = truncateName(context_dict["name"])
-    else :
-        context_dict = {"a" : a , "user": "Melissa", "name": "Chipotle Mexican Grill", "votes": {"funny": 0, "useful": 0, "cool": 0}, "user_id": "xAVu2pZ6nIvkdHh8vGs84Q", "review_id": "DusrkpkTGPGkqK13xO1TZg", "stars": 3, "date": "2011-11-26", "text": "Standard Chipotle fare - consistently good; not bad for corporate food - if you have a few minutes, there are a number of good local offerings within walking distance.", "type": "review", "business_id": "WcGTSRku3mrVK7V9GKq4UQ", "json" : """{
-    "votes": {
-        "funny": 0,
-        "useful": 0,
-        "cool": 0
-    },
-    "user_id": "xAVu2pZ6nIvkdHh8vGs84Q",
-    "review_id": "DusrkpkTGPGkqK13xO1TZg",
-    "stars": 3,
-    "date": "2011-11-26",
-    "text": "Standard Chipotle fare - consistently good; not bad for corporate food - if you have a few minutes, there are a number of good local offerings within walking distance.",
-    "type": "review",
-    "business_id": "WcGTSRku3mrVK7V9GKq4UQ"
-}"""}
-        context_dict["shortname"] = truncateName(context_dict["name"])
-    return render_to_response('OperationRepo/review.html', context_dict, context)
+    reviewID = z[0]
+    cursor = connections['default'].cursor()
+    cursor.execute("SELECT reviews.data, users.data->>'name' from reviews join users on users.data->>\'user_id\'=reviews.data->>\'user_id\' where reviews.data->>\'review_id\'=\'"+str(reviewID)+"\'")
+    d = {}
+    for row in cursor.fetchall() :
+        d = row[0]
+        username = row[1]
+        d["username"] = username
+        break
+    r1 = str(d)
+    r1 = r1.replace("True","true")
+    r1 = r1.replace("False","false")
+    r1 = r1.replace("(","") 
+    r1 = r1.replace(",)","")    
+    j = ast.literal_eval(r1)
+    j.pop("votes",None)
+    j.pop("type",None)
+    thereview = models.Review(**j)
+    return render_to_response('OperationRepo/review.html', {"review" : thereview},context)
+    
+    #review = models.Review(**j)
+    #return render_to_response('OperationRepo/review.html', {"review" : review}, context)
+
 
 # Users
 def user(request, *z):

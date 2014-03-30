@@ -61,7 +61,7 @@ should link back to user reviewing and business reviewed-->
               </div>
 
         <div class="jumbotron">
-            <h1>Review for <a href="{% url 'business' a %}">{{ shortname }}</a> by <a href="{% url 'user' a %}"> {{ user }} </a> </h1>
+            <h1>Review for <a href="{% url 'user' review.user_id %}">{{ review.username }}</a> by <a href="{% url 'user' 'a' %}"> {{ user }} </a> </h1>
             <div><span class="key">Review ID: </span><span class="value">{{review_id}} </span></div>
             <div><span class="key">User name: </span><span class="value">{{user}} </span></div>
             <div><span class="key">Business name: </span><span class="value">{{name}} </span></div>
