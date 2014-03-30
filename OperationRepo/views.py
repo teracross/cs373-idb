@@ -61,10 +61,11 @@ def business(request, *z):
     j.pop("categories", None)
     business = models.Business(**j)
     business.is_open = is_open
+    
     #return HttpResponse(business.business_id)
     #return render_to_response('OperationRepo/business.html', d, context)
     #context_dict = sortHours(context_dict)
-    return render_to_response('OperationRepo/business.html', {"business" : business, "a" : businessID, "json" : j},context)
+    return render_to_response('OperationRepo/business.html', { "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4', "business" : business, "a" : businessID, "json" : j},context)
 
 # Reviews
 def review(request, *z):

@@ -8,7 +8,33 @@
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <style type="text/css">
     .key {width: 150px;display:inline-block;}
+
+    #map-canvas {
+     margin: 0; 
+     padding: 0;
+    }
     </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&sensor=false">
+    </script>
+    <script type="text/javascript">
+        function genMap(){
+            var myLatlng = new google.maps.LatLng({{business.latitude}},{{business.longitude}});
+            var mapOptions = {
+              zoom: 10,
+              center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            // To add the marker to the map, use the 'map' property
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title:"{{business.name}}"
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', genMap);    
+    </script>
 </head>
 
 <body>
@@ -67,7 +93,11 @@
                 <div><span class="key">Address:</span><span class="value">{{ business.full_address}}</span></div>
                 <div><span class="key">Longitude:</span><span class="value">{{ business.longitude}}</span></div>
                 <div><span class="key">Latitude:</span><span class="value">{{ business.latitude}}</span></div>    
-                {{iframeurl|safe}}
+                <h2>Map:</h2>
+                <div id="map-canvas" style="height:500px">
+                
+                </div>
+
             </div>
             <div>  
                 <h2>Hours:</h2>
@@ -136,9 +166,10 @@
             </div>            
         </div>
     </div>
-
+     
     <!-- Bootstrap -->
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+   
 </body>
 </html>
