@@ -71,10 +71,9 @@
             </div>
             <div>  
                 <h2>Hours:</h2>
-
-                {% if hours|length > 0 %}
-                    {% for dict in hours %}
-                        <div><span class="key">{{dict.day}}:</span><span class="value">{{dict.open}} - {{dict.close}}</span></div>
+                {% if business.getHours|length > 0 %}
+                    {% for day,hours in business.getHours.items %}
+                        <div><span class="key">{{day}}:</span><span class="value">{{hours.open}} - {{hours.close}}</span></div>
                     {%endfor %}
                 {% else %}
                     <div>Hours not available. </div>
@@ -116,7 +115,21 @@
             </div>
             <div>  
                 <h2>Metadata:</h2>
-                <div>Categories:</span><span class="value">{{categories}}</span></div>
+                <div><span class="key">Categories:</span><span class="value">
+                {% if business.categoryList|length > 0 %}
+                    {% for category in business.categoryList %}{{category}},{%endfor%}
+                {% else %}
+                    Categories not available.
+                {% endif %}
+                </span></div>
+                <div><span class="key">Neighborhoods:</span><span class="value">
+                {% if business.neighborhoodList|length > 0 %}
+                    {% for neighborhood in business.neighborhoodList %}{{neighborhood}},{%endfor%}
+                {% else %}
+                    Neighborhoods not available.
+                {% endif %}
+                </span></div>
+
                 {% for key,value in attributes.items %}
                     {% ifequal value True %}
                         <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
@@ -128,7 +141,17 @@
                         {%endifequal%}
                     {%endifequal%}
                 {%endfor%}
-                <div><span class="key">Type:</span><span class="value">{{type}}</span></div>
+                <div><span class="key">Type:</span><span class="value">{{business.json_type}}</span></div>
+            </div>
+            <div>  
+                <h2>Attributes:</h2>
+                {% if business.getAttributes|length > 0 %}
+                    {% for key,value in business.getAttributes.items %}
+                        <div><span class="key">{{key}}:</span><span class="value">{{value}}</span></div>
+                    {%endfor %}
+                {% else %}
+                    <div>Attributes not available. </div>
+                {% endif %}
             </div>
             <div>
                 <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
