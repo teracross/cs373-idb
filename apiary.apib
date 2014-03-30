@@ -23,12 +23,10 @@ GET /api/business
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "business_id": "O_X3PGhk3Y5JWVi866qlJg",
         "name": "Turf Paradise Race Course"
     },
     {
-        "id": 2,
         "business_id": "QbrM7wqtmoNncqjc6GtFaQ",
         "name": "Sam's Club Members Only"
     }
@@ -57,19 +55,19 @@ POST /api/business
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": false,
-                "Wi-Fi": "free",
-                "Good For": {"dessert": false,
+    "attributes": {"take_out": false,
+                "wifi": "free",
+                "good_for": {"dessert": false,
                             "latenight": false,
                             "lunch": false,
                             "dinner": false,
                             "brunch": false,
                             "breakfast": false},
-                "Noise Level": "average",
-                "Takes Reservations": true,
-                "Has TV": true,
-                "Delivery": false,
-                "Ambience": {"romantic": false,
+                "noise_level": "average",
+                "takes_reservations": true,
+                "has_tv": true,
+                "delivery": false,
+                "ambience": {"romantic": false,
                             "intimate": false,
                             "touristy": false,
                             "hipster": false,
@@ -78,33 +76,31 @@ POST /api/business
                             "trendy": false,
                             "upscale": false,
                             "casual": false},
-                "Parking": {"garage": false,
+                "parking": {"garage": false,
                             "street": false,
                             "validated": false,
                             "lot": true,
                             "valet": true},
-                "Wheelchair Accessible": true,
-                "Outdoor Seating": true,
-                "Attire": "casual",
-                "Alcohol": "full_bar",
-                "Waiter Service": true,
-                "Accepts Credit Cards": true,
-                "Good for Kids": false,
-                "Good For Groups": true,
-                "Price Range": 2},
+                "wheelchair_accessible": true,
+                "outdoor_seating": true,
+                "attire": "casual",
+                "alcohol": "full_bar",
+                "waiter_service": true,
+                "accepts_credit_cards": true,
+                "good_for_kids": false,
+                "good_for_groups": true,
+                "price_range": 2},
     "type": "business"
 }
 < 201
 < Content-Type: application/json
-{ id: 1 }
+{ "business_id": "O_X3PGhk3Y5JWVi866qlJg" }
 
 Retrieves the information for a particular business. id is the primary key for the database
 GET /api/business/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 1,
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
     "hours": {"Monday": {"close": "18:00", "open": "11:00"},
             "Tuesday": {"close": "18:00", "open": "11:00"},
@@ -123,19 +119,19 @@ GET /api/business/{id}
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": false,
-                "Wi-Fi": "free",
-                "Good For": {"dessert": false,
+    "attributes": {"take_out": false,
+                "wifi": "free",
+                "good_for": {"dessert": false,
                             "latenight": false,
                             "lunch": false,
                             "dinner": false,
                             "brunch": false,
                             "breakfast": false},
-                "Noise Level": "average",
-                "Takes Reservations": true,
-                "Has TV": true,
-                "Delivery": false,
-                "Ambience": {"romantic": false,
+                "noise_level": "average",
+                "takes_reservations": true,
+                "has_tv": true,
+                "delivery": false,
+                "ambience": {"romantic": false,
                             "intimate": false,
                             "touristy": false,
                             "hipster": false,
@@ -144,20 +140,20 @@ GET /api/business/{id}
                             "trendy": false,
                             "upscale": false,
                             "casual": false},
-                "Parking": {"garage": false,
+                "parking": {"garage": false,
                             "street": false,
                             "validated": false,
                             "lot": true,
                             "valet": true},
-                "Wheelchair Accessible": true,
-                "Outdoor Seating": true,
-                "Attire": "casual",
-                "Alcohol": "full_bar",
-                "Waiter Service": true,
-                "Accepts Credit Cards": true,
-                "Good for Kids": false,
-                "Good For Groups": true,
-                "Price Range": 2},
+                "wheelchair_accessible": true,
+                "outdoor_seating": true,
+                "attire": "casual",
+                "alcohol": "full_bar",
+                "waiter_service": true,
+                "accepts_credit_cards": true,
+                "good_for_kids": false,
+                "good_for_groups": true,
+                "price_range": 2},
     "type": "business"
 }
 
@@ -165,7 +161,6 @@ Updates an existing business
 PUT /api/business/{id}
 > Content-Type: application/json
 { 
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
     "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
     "hours": {"Monday": {"close": "18:00", "open": "11:00"},
             "Tuesday": {"close": "18:00", "open": "11:00"},
@@ -184,19 +179,19 @@ PUT /api/business/{id}
     "state": "AZ",
     "stars": 4.0,
     "latitude": 33.638572699999997,
-    "attributes": {"Take-out": false,
-                "Wi-Fi": "free",
-                "Good For": {"dessert": false,
+    "attributes": {"take_out": false,
+                "wifi": "free",
+                "good_for": {"dessert": false,
                             "latenight": false,
                             "lunch": false,
                             "dinner": false,
                             "brunch": false,
                             "breakfast": false},
-                "Noise Level": "average",
-                "Takes Reservations": true,
-                "Has TV": true,
-                "Delivery": false,
-                "Ambience": {"romantic": false,
+                "noise_level": "average",
+                "takes_reservations": true,
+                "has_tv": true,
+                "delivery": false,
+                "ambience": {"romantic": false,
                             "intimate": false,
                             "touristy": false,
                             "hipster": false,
@@ -205,20 +200,20 @@ PUT /api/business/{id}
                             "trendy": false,
                             "upscale": false,
                             "casual": false},
-                "Parking": {"garage": false,
+                "parking": {"garage": false,
                             "street": false,
                             "validated": false,
                             "lot": true,
                             "valet": true},
-                "Wheelchair Accessible": true,
-                "Outdoor Seating": true,
-                "Attire": "casual",
-                "Alcohol": "full_bar",
-                "Waiter Service": true,
-                "Accepts Credit Cards": true,
-                "Good for Kids": false,
-                "Good For Groups": true,
-                "Price Range": 2},
+                "wheelchair_accessible": true,
+                "outdoor_seating": true,
+                "attire": "casual",
+                "alcohol": "full_bar",
+                "waiter_service": true,
+                "accepts_credit_cards": true,
+                "good_for_kids": false,
+                "good_for_groups": true,
+                "price_range": 2},
     "type": "business"
 }
 < 204
@@ -282,12 +277,10 @@ GET /api/user
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "user_id": "2WyMjf6TYATFwg6NA",
         "name": "Glen"
     },
     {
-        "id": 2,
         "business_id": "gYV6bmTSgbZMGkvXHVCowg",
         "name": "Paul"
     }
@@ -313,7 +306,7 @@ POST /api/user
 }
 < 201
 < Content-Type: application/json
-{ id: 1 }
+{ "user_id": "HzLh-2WyMjf6TYATFwg6NA" }
 
 Retrieves the information for a particular user. id is the primary key for the database
 GET /api/user/{id}
@@ -321,7 +314,6 @@ GET /api/user/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 1,
     "yelping_since": "2011-08",
     "votes": {"funny": 0,
             "useful": 1,
@@ -382,18 +374,18 @@ GET /api/user/{id}/business
         "state": "AZ",
         "stars": 3.5,
         "latitude": 33.433677495519298,
-        "attributes": {"Wi-Fi": "free",
-                    "Good For": {"dessert": false,
+        "attributes": {"wifi": "free",
+                    "good_for": {"dessert": false,
                                 "latenight": false,
                                 "lunch": false,
                                 "dinner": false,
                                 "brunch": false,
                                 "breakfast": false},
-                    "Delivery": false,
-                    "Outdoor Seating": false,
-                    "Attire": "casual",
-                    "Waiter Service": false,
-                    "Accepts Credit Cards": true},
+                    "delivery": false,
+                    "outdoor_seating": false,
+                    "attire": "casual",
+                    "waiter_service": false,
+                    "accepts_credit_cards": true},
         "type": "business"
     }
 ]
@@ -427,13 +419,11 @@ GET /api/review
 < Content-Type: application/json
 [
     {
-        "id": 1,
         "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
         "review_id": "0ESSqLfOae77muWTv_zUqA",
         "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
     },
     {
-        "id": 2,
         "user_id": "SS85hfTApRnbTPcJadra8A",
         "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
         "business_id": "70p94Ejeu1v5XlIkbKORYQ"
@@ -457,14 +447,13 @@ POST /api/review
 }
 < 201
 < Content-Type: application/json
-{ id: 2 }
+{ "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw" }
 
 Retrieves the information for a particular review. id is the primary key for the database
 GET /api/review/{id}
 < 200
 < Content-Type: application/json
 { 
-    "id": 2,
     "votes": {"funny": 0,
             "useful": 0,
             "cool": 0},
@@ -546,16 +535,16 @@ GET /api/review/{id}/business
         "state": "AZ",
         "stars": 5.0,
         "latitude": 33.379065699999998,
-        "attributes": {"Price Range": 2,
-                    "Parking": {"garage": false,
+        "attributes": {"price_range": 2,
+                    "parking": {"garage": false,
                                 "street": false,
                                 "validated": false,
                                 "lot": true,
                                 "valet": false},
-                    "By Appointment Only": true,
-                    "Accepts Credit Cards": true,
-                    "Good for Kids": true,
-                    "Wheelchair Accessible": true},
+                    "by_appointment_only": true,
+                    "accepts_credit_cards": true,
+                    "good_for_kids": true,
+                    "wheelchair_accessible": true},
         "type": "business"
     }
 ]
