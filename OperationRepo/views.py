@@ -19,7 +19,9 @@ def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
     thebusiness = Business.objects.get(data__contains=str(businessID))
-    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,"json":str(thebusiness.data)},context)
+    thereviews = Review.objects.filter(data__contains=str(thebusiness.data["business_id"]))
+    reviewsArray = toJSArray(thereviews,["stars","review_id"])
+    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,"json":str(thebusiness.data),"Reviews":str(reviewsArray)},context)
 
 
 # Reviews
@@ -38,3 +40,15 @@ def user(request, *z):
     userID = z[0]
     theuser = User.objects.get(data__contains="\"user_id\": \""+userID)
     return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data)},context)
+
+def toJSArray(l,c) :
+    s = "["
+    for obj in l :
+        s+="{"
+        for col in c :
+            s+=col+":"+"'"+str(obj.data[col])+"',"
+        s = s[:-1]
+        s+="},"
+    s = s[:-1]
+    s+="]"
+    return s

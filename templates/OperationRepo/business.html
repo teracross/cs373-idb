@@ -5,7 +5,11 @@
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
     <style type="text/css">
     .key {width: 150px;display:inline-block;}
     </style>
@@ -151,6 +155,33 @@
                     <div>Attributes not available. </div>
                 {% endif %}
             </div>
+            <script type="text/javascript">
+                $(document).ready(function()
+                {
+                    jQuery("#tblReviews").jqGrid({
+                        datatype: "local",
+                        height: 250,
+                        width: 400,
+                        colNames:['Stars','Link'],
+                        colModel:[
+                            {name:'stars',index:'stars', width:300},
+                            {name:'review_id',index:'review_id', width:50, formatter:linkIt},
+                        ],
+                        multiselect: true,
+                        caption: "Manipulating Array Data"
+                    });
+                    reviews = {{Reviews|safe}}
+                    for(i=0; i<reviews.length; i++)
+                        jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
+                });
+                function linkIt(cellValue, options, rowdata, action)
+                {
+                    return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
+                }
+            </script>
+            <table id="tblReviews">
+
+            </table>
             <div>
                 <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
                 <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
@@ -159,7 +190,6 @@
     </div>
 
     <!-- Bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>
