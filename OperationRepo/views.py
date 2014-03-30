@@ -38,7 +38,7 @@ def getJsonOneRow(cursor):
     "Returns all rows from a cursor as a dict"
     desc = cursor.description
     for row in cursor.fetchall() :
-        return str(row[1])
+        return str(row)
 
 def getJsonColumns(cursor, l) :
      for row in cursor.fetchall() :
