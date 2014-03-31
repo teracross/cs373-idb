@@ -21,7 +21,12 @@ def business(request, *z):
     thebusiness = Business.objects.get(data__contains=str(businessID))
     thereviews = Review.objects.filter(data__contains=str(thebusiness.data["business_id"]))
     reviewsArray = toJSArray(thereviews,["stars","review_id"])
-    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,"json":str(thebusiness.data),"Reviews":str(reviewsArray)},context)
+    goodFor = thebusiness.data["attributes"].pop("Good For")
+    parking = thebusiness.data["attributes"].pop("Parking")
+    theAttributesList = thebusiness.data["attributes"].items()
+    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,"json":str(thebusiness.data),
+                                                              "Reviews":thereviews,"ReviewsArray":str(reviewsArray),"AttributesList":theAttributesList,
+                                                              "GoodFor":goodFor,"Parking":parking},context)
 
 
 # Reviews

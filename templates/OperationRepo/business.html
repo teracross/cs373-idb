@@ -63,19 +63,19 @@
       </div>
         <div class="jumbotron">
             <h1><a href="{{yelpurl}}">{{business.name}}</a></h1>
-            <div><span class="key">ID: </span><span class="value">{{business.business_id }} </span></div>
-            <div><span class="key">Still Running:</span><span class="value">{{ business.is_open}}</span></div>
+            <div><span class="key">ID: </span><span class="value">{{Business.data.business_id }} </span></div>
+            <div><span class="key">Still Running:</span><span class="value">{{ Business.data.open}}</span></div>
             <div>  
                 <h2>Location:</h2>
-                <div><span class="key">Address:</span><span class="value">{{ business.full_address}}</span></div>
-                <div><span class="key">Longitude:</span><span class="value">{{ business.longitude}}</span></div>
-                <div><span class="key">Latitude:</span><span class="value">{{ business.latitude}}</span></div>    
+                <div><span class="key">Address:</span><span class="value">{{ Business.data.full_address}}</span></div>
+                <div><span class="key">Longitude:</span><span class="value">{{ Business.data.longitude}}</span></div>
+                <div><span class="key">Latitude:</span><span class="value">{{ Business.data.latitude}}</span></div>
                 {{iframeurl|safe}}
             </div>
             <div>  
                 <h2>Hours:</h2>
-                {% if business.getHours|length > 0 %}
-                    {% for day,hours in business.getHours.items %}
+                {% if Business.data.hours|length > 0 %}
+                    {% for day,hours in Business.data.hours.items %}
                         <div><span class="key">{{day}}:</span><span class="value">{{hours.open}} - {{hours.close}}</span></div>
                     {%endfor %}
                 {% else %}
@@ -84,55 +84,81 @@
             </div>
             <div>  
                 <h2>Reviews:</h2>
-                <div><span class="key"># Reviews:</span><span class="value">{{ business.review_count}}</span></div>    
-                <div><span class="key">Stars:</span><span class="value">{{ business.stars}}</span></div>
+                <span class="key"># Reviews:</span><span class="value">{{ Business.data.review_count }}</span>
+                <div><span class="key">Average Stars:</span><span class="value">{{ Business.data.stars}}</span></div>
+                <table id="tblReviews"></table>
+                <script type="text/javascript">
+                    $(document).ready(function()
+                    {
+                        jQuery("#tblReviews").jqGrid({
+                            datatype: "local",
+                            height: 250,
+                            width: 400,
+                            colNames:['Stars','Link'],
+                            colModel:[
+                                {name:'stars',index:'stars', width:300},
+                                {name:'review_id',index:'review_id', width:50, formatter:linkIt},
+                            ],
+                            multiselect: true
+                        });
+                        reviews = {{ReviewsArray|safe}}
+                        for(i=0; i<reviews.length; i++)
+                            jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
+                    });
+                    function linkIt(cellValue, options, rowdata, action)
+                    {
+                        return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
+                    }
+                </script>
+            </div>
+            <div>
+                <h2>Good For:</h2>
                 <table>
-                    <tr>
-                        <td class="key">Good for:</td>
-                        <td>
-                            {% for key,value in goodfor.items %}
-                                {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
-                                {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span><span class="value">No</span></div>
-                                {%endifequal%}
-                            {%endfor%}
+                    {% for key,value in GoodFor.items %}
+                        {% ifequal value True %}
+                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
+                        {% else %}
+                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
+                        {%endifequal%}
                         </td>
                     </tr>
-                    <tr><td></td><td><br></td></tr>
-                    <tr>
-                        <td class="key">Parking:</td>
-                        <td>
-                            {% for key,value in Parking.items %}
-                                {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
-                                {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span> <span class="value">No</span></div>
-                                {%endifequal%}
-                            {%endfor%}
+                    {%endfor%}
+                </table>
+            </div>
+            <div>
+                <h2>Parking:</h2>
+                <table>
+                    {% for key,value in Parking.items %}
+                        {% ifequal value True %}
+                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
+                        {% else %}
+                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
+                        {%endifequal%}
                         </td>
                     </tr>
-                </table>   
+                    {%endfor%}
+                </table>
 
             </div>
             <div>  
-                <h2>Metadata:</h2>
-                <div><span class="key">Categories:</span><span class="value">
-                {% if business.categoryList|length > 0 %}
-                    {% for category in business.categoryList %}{{category}},{%endfor%}
+                <h2>Categories:</h2>
+                {% if Business.data.categories|length > 0 %}
+                    {% for category in Business.data.categories %}{{category}},{%endfor%}
                 {% else %}
                     Categories not available.
                 {% endif %}
-                </span></div>
-                <div><span class="key">Neighborhoods:</span><span class="value">
-                {% if business.neighborhoodList|length > 0 %}
-                    {% for neighborhood in business.neighborhoodList %}{{neighborhood}},{%endfor%}
+            </div>
+            <div>
+                <h2>Neighborhoods</h2>
+                {% if Business.data.neighborhoods|length > 0 %}
+                    {% for neighborhood in Business.data.neighborhoods %}{{neighborhood}},{%endfor%}
                 {% else %}
                     Neighborhoods not available.
                 {% endif %}
-                </span></div>
-
-                {% for key,value in attributes.items %}
+            </div>
+            <div>  
+                <h2>Attributes:</h2>
+                {% for key,value in AttributesList %}
                     {% ifequal value True %}
                         <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
                     {%else%}
@@ -143,45 +169,7 @@
                         {%endifequal%}
                     {%endifequal%}
                 {%endfor%}
-                <div><span class="key">Type:</span><span class="value">{{business.json_type}}</span></div>
             </div>
-            <div>  
-                <h2>Attributes:</h2>
-                {% if business.getAttributes|length > 0 %}
-                    {% for key,value in business.getAttributes.items %}
-                        <div><span class="key">{{key}}:</span><span class="value">{{value}}</span></div>
-                    {%endfor %}
-                {% else %}
-                    <div>Attributes not available. </div>
-                {% endif %}
-            </div>
-            <script type="text/javascript">
-                $(document).ready(function()
-                {
-                    jQuery("#tblReviews").jqGrid({
-                        datatype: "local",
-                        height: 250,
-                        width: 400,
-                        colNames:['Stars','Link'],
-                        colModel:[
-                            {name:'stars',index:'stars', width:300},
-                            {name:'review_id',index:'review_id', width:50, formatter:linkIt},
-                        ],
-                        multiselect: true,
-                        caption: "Manipulating Array Data"
-                    });
-                    reviews = {{Reviews|safe}}
-                    for(i=0; i<reviews.length; i++)
-                        jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
-                });
-                function linkIt(cellValue, options, rowdata, action)
-                {
-                    return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
-                }
-            </script>
-            <table id="tblReviews">
-
-            </table>
             <div>
                 <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
                 <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
