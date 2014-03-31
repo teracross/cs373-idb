@@ -101,9 +101,9 @@
             </div>
             <div>  
                 <h2>Hours:</h2>
-
-                {% if hours|length > 0 %}
-                    {% for dict in hours %}
+                
+                {% if business.hours|length > 0 %}
+                    {% for dict in business.hours %}
                         <div><span class="key">{{dict.day}}:</span><span class="value">{{dict.open}} - {{dict.close}}</span></div>
                     {%endfor %}
                 {% else %}

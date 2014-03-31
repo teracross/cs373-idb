@@ -1,4 +1,7 @@
 from django.db import models
+import dateutil
+from json_field import JSONField
+
 """
 Business objects contain basic information about local businesses.
 """
@@ -14,6 +17,8 @@ class Business(models.Model):
   review_count = models.IntegerField(default=0)
   #open is a keyword in Python, so use is_open instead
   is_open = models.BooleanField()
+  #added hours json field to model - anthony 
+  hours = JSONField("hours", default=lambda:{})
   
   def __unicode__(self):
     return self.business_id

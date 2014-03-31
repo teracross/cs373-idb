@@ -55,14 +55,14 @@ def business(request, *z):
     j = json.loads(s1)
     j.pop("neighborhoods", None)
     j.pop("type", None)
-    j.pop("hours", None)
+    #j.pop("hours", None)
     j.pop("attributes", None)
     is_open = j.pop("open", None)
     j.pop("categories", None)
     business = models.Business(**j)
     business.is_open = is_open
     
-    #return HttpResponse(business.business_id)
+    #return HttpResponse(business)
     #return render_to_response('OperationRepo/business.html', d, context)
     #context_dict = sortHours(context_dict)
     return render_to_response('OperationRepo/business.html', { "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4', "business" : business, "a" : businessID, "json" : j},context)
