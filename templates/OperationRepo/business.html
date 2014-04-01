@@ -86,30 +86,20 @@
                 <h2>Reviews:</h2>
                 <span class="key"># Reviews:</span><span class="value">{{ Business.data.review_count }}</span>
                 <div><span class="key">Average Stars:</span><span class="value">{{ Business.data.stars}}</span></div>
-                <table id="tblReviews"></table>
-                <script type="text/javascript">
-                    $(document).ready(function()
-                    {
-                        jQuery("#tblReviews").jqGrid({
-                            datatype: "local",
-                            height: 250,
-                            width: 400,
-                            colNames:['Stars','Link'],
-                            colModel:[
-                                {name:'stars',index:'stars', width:300},
-                                {name:'review_id',index:'review_id', width:50, formatter:linkIt},
-                            ],
-                            multiselect: true
-                        });
-                        reviews = {{ReviewsArray|safe}}
-                        for(i=0; i<reviews.length; i++)
-                            jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
-                    });
-                    function linkIt(cellValue, options, rowdata, action)
-                    {
-                        return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
-                    }
-                </script>
+               
+                <div style="height:300px; overflow:auto;">
+                    <table class="table table-striped">
+                        <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
+                        {% for dict in Reviews %}
+                            <tr>
+                                
+                                <td>{{ dict.data.date }}</td>
+                                <td> {{ dict.data.stars }} </td>
+                                <td><a href="{% url 'review' dict.data.review_id %}"> view </a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
             </div>
             <div>
                 <h2>Good For:</h2>
