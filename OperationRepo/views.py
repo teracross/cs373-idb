@@ -28,7 +28,6 @@ def business(request, *z):
                                                               "Reviews":thereviews,"ReviewsArray":str(reviewsArray),"AttributesList":theAttributesList,
                                                               "GoodFor":goodFor,"Parking":parking},context)
 
-
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
@@ -51,9 +50,10 @@ def business_splash (request):
     context = RequestContext(request)
 
 # Want to get a dictionary with the business name as the key and the business id as the value
-    thebusinesses = Business.objects.all()[:50]
+    thebusinesses = Business.objects.all()[:10]
     businessIDs = thebusinesses.Business["business_id"]
     #businessNames = thebusinesses.data["name"]
+    {"name" : business_id}
     return HttpResponse()
     #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
 
