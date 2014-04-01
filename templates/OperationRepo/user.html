@@ -2,91 +2,117 @@
 <!DOCTYPE html>
 <html>
 <head> 
-  <meta charset='utf-8'>
-  <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
-  <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <meta charset='utf-8'>
+    <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
     <style type="text/css">
     .key {width: 150px;display:inline-block;}
     </style>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 
 <body>
   <div class='container'>
     <h1>Operation Repo - Users </h1>
     <!-- Responsive Nav Bar -->
-    <div class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb1">CS 373 IDB1</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'index' %}">Home Page</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'business' 1 %}">Thai Pan Fresh Exotic Cuisine</a></li>
-                <li><a href="{% url 'business' 2 %}">Salon Lola</a></li>
-                <li><a href="{% url 'business' 3 %}">Chipotle Mexican Grill</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
-                <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
-                <li><a href="{% url 'review' 3 %}">Review for Chipotle Mexican Grill</a></li>
-              </ul>
-            </li>
-            <li class="active dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url 'user' 1 %}">User 1</a></li>
-                <li><a href="{% url 'user' 2 %}">User 2</a></li>
-                <li><a href="{% url 'user' 3 %}">User 3</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
-    </div>
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home Page</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'business' 'WIcDFpHEnC3ihNmS7-6-ZA' %}">Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'business' '70p94Ejeu1v5XlIkbKORYQ' %}">Salon Lola</a></li>
+                  <li><a href="{% url 'business' 'WcGTSRku3mrVK7V9GKq4UQ' %}">Chipotle Mexican Grill</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'review' '0ESSqLfOae77muWTv_zUqA' %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'review' 'VyAKIaj_Rmsf_ZCHcGJyUw' %}">Review for Salon Lola</a></li>
+                  <li><a href="{% url 'review' 'DusrkpkTGPGkqK13xO1TZg' %}">Review for Chipotle Mexican Grill</a></li>
+                </ul>
+              </li>
+              <li class="active dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'user' 'JgDkCER12uiv4lbpmkZ9VA' %}">User 1</a></li>
+                  <li><a href="{% url 'user' 'SS85hfTApRnbTPcJadra8A' %}">User 2</a></li>
+                  <li><a href="{% url 'user' 'fR6Vch-D0L6OBnLMl8f9Sg' %}">User 3</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
     <div class="jumbotron">
-      <h1>{{name}}</h1>
+      <h1>{{User.data.name}}</h1>
       <div>
         <h2>About</h2>
-        <div><span class="key">User ID: </span><span class="value">{{user_id }} </span></div>
-        <div><span class="key">Yelping Since: </span><span class="value">{{yelping_since }} </span></div>
-        <div><span class="key">Elite Since: </span><span class="value">{% if elite %}{{ elite.0 }}{% else %}N/A{% endif %}</span></div>
-        <a href="{% url 'review' a %}"> {{ name }}'s Reviews</a>
+        <div><span class="key">User ID: </span><span class="value">{{User.data.user_id }} </span></div>
+        <div><span class="key">Yelping Since: </span><span class="value">{{User.data.yelping_since }} </span></div>
+        <div><span class="key">Elite Since: </span><span class="value">{% if User.data.elite %}{{ User.data.elite }}{% else %}N/A{% endif %}</span></div>
       </div>
       <div>
         <h2>Reviews</h2>
-        <div><span class="key">Reviews: </span><span class="value">{{review_count }} </span></div>
-        <div><span class="key">Average Stars: </span><span class="value">{{average_stars}} </span></div> 
+        <div><span class="key">Reviews: </span><span class="value">{{User.data.review_count }} </span></div>
+        <div><span class="key">Average Stars: </span><span class="value">{{User.data.average_stars}} </span></div>
       </div>
       <div>
         <h2>Votes</h2>
-        <div><span class="key">Fans: </span><span class="value">{{fans }} </span></div>
-        <div><span class="key">Voted funny: </span><span class="value">{{votes.funny }} </span></div>
-        <div><span class="key">Voted useful: </span><span class="value">{{votes.useful}} </span></div> 
-        <div><span class="key">Voted cool: </span><span class="value">{{votes.cool}} </span></div> 
+        <div><span class="key">Fans: </span><span class="value">{{User.data.fans }} </span></div>
+        <div><span class="key">Voted funny: </span><span class="value">{{User.data.votes.funny }} </span></div>
+        <div><span class="key">Voted useful: </span><span class="value">{{User.data.votes.useful}} </span></div>
+        <div><span class="key">Voted cool: </span><span class="value">{{User.data.votes.cool}} </span></div>
       </div>
       <div>
         <h2>Friends</h2>
-        <div><span class="key">Friends: </span><span class="value">{{ friends|length }} </span></div>
+         {{User.data.friends|length}}
+        <table id="tblFriends"></table>
+        <!--<script type="text/javascript">
+            $(document).ready(function()
+            {
+                jQuery("#tblFriends").jqGrid({
+                    datatype: "local",
+                    height: 250,
+                    width: 400,
+                    colNames:['Link'],
+                    colModel:[
+                        {name:'user_id',index:'user_id', width:50, formatter:linkIt}
+                    ],
+                    multiselect: true
+                });
+                reviews = {{FriendsArray|safe}}
+                for(i=0; i<reviews.length; i++)
+                    jQuery("#tblFriends").jqGrid('addRowData',i+1,reviews[i]);
+            });
+            function linkIt(cellValue, options, rowdata, action)
+            {
+                return "<a href='/OperationRepo/user/" + rowdata.user_id + "' >Link</a>";
+            }
+        </script>-->
       </div>
       <div>
         <h2>Compliments</h2>
         <div><span class="key">Compliments: </span>
             <span class="value">
-            {% for k,v in compliments.items %}
+            {% for k,v in User.data.compliments.items %}
             <div><span class="key">{{ k }}:</span><span class="value">{{v}}</span></div>
             {% endfor %}</span>
           </div>
@@ -99,7 +125,6 @@
   </div>
 
   <!-- Bootstrap -->
-  <script src="http://code.jquery.com/jquery.js"></script>
   <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>

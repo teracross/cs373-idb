@@ -5,7 +5,11 @@
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
+    <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
     <style type="text/css">
     .key {width: 150px;display:inline-block;}
 
@@ -19,7 +23,7 @@
     </script>
     <script type="text/javascript">
         function genMap(){
-            var myLatlng = new google.maps.LatLng({{business.latitude}},{{business.longitude}});
+            var myLatlng = new google.maps.LatLng({{business.data.latitude}},{{business.data.longitude}});
             var mapOptions = {
               zoom: 10,
               center: myLatlng
@@ -30,7 +34,7 @@
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title:"{{business.name}}"
+                title:"{{business.data.name}}"
             });
         }
         google.maps.event.addDomListener(window, 'load', genMap);    
@@ -41,70 +45,66 @@
     <div class='container'>
         <h1>Operation Repo - Businesses</h1>
         <!-- Responsive Nav Bar -->
-        <div class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb1">CS 373 IDB1</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-
-                      <li><a href="{% url 'index' %}">Home Page</a></li>
-                      <li class="active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="{% url 'business' 1 %}">Thai Pan Fresh Exotic Cuisine</a></li>
-                          <li><a href="{% url 'business' 2 %}">Salon Lola</a></li>
-                          <li><a href="{% url 'business' 3 %}">Chipotle Mexican Grill</a></li>
-                        </ul>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="{% url 'review' 1 %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
-                          <li><a href="{% url 'review' 2 %}">Review for Salon Lola</a></li>
-                          <li><a href="{% url 'review' 3 %}">Review for Chipotle Mexican Grill</a></li>
-                        </ul>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="{% url 'user' 1 %}">User 1</a></li>
-                          <li><a href="{% url 'user' 2 %}">User 2</a></li>
-                          <li><a href="{% url 'user' 3 %}">User 3</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div><!--/.container-fluid -->
-        </div>
+<div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Home Page</a></li>
+              <li class="active dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'business' 'WIcDFpHEnC3ihNmS7-6-ZA' %}">Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'business' '70p94Ejeu1v5XlIkbKORYQ' %}">Salon Lola</a></li>
+                  <li><a href="{% url 'business' 'WcGTSRku3mrVK7V9GKq4UQ' %}">Chipotle Mexican Grill</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'review' '0ESSqLfOae77muWTv_zUqA' %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'review' 'VyAKIaj_Rmsf_ZCHcGJyUw' %}">Review for Salon Lola</a></li>
+                  <li><a href="{% url 'review' 'DusrkpkTGPGkqK13xO1TZg' %}">Review for Chipotle Mexican Grill</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{% url 'user' 'JgDkCER12uiv4lbpmkZ9VA' %}">User 1</a></li>
+                  <li><a href="{% url 'user' 'SS85hfTApRnbTPcJadra8A' %}">User 2</a></li>
+                  <li><a href="{% url 'user' 'fR6Vch-D0L6OBnLMl8f9Sg' %}">User 3</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
         <div class="jumbotron">
             <h1><a href="{{yelpurl}}">{{business.name}}</a></h1>
-            <div><span class="key">ID: </span><span class="value">{{business.business_id }} </span></div>
-            <div><span class="key">Still Running:</span><span class="value">{{ business.is_open}}</span></div>
+            <div><span class="key">ID: </span><span class="value">{{Business.data.business_id }} </span></div>
+            <div><span class="key">Still Running:</span><span class="value">{{ Business.data.open}}</span></div>
             <div>  
                 <h2>Location:</h2>
-                <div><span class="key">Address:</span><span class="value">{{ business.full_address}}</span></div>
-                <div><span class="key">Longitude:</span><span class="value">{{ business.longitude}}</span></div>
-                <div><span class="key">Latitude:</span><span class="value">{{ business.latitude}}</span></div>    
-                <h2>Map:</h2>
-                <div id="map-canvas" style="height:500px">
-                
-                </div>
-
+                <div><span class="key">Address:</span><span class="value">{{ Business.data.full_address}}</span></div>
+                <div><span class="key">Longitude:</span><span class="value">{{ Business.data.longitude}}</span></div>
+                <div><span class="key">Latitude:</span><span class="value">{{ Business.data.latitude}}</span></div>
+            </div>
+            <h2>Map:</h2>
+            <div id="map-canvas" style="height:500px">
             </div>
             <div>  
                 <h2>Hours:</h2>
-                
-                {% if business.hours|length > 0 %}
-                    {% for dict in business.hours %}
-                        <div><span class="key">{{dict.day}}:</span><span class="value">{{dict.open}} - {{dict.close}}</span></div>
+                {% if Business.data.hours|length > 0 %}
+                    {% for day,hours in Business.data.hours.items %}
+                        <div><span class="key">{{day}}:</span><span class="value">{{hours.open}} - {{hours.close}}</span></div>
                     {%endfor %}
                 {% else %}
                     <div>Hours not available. </div>
@@ -112,42 +112,81 @@
             </div>
             <div>  
                 <h2>Reviews:</h2>
-                <div><span class="key"># Reviews:</span><span class="value">{{ business.review_count}}</span></div>    
-                <div><span class="key">Stars:</span><span class="value">{{ business.stars}}</span></div>
+                <span class="key"># Reviews:</span><span class="value">{{ Business.data.review_count }}</span>
+                <div><span class="key">Average Stars:</span><span class="value">{{ Business.data.stars}}</span></div>
+                <table id="tblReviews"></table>
+                <script type="text/javascript">
+                    $(document).ready(function()
+                    {
+                        jQuery("#tblReviews").jqGrid({
+                            datatype: "local",
+                            height: 250,
+                            width: 400,
+                            colNames:['Stars','Link'],
+                            colModel:[
+                                {name:'stars',index:'stars', width:300},
+                                {name:'review_id',index:'review_id', width:50, formatter:linkIt},
+                            ],
+                            multiselect: true
+                        });
+                        reviews = {{ReviewsArray|safe}}
+                        for(i=0; i<reviews.length; i++)
+                            jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
+                    });
+                    function linkIt(cellValue, options, rowdata, action)
+                    {
+                        return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
+                    }
+                </script>
+            </div>
+            <div>
+                <h2>Good For:</h2>
                 <table>
-                    <tr>
-                        <td class="key">Good for:</td>
-                        <td>
-                            {% for key,value in goodfor.items %}
-                                {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
-                                {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span><span class="value">No</span></div>
-                                {%endifequal%}
-                            {%endfor%}
+                    {% for key,value in GoodFor.items %}
+                        {% ifequal value True %}
+                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
+                        {% else %}
+                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
+                        {%endifequal%}
                         </td>
                     </tr>
-                    <tr><td></td><td><br></td></tr>
-                    <tr>
-                        <td class="key">Parking:</td>
-                        <td>
-                            {% for key,value in Parking.items %}
-                                {% ifequal value True %}
-                                    <div class="btn-success"><span>{{ key }}:</span><span class="value">Yes</span></div>
-                                {% else %}
-                                    <div class="btn-danger"><span>{{ key }}:</span> <span class="value">No</span></div>
-                                {%endifequal%}
-                            {%endfor%}
+                    {%endfor%}
+                </table>
+            </div>
+            <div>
+                <h2>Parking:</h2>
+                <table>
+                    {% for key,value in Parking.items %}
+                        {% ifequal value True %}
+                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
+                        {% else %}
+                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
+                        {%endifequal%}
                         </td>
                     </tr>
-                </table>   
-                <div><a href="{% url 'review' a %}"><span class="string">Review</span></a></div>
-                <div><a href="{% url 'user' a %}">User who has reviewed</span></a></div>
+                    {%endfor%}
+                </table>
+
             </div>
             <div>  
-                <h2>Metadata:</h2>
-                <div>Categories:</span><span class="value">{{categories}}</span></div>
-                {% for key,value in attributes.items %}
+                <h2>Categories:</h2>
+                {% if Business.data.categories|length > 0 %}
+                    {% for category in Business.data.categories %}{{category}},{%endfor%}
+                {% else %}
+                    Categories not available.
+                {% endif %}
+            </div>
+            <div>
+                <h2>Neighborhoods</h2>
+                {% if Business.data.neighborhoods|length > 0 %}
+                    {% for neighborhood in Business.data.neighborhoods %}{{neighborhood}},{%endfor%}
+                {% else %}
+                    Neighborhoods not available.
+                {% endif %}
+            </div>
+            <div>  
+                <h2>Attributes:</h2>
+                {% for key,value in AttributesList %}
                     {% ifequal value True %}
                         <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
                     {%else%}
@@ -158,7 +197,6 @@
                         {%endifequal%}
                     {%endifequal%}
                 {%endfor%}
-                <div><span class="key">Type:</span><span class="value">{{type}}</span></div>
             </div>
             <div>
                 <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
@@ -168,7 +206,6 @@
     </div>
      
     <!-- Bootstrap -->
-    <script src="http://code.jquery.com/jquery.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
    
 </body>
