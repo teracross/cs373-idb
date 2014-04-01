@@ -44,7 +44,8 @@ def user(request, *z):
     context = RequestContext(request)
     userID = z[0]
     theuser = User.objects.get(data__contains="\"user_id\": \""+userID)
-    return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data)},context)
+    friendsArray = str(theuser.data["friends"]).replace("u'","\"").replace("'","\"")
+    return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data),"FriendsArray":friendsArray},context)
 
 def toJSArray(l,c) :
     s = "["
