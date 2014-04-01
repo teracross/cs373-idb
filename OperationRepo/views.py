@@ -46,19 +46,16 @@ def user(request, *z):
     theuser = User.objects.get(data__contains="\"user_id\": \""+userID)
     return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data)},context)
 
-def getDatabase(cursor):
-    "Returns all rows from a cursor as a dict"
-    for row in cursor.fetchall() :
-        yield row
 
 def business_splash (request):
     context = RequestContext(request)
-    cursor = connections['default'].cursor()
-    #just need the first 20 businesses
-    cursor.execute("SELECT data->>'name', data->>'business_id' from businesses limit 20")
-    business_dict = dict(getDatabase(cursor))
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict":business_dict},context)
+# Want to get a dictionary with the business name as the key and the business id as the value
+    thebusinesses = Business.objects.all()[:50]
+    businessIDs = thebusinesses.Business["business_id"]
+    #businessNames = thebusinesses.data["name"]
+    return HttpResponse()
+    #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
 
 def toJSArray(l,c) :
     s = "["
