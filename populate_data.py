@@ -15,7 +15,7 @@ def populate_business():
         attributes = business_json.pop('attributes', None)
         hours = business_json.pop('hours', None)
         b = add_business(business_json)
-        for neighborhood in neighborhoods
+        for neighborhood in neighborhoods:
             Neighborhood.objects.get_or_create(business=b, name=name)
         for name in categories:
             Categories.objects.get_or_create(business=b, name=name)

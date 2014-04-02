@@ -6,7 +6,7 @@ from OperationRepo.models import *
 admin.site.register(Business)
 admin.site.register(Neighborhoods)
 admin.site.register(Categories)
-admin.site.register(Attritubes)
+admin.site.register(Attributes)
 admin.site.register(Hours)
 admin.site.register(User)
 admin.site.register(User_Votes)
