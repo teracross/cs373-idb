@@ -7,6 +7,7 @@
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}/css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
@@ -118,17 +119,21 @@
                 <span class="key"># Reviews:</span><span class="value">{{ Business.data.review_count }}</span>
                 <div><span class="key">Average Stars:</span><span class="value">{{ Business.data.stars}}</span></div>
                
-                <div style="height:300px; overflow:auto;">
+                <div id="reviewdiv" style="height:300px; overflow:auto;">
                     <table class="table table-striped">
+                        <thead>
                         <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
-                        {% for dict in Reviews %}
-                            <tr>
-                                
-                                <td>{{ dict.data.date }}</td>
-                                <td> {{ dict.data.stars }} </td>
-                                <td><a href="{% url 'review' dict.data.review_id %}"> view </a></td>
-                            </tr>
-                        {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% for dict in Reviews %}
+                                <tr>
+                                    
+                                    <td>{{ dict.data.date }}</td>
+                                    <td> {{ dict.data.stars }} </td>
+                                    <td><a href="{% url 'review' dict.data.review_id %}"> view </a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
             </div>
