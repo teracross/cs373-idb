@@ -82,7 +82,7 @@ class User_Votes(models.Model):
   
   def __unicode__(self):
     return self.vote_type
-    
+
 class Elite(models.Model):
   user = models.ForeignKey(User)
   years_elite = models.IntegerField()
