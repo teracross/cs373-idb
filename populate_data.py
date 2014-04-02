@@ -68,6 +68,9 @@ def populate_review():
         review_json['business']=Business.objects.get(business_id=business_id)
         review_json['user']=User.objects.get(user_id=user_id)
 
+        print("business_id: " + business_id)
+        print("user_id: " + user_id)
+        print("review_id: " review_json['review_id'])
         r = add_review(review_json)
 
         for key,value in review_Votes.items():
