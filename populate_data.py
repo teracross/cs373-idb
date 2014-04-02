@@ -97,9 +97,9 @@ def add_review(stuffs):
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'idb.settings')
     from OperationRepo.models import *
-    #populate_business()
-    #print("populated businesses")
-    #populate_user()
-    #print("populated users")
+    populate_business()
+    print("populated businesses")
+    populate_user()
+    print("populated users")
     populate_review()
     print("populated reviews")
