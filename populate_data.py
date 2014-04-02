@@ -73,7 +73,7 @@ def populate_review():
         for key,value in review_Votes.items():
             Review_Votes.objects.get_or_create(review=r, vote_type=key,count=value)
         
-        review_data.close()
+    review_data.close()
 
 def add_business(stuffs):
     b = Business.objects.get_or_create(**stuffs)[0]
