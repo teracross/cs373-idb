@@ -18,8 +18,8 @@ def index(request):
 def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
-    thebusiness = Business.objects.get(data__contains=str(businessID))
-    thereviews = Review.objects.filter(data__contains=str(thebusiness.data["business_id"]))#.order_by(Review.objects.data["date"])
+    thebusiness = Business.objects.get(business_id__contains=str(businessID))
+    thereviews = Review.objects.filter(data__contains=str(thebusiness.data["business_id"]))
     reviewsArray = toJSArray(thereviews,["stars","review_id"])
     goodFor = thebusiness.data["attributes"].pop("Good For", None)
     parking = thebusiness.data["attributes"].pop("Parking", None)
