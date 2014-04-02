@@ -82,14 +82,7 @@ class User_Votes(models.Model):
   
   def __unicode__(self):
     return self.vote_type
-
-class Friends(models.Model):
-  user = models.ForeignKey(User)
-  friend_id = models.CharField(max_length=128)
-  
-  def __unicode__(self):
-    return self.friend_id
-
+    
 class Elite(models.Model):
   user = models.ForeignKey(User)
   years_elite = models.IntegerField()

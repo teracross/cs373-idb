@@ -36,7 +36,6 @@ def populate_user():
         user_json.pop('type',None)
         
         user_Votes = user_json.pop('votes', None)
-        friends = user_json.pop('friends', None)
         compliments = user_json.pop('compliments', None)
         elite = user_json.pop('elite', None)
         user_json['yelping_since'] = user_json['yelping_since'] + "-01"
@@ -45,8 +44,6 @@ def populate_user():
 
         for key,value in user_Votes.items():
             User_Votes.objects.get_or_create(user=u, vote_type=key,count=value)
-        for friend_id in friends:
-            Friends.objects.get_or_create(user=u, friend_id=friend_id)
         for key,value in compliments.items():
             Compliments.objects.get_or_create(user=u, complement_type=key,num_compliments_of_this_type=value)
         for years_elite in elite:
