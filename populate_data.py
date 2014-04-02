@@ -27,11 +27,9 @@ def populate_business():
             Hours.objects.get_or_create(business=b,day_of_week=day,open_hour=hour.open,close_hour=hour.close)
 
     business_data.close()
-def populate_user():
+#def populate_user():
 
-def populate_review():
-
-
+#def populate_review():
 
 def add_business(stuffs):
     b = Business.objects.get_or_create(**stuffs)[0]
