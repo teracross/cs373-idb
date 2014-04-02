@@ -44,7 +44,7 @@ class Categories(models.Model):
 class Attributes(models.Model):
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128, unique=True)
-  value = models.TimeField(blank=True, null=True)
+  value = models.TextField(blank=True, null=True)
   
   def __unicode__(self):
     return self.name
