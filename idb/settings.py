@@ -20,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = 'h#tb420ho@#ob%u&a=rc&t2e6*m!4s-e-m538zzywi9k^8xcz@'
 
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+SITE_ID=1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
