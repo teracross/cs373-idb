@@ -67,11 +67,8 @@ def populate_review():
         
         try:
             review_json['business']=Business.objects.get(business_id=business_id)
-        except Business.DoesNotExist:
-            continue
-        try:
             review_json['user']=User.objects.get(user_id=user_id)
-        except Business.DoesNotExist:
+        except OperationRepo.models.DoesNotExist:
             continue
 
         print("business_id: " + business_id)
