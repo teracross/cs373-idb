@@ -10,10 +10,12 @@ def populate_business():
             continue
 
         business_json = json.loads(line) 
-        neighborhoods = business_json.pop('neighborhood', None)
+        business_json.pop('type',None)
+        neighborhoods = business_json.pop('neighborhoods', None)
         categories = business_json.pop('categories', None)
         attributes = business_json.pop('attributes', None)
         hours = business_json.pop('hours', None)
+        business_json['is_open'] = business_json.pop('open', None)
         b = add_business(business_json)
         for neighborhood in neighborhoods:
             Neighborhood.objects.get_or_create(business=b, name=name)
@@ -25,6 +27,9 @@ def populate_business():
             Hours.objects.get_or_create(business=b,day_of_week=day,open_hour=hour.open,close_hour=hour.close)
 
     business_data.close()
+def populate_user():
+
+def populate_review():
 
 
 
