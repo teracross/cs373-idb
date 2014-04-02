@@ -39,7 +39,7 @@ def populate_user():
         friends = user_json.pop('friends', None)
         compliments = user_json.pop('compliments', None)
         elite = user_json.pop('elite', None)
-        user_json['yelping_since'] = user_json + "-01"
+        user_json['yelping_since'] = str(user_json) + "-01"
 
         u = add_user(user_json)
 
@@ -71,5 +71,7 @@ def add_review(stuffs):
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'idb.settings')
     from OperationRepo.models import *
-    populate_business()
+    #populate_business()
+    #print("populated businesses")
     populate_user()
+    print("populated users")
