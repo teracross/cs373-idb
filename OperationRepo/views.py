@@ -33,6 +33,7 @@ def business(request, *z):
     #                                                          "GoodFor":goodFor,"Parking":parking,
     #                                                          "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
 
+
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
@@ -50,6 +51,18 @@ def user(request, *z):
     theuser = User.objects.get(data__contains="\"user_id\": \""+userID)
     friendsArray = str(theuser.data["friends"]).replace("u'","\"").replace("'","\"")
     return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data),"FriendsArray":friendsArray},context)
+
+
+def business_splash (request):
+    context = RequestContext(request)
+
+# Want to get a dictionary with the business name as the key and the business id as the value
+    thebusinesses = Business.objects.all()[:10]
+    businessIDs = thebusinesses.Business["business_id"]
+    #businessNames = thebusinesses.data["name"]
+    {"name" : business_id}
+    return HttpResponse()
+    #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
 
 def toJSArray(l,c) :
     s = "["
