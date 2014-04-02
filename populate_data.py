@@ -21,9 +21,9 @@ def populate_business():
             Neighborhood.objects.get_or_create(business=b, name=name)
         for name in categories:
             Categories.objects.get_or_create(business=b, name=name)
-        for key,value in attributes:
-            Attributes.objects.get_or_create(business=b, name=key,value=value)
-        for day,hour in hours :
+        for key,value in attributes.items():
+            Attributes.objects.get_or_create(business=b, name=key,value=str(value))
+        for day,hour in hours.items():
             Hours.objects.get_or_create(business=b,day_of_week=day,open_hour=hour.open,close_hour=hour.close)
 
     business_data.close()
