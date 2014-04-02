@@ -66,7 +66,7 @@ class User(models.Model):
   name = models.CharField(max_length=128)
   review_count = models.IntegerField(default=0)
   average_stars = models.FloatField(blank=True, null=True)
-  yelping_since = models.DateField(input_formats=('%Y-%m'),blank=True, null=True)
+  yelping_since = models.DateField(blank=True, null=True)
   fans = models.IntegerField(default=0)
 
   def __unicode__(self):

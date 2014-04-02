@@ -39,6 +39,7 @@ def populate_user():
         friends = user_json.pop('friends', None)
         compliments = user_json.pop('compliments', None)
         elite = user_json.pop('elite', None)
+        user_json['yelping_since'] = user_json + "-01"
 
         u = add_user(user_json)
 
