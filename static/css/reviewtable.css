@@ -1,0 +1,29 @@
+#reviewdiv thead, #reviewdiv tbody, #reviewdiv tr, #reviewdiv td, #reviewdiv th { display: block; }
+
+#reviewdiv thead tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+#reviewdiv thead th {
+    height: 30px;
+
+    /*text-align: left;*/
+}
+
+#reviewdiv tbody {
+    height: 250px;
+    overflow-y: auto;
+}
+
+#reviewdiv thead {
+    /* fallback */
+}
+
+
+#reviewdiv tbody td, #reviewdiv thead th {
+    width: 33%;
+    float: left;
+    }
