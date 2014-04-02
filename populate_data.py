@@ -43,5 +43,5 @@ def add_review(stuffs):
 # Start execution here!
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'idb.settings')
-    from OperationRepo.Models import *
+    from OperationRepo.models import *
     populate_business()
