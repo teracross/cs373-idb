@@ -41,7 +41,7 @@ class Categories(models.Model):
   def __unicode__(self):
     return self.name
 
-class Attritubes(models.Model):
+class Attributes(models.Model):
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128, unique=True)
   value = models.CharField(max_length=128, blank=True, null=True)
@@ -110,7 +110,7 @@ User objects contain aggregate information about a single user across all of Yel
 """
 class Review(models.Model):
   business = models.ForeignKey(Business)
-  user_id = models.ForeignKey(User)
+  user = models.ForeignKey(User)
   username = models.CharField(max_length=128)
   review_id = models.CharField(max_length=128, primary_key=True)
   stars = models.FloatField(blank=True, null=True)
