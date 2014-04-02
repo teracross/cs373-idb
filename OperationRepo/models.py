@@ -29,21 +29,21 @@ name is the name of the neighborhood
 """
 class Neighborhoods(models.Model):
   business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=128)
   
   def __unicode__(self):
     return self.name
 
 class Categories(models.Model):
   business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=128)
   
   def __unicode__(self):
     return self.name
 
 class Attributes(models.Model):
   business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=128)
   value = models.TextField(blank=True, null=True)
   
   def __unicode__(self):
@@ -77,7 +77,7 @@ class User(models.Model):
 #############################################################
 class User_Votes(models.Model):
   user = models.ForeignKey(User)
-  vote_type = models.CharField(max_length=128, unique=True)
+  vote_type = models.CharField(max_length=128)
   count = models.IntegerField(default=0)
   
   def __unicode__(self):
@@ -85,7 +85,7 @@ class User_Votes(models.Model):
 
 class Friends(models.Model):
   user = models.ForeignKey(User)
-  friend_id = models.CharField(max_length=128, unique=True)
+  friend_id = models.CharField(max_length=128)
   
   def __unicode__(self):
     return self.friend_id
@@ -99,7 +99,7 @@ class Elite(models.Model):
 
 class Compliments(models.Model):
   user = models.ForeignKey(User)
-  complement_type = models.CharField(max_length=128, unique=True)
+  complement_type = models.CharField(max_length=128)
   num_compliments_of_this_type = models.IntegerField(default=0)
   
   def __unicode__(self):
@@ -125,7 +125,7 @@ class Review(models.Model):
 #############################################################
 class Review_Votes(models.Model):
   review = models.ForeignKey(Review)
-  vote_type = models.CharField(max_length=128, unique=True)
+  vote_type = models.CharField(max_length=128)
   count = models.IntegerField(default=0)
   
   def __unicode__(self):
