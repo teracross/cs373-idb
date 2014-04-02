@@ -70,7 +70,7 @@ def populate_review():
 
         print("business_id: " + business_id)
         print("user_id: " + user_id)
-        print("review_id: " review_json['review_id'])
+        print("review_id: " + review_json['review_id'])
         r = add_review(review_json)
 
         for key,value in review_Votes.items():
