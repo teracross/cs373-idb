@@ -19,6 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'h#tb420ho@#ob%u&a=rc&t2e6*m!4s-e-m538zzywi9k^8xcz@'
 
+DATABASES['default'] = dj_database_url.config()
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -58,16 +59,19 @@ WSGI_APPLICATION = 'idb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'deso8mn255r48h',
-    'HOST': 'ec2-54-197-246-197.compute-1.amazonaws.com',
-    'PORT': 5432,
-    'USER': 'mrptrwcgqdpavw',
-    'PASSWORD': 'exLhPO8jMr2-7qGT9yYiavmLQu'
-  }
-}
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': 'deso8mn255r48h',
+#     'HOST': 'ec2-54-197-246-197.compute-1.amazonaws.com',
+#     'PORT': 5432,
+#     'USER': 'mrptrwcgqdpavw',
+#     'PASSWORD': 'exLhPO8jMr2-7qGT9yYiavmLQu'
+#   }
+# }
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
