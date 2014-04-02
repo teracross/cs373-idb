@@ -1,9 +1,7 @@
 import os
 import json
 
-
 def populate_business():
-
     business_data = open('business.txt')
     for line in business_data:
         if not ("{" in line):
@@ -27,7 +25,32 @@ def populate_business():
             Hours.objects.get_or_create(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close'])
 
     business_data.close()
-#def populate_user():
+
+def populate_user():
+    user_data = open('user.txt')
+    for line in user_data:
+        if not ("{" in line):
+            continue
+
+        user_json = json.loads(line) 
+        user_json.pop('type',None)
+        
+        user_Votes = user_json.pop('votes', None)
+        friends = user_json.pop('friends', None)
+        compliments = user_json.pop('compliments', None)
+        elite = user_json.pop('elite', None)
+
+        u = add_user(user_json)
+
+        for key,value in user_Votes.items():
+            User_Votes.objects.get_or_create(user=u, vote_type=key,count=value)
+        for friend_id in friends:
+            Friends.objects.get_or_create(user=u, friend_id=friend_id)
+        for key,value in compliments.items():
+            Compliments.objects.get_or_create(user=u, complement_type=key,num_compliments_of_this_type=value)
+        for years_elite in elite:
+            Elite.objects.get_or_create(user=u, years_elite=years_elite)
+    user_data.close()
 
 #def populate_review():
 
@@ -48,3 +71,4 @@ if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'idb.settings')
     from OperationRepo.models import *
     populate_business()
+    populate_user()

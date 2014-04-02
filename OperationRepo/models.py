@@ -6,7 +6,7 @@ Business objects contain basic information about local businesses.
 
 class Business(models.Model):
   business_id = models.CharField(max_length=128, primary_key=True)
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=128)
   full_address = models.CharField(max_length=128, blank=True, null=True)
   city = models.CharField(max_length=128, blank=True, null=True)
   state = models.CharField(max_length=128, blank=True, null=True)
@@ -63,7 +63,7 @@ Review objects contain the review text, the star rating, and information on vote
 """
 class User(models.Model):
   user_id = models.CharField(max_length=128, primary_key=True)
-  name = models.CharField(max_length=128, unique=True)
+  name = models.CharField(max_length=128)
   review_count = models.IntegerField(default=0)
   average_stars = models.FloatField(blank=True, null=True)
   yelping_since = models.DateField(blank=True, null=True)
