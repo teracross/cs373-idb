@@ -68,7 +68,7 @@ def populate_review():
         review_json['business']=Business.objects.get(business_id=business_id)
         review_json['user']=User.objects.get(user_id=user_id)
 
-        r = add_user(review_json)
+        r = add_review(review_json)
 
         for key,value in review_Votes.items():
             Review_Votes.objects.get_or_create(review=r, vote_type=key,count=value)
