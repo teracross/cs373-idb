@@ -93,17 +93,15 @@
         </div><!--/.container-fluid -->
       </div>
         <div class="jumbotron">
-            <h1><a href="{{yelpurl}}">{{business.name}}</a></h1>
+            <h1><a href="{{yelpurl}}">{{Business.data.name}}</a></h1>
             <div><span class="key">ID: </span><span class="value">{{Business.data.business_id }} </span></div>
-            <div><span class="key">Still Running:</span><span class="value">{{ Business.data.open}}</span></div>
+            <div><span class="key">Still Running:</span><span class="value">{% ifequal Business.data.open True %}Yes{%else%}{% ifequal Business.data.open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
             <div>  
                 <h2>Location:</h2>
                 <div><span class="key">Address:</span><span class="value">{{ Business.data.full_address}}</span></div>
                 <div><span class="key">Longitude:</span><span class="value">{{ Business.data.longitude}}</span></div>
                 <div><span class="key">Latitude:</span><span class="value">{{ Business.data.latitude}}</span></div>
-            </div>
-            <h2>Map:</h2>
-            <div id="map-canvas" style="height:500px">
+                <div id="map-canvas" style="height:500px"></div>
             </div>
             <div>  
                 <h2>Hours:</h2>
@@ -186,7 +184,7 @@
                         <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
                     {%else%}
                         {% ifequal value False %}
-                            <div><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
+                            <div><span class="key">{{ key }}:</span><span class="value">No</span></div>
                         {%else%}
                             <div><span class="key">{{ key }}:</span><span class="value">{{value}}</span></div>
                         {%endifequal%}
