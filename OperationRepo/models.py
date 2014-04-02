@@ -1,15 +1,3 @@
-"""
-class Business(models.Model) :
-    data = jsonfield.JSONField()
-class Review(models.Model) :
-    data = jsonfield.JSONField()
-class User(models.Model) :
-    data = jsonfield.JSONField()
-class Tip(models.Model) :
-    data = jsonfield.JSONField()
-class Checkin(models.Model) :
-    data = jsonfield.JSONField()
-"""
 from django.db import models
 
 """
@@ -19,15 +7,15 @@ Business objects contain basic information about local businesses.
 class Business(models.Model):
   business_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128, unique=True)
-  full_address = models.CharField(max_length=128)
-  city = models.CharField(max_length=128)
-  state = models.CharField(max_length=128)
-  latitude = models.FloatField()
-  longitude = models.FloatField()
-  stars = models.FloatField()
+  full_address = models.CharField(max_length=128, blank=True)
+  city = models.CharField(max_length=128, blank=True)
+  state = models.CharField(max_length=128, blank=True)
+  latitude = models.FloatField(blank=True)
+  longitude = models.FloatField(blank=True)
+  stars = models.FloatField(blank=True)
   review_count = models.IntegerField(default=0)
   #open is a keyword in Python, so use is_open instead
-  is_open = models.BooleanField()
+  is_open = models.BooleanField(blank=True)
   
   def __unicode__(self):
     return self.business_id
@@ -56,7 +44,7 @@ class Categories(models.Model):
 class Attritubes(models.Model):
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128, unique=True)
-  value = models.CharField(max_length=128)
+  value = models.CharField(max_length=128, blank=True)
   
   def __unicode__(self):
     return self.name
@@ -64,8 +52,8 @@ class Attritubes(models.Model):
 class Hours(models.Model):
   business = models.ForeignKey(Business)
   day_of_week = models.CharField(max_length=50)
-  open_hour = models.TimeField()
-  close_hour = models.TimeField()
+  open_hour = models.TimeField(blank=True)
+  close_hour = models.TimeField(blank=True)
   
   def __unicode__(self):
     return self.name
@@ -77,8 +65,8 @@ class User(models.Model):
   user_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128, unique=True)
   review_count = models.IntegerField(default=0)
-  average_stars = models.FloatField()
-  yelping_since = models.DateField()
+  average_stars = models.FloatField(blank=True)
+  yelping_since = models.DateField(blank=True)
   fans = models.IntegerField(default=0)
 
   def __unicode__(self):
@@ -122,12 +110,12 @@ User objects contain aggregate information about a single user across all of Yel
 """
 class Review(models.Model):
   business = models.ForeignKey(Business)
-  user_id = models.CharField(max_length=128)
+  user_id = models.ForeignKey(User)
   username = models.CharField(max_length=128)
   review_id = models.CharField(max_length=128, primary_key=True)
-  stars = models.FloatField()
-  text = models.TextField()
-  date = models.DateField()
+  stars = models.FloatField(blank=True)
+  text = models.TextField(blank=True)
+  date = models.DateField(blank=True)
 
   def __unicode__(self):
     return self.review_id
