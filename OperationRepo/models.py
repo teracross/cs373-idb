@@ -125,7 +125,6 @@ class Review(models.Model):
   user_id = models.CharField(max_length=128)
   username = models.CharField(max_length=128)
   review_id = models.CharField(max_length=128, primary_key=True)
-  business_id = models.CharField(max_length=128)
   stars = models.FloatField()
   text = models.TextField()
   date = models.DateField()
