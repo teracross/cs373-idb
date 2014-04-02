@@ -53,7 +53,27 @@ def populate_user():
             Elite.objects.get_or_create(user=u, years_elite=years_elite)
     user_data.close()
 
-#def populate_review():
+def populate_review():
+    review_data = open('review.txt')
+    for line in review_data:
+        if not ("{" in line):
+            continue
+
+        review_json = json.loads(line) 
+        review_json.pop('type',None)
+        user_id = review_json.pop('user_id',None)
+        business_id = review_json.pop('business_id',None)
+        review_Votes = review_json.pop('votes', None)
+        
+        review_json['business']=Business.objects.get(business_id=business_id)
+        review_json['user']=User.objects.get(user_id=user_id)
+
+        r = add_user(review_json)
+
+        for key,value in review_Votes.items():
+            Review_Votes.objects.get_or_create(review=r, vote_type=key,count=value)
+        
+        review_data.close()
 
 def add_business(stuffs):
     b = Business.objects.get_or_create(**stuffs)[0]
@@ -73,5 +93,7 @@ if __name__ == '__main__':
     from OperationRepo.models import *
     #populate_business()
     #print("populated businesses")
-    populate_user()
-    print("populated users")
+    #populate_user()
+    #print("populated users")
+    populate_review()
+    print("populated reviews")
