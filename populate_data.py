@@ -67,13 +67,13 @@ def populate_review():
         
         try:
             review_json['business']=Business.objects.get(business_id=business_id)
+        except Business.DoesNotExist:
+            continue
+        try:
             review_json['user']=User.objects.get(user_id=user_id)
-        except models.DoesNotExist:
+        except User.DoesNotExist:
             continue
 
-        print("business_id: " + business_id)
-        print("user_id: " + user_id)
-        print("review_id: " + review_json['review_id'])
         r = add_review(review_json)
 
         for key,value in review_Votes.items():
