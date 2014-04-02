@@ -15,7 +15,7 @@ class Business(models.Model):
   stars = models.FloatField(blank=True, null=True)
   review_count = models.IntegerField(default=0)
   #open is a keyword in Python, so use is_open instead
-  is_open = models. NullBooleanSelect(blank=True, null=True)
+  is_open = models. NullBooleanField(blank=True, null=True)
   
   def __unicode__(self):
     return self.business_id
