@@ -65,8 +65,14 @@ def populate_review():
         business_id = review_json.pop('business_id',None)
         review_Votes = review_json.pop('votes', None)
         
-        review_json['business']=Business.objects.get(business_id=business_id)
-        review_json['user']=User.objects.get(user_id=user_id)
+        try:
+            review_json['business']=Business.objects.get(business_id=business_id)
+        except Business.DoesNotExist:
+            continue
+        try:
+            review_json['user']=User.objects.get(user_id=user_id)
+        except Business.DoesNotExist:
+            continue
 
         print("business_id: " + business_id)
         print("user_id: " + user_id)
