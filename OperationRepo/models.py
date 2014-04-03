@@ -82,7 +82,7 @@ class User_Votes(models.Model):
   
   def __unicode__(self):
     return self.vote_type
-    
+
 class Elite(models.Model):
   user = models.ForeignKey(User)
   years_elite = models.IntegerField()
@@ -104,7 +104,6 @@ User objects contain aggregate information about a single user across all of Yel
 class Review(models.Model):
   business = models.ForeignKey(Business)
   user = models.ForeignKey(User)
-  username = models.CharField(max_length=128)
   review_id = models.CharField(max_length=128, primary_key=True)
   stars = models.FloatField(blank=True, null=True)
   text = models.TextField(blank=True, null=True)
