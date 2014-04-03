@@ -94,17 +94,21 @@
             <div>  
                 <h2>Hours:</h2>
                 <!-- not really sure how to access the subkeys-->
-                {% if Hours|length > 0 %}
-                    {% for object in Hours %}
-                        <div><span class="key">{{Hours.day_of_week}}:</span><span class="value">{{Hours.open_hour}} - {{Hours.close_hour}}</span></div>
+                {% if Hours%}
+                    {% for hour in Hours %}
+                        <div><span class="key">{{hour.day_of_week}}:</span><span class="value">{{hour.open_hour}} - {{hour.close_hour}}</span></div>
                     {%endfor %}
                 {% else %}
                     <div>Hours not available. </div>
                 {% endif %}
             </div>
             <h2>Reviews:</h2>
-            <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
-            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
+            {% if Business.review_count%}
+            <span class="key">Number of reviews:</span><span class="value">{{ Business.review_count }}</span>
+            {%endif%}
+            {% if Business.stars%}
+            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>            {%endif%}
+            {% if Reviews%}
             <div id="reviewdiv" >
                 <table class="table table-striped">
                     <thead>
@@ -121,7 +125,7 @@
                     </tbody>
                 </table>
             </div>
-            
+            {%endif%}
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>

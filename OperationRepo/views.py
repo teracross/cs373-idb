@@ -30,13 +30,15 @@ def business(request, *z):
             singleAttributesDict[objects.name] = objects.value
 
     theCategoriesList = Categories.objects.filter(business=thebusiness)
+    theHoursList = Hours.objects.filter(business=thebusiness)
 
     return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
                                                             "Reviews":thereviews,
                                                             # "ReviewsArray":thereviews,
                                                             "MultiValueAttributes":multiAtrributesDict,
                                                             "SingleValueAttributes":singleAttributesDict,
-                                                            "Categories":theCategoriesList,                                                            
+                                                            "Categories":theCategoriesList,
+                                                            "Hours":theHoursList,
                                                             "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
 
 
