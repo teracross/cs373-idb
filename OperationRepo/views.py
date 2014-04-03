@@ -47,11 +47,9 @@ def business(request, *z):
 def review(request, *z):
     context = RequestContext(request)
     reviewID = z[0]
-    thereview = Review.objects.get(review_id=str(reviewID))
-    theuser = User.objects.get(data__contains="\"user_id\": \""+thereview.data["user_id"])
-    thebusiness = Business.objects.get(data__contains=str(thereview.data["business_id"]))
-    thebusiness.data["name"] = thebusiness.data["name"][0:12]+"..."
-    return render_to_response('OperationRepo/review.html', {"Review" : thereview,"User":theuser,"Business":thebusiness,"json":str(thereview.data)},context)
+    review = Review.objects.get(review_id=reviewID)
+    review_votes_list = Review_Votes.objects.filter(review=review)
+    return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list},context)
 
 # Reviews
 def user(request, *z):
