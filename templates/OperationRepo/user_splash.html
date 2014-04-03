@@ -44,8 +44,8 @@
                     <tr><th>Users</th></tr>
                 </thead>
                 <tbody>
-                    {% for k,v in udict.items %}
-                        <tr><td><a href ="{% url 'user'  v %}">{{ k }}</a></td></tr>
+                    {% for u in userList %}
+                        <tr><td><a href ="{% url 'user'  u.user_id %}">{{ u.name }}</a></td></tr>
                     {%endfor%}
                 </tbody>
             </table>

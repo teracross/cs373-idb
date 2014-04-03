@@ -81,11 +81,8 @@ def review_splash (request):
 def user_splash (request):
     context = RequestContext(request)
     allUsers = User.objects.all()
-    users = {}
-    for u in allUsers :
-        users[str(u.name)] = u.user_id
 
-    return render_to_response('OperationRepo/review_splash.html', {"rdict": users},context)
+    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
