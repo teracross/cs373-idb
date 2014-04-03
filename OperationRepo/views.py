@@ -29,10 +29,7 @@ def business(request, *z):
         else :
             singleAttributesDict[objects.name] = objects.value
 
-
-
     theCategoriesList = Categories.objects.filter(business=thebusiness)
-
 
     return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
                                                             "Reviews":thereviews,

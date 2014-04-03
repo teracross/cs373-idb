@@ -95,17 +95,21 @@
 <!-- End Responsive Nav Bar -->
         <div class="jumbotron">
             <h1><a href="#">{{Business.name}}</a> - links aren't present in new databse </h1>
-            <div><span class="key">ID: </span><span class="value">{{Business.business_id }} </span></div>
-            <div><span class="key">Still Running:</span><span class="value">{% ifequal Business.is_open True %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
+            <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
             <div>  
                 <h2>Location:</h2>
+                {% if not Business.full_address and not Business.longitude and not Business.latitude%}
+                Location not avaliable.
+                {%else%}
+                {% if Business.full_address%}
                 <div><span class="key">Address:</span><span class="value">{{ Business.full_address}}</span></div>
+                {%endif%}
+                {% if Business.longitude and Business.latitude%}
                 <div><span class="key">Longitude:</span><span class="value">{{ Business.longitude}}</span></div>
                 <div><span class="key">Latitude:</span><span class="value">{{ Business.latitude}}</span></div>
                 <div id="map-canvas" style="height:500px"></div>
-
-
-
+                {%endif%}
+                {%endif%}
             </div>
             <div>  
                 <h2>Hours:</h2>
@@ -124,7 +128,7 @@
                 <h2>Reviews:</h2>
                 <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
                 <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
-                 <div id="reviewdiv" style="height:300px; overflow:auto;">
+                 <div id="reviewdiv" style="overflow:auto;">
                     <table class="table table-striped">
                         <thead>
                         <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
