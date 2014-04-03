@@ -83,8 +83,8 @@ class ComplimentsResource(ModelResource):
 		resource_name = 'compliments'
 
 class ReviewResource(ModelResource):
-	business_id = fields.ForeignKey(BusinessResource, 'business_id')
-	user_id = fields.ForeignKey(UserResource, 'user_id')
+	business = fields.ForeignKey(BusinessResource, 'business')
+	user = fields.ForeignKey(UserResource, 'user')
 
 
 	class Meta:
