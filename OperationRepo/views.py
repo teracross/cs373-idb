@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from OperationRepo.models import *
 from django.http import HttpResponse
+from django.db.models import Avg
 import json
 
 def index(request):
@@ -75,23 +76,15 @@ def business_splash (request):
 
 def review_splash (request):
     context = RequestContext(request)
-    allReviews = Review.objects.all()
-    reviews = {}
-    for r in allReviews :
-        u = r.user
-        b = r.business
-        reviews[str(r.review_id)] = [b.name, b.business_id, u.name, u.user_id]
-
-    return render_to_response('OperationRepo/review_splash.html', {"rdict": reviews},context)
+    allReviews = Review.objects.all().order_by("-date")
+    avgInfo = allReviews.aggregate(Avg('stars'))
+    return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo},context)
 
 def user_splash (request):
     context = RequestContext(request)
     allUsers = User.objects.all()
-    users = {}
-    for u in allUsers :
-        users[str(u.name)] = u.user_id
 
-    return render_to_response('OperationRepo/review_splash.html', {"rdict": users},context)
+    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))

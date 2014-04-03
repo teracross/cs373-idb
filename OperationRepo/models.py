@@ -58,8 +58,9 @@ class Hours(models.Model):
   def __unicode__(self):
     return self.name
 #############################################################
+
 """
-Review objects contain the review text, the star rating, and information on votes Yelp users have cast on the review. 
+User objects contain aggregate information about a single user across all of Yelp (including businesses and reviews not in this dataset).
 """
 class User(models.Model):
   user_id = models.CharField(max_length=128, primary_key=True)
@@ -99,7 +100,7 @@ class Compliments(models.Model):
     return self.complement_type
 #############################################################
 """
-User objects contain aggregate information about a single user across all of Yelp (including businesses and reviews not in this dataset).
+Review objects contain the review text, the star rating, and information on votes Yelp users have cast on the review. 
 """
 class Review(models.Model):
   business = models.ForeignKey(Business)
