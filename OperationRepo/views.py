@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from OperationRepo.models import Review
-from OperationRepo.models import User
-from OperationRepo.models import Business
+from OperationRepo.models import *
 from django.http import HttpResponse
+import json
 
 def index(request):
     # Request the context of the request.
@@ -19,26 +18,36 @@ def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
     thebusiness = Business.objects.get(business_id=str(businessID))
-    thereviews = Review.objects.get(business_id=str(businessID))
-    Attributes.objects.get(business=thebusiness)
-    #reviewsArray = toJSArray(thereviews,["stars","review_id"])
-    #goodFor = thebusiness.data["attributes"].pop("Good For", None)
-    #parking = thebusiness.data["attributes"].pop("Parking", None)
-    theAttributesList = Attributes.items()
-    #["attributes"].items()
-    return HttpResponse(theAttributesList)
+    thereviews = Review.objects.filter(business_id=str(businessID))
 
-    #return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,"json":str(thebusiness.data),
-    #                                                          "Reviews":thereviews,"ReviewsArray":str(reviewsArray),"AttributesList":theAttributesList,
-    #                                                          "GoodFor":goodFor,"Parking":parking,
-    #                                                          "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
+    theAttributesList = Attributes.objects.filter(business=thebusiness)
+    multiAtrributesDict = {}
+    singleAttributesDict = {}
+    for objects in theAttributesList :
+        if "{" in str(objects.value):
+            multiAtrributesDict[objects.name] = objects.value
+        else :
+            singleAttributesDict[objects.name] = objects.value
+
+
+    # theAttributesList = Attributes.objects.filter(business=thebusiness).exclude(name="Good For").exclude(name="Parking")
+    # goodFor = toJS(Attributes.objects.filter(name="Good For", business=thebusiness))
+    # parking = toJS(Attributes.objects.filter(name="Parking", business=thebusiness))
+
+
+    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
+                                                            "Reviews":thereviews,
+                                                            # "ReviewsArray":thereviews,
+                                                            "MultiValueAttributes":multiAtrributesDict,
+                                                            "SingleValueAttributes":singleAttributesDict,
+                                                            "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
 
 
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
     reviewID = z[0]
-    thereview = Review.objects.get(data__contains=str(reviewID))
+    thereview = Review.objects.get(review_id=str(reviewID))
     theuser = User.objects.get(data__contains="\"user_id\": \""+thereview.data["user_id"])
     thebusiness = Business.objects.get(data__contains=str(thereview.data["business_id"]))
     thebusiness.data["name"] = thebusiness.data["name"][0:12]+"..."
@@ -48,7 +57,7 @@ def review(request, *z):
 def user(request, *z):
     context = RequestContext(request)
     userID = z[0]
-    theuser = User.objects.get(data__contains="\"user_id\": \""+userID)
+    theuser = User.objects.get(user_id="\"user_id\": \""+userID)
     friendsArray = str(theuser.data["friends"]).replace("u'","\"").replace("'","\"")
     return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data),"FriendsArray":friendsArray},context)
 
@@ -64,14 +73,18 @@ def business_splash (request):
     return HttpResponse()
     #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
 
-def toJSArray(l,c) :
-    s = "["
-    for obj in l :
-        s+="{"
-        for col in c :
-            s+=col+":"+"'"+str(obj.data[col])+"',"
-        s = s[:-1]
-        s+="},"
-    s = s[:-1]
-    s+="]"
-    return s
+def toJS(a):
+    val = str(a[0].value.replace("'","\"").replace("True","true").replace("False","false"))
+    return json.loads(val)
+
+# def toJSArray(l,c) :
+#     s = "["
+#     for obj in l :
+#         s+="{"
+#         for col in c :
+#             s+=col+":"+"'"+str(obj.data[col])+"',"
+#         s = s[:-1]
+#         s+="},"
+#     s = s[:-1]
+#     s+="]"
+#     return s
