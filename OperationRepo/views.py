@@ -76,12 +76,21 @@ def business_splash (request):
 
 def review_splash (request):
     context = RequestContext(request)
-    allBusinesses = Business.objects.all()
-    businesses = {}
-    for b in allBusinesses :
-        businesses[str(b.name)] = b.business_id
+    allReviews = Review.objects.all()
+    reviews = {}
+    for r in allReviews :
+        reviews[str(r.reviewid)] = r.review_id
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
+    return render_to_response('OperationRepo/review_splash.html', {"rdict": reviews},context)
+
+def user_splash (request):
+    context = RequestContext(request)
+    allUsers = User.objects.all()
+    users = {}
+    for u in allUsers :
+        users[str(u.name)] = u.user_id
+
+    return render_to_response('OperationRepo/review_splash.html', {"rdict": users},context)
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
