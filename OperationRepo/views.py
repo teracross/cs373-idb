@@ -79,7 +79,9 @@ def review_splash (request):
     allReviews = Review.objects.all()
     reviews = {}
     for r in allReviews :
-        reviews[str(r.reviewid)] = r.review_id
+        u = r.user
+        b = r.business
+        reviews[str(r.review_id)] = [b.name, b.business_id, u.name, u.user_id]
 
     return render_to_response('OperationRepo/review_splash.html', {"rdict": reviews},context)
 
