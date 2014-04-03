@@ -67,14 +67,21 @@ def user(request, *z):
 
 def business_splash (request):
     context = RequestContext(request)
+    allBusinesses = Business.objects.all()
+    businesses = {}
+    for b in allBusinesses :
+        businesses[str(b.name)] = b.business_id
 
-# Want to get a dictionary with the business name as the key and the business id as the value
-    thebusinesses = Business.objects.all()[:10]
-    businessIDs = thebusinesses.Business["business_id"]
-    #businessNames = thebusinesses.data["name"]
-    {"name" : business_id}
-    return HttpResponse()
-    #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
+
+def business_splash (request):
+    context = RequestContext(request)
+    allBusinesses = Business.objects.all()
+    businesses = {}
+    for b in allBusinesses :
+        businesses[str(b.name)] = b.business_id
+
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
