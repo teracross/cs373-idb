@@ -7,7 +7,6 @@
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
-    <link href="{{STATIC_URL}}/css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
@@ -28,7 +27,7 @@
 
     <script type="text/javascript">
         function genMap(){
-            var myLatlng = new google.maps.LatLng({{Business.data.latitude}},{{Business.data.longitude}});
+            var myLatlng = new google.maps.LatLng({{Business.latitude}},{{Business.longitude}});
             var mapOptions = {
               zoom: 16,
               center: myLatlng
@@ -39,7 +38,7 @@
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map,
-                title:"{{business.name}}"
+                title:"{{Business.name}}"
             });
         }
         google.maps.event.addDomListener(window, 'load', genMap);    
@@ -68,7 +67,7 @@
               <li class="active dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{% url 'business' 'WIcDFpHEnC3ihNmS7-6-ZA' %}">Thai Pan Fresh Exotic Cuisine</a></li>
+                  <li><a href="{% url 'business' '02rrDia_FTc8jN7LGqzIbQ' %}">TEST!!!!</a></li>
                   <li><a href="{% url 'business' '70p94Ejeu1v5XlIkbKORYQ' %}">Salon Lola</a></li>
                   <li><a href="{% url 'business' 'WcGTSRku3mrVK7V9GKq4UQ' %}">Chipotle Mexican Grill</a></li>
                 </ul>
@@ -93,34 +92,39 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
+<!-- End Responsive Nav Bar -->
         <div class="jumbotron">
-            <h1><a href="{{yelpurl}}">{{Business.data.name}}</a></h1>
+            <h1><a href="#">{{Business.name}}</a> - links aren't present in new databse </h1>
+            <div><span class="key">ID: </span><span class="value">{{Business.business_id }} </span></div>
+            <div><span class="key">Still Running:</span><span class="value">{% ifequal Business.is_open True %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
             <div>  
                 <h2>Location:</h2>
-                <div><span class="key">Address:</span><span class="value">{{ Business.data.full_address}}</span></div>
-                <div><span class="key">Longitude:</span><span class="value">{{ Business.data.longitude}}</span></div>
-                <div><span class="key">Latitude:</span><span class="value">{{ Business.data.latitude}}</span></div>
+                <div><span class="key">Address:</span><span class="value">{{ Business.full_address}}</span></div>
+                <div><span class="key">Longitude:</span><span class="value">{{ Business.longitude}}</span></div>
+                <div><span class="key">Latitude:</span><span class="value">{{ Business.latitude}}</span></div>
                 <div id="map-canvas" style="height:500px"></div>
-            </div>
-            <br/>
-            <div><span class="key">Still in Operation:</span><span class="value">{% ifequal Business.data.open True %}Yes{%else%}{% ifequal Business.data.open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
 
+
+
+            </div>
             <div>  
                 <h2>Hours:</h2>
-                {% if Business.data.hours|length > 0 %}
-                    {% for day,hours in Business.data.hours.items %}
-                        <div><span class="key">{{day}}:</span><span class="value">{{hours.open}} - {{hours.close}}</span></div>
+                <!-- not really sure how to access the subkeys-->
+                {% if Hours|length > 0 %}
+                    {% for object in Hours %}
+                        <div><span class="key">{{Hours.day_of_week}}:</span><span class="value">{{Hours.open_hour}} - {{Hours.close_hour}}</span></div>
                     {%endfor %}
                 {% else %}
                     <div>Hours not available. </div>
                 {% endif %}
             </div>
-            <div>  
+            <div> 
+
+                <!-- We don't have the  --> 
                 <h2>Reviews:</h2>
-                <span class="key"># Reviews:</span><span class="value">{{ Business.data.review_count }}</span>
-                <div><span class="key">Average Stars:</span><span class="value">{{ Business.data.stars}}</span></div>
-               
-                <div id="reviewdiv" style="height:300px; overflow:auto;">
+                <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
+                <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
+                 <div id="reviewdiv" style="height:300px; overflow:auto;">
                     <table class="table table-striped">
                         <thead>
                         <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
@@ -129,78 +133,79 @@
                             {% for dict in Reviews %}
                                 <tr>
                                     
-                                    <td>{{ dict.data.date }}</td>
-                                    <td> {{ dict.data.stars }} </td>
-                                    <td><a href="{% url 'review' dict.data.review_id %}"> view </a></td>
+                                    <td>{{ dict.date }}</td>
+                                    <td> {{ dict.stars }} </td>
+                                    <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
             </div>
+<!-- generalize this part -->
+<!-- attributes that don't have their own set of attributes -->
+            {% for key,dict in MultiValueAttributes.items %}
+                <div>
+                    <h2>{{key}}:</h2>
+                    <table>
+                        {% for field,value in dict.items %}
+                            {% ifequal value True %}
+                                <tr class="btn-success"><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
+                            {% else %}
+                                {% ifequal value False %}
+                                    <tr class="btn-danger"><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
+                                {% else %}
+                                    <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
+                                {%endifequal%}
+                            {%endifequal%}
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+<!-- atrributes that have multiple attributes -->
+           <br/><br/>
+           {% for key,value in SingleValueAttributes.items %}
             <div>
-                <h2>Good For:</h2>
                 <table>
-                    {% for key,value in GoodFor.items %}
-                        {% ifequal value True %}
-                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
+                        {% ifequal value 'True' %}
+                            <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
                         {% else %}
-                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
+                            {% ifequal value 'False' %}
+                                <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+                            {% else %}
+                                <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                            {%endifequal%}
                         {%endifequal%}
-                        </td>
                     </tr>
-                    {%endfor%}
                 </table>
             </div>
-            <div>
-                <h2>Parking:</h2>
-                <table>
-                    {% for key,value in Parking.items %}
-                        {% ifequal value True %}
-                            <tr class="btn-success"><td><span class="key">{{ key }}:</span><span class="value">Yes</span></td></tr>
-                        {% else %}
-                            <tr class="btn-danger"><td><span class="key">{{ key }}:</span><span class="value">No</span></td></tr>
-                        {%endifequal%}
-                        </td>
-                    </tr>
-                    {%endfor%}
-                </table>
+            {%endfor%}
+<!-- END generalize this part -->
 
-            </div>
             <div>  
                 <h2>Categories:</h2>
-                {% if Business.data.categories|length > 0 %}
-                    {% for category in Business.data.categories %}{{category}},{%endfor%}
+                {% if Categories|length > 0 %}
+                    {% for category in Categories %}
+                        {{category.name}},
+                    {%endfor%}
                 {% else %}
                     Categories not available.
                 {% endif %}
             </div>
-            <div>
+<!--             <div>
                 <h2>Neighborhoods:</h2>
-                {% if Business.data.neighborhoods|length > 0 %}
-                    {% for neighborhood in Business.data.neighborhoods %}{{neighborhood}},{%endfor%}
+                {% if Neighborhoods|length > 0 %}
+                    {% for neighborhood in Neighborhoods %}{{neighborhood}},{%endfor%}
                 {% else %}
                     Neighborhoods not available.
                 {% endif %}
-            </div>
-            <div>  
-                <h2>Attributes:</h2>
-                {% for key,value in AttributesList %}
-                    {% ifequal value True %}
-                        <div ><span class="key">{{ key }}:</span><span class="value">Yes</span></div>
-                    {%else%}
-                        {% ifequal value False %}
-                            <div><span class="key">{{ key }}:</span><span class="value">No</span></div>
-                        {%else%}
-                            <div><span class="key">{{ key }}:</span><span class="value">{{value}}</span></div>
-                        {%endifequal%}
-                    {%endifequal%}
-                {%endfor%}
-            </div>
-            <div>
+            </div> -->
+
+<!--             <div>
                 <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
                 <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
-            </div>            
+            </div>      -->    
+
         </div>
     </div>
      

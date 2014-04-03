@@ -74,7 +74,7 @@ def business_splash (request):
 
     return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
 
-def business_splash (request):
+def review_splash (request):
     context = RequestContext(request)
     allBusinesses = Business.objects.all()
     businesses = {}
