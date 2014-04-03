@@ -5,6 +5,7 @@
   <meta charset='utf-8'>
   <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
   <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+  <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
   <style type="text/css">
     .key {width: 150px;display:inline-block;}
   </style>
@@ -40,16 +41,21 @@
 <!--- display first 10 businesses from the database -->
 
   <div class="jumbotron">
+
+        <p>Average Rating: {{ avgInfo.stars__avg }}</p>
+
+        <div id = "reviewdiv">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>Reviews</th></tr>
+                    <tr><th>Review Links</th><th>Date</th><th>Rating</th></tr>
                 </thead>
                 <tbody>
-                    {% for k,v in rdict.items %}
-                        <tr><td><a href ="{% url 'review' k %}">Review </a> </td><td>for <a href="{% url 'business' v.1 %}"> {{ v.0 }} </a></td><td> by <a href="{% url 'user' v.3 %}"> {{ v.2 }} </a></td></tr>
+                    {% for review in rdict %}
+                        <tr><td><a href ="{% url 'review' review.review_id %}">Review </a> </td><td>{{review.date}}</td><td>{{review.stars}}</td></tr>
                     {%endfor%}
                 </tbody>
             </table>
+        </div>
     </div>
 </div>
 
