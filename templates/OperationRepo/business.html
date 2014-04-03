@@ -149,18 +149,18 @@
             </div>
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
-            {% for key,dict in multiValueAttributes.items %}
+            {% for key,dict in MultiValueAttributes.items %}
                 <div>
-                    <h2>key:</h2>
+                    <h2>{{key}}:</h2>
                     <table>
                         {% for field,value in dict.items %}
                             {% ifequal value True %}
-                                <tr class="btn-success"><td><span class="key">field:</span><span class="value">Yes</span></td></tr>
+                                <tr class="btn-success"><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
                             {% else %}
                                 {% ifequal value False %}
-                                    <tr class="btn-danger"><td><span class="key">field:</span><span class="value">No</span></td></tr>
+                                    <tr class="btn-danger"><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
                                 {% else %}
-                                    <tr ><td><span class="key">key:</span><span class="value">value</span></td></tr>
+                                    <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
                                 {%endifequal%}
                             {%endifequal%}
                         {% endfor %}
@@ -168,27 +168,30 @@
                 </div>
             {% endfor %}
 <!-- atrributes that have multiple attributes -->
-<!--             {% for key,value in singleValueAttributes.item %}
+           <br/><br/>
+           {% for key,value in SingleValueAttributes.items %}
             <div>
-                <h2>key:</h2>
                 <table>
-                        {% ifequal value True %}
-                            <tr class="btn-success"><td><span class="key">key:</span><span class="value">Yes</span></td></tr>
+                        {% ifequal value 'True' %}
+                            <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
                         {% else %}
-                            <tr class="btn-danger"><td><span class="key">key:</span><span class="value">No</span></td></tr>
+                            {% ifequal value 'False' %}
+                                <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+                            {% else %}
+                                <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                            {%endifequal%}
                         {%endifequal%}
-                        </td>
                     </tr>
                 </table>
             </div>
-            {%endfor%} -->
+            {%endfor%}
 <!-- END generalize this part -->
 
             <div>  
                 <h2>Categories:</h2>
-                {% if Categories.items|length > 0 %}
+                {% if Categories|length > 0 %}
                     {% for category in Categories %}
-                        {{category}},
+                        {{category.name}},
                     {%endfor%}
                 {% else %}
                     Categories not available.
