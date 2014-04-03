@@ -30,6 +30,8 @@ def business(request, *z):
             singleAttributesDict[objects.name] = objects.value
 
 
+
+    # return HttpResponse(multiAtrributesDict['Ambience'])
     # theAttributesList = Attributes.objects.filter(business=thebusiness).exclude(name="Good For").exclude(name="Parking")
     # goodFor = toJS(Attributes.objects.filter(name="Good For", business=thebusiness))
     # parking = toJS(Attributes.objects.filter(name="Parking", business=thebusiness))
@@ -37,7 +39,7 @@ def business(request, *z):
 
     return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
                                                             "Reviews":thereviews,
-                                                            # "ReviewsArray":thereviews,
+                                                            "ReviewsArray":thereviews,
                                                             "MultiValueAttributes":multiAtrributesDict,
                                                             "SingleValueAttributes":singleAttributesDict,
                                                             "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
