@@ -19,7 +19,7 @@ def index(request):
 def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
-    thebusiness = Business.objects.get(business_id=str(businessID))
+    thebusiness = get_object_or_404(Business, business_id=str(businessID))
     thereviews = Review.objects.filter(business_id=str(businessID))
 
     theAttributesList = Attributes.objects.filter(business=thebusiness)
@@ -49,7 +49,7 @@ def business(request, *z):
 def review(request, *z):
     context = RequestContext(request)
     reviewID = z[0]
-    review = Review.objects.get(review_id=reviewID)
+    review = get_object_or_404(Review, review_id=reviewID)
     review_votes_list = Review_Votes.objects.filter(review=review)
     return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list},context)
 
@@ -57,7 +57,7 @@ def review(request, *z):
 def user(request, *z):
     context = RequestContext(request)
     userID = z[0]
-    user = User.objects.get(user_id=userID)
+    user = get_object_or_404(User, user_id=userID)
     user_votes_list = User_Votes.objects.filter(user=user)
     elite_list = Elite.objects.filter(user=user)
     compliments_list = Compliments.objects.filter(user=user)
