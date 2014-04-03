@@ -12,6 +12,7 @@
 
 <body>
 <div class="container">
+  <h1>Operation Repo - All Reviews </h1>
 <!-- Responsive Nav Bar -->
 <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -45,7 +46,7 @@
                 </thead>
                 <tbody>
                     {% for k,v in rdict.items %}
-                        <tr><td><a href ="{% url 'review'  v %}">{{ k }}</a></td></tr>
+                        <tr><td><a href ="{% url 'review' k %}">Review </a> </td><td>for <a href="{% url 'business' v.1 %}"> {{ v.0 }} </a></td><td> by <a href="{% url 'user' v.3 %}"> {{ v.2 }} </a></td></tr>
                     {%endfor%}
                 </tbody>
             </table>

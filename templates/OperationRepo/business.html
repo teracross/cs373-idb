@@ -7,6 +7,7 @@
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
@@ -50,49 +51,28 @@
     <div class='container'>
         <h1>Operation Repo - Businesses</h1>
         <!-- Responsive Nav Bar -->
-<div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="#">Home Page</a></li>
-              <li class="active dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'business' '02rrDia_FTc8jN7LGqzIbQ' %}">TEST!!!!</a></li>
-                  <li><a href="{% url 'business' '70p94Ejeu1v5XlIkbKORYQ' %}">Salon Lola</a></li>
-                  <li><a href="{% url 'business' 'WcGTSRku3mrVK7V9GKq4UQ' %}">Chipotle Mexican Grill</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'review' '0ESSqLfOae77muWTv_zUqA' %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
-                  <li><a href="{% url 'review' 'VyAKIaj_Rmsf_ZCHcGJyUw' %}">Review for Salon Lola</a></li>
-                  <li><a href="{% url 'review' 'DusrkpkTGPGkqK13xO1TZg' %}">Review for Chipotle Mexican Grill</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'user' 'JgDkCER12uiv4lbpmkZ9VA' %}">User 1</a></li>
-                  <li><a href="{% url 'user' 'SS85hfTApRnbTPcJadra8A' %}">User 2</a></li>
-                  <li><a href="{% url 'user' 'fR6Vch-D0L6OBnLMl8f9Sg' %}">User 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </div>
-<!-- End Responsive Nav Bar -->
+
+            <div class="navbar navbar-default" role="navigation">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="{% url 'index' %}">Home Page</a></li>
+                    <li class="active"><a href="{% url 'business_splash'%}">Businesses</a></li>
+                    <li><a href="{% url 'review_splash' %}">Reviews</a></li><!-- remove when done testing -->
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div><!--/.container-fluid -->
+            </div>
+        <!-- END Responsive Nav Bar --> 
         <div class="jumbotron">
             <h1><a href="#">{{Business.name}}</a> - links aren't present in new databse </h1>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
@@ -122,35 +102,35 @@
                     <div>Hours not available. </div>
                 {% endif %}
             </div>
-            <div> 
-
-                <!-- We don't have the  --> 
-                <h2>Reviews:</h2>
-                <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
-                <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
-                 <div id="reviewdiv" style="overflow:auto;">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
-                        </thead>
-                        <tbody>
-                            {% for dict in Reviews %}
-                                <tr>
-                                    
-                                    <td>{{ dict.date }}</td>
-                                    <td> {{ dict.stars }} </td>
-                                    <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+            <h2>Reviews:</h2>
+            <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
+            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
+            <div id="reviewdiv" >
+                <table class="table table-striped">
+                    <thead>
+                    <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for dict in Reviews %}
+                            <tr>
+                                <td>{{ dict.date }}</td>
+                                <td> {{ dict.stars }} </td>
+                                <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
+            
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
+            <h2> Attributes: </h2>
+            {% if MultiValueAttributes.items|length <= 0 and SingleValueAttributes.items|length <= 0 %}
+                No attributes available. 
+            {% endif %}
             {% for key,dict in MultiValueAttributes.items %}
                 <div>
-                    <h2>{{key}}:</h2>
+                    <h3>{{key}}:</h3>
                     <table>
                         {% for field,value in dict.items %}
                             {% ifequal value True %}
@@ -166,9 +146,8 @@
                     </table>
                 </div>
             {% endfor %}
-<!-- atrributes that have multiple attributes -->
-           <br/><br/>
-           {% for key,value in SingleValueAttributes.items %}
+<!-- atrributes that have multiple attributes -->   
+            {% for key,value in SingleValueAttributes.items %}
             <div>
                 <table>
                         {% ifequal value 'True' %}
@@ -184,6 +163,7 @@
                 </table>
             </div>
             {%endfor%}
+            
 <!-- END generalize this part -->
 
             <div>  
@@ -204,11 +184,6 @@
                     Neighborhoods not available.
                 {% endif %}
             </div> -->
-
-<!--             <div>
-                <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
-                <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
-            </div>      -->    
 
         </div>
     </div>
