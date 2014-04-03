@@ -27,8 +27,7 @@
 
     <script type="text/javascript">
         function genMap(){
-            var myLatlng = new google.maps.LatLng({{Business.latitude}},{{Business.
-                longitude}});
+            var myLatlng = new google.maps.LatLng({{Business.latitude}},{{Business.longitude}});
             var mapOptions = {
               zoom: 16,
               center: myLatlng
@@ -104,6 +103,9 @@
                 <div><span class="key">Longitude:</span><span class="value">{{ Business.longitude}}</span></div>
                 <div><span class="key">Latitude:</span><span class="value">{{ Business.latitude}}</span></div>
                 <div id="map-canvas" style="height:500px"></div>
+
+
+
             </div>
             <div>  
                 <h2>Hours:</h2>
@@ -122,30 +124,23 @@
                 <h2>Reviews:</h2>
                 <span class="key"># Reviews:</span><span class="value">{{ Business.review_count }}</span>
                 <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
-                <table id="tblReviews"></table>
-                <script type="text/javascript">
-                    $(document).ready(function()
-                    {
-                        jQuery("#tblReviews").jqGrid({
-                            datatype: "local",
-                            height: 250,
-                            width: 400,
-                            colNames:['Stars','Link'],
-                            colModel:[
-                                {name:'stars',index:'stars', width:300},
-                                {name:'review_id',index:'review_id', width:50, formatter:linkIt},
-                            ],
-                            multiselect: true
-                        });
-                        reviews = {{ReviewsArray|safe}}
-                        for(i=0; i<reviews.length; i++)
-                            jQuery("#tblReviews").jqGrid('addRowData',i+1,reviews[i]);
-                    });
-                    function linkIt(cellValue, options, rowdata, action)
-                    {
-                        return "<a href='/OperationRepo/review/" + rowdata.review_id + "' >View</a>";
-                    }
-                </script>
+                 <div id="reviewdiv" style="height:300px; overflow:auto;">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for dict in Reviews %}
+                                <tr>
+                                    
+                                    <td>{{ dict.date }}</td>
+                                    <td> {{ dict.stars }} </td>
+                                    <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
