@@ -55,10 +55,14 @@ def review(request, *z):
 def user(request, *z):
     context = RequestContext(request)
     userID = z[0]
-    theuser = User.objects.get(user_id="\"user_id\": \""+userID)
-    friendsArray = str(theuser.data["friends"]).replace("u'","\"").replace("'","\"")
-    return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data),"FriendsArray":friendsArray},context)
+    user = User.objects.get(user_id=userID)
+    user_votes_list = User_Votes.objects.filter(user=user)
+    elite_list = Elite.objects.filter(user=user)
+    compliments_list = Compliments.objects.filter(user=user)
 
+    return render_to_response('OperationRepo/user.html', 
+        {"User" : user, "User_Votes_List": user_votes_list, 
+        "Elite_List":elite_list, "Compliments_List":compliments_list},context)
 
 def business_splash (request):
     context = RequestContext(request)
