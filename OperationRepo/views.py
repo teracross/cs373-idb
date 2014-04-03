@@ -25,24 +25,23 @@ def business(request, *z):
     singleAttributesDict = {}
     for objects in theAttributesList :
         if "{" in str(objects.value):
-            multiAtrributesDict[objects.name] = objects.value
+            multiAtrributesDict[objects.name] = toJS(objects.value)
         else :
             singleAttributesDict[objects.name] = objects.value
 
 
 
-    return HttpResponse(multiAtrributesDict.keys())
-    # theAttributesList = Attributes.objects.filter(business=thebusiness).exclude(name="Good For").exclude(name="Parking")
-    # goodFor = toJS(Attributes.objects.filter(name="Good For", business=thebusiness))
-    # parking = toJS(Attributes.objects.filter(name="Parking", business=thebusiness))
+    theCategoriesList = Categories.objects.filter(business=thebusiness)
 
 
-    # return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
-    #                                                         "Reviews":thereviews,
-    #                                                         "ReviewsArray":thereviews,
-    #                                                         "MultiValueAttributes":multiAtrributesDict,
-    #                                                         "SingleValueAttributes":singleAttributesDict,
-    #                                                         "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
+    return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
+                                                            "Reviews":thereviews,
+                                                            # "ReviewsArray":thereviews,
+                                                            "MultiValueAttributes":multiAtrributesDict,
+                                                            "SingleValueAttributes":singleAttributesDict,
+                                                            "Categories":theCategoriesList,                                                            
+                                                            "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
+
 
 
 # Reviews
@@ -57,10 +56,14 @@ def review(request, *z):
 def user(request, *z):
     context = RequestContext(request)
     userID = z[0]
-    theuser = User.objects.get(user_id="\"user_id\": \""+userID)
-    friendsArray = str(theuser.data["friends"]).replace("u'","\"").replace("'","\"")
-    return render_to_response('OperationRepo/user.html', {"User" : theuser,"json":str(theuser.data),"FriendsArray":friendsArray},context)
+    user = User.objects.get(user_id=userID)
+    user_votes_list = User_Votes.objects.filter(user=user)
+    elite_list = Elite.objects.filter(user=user)
+    compliments_list = Compliments.objects.filter(user=user)
 
+    return render_to_response('OperationRepo/user.html', 
+        {"User" : user, "User_Votes_List": user_votes_list, 
+        "Elite_List":elite_list, "Compliments_List":compliments_list},context)
 
 def business_splash (request):
     context = RequestContext(request)
@@ -74,17 +77,5 @@ def business_splash (request):
     #return render_to_response('OperationRepo/business_splash.html', {"bdict": thebusinesses},context)
 
 def toJS(a):
-    val = str(a[0].value.replace("'","\"").replace("True","true").replace("False","false"))
+    val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
     return json.loads(val)
-
-# def toJSArray(l,c) :
-#     s = "["
-#     for obj in l :
-#         s+="{"
-#         for col in c :
-#             s+=col+":"+"'"+str(obj.data[col])+"',"
-#         s = s[:-1]
-#         s+="},"
-#     s = s[:-1]
-#     s+="]"
-#     return s

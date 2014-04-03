@@ -62,65 +62,33 @@
         </div><!--/.container-fluid -->
       </div>
     <div class="jumbotron">
-      <h1>{{User.data.name}}</h1>
+      <h1>{{User.name}}</h1>
       <div>
         <h2>About</h2>
-        <div><span class="key">User ID: </span><span class="value">{{User..user_id }} </span></div>
+        <div><span class="key">User ID: </span><span class="value">{{User.user_id }} </span></div>
         <div><span class="key">Yelping Since: </span><span class="value">{{User.yelping_since }} </span></div>
         <div><span class="key">Elite Since: </span><span class="value">{% if User.data.elite %}{{ User.data.elite }}{% else %}N/A{% endif %}</span></div>
+
       </div>
       <div>
         <h2>Reviews</h2>
-        <div><span class="key">Reviews: </span><span class="value">{{User.data.review_count }} </span></div>
-        <div><span class="key">Average Stars: </span><span class="value">{{User.data.average_stars}} </span></div>
+        <div><span class="key">Reviews: </span><span class="value">{{User.review_count }} </span></div>
+        <div><span class="key">Average Stars: </span><span class="value">{{User..average_stars}} </span></div>
       </div>
       <div>
         <h2>Votes</h2>
-        <div><span class="key">Fans: </span><span class="value">{{User.data.fans }} </span></div>
-        <div><span class="key">Voted funny: </span><span class="value">{{User.data.votes.funny }} </span></div>
-        <div><span class="key">Voted useful: </span><span class="value">{{User.data.votes.useful}} </span></div>
-        <div><span class="key">Voted cool: </span><span class="value">{{User.data.votes.cool}} </span></div>
-      </div>
-      <div>
-        <h2>Friends</h2>
-         {{User.data.friends|length}}
-        <table id="tblFriends"></table>
-        <!--<script type="text/javascript">
-            $(document).ready(function()
-            {
-                jQuery("#tblFriends").jqGrid({
-                    datatype: "local",
-                    height: 250,
-                    width: 400,
-                    colNames:['Link'],
-                    colModel:[
-                        {name:'user_id',index:'user_id', width:50, formatter:linkIt}
-                    ],
-                    multiselect: true
-                });
-                reviews = {{FriendsArray|safe}}
-                for(i=0; i<reviews.length; i++)
-                    jQuery("#tblFriends").jqGrid('addRowData',i+1,reviews[i]);
-            });
-            function linkIt(cellValue, options, rowdata, action)
-            {
-                return "<a href='/OperationRepo/user/" + rowdata.user_id + "' >Link</a>";
-            }
-        </script>-->
+        <div><span class="key">Fans: </span><span class="value">{{User.fans }} </span></div>
+        {% for user_votes in User_Votes_List %}
+        <div><span class="key">Voted {{user_votes.vote_type}}: </span><span class="value">{{user_votes.count }} </span></div>
+        {% endfor %}
       </div>
       <div>
         <h2>Compliments</h2>
-        <div><span class="key">Compliments: </span>
-            <span class="value">
-            {% for k,v in User.data.compliments.items %}
-            <div><span class="key">{{ k }}:</span><span class="value">{{v}}</span></div>
-            {% endfor %}</span>
-          </div>
-      </div>
-      <div>
-          <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
-          <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
-      </div>        
+        <div>{% for compliment in Compliments_List %}
+            <div><span class="key">{{ compliment.complement_type }}:</span><span class="value">{{compliment.num_compliments_of_this_type}}</span></div>
+            {% endfor %}
+        </div>
+      </div>       
     </div>
   </div>
 
