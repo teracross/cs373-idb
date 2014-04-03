@@ -27,9 +27,9 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li><a href="{% url 'index' %}">Home Page</a></li>
-          <li ><a href="{% url 'business_splash' %}">Businesses</a></li>
-          <li class ="active"><a href="{% url 'review_splash' %}">Reviews</a></li>
-          <li><a href="{% url 'user' 'all'%}">Users</a></li>
+          <li><a href="{% url 'business_splash' %}">Businesses</a></li>
+          <li><a href="{% url 'review_splash' %}">Reviews</a></li>
+          <li clas ="acive"><a href="{% url 'user_spalsh' %}">Users</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div><!--/.container-fluid -->
@@ -41,11 +41,11 @@
   <div class="jumbotron">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>Reviews</th></tr>
+                    <tr><th>Users</th></tr>
                 </thead>
                 <tbody>
-                    {% for k,v in rdict.items %}
-                        <tr><td><a href ="{% url 'review'  v %}">{{ k }}</a></td></tr>
+                    {% for k,v in udict.items %}
+                        <tr><td><a href ="{% url 'user'  v %}">{{ k }}</a></td></tr>
                     {%endfor%}
                 </tbody>
             </table>
