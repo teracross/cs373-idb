@@ -68,12 +68,9 @@ def user(request, *z):
 
 def business_splash (request):
     context = RequestContext(request)
-    allBusinesses = Business.objects.all()
-    businesses = {}
-    for b in allBusinesses :
-        businesses[str(b.name)] = b.business_id
+    allBusinesses = Business.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses},context)
 
 def review_splash (request):
     context = RequestContext(request)

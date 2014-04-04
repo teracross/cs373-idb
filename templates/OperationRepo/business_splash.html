@@ -45,8 +45,8 @@
                     <tr><th>Business</th></tr>
                 </thead>
                 <tbody>
-                    {% for k,v in bdict.items %}
-                        <tr><td><a href ="{% url 'business'  v %}">{{ k }}</a></td></tr>
+                    {% for b in bdict %}
+                        <tr><td><a href ="{% url 'business'  b.business_id %}">{{ b.name }}</a></td></tr>
                     {%endfor%}
                 </tbody>
             </table>
