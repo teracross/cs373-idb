@@ -44,7 +44,6 @@
       <h1>{{User.name}}</h1>
       <div>
         <h2>About</h2>
-        <div><span class="key">User ID: </span><span class="value">{{User.user_id }} </span></div>
         <div><span class="key">Yelping Since: </span><span class="value">{{User.yelping_since }} </span></div>
         <div><span class="key">Elite Since: </span><span class="value">{% if User.data.elite %}{{ User.data.elite }}{% else %}N/A{% endif %}</span></div>
 
