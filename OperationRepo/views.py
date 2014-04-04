@@ -42,8 +42,6 @@ def business(request, *z):
                                                             "Categories":theCategoriesList,
                                                             "Hours":theHoursList,
                                                             "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
-
-
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
