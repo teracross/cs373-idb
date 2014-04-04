@@ -6,16 +6,6 @@ from OperationRepo.models import *
 from django.http import HttpResponse
 from django.db.models import Avg
 import json
-from django.core import serializers
-from django.core.serializers.json import DjangoJSONEncoder
-
-# def index(request):
-#     # Request the context of the request.
-#     # The context contains information such as the client's machine details, for example.
-#     context = RequestContext(request)
-#     context_dict = {'message': "Hello World"}
-#     return render_to_response('OperationRepo/index.html', context_dict, context)
-
 
 # Businesses
 def get_business_all(request):
@@ -24,6 +14,20 @@ def get_business_all(request):
 def get_business_id(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     business.__dict__.pop('_state')
+
+    attr = {}
+    for attribute in Attributes.objects.filter(business=business).values():
+        if "{" in str(attribute['value']) :
+            attr[attribute['name']] = toJS(attribute['value'])
+        else:
+            attr[attribute['name']] = attribute['value']
+    business.__dict__['attributes'] = attr
+    
+    business.__dict__['neighborhoods'] = list(Neighborhoods.objects.filter(business=business).values())
+    business.__dict__['Categories'] = list(Categories.objects.filter(business=business).values())
+    business.__dict__['Hours'] = {hour['day_of_week'] : {str(hour['open_hour'])[:-3]:str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+    
+    business.__dict__['type'] = "business"
     return HttpResponse(json.dumps(business.__dict__))
 
 def get_business_id_user(request, business_id):
@@ -32,12 +36,26 @@ def get_business_id_user(request, business_id):
     for review in reviews:
         review.user.__dict__.pop('_state')
         review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
+
+        review.user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=review.user).values()}
+        review.user.__dict__['elite'] = list(Elite.objects.filter(user=review.user).values())
+        review.user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=review.user).values()}
+        review.user.__dict__['type'] = "user"
     users = [review.user.__dict__ for review in reviews]
+
     return HttpResponse(json.dumps(users))
 
 def get_business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
-    return HttpResponse(json.dumps(list(Review.objects.filter(business=business).values()),cls=DjangoJSONEncoder))
+    reviews = Review.objects.filter(business=business)
+    for review in reviews:
+        review.__dict__.pop('_state')
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+        review.__dict__['date'] = str(review.__dict__['date'])
+
+    reviews_dict = [review.__dict__ for review in reviews]
+    return HttpResponse(json.dumps(list(reviews_dict)))
 
 # Users
 def get_user_all(request):
@@ -81,3 +99,7 @@ def get_review_id_user(request, review_id):
     review.user.__dict__.pop('_state')
     review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
     return HttpResponse(json.dumps(review.user.__dict__))
+
+def toJS(a):
+    val = str(a).replace("'","\"").replace("True","true").replace("False","false")
+    return json.loads(val)
