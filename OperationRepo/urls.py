@@ -1,21 +1,6 @@
 from django.conf.urls import *
-# from tastypie.api import Api
 from OperationRepo import views
 from OperationRepo import api
-
-
-# idb_api = Api(api_name='idb')
-# idb_api.register(BusinessResource())
-# idb_api.register(NeighborhoodsResource())
-# idb_api.register(CategoriesResource())
-# idb_api.register(AttributesResource())
-# idb_api.register(HoursResource())
-# idb_api.register(UserResource())
-# idb_api.register(User_VotesResource())
-# idb_api.register(EliteResource())
-# idb_api.register(ComplimentsResource())
-# idb_api.register(ReviewResource())
-# idb_api.register(Review_VotesResource())
 
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
@@ -29,5 +14,8 @@ urlpatterns = patterns('',
     url(r'^api/business/(\S+)/$',api.get_business_id, name='get_business_id'),
     url(r'^api/business/(\S+)/user$',api.get_business_id_user, name='get_business_id_user'),
     url(r'^api/business/(\S+)/review$',api.get_business_id_review, name='get_business_id_review'),
-    # url(r'^api/', include(idb_api.urls)),
+    url(r'^api/user/$',api.get_user_all, name='get_user_all'),
+    url(r'^api/user/(\S+)/$',api.get_user_id, name='get_user_id'),
+    url(r'^api/user/(\S+)/business$',api.get_user_id_business, name='get_user_id_business'),
+    url(r'^api/user/(\S+)/review$',api.get_user_id_review, name='get_user_id_review'),
 )

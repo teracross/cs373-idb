@@ -37,6 +37,25 @@ def get_business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     return HttpResponse(json.dumps(list(Review.objects.filter(business=business).values()),cls=DjangoJSONEncoder))
 
+# Users
+def get_user_all(request):
+    return HttpResponse(json.dumps(list(User.objects.all().values('user_id','name'))))
+
+def get_user_id(request, user_id):
+    return HttpResponse(list(User.objects.filter(user_id=user_id).values()))
+
+def get_user_id_business(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
+    reviews = Review.objects.filter(user=user)
+    for review in reviews:
+        review.business.__dict__.pop('_state')
+    business = [review.business.__dict__ for review in reviews]
+    return HttpResponse(json.dumps(business))
+
+def get_user_id_review(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
+    return HttpResponse(json.dumps(list(Review.objects.filter(user=user).values()),cls=DjangoJSONEncoder))
+
 # # Reviews
 # def review(request, *z):
 #     context = RequestContext(request)
