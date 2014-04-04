@@ -32,8 +32,8 @@ should link back to user reviewing and business reviewed-->
           <ul class="nav navbar-nav">
             <li><a href="{% url 'index' %}">Home Page</a></li>
             <li><a href="{% url 'business_splash' %}">Businesses</a></li>
-            <li><a href="{% url 'review_splash' %}">Reviews</a></li>
-            <li class="active"><a href="{% url 'user_splash' %}">Users</a></li>
+            <li class="active"><a href="{% url 'review_splash' %}">Reviews</a></li>
+            <li><a href="{% url 'user_splash' %}">Users</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
@@ -53,6 +53,9 @@ should link back to user reviewing and business reviewed-->
               <div><span class="key">{{stuff.vote_type}}: </span><span class="value">{{stuff.count}} </span></div>
               {%endfor%}
             </div>
+
+            <h2> Comments </h2>
+             {{ Review.text }}
         </div>
 
     </div>
