@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.db.models import Avg
 import json
 from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
 
 # def index(request):
 #     # Request the context of the request.
@@ -17,8 +18,24 @@ from django.core import serializers
 
 
 # Businesses
-def business(request):
-    return HttpResponse(serializers.serialize('json', Business.objects.all()))
+def get_business_all(request):
+    return HttpResponse(json.dumps(list(Business.objects.all().values('business_id','name'))))
+
+def get_business_id(request, business_id):
+    return HttpResponse(list(Business.objects.filter(business_id=business_id).values()))
+
+def get_business_id_user(request, business_id):
+    business = get_object_or_404(Business, business_id=business_id)
+    reviews = Review.objects.filter(business=business)
+    for review in reviews:
+        review.user.__dict__.pop('_state')
+        review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
+    users = [review.user.__dict__ for review in reviews]
+    return HttpResponse(json.dumps(users))
+
+def get_business_id_review(request, business_id):
+    business = get_object_or_404(Business, business_id=business_id)
+    return HttpResponse(json.dumps(list(Review.objects.filter(business=business).values()),cls=DjangoJSONEncoder))
 
 # # Reviews
 # def review(request, *z):
@@ -62,6 +79,6 @@ def business(request):
 
 #     return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
 
-# def toJS(a):
-#     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
-#     return json.loads(val)
+def toJSstr(a):
+    val = str(a).replace("'","\"").replace("True","true").replace("False","false")
+    return val
