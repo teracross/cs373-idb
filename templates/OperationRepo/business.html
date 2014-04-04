@@ -92,6 +92,9 @@
                 {%endif%}
                 {%endif%}
             </div>
+            <br/>
+            <div><span class="key">Still in Operation:</span><span class="value">{% ifequal Business.data.open True %}Yes{%else%}{% ifequal Business.data.open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
+
             <div>  
                 <h2>Hours:</h2>
                 <!-- not really sure how to access the subkeys-->
