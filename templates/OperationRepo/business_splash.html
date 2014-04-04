@@ -1,0 +1,61 @@
+<!-- Homepage - links to our various html pages for business, users and reviews.-->
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset='utf-8'>
+  <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
+  <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+  <style type="text/css">
+    .key {width: 150px;display:inline-block;}
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Operation Repo - All Businesses </h1>
+<!-- Responsive Nav Bar -->
+<div class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'index' %}">Home Page</a></li>
+          <li class="active"><a href="{% url 'business_splash' %}">Businesses</a></li>
+          <li><a href="{% url 'review_splash' %}">Reviews</a></li>
+          <li><a href="{% url 'user_splash' %}">Users</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </div>
+<!-- END Responsive Nav Bar --> 
+
+<!--- display first 10 businesses from the database -->
+
+  <div class="jumbotron">
+            <table class="table table-striped">
+                <thead>
+                    <tr><th>Business</th></tr>
+                </thead>
+                <tbody>
+                    {% for k,v in bdict.items %}
+                        <tr><td><a href ="{% url 'business'  v %}">{{ k }}</a></td></tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+    </div>
+</div>
+
+
+     <!-- Bootstrap -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+</body>
+</html>

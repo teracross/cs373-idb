@@ -18,66 +18,44 @@ should link back to user reviewing and business reviewed-->
         <h1>Operation Repo - Review {{ a }} </h1>
         <!-- Responsive Nav Bar -->
 <div class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="#">Home Page</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'business' 'WIcDFpHEnC3ihNmS7-6-ZA' %}">Thai Pan Fresh Exotic Cuisine</a></li>
-                  <li><a href="{% url 'business' '70p94Ejeu1v5XlIkbKORYQ' %}">Salon Lola</a></li>
-                  <li><a href="{% url 'business' 'WcGTSRku3mrVK7V9GKq4UQ' %}">Chipotle Mexican Grill</a></li>
-                </ul>
-              </li>
-              <li class="active dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'review' '0ESSqLfOae77muWTv_zUqA' %}">Review for Thai Pan Fresh Exotic Cuisine</a></li>
-                  <li><a href="{% url 'review' 'VyAKIaj_Rmsf_ZCHcGJyUw' %}">Review for Salon Lola</a></li>
-                  <li><a href="{% url 'review' 'DusrkpkTGPGkqK13xO1TZg' %}">Review for Chipotle Mexican Grill</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'user' 'JgDkCER12uiv4lbpmkZ9VA' %}">User 1</a></li>
-                  <li><a href="{% url 'user' 'SS85hfTApRnbTPcJadra8A' %}">User 2</a></li>
-                  <li><a href="{% url 'user' 'fR6Vch-D0L6OBnLMl8f9Sg' %}">User 3</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </div>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'index' %}">Home Page</a></li>
+            <li><a href="{% url 'business_splash' %}">Businesses</a></li>
+            <li class="active"><a href="{% url 'review_splash' %}">Reviews</a></li>
+            <li><a href="{% url 'user_splash' %}">Users</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </div>
 
         <div class="jumbotron">
-            <h1>Review for <a href="{% url 'business' Business.data.business_id %}">{{ Business.data.name }}</a> by <a href="{% url 'user' User.data.user_id %}"> {{ User.data.name }} </a> </h1>
-            <div><span class="key">Review ID: </span><span class="value">{{Review.data.review_id}} </span></div>
-            <div><span class="key">User name: </span><span class="value">{{User.data.name}} </span></div>
-            <div><span class="key">Business name: </span><span class="value">{{Business.data.name}} </span></div>
-            <div><span class="key">Date: </span><span class="value">{{Review.data.date}} </span></div>
-            <div><span class="key">Stars: </span><span class="value">{{Review.data.stars}} </span></div>
-            <p>{{Review.data.text}} </p>
+            <h1>Review for <a href="{% url 'business' Review.business.business_id %}">{{ Review.business.name }}</a> by <a href="{% url 'user' Review.user.user_id %}"> {{ Review.user.name }} </a> </h1>
+            <div><span class="key">Review ID: </span><span class="value">{{Review.review_id}} </span></div>
+            <div><span class="key">User name: </span><span class="value">{{Review.user.name}} </span></div>
+            <div><span class="key">Business name: </span><span class="value">{{Review.business.name}} </span></div>
+            <div><span class="key">Date: </span><span class="value">{{Review.date}} </span></div>
+            <div><span class="key">Stars: </span><span class="value">{{Review.stars}} </span></div>
+
             <div>
               <h2>Votes</h2>
-              <div><span class="key">Funny: </span><span class="value">{{Review.data.votes.funny}} </span></div>
-              <div><span class="key">Useful: </span><span class="value">{{Review.data.votes.useful}} </span></div>
-              <div><span class="key">Cool: </span><span class="value">{{Review.data.votes.cool}} </span></div>
+              {%for stuff in Review_Votes_List%}
+              <div><span class="key">{{stuff.vote_type}}: </span><span class="value">{{stuff.count}} </span></div>
+              {%endfor%}
             </div>
-            <div>
-                <h2><a data-toggle="collapse" href="#collapseJSON">Raw JSON:</a></h2>
-                <pre class="prettyprint collapse" id="collapseJSON">{{json}}</pre>
-            </div>              
+
+            <h2> Comments </h2>
+             {{ Review.text }}
         </div>
 
     </div>
