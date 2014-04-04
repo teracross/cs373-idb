@@ -18,4 +18,8 @@ urlpatterns = patterns('',
     url(r'^api/user/(\S+)/$',api.get_user_id, name='get_user_id'),
     url(r'^api/user/(\S+)/business$',api.get_user_id_business, name='get_user_id_business'),
     url(r'^api/user/(\S+)/review$',api.get_user_id_review, name='get_user_id_review'),
+    url(r'^api/review/$',api.get_review_all, name='get_review_all'),
+    url(r'^api/review/(\S+)/$',api.get_review_id, name='get_review_id'),
+    url(r'^api/review/(\S+)/business$',api.get_review_id_business, name='get_review_id_business'),
+    url(r'^api/review/(\S+)/user$',api.get_review_id_user, name='get_review_id_user'),
 )
