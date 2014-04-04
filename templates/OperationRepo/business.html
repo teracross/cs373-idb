@@ -104,6 +104,9 @@
                 {% endif %}
             </div>
             <h2>Reviews:</h2>
+            {% if not Business.review_count and not Business.stars and not Review%}
+            Reviews not available.
+            {% endif %}
             {% if Business.review_count%}
             <span class="key">Number of reviews:</span><span class="value">{{ Business.review_count }}</span>
             {%endif%}
