@@ -1,110 +1,67 @@
-from django.contrib.auth.models import *
-from tastypie import fields
-from tastypie.authorization import Authorization
-from tastypie.resources import ModelResource
+from django.shortcuts import render
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 from OperationRepo.models import *
-import copy
+from django.http import HttpResponse
+from django.db.models import Avg
+import json
+from django.core import serializers
 
-class BusinessResource(ModelResource):
-
-	class Meta:
-		queryset = Business.objects.all()
-		resource_name = 'business'
-		include_resource_uri = False
-		authorization= Authorization()
-
-	def alter_list_data_to_serialize(self, request, business_dict):
-		if isinstance(business_dict, dict):
-			if 'meta' in business_dict:
-				del(business_dict['meta'])
-		return business_dict['objects']
-
-class NeighborhoodsResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-
-	class Meta:
-		queryset = Neighborhoods.objects.all()
-		resource_name = 'neighborhoods'
-
-class CategoriesResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-
-	class Meta:
-		queryset = Categories.objects.all()
-		resource_name = 'categories'
-
-class AttributesResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-
-	class Meta:
-		queryset = Attributes.objects.all()
-		resource_name = 'attributes'
-
-class HoursResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-
-	class Meta:
-		queryset = Hours.objects.all()
-		resource_name = 'hours'
-
-class UserResource(ModelResource):
-
-	class Meta:
-		queryset = User.objects.all()
-		resource_name = 'user'
-		include_resource_uri = False
-		authorization= Authorization()
-
-	def alter_list_data_to_serialize(self, request, user_dict):
-		if isinstance(user_dict, dict):
-			if 'meta' in user_dict:
-				del(user_dict['meta'])
-		return user_dict['objects']
-
-class User_VotesResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-
-	class Meta:
-		queryset = User_Votes.objects.all()
-		resource_name = 'user_votes'
-
-class EliteResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-
-	class Meta:
-		queryset = Elite.objects.all()
-		resource_name = 'elite'
-
-class ComplimentsResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-
-	class Meta:
-		queryset = Compliments.objects.all()
-		resource_name = 'compliments'
-
-class ReviewResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-	user = fields.ForeignKey(UserResource, 'user')
+# def index(request):
+#     # Request the context of the request.
+#     # The context contains information such as the client's machine details, for example.
+#     context = RequestContext(request)
+#     context_dict = {'message': "Hello World"}
+#     return render_to_response('OperationRepo/index.html', context_dict, context)
 
 
-	class Meta:
-		queryset = Review.objects.all()
-		resource_name = 'review'
-		include_resource_uri = False
-		authorization= Authorization()
+# Businesses
+def business(request):
+    return HttpResponse(serializers.serialize('json', Business.objects.all()))
 
-	def alter_list_data_to_serialize(self, request, review_dict):
-		if isinstance(review_dict, dict):
-			if 'meta' in review_dict:
-				del(review_dict['meta'])
-		return review_dict['objects']
+# # Reviews
+# def review(request, *z):
+#     context = RequestContext(request)
+#     reviewID = z[0]
+#     review = get_object_or_404(Review, review_id=reviewID)
+#     review_votes_list = Review_Votes.objects.filter(review=review)
+#     return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list},context)
 
-class Review_VotesResource(ModelResource):
-	review = fields.ForeignKey(ReviewResource, 'review')
+# # Reviews
+# def user(request, *z):
+#     context = RequestContext(request)
+#     userID = z[0]
+#     user = get_object_or_404(User, user_id=userID)
+#     user_votes_list = User_Votes.objects.filter(user=user)
+#     elite_list = Elite.objects.filter(user=user)
+#     compliments_list = Compliments.objects.filter(user=user)
 
-	class Meta:
-		queryset = Review_Votes.objects.all()
-		resource_name = 'review_votes'
-		excludes = ["business:", "user", "username", "resource_uri"]
+#     return render_to_response('OperationRepo/user.html', 
+#         {"User" : user, "User_Votes_List": user_votes_list, 
+#         "Elite_List":elite_list, "Compliments_List":compliments_list},context)
 
+# def business_splash (request):
+#     context = RequestContext(request)
+#     allBusinesses = Business.objects.all()
+#     businesses = {}
+#     for b in allBusinesses :
+#         businesses[str(b.name)] = b.business_id
 
+#     return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
+
+# def review_splash (request):
+#     context = RequestContext(request)
+#     allReviews = Review.objects.all().order_by("-date")
+#     avgInfo = allReviews.aggregate(Avg('stars'))
+#     return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo},context)
+
+# def user_splash (request):
+#     context = RequestContext(request)
+#     allUsers = User.objects.all()
+
+#     return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
+
+# def toJS(a):
+#     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
+#     return json.loads(val)
