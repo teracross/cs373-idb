@@ -1,3 +1,12 @@
+#reviewdiv {
+    min-width: 50px;
+    overflow-x: auto;
+}
+
+#reviewdiv table {
+    table-layout: fixed;
+}
+
 #reviewdiv thead, #reviewdiv tbody, #reviewdiv tr, #reviewdiv td, #reviewdiv th { display: block; }
 
 #reviewdiv thead tr:after {
@@ -16,8 +25,6 @@
 #reviewdiv tbody {
     max-height: 222px;
     overflow-y: auto;
-    min-width: 200px; 
-    overflow-x: auto;
 }
 
 #reviewdiv thead {
@@ -28,4 +35,5 @@
 #reviewdiv tbody td, #reviewdiv thead th {
     width: 33%;
     float: left;
-    }
+    overflow-y: visible;
+}

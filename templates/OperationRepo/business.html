@@ -35,7 +35,9 @@
                 title:"{{Business.name}}"
             });
         }
-        google.maps.event.addDomListener(window, 'load', genMap);    
+
+        google.maps.event.addDomListener(window, 'load', genMap);   
+        google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
 
 </head>
@@ -104,8 +106,9 @@
             <span class="key">Number of reviews:</span><span class="value">{{ Business.review_count }}</span>
             {%endif%}
             {% if Business.stars%}
-            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>            {%endif%}
-            {% if Reviews%}
+            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
+            {%endif%}
+            {% if Reviews %}
             <div id="reviewdiv" >
                 <table class="table table-striped">
                     <thead>
@@ -181,15 +184,6 @@
                     Categories not available.
                 {% endif %}
             </div>
-            <!-- <div>
-                <h2>Neighborhoods:</h2>
-                {% for n in Neighborhoods%}
-                    {{ n.name }},
-                {% empty %}
-                    Neighborhoods not available. 
-                {% endfor %}
-            </div> -->
-
         </div>
     </div>
      
