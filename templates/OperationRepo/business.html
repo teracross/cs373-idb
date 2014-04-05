@@ -134,49 +134,51 @@
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>
-            {% if MultiValueAttributes.items|length <= 0 %}
-                No attributes available. 
-            {% endif %}
-            {% for key,dict in MultiValueAttributes.items %}
-                <div>
-                    <h3>{{key}}:</h3>
-                    <table>
-                        {% for field,value in dict.items %}
-                            {% ifequal value True %}
-                                <tr class="btn-success"><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
-                            {% else %}
-                                {% ifequal value False %}
-                                    <tr class="btn-danger"><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
+            <div class='row' style="color: #000000;"><hr/></div>
+            <div class="foreign_content">
+                {% if MultiValueAttributes.items|length <= 0 %}
+                    No attributes available. 
+                {% endif %}
+                {% for key,dict in MultiValueAttributes.items %}
+                    <div style="float: left; padding-right: 20px;">
+                        <h3>{{key}}:</h3>
+                        <table>
+                            {% for field,value in dict.items %}
+                                {% ifequal value True %}
+                                    <tr><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
                                 {% else %}
-                                    <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
+                                    {% ifequal value False %}
+                                        <tr><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
+                                    {% else %}
+                                        <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
+                                    {%endifequal%}
                                 {%endifequal%}
-                            {%endifequal%}
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endfor %}
-<!-- atrributes that have multiple attributes -->  
-            {% if SingleValueAttributes.items|length > 0  %}
-                <h2> Miscellaneous: </h2>
-                {% for key,value in SingleValueAttributes.items %}
-                <div>
-                    <table>
-                            {% ifequal value 'True' %}
-                                <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
-                            {% else %}
-                                {% ifequal value 'False' %}
-                                    <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
-                                {% else %}
-                                    <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
-                                {%endifequal%}
-                            {%endifequal%}
-                        </tr>
-                    </table>
-                </div>
-                {%endfor%}
-            {% endif %}            
-<!-- END generalize this part -->
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endfor %}
+                {% if SingleValueAttributes.items|length > 0  %}
+                <div style="float: left; padding-right: 20px; ">
+                    <h2> Miscellaneous: </h2>
+                    {% for key,value in SingleValueAttributes.items %}
 
+                        <table>
+                                {% ifequal value 'True' %}
+                                    <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
+                                {% else %}
+                                    {% ifequal value 'False' %}
+                                        <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+                                    {% else %}
+                                        <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                                    {%endifequal%}
+                                {%endifequal%}
+                            </tr>
+                        </table>
+                    
+                    {%endfor%}
+                </div>
+                {% endif %}            
+            </div>
             <div>  
                 <h2>Categories:</h2>
                 {% if Categories|length > 0 %}
@@ -187,13 +189,13 @@
                     Categories not available.
                 {% endif %}
             </div>
-<!--             <div>
+            <!-- <div>
                 <h2>Neighborhoods:</h2>
-                {% if Neighborhoods|length > 0 %}
-                    {% for neighborhood in Neighborhoods %}{{neighborhood}},{%endfor%}
-                {% else %}
-                    Neighborhoods not available.
-                {% endif %}
+                {% for n in Neighborhoods%}
+                    {{ n.name }},
+                {% empty %}
+                    Neighborhoods not available. 
+                {% endfor %}
             </div> -->
 
         </div>
