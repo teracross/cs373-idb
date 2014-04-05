@@ -70,7 +70,7 @@
             </div>
         <!-- END Responsive Nav Bar --> 
         <div class="jumbotron">
-            <h1><a href="#">{{Business.name}}</a></h1>
+            <h1>{{Business.name}}</h1>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
             <div>  
                 <h2>Location:</h2>
