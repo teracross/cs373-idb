@@ -48,8 +48,9 @@
                     <tr><th>Review Links</th><th>Date</th><th>Rating</th></tr>
                 </thead>
                 <tbody>
+                    {% load app_filters %}
                     {% for review in rdict %}
-                        <tr><td><a href ="{% url 'review' review.review_id %}">Review </a> </td><td>{{review.date}}</td><td>{{review.stars}}</td></tr>
+                        <tr><td><a href ="{% url 'review' review.review_id %}">Review </a> </td><td>{{review.date}}</td><td>{{review.stars}} {% for i in review.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %} </td></tr>
                     {%endfor%}
                 </tbody>
             </table>
