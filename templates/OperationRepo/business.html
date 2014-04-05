@@ -119,10 +119,11 @@
                     <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
                     </thead>
                     <tbody>
+                        {% load app_filters %}
                         {% for dict in Reviews %}
                             <tr>
                                 <td>{{ dict.date }}</td>
-                                <td> {{ dict.stars }} </td>
+                                <td> {{ dict.stars }} {% for i in dict.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %}</td>
                                 <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
                             </tr>
                         {% endfor %}
