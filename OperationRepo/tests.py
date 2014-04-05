@@ -1,4 +1,5 @@
 from urllib.request import urlopen, Request
+from urllib.error import HTTPError
 from json import dumps, loads
 from django.test import TestCase
 
@@ -452,7 +453,10 @@ class API_Test(TestCase) :
         response_body = response.read()
         self.assertTrue(response.getcode() == 204)
 
+
+    #---
     #api get tests
+    #---
     def test_api_get_all_business(self):
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/")
         response = urlopen(request)
@@ -472,6 +476,14 @@ class API_Test(TestCase) :
         content = loads(body_content)
         actual =  {"attributes": {"accepts_credit_cards": "true", "alcohol": "full_bar", "ambience": "{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': true}", "attire": "casual", "coat_check": "false", "delivery": "false", "good_for": "{'latenight': false, 'lunch': true, 'brunch': false, 'dinner': true, 'breakfast': false, 'dessert': true}", "good_for_dancing": "false", "good_for_groups": "true", "good_for_kids": "true", "happy_hour": "true", "has_tv": "true", "music": "{'dj': false, 'karaoke': false, 'live': false, 'video': false, 'jukebox': false, 'background_music': true}", "noise_level": "very_loud", "outdoor_seating": "true", "parking": "{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "2", "smoking": "outdoor", "takeout": "true", "takes_reservations": "false", "waiter_service": "true", "wheelchair_accessible": "true", "wifi": "free"}, "business_id": "00eGk1ntf4RiDxVRY3gaIw", "categories": ["Restaurants", "Salad", "Pizza", "American (Traditional)"], "city": "Mesa", "hours": {"Friday": {"close": "02:00:00", "open": "11:00:00"}, "Monday": {"close": "02:00:00", "open": "11:00:00"}, "Saturday": {"close": "02:00:00", "open": "11:00:00"}, "Sunday": {"close": "02:00:00", "open": "11:00:00"}, "Thursday": {"close": "02:00:00", "open": "11:00:00"}, "Tuesday": {"close": "02:00:00", "open": "11:00:00"}, "Wednesday": {"close": "02:00:00", "open": "11:00:00"}}, "name": "Old Chicago", "neighborhoods": []}
         self.assertTrue(content==actual)
+
+    def test_api_get_bad_business(self):
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/nothere/")
+        try :
+            response = urlopen(request)
+        except HTTPError :
+            return True
+        return False
 
     def test_api_get_all_users(self):
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/")
@@ -493,6 +505,14 @@ class API_Test(TestCase) :
         actual =  {"compliments": {}, "name": "lisa", "user_id": "x5-yK8bmjQTcMrlWLfgJEg", "votes": {"cool": 1, "funny": 3, "useful": 4}}
         self.assertTrue(content==actual)
 
+    def test_api_get_bad_user(self):
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/nothere/")
+        try :
+            response = urlopen(request)
+        except HTTPError :
+            return True
+        return False
+
     def test_api_get_all_reviews(self):
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/")
         response = urlopen(request)
@@ -512,5 +532,107 @@ class API_Test(TestCase) :
         content = loads(body_content)
         actual =  {"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2011-01-12", "review_id": "rGWvvzfxIv-aoAKGGGHrMg", "stars": 4.0, "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", "user": "/operationrepo/api/user/xFG4Ca2HHmbxDTkMlmHnjQ/", "votes": {"cool": 0, "funny": 0, "useful": 0}}
         self.assertTrue(content==actual)
+
+    def test_api_get_bad_review(self):
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/nothere/")
+        try :
+            response = urlopen(request)
+        except HTTPError :
+            return True
+        return False
+
+    #api post tests
+    # -----
+    # post
+    # -----
+    def test_api_post_user(self) :
+        values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/", data=values.encode("utf-8"), headers=headers, method="POST")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_post_business(self) :
+        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/", data=values.encode("utf-8"), headers=headers, method="POST")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_post_review(self) :
+        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/", data=values.encode("utf-8"), headers=headers, method="POST")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_put_user(self) :
+        values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_put_business(self) :
+        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_put_review(self) :
+        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_delete_user(self) :
+        values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/", data=values.encode("utf-8"), headers=headers, method="DELETE")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_delete_business(self) :
+        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/", data=values.encode("utf-8"), headers=headers, method="DELETE")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_delete_review(self) :
+        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
+        headers = {"Content-Type": "application-json"}
+        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/", data=values.encode("utf-8"), headers=headers, method="DELETE")
+        response = urlopen(request)
+        self.assertEqual(response.getcode(), 201)
+
+        response_body = response.read()
+        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
 print ("Done")
 
