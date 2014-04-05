@@ -2,25 +2,18 @@
 <!DOCTYPE html>
 <html>
 <head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-
-    <style type="text/css">
-    .key {width: 150px;display:inline-block;}
-
-    #map-canvas {
-     margin: 0; 
-     padding: 0;
-    }
-    </style>
     
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&sensor=false">
@@ -42,7 +35,9 @@
                 title:"{{Business.name}}"
             });
         }
-        google.maps.event.addDomListener(window, 'load', genMap);    
+
+        google.maps.event.addDomListener(window, 'load', genMap);   
+        google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
 
 </head>
@@ -114,8 +109,9 @@
             <span class="key">Number of reviews:</span><span class="value">{{ Business.review_count }}</span>
             {%endif%}
             {% if Business.stars%}
-            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>            {%endif%}
-            {% if Reviews%}
+            <div><span class="key">Average Stars:</span><span class="value">{{ Business.stars}}</span></div>
+            {%endif%}
+            {% if Reviews %}
             <div id="reviewdiv" >
                 <table class="table table-striped">
                     <thead>
@@ -137,49 +133,50 @@
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>
-            {% if MultiValueAttributes.items|length <= 0 %}
-                No attributes available. 
-            {% endif %}
-            {% for key,dict in MultiValueAttributes.items %}
-                <div>
-                    <h3>{{key}}:</h3>
-                    <table>
-                        {% for field,value in dict.items %}
-                            {% ifequal value True %}
-                                <tr class="btn-success"><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
-                            {% else %}
-                                {% ifequal value False %}
-                                    <tr class="btn-danger"><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
+            <div class="foreign_content">
+                {% if MultiValueAttributes.items|length <= 0 %}
+                    No attributes available. 
+                {% endif %}
+                {% for key,dict in MultiValueAttributes.items %}
+                    <div class="foreign_content_cell">
+                        <h3>{{key}}:</h3>
+                        <table>
+                            {% for field,value in dict.items %}
+                                {% ifequal value True %}
+                                    <tr><td><span class="key">{{field}}:</span><span class="value">Yes</span></td></tr>
                                 {% else %}
-                                    <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
+                                    {% ifequal value False %}
+                                        <tr><td><span class="key">{{field}}:</span><span class="value">No</span></td></tr>
+                                    {% else %}
+                                        <tr ><td><span class="key">key:</span><span class="value">{{value}}</span></td></tr>
+                                    {%endifequal%}
                                 {%endifequal%}
-                            {%endifequal%}
-                        {% endfor %}
-                    </table>
-                </div>
-            {% endfor %}
-<!-- atrributes that have multiple attributes -->  
-            {% if SingleValueAttributes.items|length > 0  %}
-                <h2> Miscellaneous: </h2>
-                {% for key,value in SingleValueAttributes.items %}
-                <div>
-                    <table>
-                            {% ifequal value 'True' %}
-                                <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
-                            {% else %}
-                                {% ifequal value 'False' %}
-                                    <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
-                                {% else %}
-                                    <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
-                                {%endifequal%}
-                            {%endifequal%}
-                        </tr>
-                    </table>
-                </div>
-                {%endfor%}
-            {% endif %}            
-<!-- END generalize this part -->
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% endfor %}
+                {% if SingleValueAttributes.items|length > 0  %}
+                <div class="foreign_content_cell">
+                    <h3> Miscellaneous: </h3>
+                    {% for key,value in SingleValueAttributes.items %}
 
+                        <table>
+                                {% ifequal value 'True' %}
+                                    <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
+                                {% else %}
+                                    {% ifequal value 'False' %}
+                                        <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+                                    {% else %}
+                                        <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                                    {%endifequal%}
+                                {%endifequal%}
+                            </tr>
+                        </table>
+                    
+                    {%endfor%}
+                </div>
+                {% endif %}            
+            </div>
             <div>  
                 <h2>Categories:</h2>
                 {% if Categories|length > 0 %}
@@ -190,15 +187,6 @@
                     Categories not available.
                 {% endif %}
             </div>
-<!--             <div>
-                <h2>Neighborhoods:</h2>
-                {% if Neighborhoods|length > 0 %}
-                    {% for neighborhood in Neighborhoods %}{{neighborhood}},{%endfor%}
-                {% else %}
-                    Neighborhoods not available.
-                {% endif %}
-            </div> -->
-
         </div>
     </div>
      

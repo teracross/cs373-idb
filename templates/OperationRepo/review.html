@@ -5,11 +5,10 @@ should link back to user reviewing and business reviewed-->
 <head> 
 <!-- Change title to display the following as well the id of review. (Optional?) -->
 <title> Operation Repo - Review </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!-- Bootstrap -->
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" >
-    <style type="text/css">
-    .key {width: 150px;display:inline-block;}
-    </style>
+    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 
@@ -41,7 +40,7 @@ should link back to user reviewing and business reviewed-->
 
         <div class="jumbotron">
             <h1>Review for <a href="{% url 'business' Review.business.business_id %}">{{ Review.business.name }}</a> by <a href="{% url 'user' Review.user.user_id %}"> {{ Review.user.name }} </a> </h1>
-            <div><span class="key">Review ID: </span><span class="value">{{Review.review_id}} </span></div>
+            
             <div><span class="key">User name: </span><span class="value">{{Review.user.name}} </span></div>
             <div><span class="key">Business name: </span><span class="value">{{Review.business.name}} </span></div>
             <div><span class="key">Date: </span><span class="value">{{Review.date}} </span></div>
