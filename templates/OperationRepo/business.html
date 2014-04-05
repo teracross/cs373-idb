@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset='utf-8'>
     <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
@@ -134,7 +135,6 @@
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>
-            <div class='row' style="color: #000000;"><hr/></div>
             <div class="foreign_content">
                 {% if MultiValueAttributes.items|length <= 0 %}
                     No attributes available. 

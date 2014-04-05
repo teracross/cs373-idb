@@ -14,7 +14,7 @@
 }
 
 #reviewdiv tbody {
-    max-height: 200px;
+    max-height: 222px;
     overflow-y: auto;
     min-width: 200px; 
     overflow-x: auto;
