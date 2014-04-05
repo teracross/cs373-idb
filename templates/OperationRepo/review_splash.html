@@ -42,7 +42,7 @@
 
   <div class="jumbotron">
 
-        <p>Average Rating: {{ avgInfo.stars__avg }}</p>
+        <p>Average Rating: {{ avgInfo.stars__avg|floatformat:-2 }}</p>
             <table class="table table-striped">
                 <thead>
                     <tr><th>Review Links</th><th>Date</th><th>Rating</th></tr>
