@@ -6,3 +6,14 @@
 .jumbotron h2{
 	text-decoration: underline;
 }
+
+.key 
+{
+	width: 150px;
+	display:inline-block;
+}
+
+#map-canvas {
+ margin: 0; 
+ padding: 0;
+}

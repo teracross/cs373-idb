@@ -33,7 +33,7 @@ def business(request, *z):
 
     theCategoriesList = Categories.objects.filter(business=thebusiness)
     theHoursList = Hours.objects.filter(business=thebusiness)
-
+    
     return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
                                                             "Reviews":thereviews,
                                                             # "ReviewsArray":thereviews,
