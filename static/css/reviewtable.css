@@ -33,7 +33,7 @@
 
 
 #reviewdiv tbody td, #reviewdiv thead th {
-    width: 33%;
+    width: 25%;
     float: left;
     overflow-y: visible;
 }

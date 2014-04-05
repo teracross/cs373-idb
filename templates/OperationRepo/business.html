@@ -88,7 +88,6 @@
                 {%endif%}
             </div>
             <br/>
-            <div><span class="key">Still in Operation:</span><span class="value">{% ifequal Business.data.open True %}Yes{%else%}{% ifequal Business.data.open False %}No{%else%}Information not available.{%endifequal%}{%endifequal%}</span></div>
 
             <div>  
                 <h2>Hours:</h2>
@@ -115,7 +114,7 @@
             <div id="reviewdiv" >
                 <table class="table table-striped">
                     <thead>
-                    <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
+                    <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th><th>Reviewer: </th></tr>
                     </thead>
                     <tbody>
                         {% load app_filters %}
@@ -124,6 +123,7 @@
                                 <td>{{ dict.date }}</td>
                                 <td> {{ dict.stars }} {% for i in dict.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %}</td>
                                 <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
+                                <td><a href="{% url 'user' dict.user_id %}"> {{dict.user.name}}</a></td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -134,9 +134,9 @@
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>
             <div class="foreign_content">
-                {% if MultiValueAttributes.items|length <= 0 %}
-                    No attributes available. 
-                {% endif %}
+                {% if MultiValueAttributes.items|length <= 0 and SingleValueAttributes.items|length <= 0 %}
+                     No attributes available. 
+                {% else %}
                 {% for key,dict in MultiValueAttributes.items %}
                     <div class="foreign_content_cell">
                         <h3>{{key}}:</h3>
@@ -155,7 +155,6 @@
                         </table>
                     </div>
                 {% endfor %}
-                {% if SingleValueAttributes.items|length > 0  %}
                 <div class="foreign_content_cell">
                     <h3> Miscellaneous: </h3>
                     {% for key,value in SingleValueAttributes.items %}
@@ -175,10 +174,12 @@
                     
                     {%endfor%}
                 </div>
-                {% endif %}            
+                {% endif %}
             </div>
-            <div>  
+
+            <div class="foreign_content">
                 <h2>Categories:</h2>
+                <div class="foreign_content_cell">
                 {% if Categories|length > 0 %}
                     {% for category in Categories %}
                         {{category.name}},
@@ -186,6 +187,7 @@
                 {% else %}
                     Categories not available.
                 {% endif %}
+                </div>
             </div>
         </div>
     </div>
