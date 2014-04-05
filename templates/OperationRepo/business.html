@@ -75,7 +75,7 @@
             </div>
         <!-- END Responsive Nav Bar --> 
         <div class="jumbotron">
-            <h1><a href="#">{{Business.name}}</a> - links aren't present in new databse </h1>
+            <h1><a href="#">{{Business.name}}</a></h1>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
             <div>  
                 <h2>Location:</h2>
@@ -122,10 +122,11 @@
                     <tr><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
                     </thead>
                     <tbody>
+                        {% load app_filters %}
                         {% for dict in Reviews %}
                             <tr>
                                 <td>{{ dict.date }}</td>
-                                <td> {{ dict.stars }} </td>
+                                <td> {{ dict.stars }} {% for i in dict.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %}</td>
                                 <td><a href="{% url 'review' dict.review_id %}"> view </a></td>
                             </tr>
                         {% endfor %}
@@ -136,7 +137,7 @@
 <!-- generalize this part -->
 <!-- attributes that don't have their own set of attributes -->
             <h2> Attributes: </h2>
-            {% if MultiValueAttributes.items|length <= 0 and SingleValueAttributes.items|length <= 0 %}
+            {% if MultiValueAttributes.items|length <= 0 %}
                 No attributes available. 
             {% endif %}
             {% for key,dict in MultiValueAttributes.items %}
@@ -157,24 +158,26 @@
                     </table>
                 </div>
             {% endfor %}
-<!-- atrributes that have multiple attributes -->   
-            {% for key,value in SingleValueAttributes.items %}
-            <div>
-                <table>
-                        {% ifequal value 'True' %}
-                            <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
-                        {% else %}
-                            {% ifequal value 'False' %}
-                                <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+<!-- atrributes that have multiple attributes -->  
+            {% if SingleValueAttributes.items|length > 0  %}
+                <h2> Miscellaneous: </h2>
+                {% for key,value in SingleValueAttributes.items %}
+                <div>
+                    <table>
+                            {% ifequal value 'True' %}
+                                <tr><td><span class="key">{{key}}:</span><span class="value">Yes</span></td></tr>
                             {% else %}
-                                <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                                {% ifequal value 'False' %}
+                                    <tr><td><span class="key">{{key}}:</span><span class="value">No</span></td></tr>
+                                {% else %}
+                                    <tr ><td><span class="key">{{key}}:</span><span class="value">{{value}}</span></td></tr>
+                                {%endifequal%}
                             {%endifequal%}
-                        {%endifequal%}
-                    </tr>
-                </table>
-            </div>
-            {%endfor%}
-            
+                        </tr>
+                    </table>
+                </div>
+                {%endfor%}
+            {% endif %}            
 <!-- END generalize this part -->
 
             <div>  

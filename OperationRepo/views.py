@@ -57,21 +57,19 @@ def user(request, *z):
     userID = z[0]
     user = get_object_or_404(User, user_id=userID)
     user_votes_list = User_Votes.objects.filter(user=user)
-    elite_list = Elite.objects.filter(user=user)
+    elite_list = Elite.objects.filter(user=user).order_by('-years_elite')
     compliments_list = Compliments.objects.filter(user=user)
 
+    # return HttpResponse([str(i.years_elite) for i in elite_list])
     return render_to_response('OperationRepo/user.html', 
         {"User" : user, "User_Votes_List": user_votes_list, 
         "Elite_List":elite_list, "Compliments_List":compliments_list},context)
 
 def business_splash (request):
     context = RequestContext(request)
-    allBusinesses = Business.objects.all()
-    businesses = {}
-    for b in allBusinesses :
-        businesses[str(b.name)] = b.business_id
+    allBusinesses = Business.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict": businesses},context)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses},context)
 
 def review_splash (request):
     context = RequestContext(request)
@@ -81,7 +79,7 @@ def review_splash (request):
 
 def user_splash (request):
     context = RequestContext(request)
-    allUsers = User.objects.all()
+    allUsers = User.objects.all().order_by('name')
 
     return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
 
