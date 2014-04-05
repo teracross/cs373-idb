@@ -13,15 +13,9 @@ class BusinessResource(ModelResource):
 	class Meta:
 		queryset = Business.objects.all()
 		fields = ['business_id','name','city']
-		excludes = ['attributes']
 		include_resource_uri = False
 		resource_name = 'business'
 		authorization= Authorization()
-
-	def get_object(self, request, **kwargs):
-		custom = super(BusinessResource, self).get_list(request, **kwargs)
-		data = json.loads(resp.content)
-
 
 	def dehydrate(self, bundle):
 		neighborhoods = Neighborhoods.objects.filter(business=bundle.data['business_id'])
