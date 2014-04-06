@@ -62,7 +62,7 @@
       </div>
       <div>
         <h2>Reviews</h2>
-        <div><span class="key">Reviews: </span><span class="value">{{User.review_count }} </span></div>
+        <div><span class="key">Reviews: </span><span class="value">{{ reviews|length }} </span></div>
         <div><span class="key">Average Stars: </span><span class="value">{{User.average_stars}} </span></div>
         {% if User.review_count > 0 %}
         <h3>Reviews written by {{User.name}}:</h3>
@@ -75,7 +75,7 @@
                         {% load app_filters %}
                         {% for r in reviews %}
                             <tr>
-                                <td>{{ r.business.name }}</td>
+                                <td><a href="{% url 'business' r.business_id %}">{{ r.business.name }}</a></td>
                                 <td>{{ r.date }}</td>
                                 <td> {{ r.stars }} {% for i in r.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %}</td>
                                 <td><a href="{% url 'review' r.review_id %}"> view </a></td>
