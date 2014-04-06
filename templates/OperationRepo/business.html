@@ -179,7 +179,6 @@
 
             <div class="foreign_content">
                 <h2>Categories:</h2>
-                <div class="foreign_content_cell">
                 {% if Categories|length > 0 %}
                     {% for category in Categories %}
                         {{category.name}},
@@ -187,7 +186,6 @@
                 {% else %}
                     Categories not available.
                 {% endif %}
-                </div>
             </div>
         </div>
     </div>
