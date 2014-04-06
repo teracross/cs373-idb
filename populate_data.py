@@ -38,6 +38,7 @@ def populate_user():
         user_Votes = user_json.pop('votes', None)
         compliments = user_json.pop('compliments', None)
         elite = user_json.pop('elite', None)
+        user_json.pop('friends', None)
         user_json['yelping_since'] = user_json['yelping_since'] + "-01"
 
         u = add_user(user_json)
@@ -96,7 +97,7 @@ if __name__ == '__main__':
     from OperationRepo.models import *
     populate_business()
     print("populated businesses")
-    #populate_user()
-    #print("populated users")
+    populate_user()
+    print("populated users")
     populate_review()
     print("populated reviews")
