@@ -20,7 +20,7 @@ def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
     thebusiness = get_object_or_404(Business, business_id=str(businessID))
-    thereviews = Review.objects.filter(business_id=str(businessID))
+    thereviews = Review.objects.filter(business = thebusiness)
 
     theAttributesList = Attributes.objects.filter(business=thebusiness)
     multiAtrributesDict = {}
@@ -60,6 +60,7 @@ def user(request, *z):
     elite_list = Elite.objects.filter(user=user).order_by('-years_elite')
     compliments_list = Compliments.objects.filter(user=user)
     users_reviews = Review.objects.filter(user=user).order_by('-date')
+
     # return HttpResponse([str(i.years_elite) for i in elite_list])
     return render_to_response('OperationRepo/user.html', 
         {"User" : user, "User_Votes_List": user_votes_list, 
