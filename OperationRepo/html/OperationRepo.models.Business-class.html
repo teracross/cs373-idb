@@ -126,49 +126,49 @@ django.db.models.Model --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="name"></a><span class="summary-name">name</span> = <code title="models.CharField(max_length= 128, unique= True)">models.CharField(max_length= 128, unique= True)</code>
+        <a name="name"></a><span class="summary-name">name</span> = <code title="models.CharField(max_length= 128)">models.CharField(max_length= 128)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="full_address"></a><span class="summary-name">full_address</span> = <code title="models.CharField(max_length= 128)">models.CharField(max_length= 128)</code>
+        <a href="OperationRepo.models.Business-class.html#full_address" class="summary-name">full_address</a> = <code title="models.CharField(max_length= 128, blank= True, null= True)">models.CharField(max_length= 128, blank= True, <code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="city"></a><span class="summary-name">city</span> = <code title="models.CharField()">models.CharField()</code>
+        <a name="city"></a><span class="summary-name">city</span> = <code title="models.CharField(max_length= 128, blank= True, null= True)">models.CharField(max_length= 128, blank= True, null= True)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="state"></a><span class="summary-name">state</span> = <code title="models.CharField()">models.CharField()</code>
+        <a href="OperationRepo.models.Business-class.html#state" class="summary-name">state</a> = <code title="models.CharField(max_length= 128, blank= True, null= True)">models.CharField(max_length= 128, blank= True, null= T<code class="variable-ellipsis">...</code></code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="latitude"></a><span class="summary-name">latitude</span> = <code title="models.FloatField()">models.FloatField()</code>
+        <a name="latitude"></a><span class="summary-name">latitude</span> = <code title="models.FloatField(blank= True, null= True)">models.FloatField(blank= True, null= True)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="longitude"></a><span class="summary-name">longitude</span> = <code title="models.FloatField()">models.FloatField()</code>
+        <a name="longitude"></a><span class="summary-name">longitude</span> = <code title="models.FloatField(blank= True, null= True)">models.FloatField(blank= True, null= True)</code>
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="stars"></a><span class="summary-name">stars</span> = <code title="models.FloatField()">models.FloatField()</code>
+        <a name="stars"></a><span class="summary-name">stars</span> = <code title="models.FloatField(blank= True, null= True)">models.FloatField(blank= True, null= True)</code>
     </td>
   </tr>
 <tr>
@@ -182,7 +182,7 @@ django.db.models.Model --+
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="is_open"></a><span class="summary-name">is_open</span> = <code title="models.BooleanField()">models.BooleanField()</code>
+        <a name="is_open"></a><span class="summary-name">is_open</span> = <code title="models.NullBooleanField(blank= True, null= True)">models.NullBooleanField(blank= True, null= True)</code>
     </td>
   </tr>
 </table>
@@ -222,6 +222,42 @@ models.CharField(max_length= 128, primary_key= True)
   </dl>
 </td></tr></table>
 </div>
+<a name="full_address"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">full_address</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+models.CharField(max_length= 128, blank= True, null= True)
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="state"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">state</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+models.CharField(max_length= 128, blank= True, null= True)
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
 <br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
@@ -249,7 +285,7 @@ models.CharField(max_length= 128, primary_key= True)
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Thu Mar 20 21:49:01 2014
+    Generated by Epydoc 3.0.1 on Sat Apr  5 21:55:17 2014
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

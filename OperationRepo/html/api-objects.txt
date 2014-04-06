@@ -1,9 +1,9 @@
 OperationRepo.models	OperationRepo.models-module.html
-OperationRepo.models.Attritubes	OperationRepo.models.Attritubes-class.html
-OperationRepo.models.Attritubes.__unicode__	OperationRepo.models.Attritubes-class.html#__unicode__
-OperationRepo.models.Attritubes.value	OperationRepo.models.Attritubes-class.html#value
-OperationRepo.models.Attritubes.name	OperationRepo.models.Attritubes-class.html#name
-OperationRepo.models.Attritubes.business	OperationRepo.models.Attritubes-class.html#business
+OperationRepo.models.Attributes	OperationRepo.models.Attributes-class.html
+OperationRepo.models.Attributes.__unicode__	OperationRepo.models.Attributes-class.html#__unicode__
+OperationRepo.models.Attributes.value	OperationRepo.models.Attributes-class.html#value
+OperationRepo.models.Attributes.name	OperationRepo.models.Attributes-class.html#name
+OperationRepo.models.Attributes.business	OperationRepo.models.Attributes-class.html#business
 OperationRepo.models.Business	OperationRepo.models.Business-class.html
 OperationRepo.models.Business.city	OperationRepo.models.Business-class.html#city
 OperationRepo.models.Business.review_count	OperationRepo.models.Business-class.html#review_count
@@ -29,10 +29,6 @@ OperationRepo.models.Elite	OperationRepo.models.Elite-class.html
 OperationRepo.models.Elite.years_elite	OperationRepo.models.Elite-class.html#years_elite
 OperationRepo.models.Elite.user	OperationRepo.models.Elite-class.html#user
 OperationRepo.models.Elite.__unicode__	OperationRepo.models.Elite-class.html#__unicode__
-OperationRepo.models.Friends	OperationRepo.models.Friends-class.html
-OperationRepo.models.Friends.user_id	OperationRepo.models.Friends-class.html#user_id
-OperationRepo.models.Friends.user	OperationRepo.models.Friends-class.html#user
-OperationRepo.models.Friends.__unicode__	OperationRepo.models.Friends-class.html#__unicode__
 OperationRepo.models.Hours	OperationRepo.models.Hours-class.html
 OperationRepo.models.Hours.__unicode__	OperationRepo.models.Hours-class.html#__unicode__
 OperationRepo.models.Hours.close_hour	OperationRepo.models.Hours-class.html#close_hour
@@ -62,7 +58,6 @@ OperationRepo.models.User.review_count	OperationRepo.models.User-class.html#revi
 OperationRepo.models.User.name	OperationRepo.models.User-class.html#name
 OperationRepo.models.User.fans	OperationRepo.models.User-class.html#fans
 OperationRepo.models.User.average_stars	OperationRepo.models.User-class.html#average_stars
-OperationRepo.models.User.date	OperationRepo.models.User-class.html#date
 OperationRepo.models.User.user_id	OperationRepo.models.User-class.html#user_id
 OperationRepo.models.User.__unicode__	OperationRepo.models.User-class.html#__unicode__
 OperationRepo.models.User_Votes	OperationRepo.models.User_Votes-class.html
