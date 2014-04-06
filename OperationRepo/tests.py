@@ -580,7 +580,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
@@ -590,7 +590,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
@@ -600,7 +600,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
@@ -610,7 +610,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/", data=values.encode("utf-8"), headers=headers, method="DELETE")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
@@ -620,7 +620,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/", data=values.encode("utf-8"), headers=headers, method="DELETE")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
@@ -630,7 +630,7 @@ class API_Test(TestCase) :
         headers = {"Content-Type": "application-json"}
         request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/", data=values.encode("utf-8"), headers=headers, method="DELETE")
         response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
+        self.assertEqual(response.getcode(), 204)
 
         response_body = response.read()
         self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
