@@ -59,11 +59,12 @@ def user(request, *z):
     user_votes_list = User_Votes.objects.filter(user=user)
     elite_list = Elite.objects.filter(user=user).order_by('-years_elite')
     compliments_list = Compliments.objects.filter(user=user)
-
+    users_reviews = Review.objects.filter(user=user).order_by('-date')
     # return HttpResponse([str(i.years_elite) for i in elite_list])
     return render_to_response('OperationRepo/user.html', 
         {"User" : user, "User_Votes_List": user_votes_list, 
-        "Elite_List":elite_list, "Compliments_List":compliments_list},context)
+        "Elite_List":elite_list, "Compliments_List":compliments_list,
+        "reviews":users_reviews },context)
 
 def business_splash (request):
     context = RequestContext(request)

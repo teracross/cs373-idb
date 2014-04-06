@@ -8,12 +8,12 @@
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
-    <style type="text/css">
-    .key {width: 150px;display:inline-block;}
-    </style>
+    
 </head>
 
 <body>
@@ -64,6 +64,27 @@
         <h2>Reviews</h2>
         <div><span class="key">Reviews: </span><span class="value">{{User.review_count }} </span></div>
         <div><span class="key">Average Stars: </span><span class="value">{{User.average_stars}} </span></div>
+        {% if User.review_count > 0 %}
+        <h3>Reviews written by {{User.name}}:</h3>
+        <div id="reviewdiv" >
+                <table class="table table-striped">
+                    <thead>
+                    <tr><th>Business:</th><th>Date Written:</th><th>Rating:</th><th>Review Link:</th></tr>
+                    </thead>
+                    <tbody>
+                        {% load app_filters %}
+                        {% for r in reviews %}
+                            <tr>
+                                <td>{{ r.business.name }}</td>
+                                <td>{{ r.date }}</td>
+                                <td> {{ r.stars }} {% for i in r.stars|get_range %} <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span> {% endfor %}</td>
+                                <td><a href="{% url 'review' r.review_id %}"> view </a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        {% endif %}
       </div>
       <div>
         <h2>Votes</h2>
