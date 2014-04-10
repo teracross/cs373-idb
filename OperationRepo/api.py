@@ -6,7 +6,7 @@ from OperationRepo.models import *
 from django.http import HttpResponse
 from django.db.models import Avg
 import json
-from json import JSONEncoder
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Businesses
 def get_business_all(request):
@@ -76,7 +76,7 @@ def get_user_id_business(request, user_id):
 def get_user_id_review(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
 
-    return HttpResponse(json.dumps(list(Review.objects.filter(user=user).values('business_id','review_votes','user_id','review_id','stars','text')),cls=JSONEncoder))
+    return HttpResponse(json.dumps(list(Review.objects.filter(user=user).values()),cls=DjangoJSONEncoder))
 
 # Reviews
 def get_review_all(request):
