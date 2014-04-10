@@ -1,10 +1,7 @@
 from django.conf.urls import *
 from OperationRepo import views
-from OperationRepo.api import *
+from OperationRepo import api
 
-business_resource = BusinessResource()
-user_resource = UserResource()
-review_resource = ReviewResource()
 
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
@@ -14,7 +11,5 @@ urlpatterns = patterns('',
     url(r'^review/$', views.review_splash, name='review_splash'),
     url(r'^user/(\S+)/$', views.user, name='user'),
     url(r'^user/$', views.user_splash, name='user_splash'),
-    (r'^api/', include(business_resource.urls)),
-    (r'^api/', include(user_resource.urls)),
-    (r'^api/', include(review_resource.urls)),
+    url(r'^idb/api/business/$',api.business, name='business_api'),
 )
