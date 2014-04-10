@@ -1,0 +1,30 @@
+.foreign_content {
+	padding-bottom: 20px;
+	margin-top: 10px;
+}
+
+.foreign_content_cell{
+	float: left; 
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+.foreign_content_cell:after{
+	clear:both;
+}
+
+.jumbotron h2{
+	text-decoration: underline;
+	clear:both;
+}
+
+.key 
+{
+	width: 150px;
+	display:inline-block;
+}
+
+#map-canvas {
+ margin: 0; 
+ padding: 0;
+}
