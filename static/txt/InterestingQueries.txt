@@ -1,0 +1,55 @@
+--Compare the average business rating for the west, east side of Phoenix
+SELECT 
+'East Side' as Region,
+round(CAST(SUM("OperationRepo_review".stars)/COUNT(*) AS NUMERIC),2) as "Average Review",
+COUNT(*) as "Sample Size"
+FROM "OperationRepo_business"
+JOIN "OperationRepo_review" on "OperationRepo_review".business_id="OperationRepo_business".business_id 
+JOIN "OperationRepo_user" on "OperationRepo_user".user_id="OperationRepo_review".user_id 
+WHERE latitude > 33.5
+UNION
+SELECT 
+'West Side' as Region,
+round(CAST(SUM("OperationRepo_review".stars)/COUNT(*) AS NUMERIC),2) as "Average Review",
+COUNT(*) as "Sample Size"
+FROM "OperationRepo_business"
+JOIN "OperationRepo_review" on "OperationRepo_review".business_id="OperationRepo_business".business_id 
+JOIN "OperationRepo_user" on "OperationRepo_user".user_id="OperationRepo_review".user_id 
+WHERE latitude <= 33.5;
+
+--Do people with more compliments give higher ratings?
+SELECT sub.count as "Number of Compliments",
+ROUND(CAST(SUM(sub.average_stars)/COUNT(*) AS NUMERIC),2) as "Average Stars Given" 
+FROM 
+(
+	SELECT u.user_id,COUNT(*),
+	u.average_stars 
+	FROM "OperationRepo_compliments" c
+	join "OperationRepo_user" u on c.user_id=u.user_id
+	group by u.user_id
+) sub
+group by sub.count
+order by "Number of Compliments" desc;
+
+--Are businesses with longer hours more popular?
+SELECT b.business_id as "Business ID", 
+SUM((CAST(EXTRACT(hour from h.open_hour-h.close_hour) AS INT)+24) % 24) as "Total hours open per week",
+b.stars as "Stars"
+FROM "OperationRepo_business" as b
+left join "OperationRepo_hours" as h on h.business_id=b.business_id
+group by b.business_id
+order by "Total hours open per week" asc;
+
+--Do people with more consonants in their name have more fans?
+SELECT 
+char_length(name)-array_length(regexp_split_to_array(lower(name),'[aeiou]'),1)+1 as "Number of Consonants",
+SUM(fans)/COUNT(*) as "Average number of fans"
+FROM "OperationRepo_user" as u
+group by "Number of Consonants"
+order by "Number of Consonants";
+
+--What are the most common words used in reviews?
+SELECT COUNT(*), regexp_split_to_table(regexp_replace(lower(text),'[^\sa-zA-Z0-9=+-]','','g'),'\s') as word
+from "OperationRepo_review" as r
+group by word
+order by count desc;
