@@ -57,7 +57,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'OperationRepo'
+    'OperationRepo',
+    'rest_framework'
 )
 
 MIDDLEWARE_CLASSES = (
