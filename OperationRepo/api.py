@@ -13,7 +13,7 @@ def get_business_all(request):
         return Response(list(Business.objects.all().values('business_id','name', 'city')))
 
     elif request.method == 'POST':
-        business_json = {}+request.DATA
+        business_json = request.DATA
         business_json.pop('type',None)
         neighborhoods = business_json.pop('neighborhoods', None)
         categories = business_json.pop('categories', None)
@@ -41,7 +41,7 @@ def get_business_all(request):
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET', 'DELETE', 'POST'])
 def get_business_id(request, business_id):
     if request.method == 'GET':
         business = get_object_or_404(Business, business_id=business_id)
@@ -63,6 +63,9 @@ def get_business_id(request, business_id):
         business.__dict__['type'] = "business"
 
         return Response(business.__dict__)
+    elif request.method == 'DELETE':
+        Business.objects.filter(business_id = business_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
 
