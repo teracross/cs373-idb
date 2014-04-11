@@ -1,0 +1,61 @@
+<!-- Homepage - links to our various html pages for business, users and reviews.-->
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset='utf-8'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
+  <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+  <style type="text/css">
+    .key {width: 150px;display:inline-block;}
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Operation Repo - Search </h1>
+<!-- Responsive Nav Bar -->
+<div class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'index' %}">Home Page</a></li>
+          <li><a href="{% url 'business_splash' %}">Businesses</a></li>
+          <li><a href="{% url 'review_splash' %}">Reviews</a></li>
+          <li><a href="{% url 'user_splash' %}">Users</a></li>
+          <li class="active" ><a href="{% url 'search' %}">Search</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </div>
+<!-- END Responsive Nav Bar --> 
+    <div class="jumbotron">
+        
+        <form class="form-horizontal" method="GET" action="{% url 'search' %}">  
+            
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+        </form>  
+        <h2>Search Results: {{results}}</h2>
+        <div id="search-content">
+
+        </div>
+    </div>
+</div>
+
+
+     <!-- Bootstrap -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+</body>
+</html>

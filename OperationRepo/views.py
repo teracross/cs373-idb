@@ -6,6 +6,7 @@ from OperationRepo.models import *
 from django.http import HttpResponse
 from django.db.models import Avg
 import json
+from OperationRepo.forms import SearchForm
 
 def index(request):
     # Request the context of the request.
@@ -83,6 +84,20 @@ def user_splash (request):
     allUsers = User.objects.all().order_by('name')
 
     return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
+
+def search (request):
+    context = RequestContext(request)
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            #form has been submitted
+            search = form.cleaned_data['search']
+            form = SearchForm()
+            return render_to_response('OperationRepo/search.html', {"results" : str(search), "form" : form}, context)
+        else:
+            form = SearchForm() #create form to display
+    return render_to_response('OperationRepo/search.html', {"results": "", 'form':form}, context)
+
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
