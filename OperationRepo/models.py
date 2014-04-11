@@ -44,9 +44,6 @@ class Hours(models.Model):
   day_of_week = models.CharField(max_length=50)
   open_hour = models.TimeField(blank=True, null=True)
   close_hour = models.TimeField(blank=True, null=True)
-  
-  def __unicode__(self):
-    return self.name
 #############################################################
 
 """
