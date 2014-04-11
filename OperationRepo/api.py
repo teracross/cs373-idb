@@ -41,7 +41,7 @@ def get_business_all(request):
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'DELETE', 'POST'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def get_business_id(request, business_id):
     if request.method == 'GET':
         business = get_object_or_404(Business, business_id=business_id)
@@ -63,13 +63,15 @@ def get_business_id(request, business_id):
         business.__dict__['type'] = "business"
 
         return Response(business.__dict__)
+
     elif request.method == 'DELETE':
         Business.objects.filter(business_id = business_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
+
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_business_id_user(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     reviews = Review.objects.filter(business=business)
@@ -86,7 +88,7 @@ def get_business_id_user(request, business_id):
 
     return Response(users)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     reviews = Review.objects.filter(business=business)
@@ -105,7 +107,7 @@ def get_business_id_review(request, business_id):
 def get_user_all(request):
     return Response(list(User.objects.all().values('user_id','name')))
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def get_user_id(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     user.__dict__.pop('_state')
@@ -116,7 +118,7 @@ def get_user_id(request, user_id):
     user.__dict__['type'] = "user"
     return Response(user.__dict__)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_user_id_business(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     reviews = Review.objects.filter(user=user)
@@ -140,7 +142,7 @@ def get_user_id_business(request, user_id):
         business.__dict__['type'] = "business"
     return Response([business.__dict__ for business in businesses])
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_user_id_review(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     reviews = Review.objects.filter(user=user)
@@ -159,7 +161,7 @@ def get_review_all(request):
     result =[{'user_id':review['user'], 'review_id':review['review_id'], 'business_id':review['business']} for review in Review.objects.all().values('review_id','user','business')]
     return Response(result)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def get_review_id(request, review_id):
     review = get_object_or_404(Review, review_id=review_id)
     review.__dict__.pop('_state')
@@ -168,7 +170,7 @@ def get_review_id(request, review_id):
     review.__dict__['type'] = "review"
     return Response(review.__dict__)
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_review_id_business(request, review_id):
     business = get_object_or_404(Review, review_id=review_id).business
     business.__dict__.pop('_state')
@@ -188,7 +190,7 @@ def get_review_id_business(request, review_id):
     business.__dict__['type'] = "business"
     return Response([business.__dict__])
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def get_review_id_user(request, review_id):
     user = get_object_or_404(Review, review_id=review_id).user
     user.__dict__.pop('_state')
