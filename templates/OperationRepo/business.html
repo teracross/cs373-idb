@@ -1,6 +1,6 @@
 <!-- Homepage - links to our various html pages for business, users and reviews.-->
 <!DOCTYPE html>
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
 <head> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset='utf-8'>
@@ -71,6 +71,7 @@
         <!-- END Responsive Nav Bar --> 
         <div class="jumbotron">
             <h1>{{Business.name}}</h1>
+            <fb:share-button href="https://www.facebook.com/pages/Blue-32-Sports-Grill/60133788593" type="icon_link"></fb:share-button>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
             <div>  
                 <h2>Location:</h2>
@@ -188,10 +189,15 @@
                 {% endif %}
             </div>
         </div>
+
+    <!-- Scroll to top button -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://arrow.scrolltotop.com/arrow88.js"></script>
+    <!-- <noscript>Not seeing a <a href="http://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript> -->
     </div>
      
     <!-- Bootstrap -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
-   
+ 
 </body>
 </html>
