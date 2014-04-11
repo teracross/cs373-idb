@@ -20,7 +20,7 @@ def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
     thebusiness = get_object_or_404(Business, business_id=str(businessID))
-    thereviews = Review.objects.filter(business = thebusiness)
+    thereviews = Review.objects.filter(business = thebusiness).order_by('-date')
 
     theAttributesList = Attributes.objects.filter(business=thebusiness)
     multiAtrributesDict = {}
