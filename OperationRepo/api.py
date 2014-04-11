@@ -19,7 +19,11 @@ def get_business_id(request, business_id):
     attr = {}
     for attribute in Attributes.objects.filter(business=business).values():
         s = attribute['name'].replace(' ', '_').replace('-','').lower()
-        attr[s] = attribute['value'].replace('False', 'false').replace('True', 'true')
+        if "{" in str(attribute['value']) :
+            attr[s] = toJS(attribute['value'])
+        else:
+            attr[s] = attribute['value']
+        
 
     business.__dict__['attributes'] = attr
     
@@ -64,6 +68,9 @@ def get_user_id(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     user.__dict__.pop('_state')
     user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+    user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+    user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+    user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
     return HttpResponse(json.dumps(user.__dict__))
 
 def get_user_id_business(request, user_id):
@@ -71,12 +78,34 @@ def get_user_id_business(request, user_id):
     reviews = Review.objects.filter(user=user)
     for review in reviews:
         review.business.__dict__.pop('_state')
-    business = [review.business.__dict__ for review in reviews]
-    return HttpResponse(json.dumps(business))
+    businesses = [review.business for review in reviews]
+    for business in businesses:
+        attr = {}
+        for attribute in Attributes.objects.filter(business=business).values():
+            s = attribute['name'].replace(' ', '_').replace('-','').lower()
+            if "{" in str(attribute['value']) :
+                attr[s] = toJS(attribute['value'])
+            else:
+                attr[s] = attribute['value']
+        
+        business.__dict__['attributes'] = attr
+        
+        business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
+        business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+        business.__dict__['hours'] = {hour['day_of_week'] : {str(hour['open_hour'])[:-3]:str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+    return HttpResponse(json.dumps([business.__dict__ for business in businesses]))
+
 def get_user_id_review(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
+    reviews = Review.objects.filter(user=user)
+    for review in reviews:
+        review.__dict__.pop('_state')
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+        review.__dict__['date'] = str(review.__dict__['date'])
 
-    return HttpResponse(json.dumps(list(Review.objects.filter(user=user).values()),cls=DjangoJSONEncoder))
+    reviews_dict = [review.__dict__ for review in reviews]
+    return HttpResponse(json.dumps(list(reviews_dict)))
 
 # Reviews
 def get_review_all(request):
@@ -87,18 +116,35 @@ def get_review_id(request, review_id):
     review = get_object_or_404(Review, review_id=review_id)
     review.__dict__.pop('_state')
     review.__dict__['date'] = str(review.__dict__['date'])
+    review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
     return HttpResponse(json.dumps(review.__dict__))
 
 def get_review_id_business(request, review_id):
-    review = get_object_or_404(Review, review_id=review_id)
-    review.business.__dict__.pop('_state')
-    return HttpResponse(json.dumps(review.business.__dict__))
+    business = get_object_or_404(Review, review_id=review_id).business
+    business.__dict__.pop('_state')
+    attr = {}
+    for attribute in Attributes.objects.filter(business=business).values():
+        s = attribute['name'].replace(' ', '_').replace('-','').lower()
+        if "{" in str(attribute['value']) :
+            attr[s] = toJS(attribute['value'])
+        else:
+            attr[s] = attribute['value']
+    
+    business.__dict__['attributes'] = attr
+    
+    business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
+    business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+    business.__dict__['hours'] = {hour['day_of_week'] : {str(hour['open_hour'])[:-3]:str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+    return HttpResponse(json.dumps([business.__dict__]))
 
 def get_review_id_user(request, review_id):
-    review = get_object_or_404(Review, review_id=review_id)
-    review.user.__dict__.pop('_state')
-    review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
-    return HttpResponse(json.dumps(review.user.__dict__))
+    user = get_object_or_404(Review, review_id=review_id).user
+    user.__dict__.pop('_state')
+    user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+    user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+    user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+    user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+    return HttpResponse(json.dumps([user.__dict__]))
 
 def toJS(a):
     val = str(a).replace("'","\"").replace("True","true").replace("False","false")
