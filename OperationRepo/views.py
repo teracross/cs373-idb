@@ -92,11 +92,16 @@ def search (request):
         if form.is_valid():
             #form has been submitted
             search = form.cleaned_data['search']
+            search_results = []
+            reviews = Review.objects.filter(text__contains = str(search))
+            businesses = Business.objects.filter(name__contains = str(search))
+            users = User.objects.filter(name__contains = str(search))
+            search_results = [reviews, businesses, users]
             form = SearchForm()
-            return render_to_response('OperationRepo/search.html', {"results" : str(search), "form" : form}, context)
+            return render_to_response('OperationRepo/search.html', {"results" : search_results, "form" : form, "search_terms": str(search)}, context)
         else:
             form = SearchForm() #create form to display
-    return render_to_response('OperationRepo/search.html', {"results": "", 'form':form}, context)
+    return render_to_response('OperationRepo/search.html', {"results": [], 'form':form}, context)
 
 
 def toJS(a):
