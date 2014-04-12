@@ -45,30 +45,7 @@
 <body>
     <div class='container'>
         <h1>Operation Repo - Businesses</h1>
-        <!-- Responsive Nav Bar -->
-
-            <div class="navbar navbar-default" role="navigation">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav">
-                    <li><a href="{% url 'index' %}">Home Page</a></li>
-                    <li class="active"><a href="{% url 'business_splash'%}">Businesses</a></li>
-                    <li><a href="{% url 'review_splash' %}">Reviews</a></li><!-- remove when done testing -->
-                    <li><a href="{% url 'user_splash' %}">Users</a></li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-              </div><!--/.container-fluid -->
-            </div>
-        <!-- END Responsive Nav Bar --> 
+        {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>{{Business.name}}</h1>
             <fb:share-button href="https://www.facebook.com/pages/Blue-32-Sports-Grill/60133788593" type="icon_link"></fb:share-button>
