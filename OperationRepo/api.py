@@ -130,18 +130,76 @@ def get_business_id_review(request, business_id):
 # Users
 @api_view(['GET', 'POST'])
 def get_user_all(request):
-    return Response(list(User.objects.all().values('user_id','name')))
+
+    if request.method == 'GET':
+        return Response(list(User.objects.all().values('user_id','name')))
+
+    elif request.method == 'POST':
+        user_json = request.DATA
+        user_json.pop('type', None)
+        votes = user_json.pop('votes',None)
+        elite = user_json.pop('elite',None)
+        compliments =  user_json.pop('compliments',None)
+
+        u = User(**user_json)
+
+        if not u:
+            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+        u.save()
+        print (votes)
+
+        for kind,number in votes.items():
+            User_Votes(user=u, vote_type=kind,count=number).save()
+        for leet in elite:
+            Elite(user=u,years_elite=leet).save()
+        for kind,number in compliments.items():
+            Compliments(user=u,complement_type=kind,num_compliments=number).save()    
+        
+        return Response(request.DATA, status=status.HTTP_201_CREATED)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def get_user_id(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
-    user.__dict__.pop('_state')
-    user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
-    user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
-    user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
-    user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
-    user.__dict__['type'] = "user"
-    return Response(user.__dict__)
+
+    if request.method == 'GET':
+        user.__dict__.pop('_state')
+        user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+        user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+        user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+        user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+        user.__dict__['type'] = "user"
+
+        return Response(user.__dict__)
+
+    elif request.method == 'PUT':
+
+        user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+        user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+        user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+        user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+        user.__dict__['type'] = "user"
+
+        diff = [v for v in request.DATA if request.DATA[v] != user.__dict__[v]]
+        #need to create new subkeys if they don't currently exist
+        for v in diff:
+            #works for none nested attributes
+            user.__dict__[v] = request.DATA[v]
+        user.save()
+
+        return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'DELETE':
+        User.objects.filter(user_id = user_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+
+
 
 @api_view(['GET'])
 def get_user_id_business(request, user_id):
