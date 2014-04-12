@@ -39,10 +39,15 @@
         google.maps.event.addDomListener(window, 'load', genMap);   
         google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
-
+    <style>
+        body {
+            background-image:(url'{{STATIC_URL}}img/glyphicon-halflings.png');
+        }
+    </style>
 </head>
 
-<body>
+<body background = "http://www.blue32sportsgrill.com/content/img/blue32logo.png">
+
     <div class='container'>
         <h1>Operation Repo - Businesses</h1>
         <!-- Responsive Nav Bar -->
@@ -195,7 +200,7 @@
 
     <!-- <noscript>Not seeing a <a href="http://www.scrolltotop.com/">Scroll to Top Button</a>? Go to our FAQ page for more info.</noscript> -->
 
-    
+
     </div>
     <!-- Bootstrap -->
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
