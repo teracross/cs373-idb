@@ -6,12 +6,15 @@ from OperationRepo.models import *
 from django.http import HttpResponse
 from django.db.models import Avg
 import json
+from OperationRepo.forms import SearchForm
+
+
 
 def index(request):
     # Request the context of the request.
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
-    context_dict = {'message': "Hello World"}
+    context_dict = {'message': "Hello World", "form": SearchForm(), "active_page" :"index_nav" }
     return render_to_response('OperationRepo/index.html', context_dict, context)
 
 
@@ -41,14 +44,16 @@ def business(request, *z):
                                                             "SingleValueAttributes":singleAttributesDict,
                                                             "Categories":theCategoriesList,
                                                             "Hours":theHoursList,
-                                                            "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4'},context)
+                                                            "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4',
+                                                            "form": SearchForm(),
+                                                            "active_page" :"business_nav"},context)
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
     reviewID = z[0]
     review = get_object_or_404(Review, review_id=reviewID)
     review_votes_list = Review_Votes.objects.filter(review=review)
-    return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list},context)
+    return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list, "form": SearchForm(), "active_page" :"review_nav"},context)
 
 # Reviews
 def user(request, *z):
@@ -64,25 +69,46 @@ def user(request, *z):
     return render_to_response('OperationRepo/user.html', 
         {"User" : user, "User_Votes_List": user_votes_list, 
         "Elite_List":elite_list, "Compliments_List":compliments_list,
-        "reviews":users_reviews },context)
+        "reviews":users_reviews,
+        "form": SearchForm(),
+        "active_page" :"user_nav" },context)
 
 def business_splash (request):
     context = RequestContext(request)
     allBusinesses = Business.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses},context)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses, "form": SearchForm(), "active_page" :"business_nav"},context)
 
 def review_splash (request):
     context = RequestContext(request)
     allReviews = Review.objects.all().order_by("-date")
     avgInfo = allReviews.aggregate(Avg('stars'))
-    return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo},context)
+    return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo, "form": SearchForm(), "active_page" :"review_nav"},context)
 
 def user_splash (request):
     context = RequestContext(request)
     allUsers = User.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers},context)
+    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers, "form": SearchForm(), "active_page" :"user_nav"},context)
+
+def search (request):
+    context = RequestContext(request)
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            #form has been submitted
+            search = form.cleaned_data['search']
+            search_results = []
+            reviews = Review.objects.filter(text__contains = str(search))
+            businesses = Business.objects.filter(name__contains = str(search))
+            users = User.objects.filter(name__contains = str(search))
+            search_results = [reviews, businesses, users]
+            form = SearchForm()
+            return render_to_response('OperationRepo/search.html', {"results" : search_results, "form" : form, "search_terms": str(search)}, context)
+        else:
+            form = SearchForm() #create form to display
+    return render_to_response('OperationRepo/search.html', {"results": [], 'form':form}, context)
+
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))

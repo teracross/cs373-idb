@@ -16,29 +16,7 @@ should link back to user reviewing and business reviewed-->
 <body>
     <div class="container">
         <h1>Operation Repo - Review {{ a }} </h1>
-        <!-- Responsive Nav Bar -->
-<div class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'index' %}">Home Page</a></li>
-            <li><a href="{% url 'business_splash' %}">Businesses</a></li>
-            <li class="active"><a href="{% url 'review_splash' %}">Reviews</a></li>
-            <li><a href="{% url 'user_splash' %}">Users</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div><!--/.container-fluid -->
-    </div>
-
+        {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>Review for <a href="{% url 'business' Review.business.business_id %}">{{ Review.business.name }}</a> by <a href="{% url 'user' Review.user.user_id %}"> {{ Review.user.name }} </a> </h1>
 

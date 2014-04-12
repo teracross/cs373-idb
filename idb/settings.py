@@ -116,6 +116,7 @@ STATICFILES_DIRS = (
 # Template Path
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'templates/OperationRepo')
 )
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
