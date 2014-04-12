@@ -43,8 +43,11 @@ def get_business_all(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def get_business_id(request, business_id):
+    
+    business = get_object_or_404(Business, business_id=business_id)
+    #business.__dict__.pop('_state')
     if request.method == 'GET':
-        business = get_object_or_404(Business, business_id=business_id)
+        #business = get_object_or_404(Business, business_id=business_id)
         business.__dict__.pop('_state')
 
         attr = {}
@@ -63,6 +66,28 @@ def get_business_id(request, business_id):
         business.__dict__['type'] = "business"
 
         return Response(business.__dict__)
+    elif request.method == 'PUT':
+        attr = {}
+        for attribute in Attributes.objects.filter(business=business).values():
+            s = attribute['name'].replace(' ', '_').replace('-','').lower()
+            if "{" in str(attribute['value']) :
+                attr[s] = toJS(attribute['value'])
+            else:
+                attr[s] = attribute['value']
+            
+
+        business.__dict__['attributes'] = attr
+        business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
+        business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+        business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+        business.__dict__['type'] = "business"
+        diff = [v for v in request.DATA if request.DATA[v] != business.__dict__[v]]
+        #need to create new subkeys if they don't currently exist
+        for v in diff:
+            #works for none nested attributes
+            business.__dict__[v] = request.DATA[v]
+        business.save()
+        return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
         Business.objects.filter(business_id = business_id).delete()
