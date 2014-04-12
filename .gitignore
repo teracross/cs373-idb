@@ -54,3 +54,5 @@ staticfiles
 
 # Sphinx documentation
 docs/_build/
+
+setuptools-3.4.4.zip
