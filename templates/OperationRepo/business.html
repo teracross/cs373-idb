@@ -1,20 +1,19 @@
 <!-- Homepage - links to our various html pages for business, users and reviews.-->
 <!DOCTYPE html>
-<html xmlns:fb="http://ogp.me/ns/fb#">
 <head> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset='utf-8'>
-    <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
+    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
     <link href="{{STATIC_URL}}css/ui.jqgrid.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/jquery.ui.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
-    <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-    
+    <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
+
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&sensor=false">
     </script>
@@ -40,20 +39,25 @@
         google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
     <style>
-        body {
-            background-image:(url'{{STATIC_URL}}img/glyphicon-halflings.png');
-        }
+        body {background-image:url("{{STATIC_URL}}img/bg.jpg");}
     </style>
 </head>
 
-<body background = "http://www.blue32sportsgrill.com/content/img/blue32logo.png">
-
+<body>
     <div class='container'>
         <h1>Operation Repo - Businesses</h1>
+
+
         {% include "navbar.html" %}
+
+
         <div class="jumbotron">
-            <h1>{{Business.name}}</h1>
-            <fb:share-button href="https://www.facebook.com/pages/Blue-32-Sports-Grill/60133788593" type="icon_link"></fb:share-button>
+            <table>
+                <tbody>
+                    <tr><td><h1>{{Business.name}}</h1></td></tr>
+                    <tr><td><fb:share-button href="https://www.facebook.com/pages/Blue-32-Sports-Grill/60133788593" type="icon_link"></fb:share-button></td></tr>
+                </tbody>
+            </table>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>
             <div>  
                 <h2>Location:</h2>
