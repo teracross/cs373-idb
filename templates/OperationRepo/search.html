@@ -57,5 +57,30 @@
     <!-- Bootstrap -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.review-text').each(function(){
+                var searcht = "{{search_terms}}"
+                var searchtext = $(this).html();
+                var index = searchtext.search(searcht);
+                var newinner = "";
+                if(index > -1){
+                    var w = searchtext.substring(Math.max(index-20, 0), index+20);
+                    w = w.replace(searcht, "<bold>".concat(searcht,"</bold>"));
+                    newinner = " ...".concat(w,"... ");
+                }
+                searchtext = searchtext.substring(index+1);
+                index = searchtext.search(searcht);
+                if(index > -1){
+                    var w = searchtext.substring(Math.max(index-20, 0), index+20);
+                    w = w.replace(searcht, "<bold>".concat(searcht,"</bold>"));
+                    newinner = newinner.concat(" ...",w, "... ");
+                }
+
+                
+                $(this).html(newinner);
+            });
+        });
+    </script>
 </body>
 </html>

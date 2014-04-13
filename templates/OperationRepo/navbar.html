@@ -41,6 +41,8 @@
   {% else %}
       f.placeholder = "Enter Search..."
   {% endif %}
-  var a = document.getElementById('{{ active_page }}')
-  a.className = "active"
+  {% if active_page %}
+      var a = document.getElementById('{{ active_page }}')
+      a.className = "active"
+  {% endif %}
 </script>
