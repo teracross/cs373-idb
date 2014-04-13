@@ -15,9 +15,9 @@
     {% include "navbar.html" %}
     <div class="jumbotron">
         {% load app_filters %} 
-        <h2>Search Results:</h2>
-        <br/><br/>
-        <div id="search-content">
+        <!-- AND  search results -->
+        <div id="and-search-content">
+            <h3>Search Results for &quot;<italic>{{search_terms}}</italic>&quot;</h3>
             {% for t in andresults %}
                 {% for r in t %}
                     <div class="search-result">
@@ -58,6 +58,58 @@
                 No search results... 
             {% endfor %}
         </div>
+        <!-- OR search results -->
+        {% if orresults|length > 0 %}
+        <div id="or-search-content">
+            <h3>Search Results for 
+                {% for s in search_list %} 
+                    {% if forloop.last %}
+                        &quot;<italic>{{s}}</italic>&quot;
+                    {% else %}
+                        &quot;<italic>{{s}}</italic>&quot; Or 
+                    {% endif %}
+                {% endfor %} 
+            :</h3>
+            {% for r in orresults %}
+                    <div class="search-result">
+                        {% if r|className == "Business" %}
+                            <div class="search-cell">
+                                <div>
+                                    <h4><a href="{% url 'business' r.business_id %}">{{r.name}}</a></h4>
+                                    <div class="context">
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif r|className == "User" %}
+                            <div class="search-cell">
+                                <div>
+                                    <h4><a href="{% url 'user' r.user_id %}">{{r.name}}</a> </h4>
+                                    <div class="context">
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif r|className == "Review" %}
+                            <div class="search-cell">
+                                <div>
+                                    <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
+                                    <p>
+                                        <a href="{% url 'review' r.review_id %}">view</a>
+                                        <div class="context">
+                                            <div class="review-text">
+                                                {{ r.text }}
+                                            </div>
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                
+            {% empty %}
+                No search results... 
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </div>
     <!-- Bootstrap -->
@@ -65,8 +117,8 @@
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.context').each(function(){
-                var searcht = "{{search_terms}}"
+            $('#and-search-content .context').each(function(){
+                var searcht = "{{search_terms}}";
                 var searchtext = $(this).html();
                 var index = searchtext.search(searcht);
                 var newinner = "";
@@ -82,8 +134,29 @@
                     w = w.replace(searcht, "<bold>".concat(searcht,"</bold>"));
                     newinner = newinner.concat(" ...",w, "... ");
                 }
+                $(this).html(newinner);
+            });
 
-                
+            $('#or-search-content .context').each(function(){
+                var searcht = [{% for s in search_list%}{% if forloop.last %} "{{s}}" {% else %} "{{s}}", {% endif %}{% endfor %}];
+                var searchtext = $(this).html();
+                var newinner = "";
+                for (var i = searcht.length - 1; i >= 0; i--) {
+                    var index = searchtext.search(searcht[i]);
+                    if(index > -1){
+                        var w = searchtext.substring(Math.max(index-20, 0), index+20);
+                        w = w.replace(searcht[i], "<bold>".concat(searcht[i],"</bold>"));
+                        newinner = newinner.concat(" ...",w,"... ");
+                    }
+                    searchtext = searchtext.substring(index+1);
+                    index = searchtext.search(searcht[i]);
+                    if(index > -1){
+                        var w = searchtext.substring(Math.max(index-20, 0), index+20);
+                        w = w.replace(searcht[i], "<bold>".concat(searcht[i],"</bold>"));
+                        newinner = newinner.concat(" ...",w, "... ");
+                    }
+                    searchtext = $(this).html();
+                };
                 $(this).html(newinner);
             });
         });

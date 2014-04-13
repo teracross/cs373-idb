@@ -41,3 +41,8 @@
 bold {
 	font-weight: bold;
 }
+
+italic {
+	font-style: italic;
+	color: rgb(67, 129, 189);
+}

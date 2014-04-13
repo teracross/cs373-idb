@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.db.models import Avg
 import json
 from OperationRepo.forms import SearchForm
+from django.db.models import Q
 
 
 
@@ -106,15 +107,21 @@ def search (request):
             andbusinesses = Business.objects.filter(name__icontains = str(search))
             andusers = User.objects.filter(name__icontains = str(search))
             and_results = [andreviews, andbusinesses, andusers]
-
+            or_results = []
             # or search results
             # use set 
-            
+            if len(searchlist) > 1:
+                qset = Q(text__icontains = str(searchlist[0]))
+                for s in searchlist :
+                    qset = qset | Q(text__icontains = str(s))
+                or_results = Review.objects.filter(qset).exclude(text__icontains = str(search))
+
             form = SearchForm()
             context_dict["form"] = form
             context_dict["andresults"] = and_results
-            #context_dict["orresults"] = or_results 
+            context_dict["orresults"] = or_results 
             context_dict["search_terms"] = str(search)
+            context_dict["search_list"] = searchlist
             return render_to_response('OperationRepo/search.html', context_dict, context)
         else:
             form = SearchForm() #create form to display
