@@ -147,7 +147,6 @@ def get_user_all(request):
             return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
         u.save()
-        print (votes)
 
         for kind,number in votes.items():
             User_Votes(user=u, vote_type=kind,count=number).save()
@@ -241,17 +240,69 @@ def get_user_id_review(request, user_id):
 # Reviews
 @api_view(['GET', 'POST'])
 def get_review_all(request):
-    result =[{'user_id':review['user'], 'review_id':review['review_id'], 'business_id':review['business']} for review in Review.objects.all().values('review_id','user','business')]
-    return Response(result)
+
+    if request.method == 'GET':
+        return Response(list(Review.objects.all().values('review_id','business_id','user_id')))
+    #result =[{'user_id':review['user'], 'review_id':review['review_id'], 'business_id':review['business']} for review in Review.objects.all().values('review_id','user','business')]
+    #return Response(result)
+
+    elif request.method == 'POST':
+        review_json = request.DATA
+        review_json.pop('type',None)
+        votes = review_json.pop('votes',None)
+
+        r = Review(**review_json)
+
+        if not r:
+            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+        r.save()
+
+        for kind,number in votes.items():
+            Review_Votes(review=r, vote_type=kind,count=number).save()
+            
+        return Response(request.DATA, status=status.HTTP_201_CREATED)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def get_review_id(request, review_id):
     review = get_object_or_404(Review, review_id=review_id)
-    review.__dict__.pop('_state')
-    review.__dict__['date'] = str(review.__dict__['date'])
-    review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
-    review.__dict__['type'] = "review"
-    return Response(review.__dict__)
+
+    if request.method == 'GET':
+        review.__dict__.pop('_state')
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+        return Response(review.__dict__)
+
+    elif request.method == 'PUT':
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+
+        diff = [v for v in request.DATA if request.DATA[v] != review.__dict__[v]]
+        #need to create new subkeys if they don't currently exist
+        for v in diff:
+            #works for none nested attributes
+            review.__dict__[v] = request.DATA[v]
+        review.save()
+
+        return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'DELETE':
+        Review.objects.filter(review_id = review_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+
+
+
+
+
 
 @api_view(['GET'])
 def get_review_id_business(request, review_id):
@@ -287,3 +338,6 @@ def get_review_id_user(request, review_id):
 def toJS(a):
     val = str(a).replace("'","\"").replace("True","true").replace("False","false")
     return json.loads(val)
+
+def dict_pop(dict, subkeys):
+    pass
