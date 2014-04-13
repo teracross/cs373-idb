@@ -38,6 +38,25 @@
 	margin-left: 10px;
 }
 
+.search-empty {
+	margin-left: 10px;
+	margin-bottom: 5px;
+	border-bottom: 2px solid;
+}
+
+.search-result h2{
+	text-decoration: none;
+	clear:both;
+}
+
+#and-search-content {
+	margin-left: 10px;
+}
+
+#or-search-content {
+	margin-left: 10px;
+}
+
 bold {
 	font-weight: bold;
 }

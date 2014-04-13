@@ -9,11 +9,3 @@ def get_range( value ):
     Usage (in template):
 	"""
 	return range(1, int(value+1))
-
-@register.filter(name = "className")
-def className( value ): 
-	"""
-	Filter - returns the class name of value
-	Usage (in template):
-	"""
-	return value.__class__.__name__

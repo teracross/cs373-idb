@@ -106,15 +106,20 @@ def search (request):
             andreviews = Review.objects.filter(text__icontains = str(search))
             andbusinesses = Business.objects.filter(name__icontains = str(search))
             andusers = User.objects.filter(name__icontains = str(search))
-            and_results = [andreviews, andbusinesses, andusers]
-            or_results = []
+            and_results = {"reviews" : andreviews, "businesses" : andbusinesses, "users" : andusers}
+            or_results = {}
             # or search results
             # use set 
             if len(searchlist) > 1:
                 qset = Q(text__icontains = str(searchlist[0]))
+                qset2 = Q(name__icontains = str(searchlist[0]))
                 for s in searchlist :
                     qset = qset | Q(text__icontains = str(s))
-                or_results = Review.objects.filter(qset).exclude(text__icontains = str(search))
+                    qset2 = qset2 | Q(name__icontains = str(s))
+                orreviews = Review.objects.filter(qset).exclude(text__icontains = str(search))
+                orusers = User.objects.filter(qset2).exclude(name__icontains = str(search))
+                orbusinesses = Business.objects.filter(qset2).exclude(name__icontains = str(search))
+                or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
 
             form = SearchForm()
             context_dict["form"] = form
