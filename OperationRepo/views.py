@@ -93,21 +93,32 @@ def user_splash (request):
 
 def search (request):
     context = RequestContext(request)
+    context_dict = {}
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
             #form has been submitted
             search = form.cleaned_data['search']
-            search_results = []
-            reviews = Review.objects.filter(text__contains = str(search))
-            businesses = Business.objects.filter(name__contains = str(search))
-            users = User.objects.filter(name__contains = str(search))
-            search_results = [reviews, businesses, users]
+            searchlist = search.split(" ")
+            
+            # and search results
+            andreviews = Review.objects.filter(text__icontains = str(search))
+            andbusinesses = Business.objects.filter(name__icontains = str(search))
+            andusers = User.objects.filter(name__icontains = str(search))
+            and_results = [andreviews, andbusinesses, andusers]
+
+            # or search results
+            # use set 
+            
             form = SearchForm()
-            return render_to_response('OperationRepo/search.html', {"results" : search_results, "form" : form, "search_terms": str(search)}, context)
+            context_dict["form"] = form
+            context_dict["andresults"] = and_results
+            #context_dict["orresults"] = or_results 
+            context_dict["search_terms"] = str(search)
+            return render_to_response('OperationRepo/search.html', context_dict, context)
         else:
             form = SearchForm() #create form to display
-    return render_to_response('OperationRepo/search.html', {"results": [], 'form':form}, context)
+    return render_to_response('OperationRepo/search.html', {"andresults": [], "orresults" :[], 'form':form}, context)
 
 
 def toJS(a):
