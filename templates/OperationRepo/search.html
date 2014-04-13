@@ -25,12 +25,16 @@
                             <div class="search-cell">
                                 <div>
                                     <h4><a href="{% url 'business' r.business_id %}">{{r.name}}</a></h4>
+                                    <div class="context">
+                                    </div>
                                 </div>
                             </div>
                         {% elif r|className == "User" %}
                             <div class="search-cell">
                                 <div>
                                     <h4><a href="{% url 'user' r.user_id %}">{{r.name}}</a> </h4>
+                                    <div class="context">
+                                    </div>
                                 </div>
                             </div>
                         {% elif r|className == "Review" %}
@@ -39,8 +43,10 @@
                                     <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
                                     <p>
                                         <a href="{% url 'review' r.review_id %}">view</a>
-                                        <div class="review-text">
-                                            {{ r.text }}
+                                        <div class="context">
+                                            <div class="review-text">
+                                                {{ r.text }}
+                                            </div>
                                         </div>
                                     </p>
                                 </div>
@@ -59,7 +65,7 @@
     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.review-text').each(function(){
+            $('.context').each(function(){
                 var searcht = "{{search_terms}}"
                 var searchtext = $(this).html();
                 var index = searchtext.search(searcht);
