@@ -18,11 +18,6 @@ class BusinessResource(ModelResource):
 		authorization= Authorization()
 
 	def dehydrate(self, bundle):
-		neighborhoods = Neighborhoods.objects.filter(business=bundle.data['business_id'])
-		bundle.data['neigh'] = [model_to_dict(c) for c in neighborhoods]
-		bundle.data['neighborhoods'] = [c['name'] for c in bundle.data['neigh']]
-		del(bundle.data['neigh'])
-
 		categories = Categories.objects.filter(business=bundle.data['business_id'])
 		bundle.data['cat'] = [model_to_dict(c) for c in categories]
 		bundle.data['categories'] = [c['name'] for c in bundle.data['cat']]
@@ -52,14 +47,6 @@ class BusinessResource(ModelResource):
 			if 'meta' in business_dict:
 				del(business_dict['meta'])
 		return business_dict['objects']
-
-
-class NeighborhoodsResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business', full=True)
-
-	class Meta:
-		queryset = Neighborhoods.objects.all()
-		resource_name = 'neighborhoods'
 
 
 class CategoriesResource(ModelResource):
