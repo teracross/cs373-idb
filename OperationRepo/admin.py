@@ -4,7 +4,6 @@ from django.contrib import admin
 from OperationRepo.models import *
 
 admin.site.register(Business)
-admin.site.register(Neighborhoods)
 admin.site.register(Categories)
 admin.site.register(Attributes)
 admin.site.register(Hours)
