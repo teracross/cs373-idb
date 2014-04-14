@@ -16,6 +16,7 @@
     <div class="jumbotron">
         <div class="search-result">
         <!-- AND  search results -->
+        {% if andresults.businesses|length > 0 or andresults.reviews|length > 0 or andresults.users|length > 0  %}
         <h2>Search Results for &quot;<italic>{{search_terms}}</italic>&quot; :</h2>
         <div id="and-search-content">
             <h3>Businesses</h3>
@@ -52,7 +53,7 @@
                 <div>
                     <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
                     <p>
-                        <p>Date Written: {{r.date}}</p>
+                        Date Written: {{r.date}}
                         <div class="context">
                             <div class="review-text">
                                 {{ r.text }}
@@ -68,7 +69,9 @@
             </div>
             {% endfor %}
         </div>
+        
         <!-- OR search results -->
+        {% elif orresults.businesses|length > 0 or orresults.reviews|length > 0 or orresults.users|length > 0  %}
         <h2>Search Results for 
                 {% for s in search_list %} 
                     {% if forloop.last %}
@@ -128,6 +131,10 @@
             </div>
             {% endfor %}
         </div>
+
+        {% else %}
+        <p>No search results...</p>
+        {% endif %}
         </div>
     </div>
 </div>
