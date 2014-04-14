@@ -15,8 +15,7 @@ def populate_business():
         hours = business_json.pop('hours', None)
         business_json['is_open'] = business_json.pop('open', None)
         b = add_business(business_json)
-        for neighborhood in neighborhoods:
-            Neighborhood.objects.get_or_create(business=b, name=name)
+        
         for name in categories:
             Categories.objects.get_or_create(business=b, name=name)
         for key,value in attributes.items():
