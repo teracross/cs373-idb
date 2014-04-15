@@ -13,7 +13,7 @@
     <link href="{{STATIC_URL}}css/reviewtable.css" rel="stylesheet" media="screen" type="text/css" />
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
-
+    <script src="{{STATIC_URL}}js/Chart.min.js"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key={{MAPS_API_KEY}}&sensor=false">
     </script>
@@ -41,13 +41,20 @@
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
+    <style type="text/css">
+        .square
+        {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+    </style>
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
     <div class='container'>
         <h1 class ="topHeader">Operation Repo - Businesses</h1>
-
 
         {% include "navbar.html" %}
 
@@ -89,6 +96,35 @@
                 {% endif %}
             </div>
             <h2>Reviews:</h2>
+            <h4 style="text-align: center">Historical Number of Reviews(<span style="background-color:#97BBCD" class="square"></span>) vs. Average Stars(<span style="background-color:#D69797" class="square"></span>)</h4>
+            <canvas id="reviewHistoryChart" width="1000" height="400"></canvas>
+            <script type="text/javascript">
+            //Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#reviewHistoryChart").get(0).getContext("2d");
+            var data =
+            {
+                labels : {{reviewHistoryLabels|safe}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        pointColor : "rgba(151,187,205,1)",
+                        pointStrokeColor : "#fff",
+                        data : {{reviewHistoryVolumeData|safe}}
+                    },
+                    {
+                        fillColor : "rgba(214,151,151,0.5)",
+                        strokeColor : "rgba(214,151,151,0.5)",
+                        pointColor : "rgba(214,151,151,0.5)",
+                        pointStrokeColor : "#fff",
+                        data : {{reviewHistoryStarsData|safe}}
+                    }
+                ]
+            }
+
+            new Chart(ctx).Line(data);
+            </script>
             {% if not Business.review_count and not Business.stars and not Reviews %}
                 Reviews not available.
             {% endif %}
