@@ -12,13 +12,14 @@ should link back to user reviewing and business reviewed-->
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <style>
-      body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
+      body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
     <div class="container">
-        <h1>Operation Repo - Review {{ a }} </h1>
+        <h1 class="topHeader">Operation Repo - Review {{ a }} </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>Review for <a href="{% url 'business' Review.business.business_id %}">{{ Review.business.name }}</a> by <a href="{% url 'user' Review.user.user_id %}"> {{ Review.user.name }} </a> </h1>

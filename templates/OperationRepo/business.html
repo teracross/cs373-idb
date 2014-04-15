@@ -39,14 +39,14 @@
         google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
     <style>
-        body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
+        body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
     <div class='container'>
-        <h1>Operation Repo - Businesses</h1>
+        <h1 class ="topHeader">Operation Repo - Businesses</h1>
 
 
         {% include "navbar.html" %}

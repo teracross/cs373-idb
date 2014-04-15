@@ -13,14 +13,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
     <style>
-        body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
+        body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
 </head>
 
 <body>
   <div class='container'>
-    <h1>Operation Repo - Users </h1>
+    <h1 class="topHeader">Operation Repo - Users </h1>
     {% include "navbar.html" %}
     <div class="jumbotron">
       <h1>{{User.name}}</h1>
