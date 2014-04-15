@@ -12,8 +12,8 @@
           <li id="business_nav"><a href="{% url 'business_splash' %}">Businesses</a></li>
           <li id="review_nav"><a href="{% url 'review_splash' %}">Reviews</a></li>
           <li id="user_nav"><a href="{% url 'user_splash' %}">Users</a></li>
-          <li>
-            <div class="col-sm-4 col-md-4 pull-right"> 
+          <!-- the search bar -->
+          <div class="col-sm-4 col-md-4 pull-right"> 
             <form class="navbar-form" role="search" method="GET" action="{% url 'search' %}">
                 <div class="input-group">
                     {{ form.search }}
@@ -23,11 +23,7 @@
                 <!-- search input end -->
                 </div><!--/.container-fluid -->
             </form>
-            </div>
-          </li>
-           <!--  -->
-          <!-- the search bar -->
-            
+          </div>
           <li class="btn-group dropdown">
             <button type="button" class="btn btn-default navbar-btn dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
             <ul class="dropdown-menu">
