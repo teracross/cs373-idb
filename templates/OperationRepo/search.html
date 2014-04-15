@@ -30,7 +30,9 @@
             </div>
             {% empty %}
             <div class="search-empty">
-                No search results...
+                <div>
+                    No search results...
+                </div>
             </div>
             {% endfor %}
             <h3>Users</h3>
@@ -44,7 +46,9 @@
             </div>
             {% empty %}
             <div class="search-empty">
-                No search results...
+                <div>
+                    No search results...
+                </div>
             </div>
             {% endfor %}
             <h3>Reviews</h3>
@@ -65,7 +69,9 @@
             </div>
             {% empty %}
             <div class="search-empty">
-                No search results...
+                <div>
+                    No search results...
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -93,7 +99,9 @@
                 </div>
             {% empty %}
             <div class="search-empty">
-                No search results...
+                <div>
+                    No search results...
+                </div>
             </div>
             {% endfor %}
             <h3>Users</h3>
@@ -107,7 +115,9 @@
                 </div>
             {% empty %}
             <div class="search-empty">
-                No search results...
+                <div>
+                    No search results...
+                </div>
             </div>
             {% endfor %}
             <h3>Reviews</h3>
@@ -127,7 +137,9 @@
                 </div>
             {% empty %}
             <div class="search-empty">
+                <div>
                     No search results...
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -145,19 +157,23 @@
         $(document).ready(function(){
             $('#and-search-content .context').each(function(){
                 var searcht = "{{search_terms}}";
+                var lower = searcht.toLowerCase();
                 var searchtext = $(this).html();
-                var index = searchtext.search(searcht);
+                var searchtextlower = searchtext.toLowerCase();
+                var index = searchtextlower.search(lower);
                 var newinner = "";
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
                     w = w.replace(searcht, "<bold>".concat(searcht,"</bold>"));
+                    w = w.replace(lower, "<bold>".concat(lower,"</bold>"));
                     newinner = " ...".concat(w,"... ");
                 }
-                searchtext = searchtext.substring(index+1);
-                index = searchtext.search(searcht);
+                searchtextlower = searchtextlower.substring(index+1);
+                index = searchtextlower.search(lower);
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
                     w = w.replace(searcht, "<bold>".concat(searcht,"</bold>"));
+                    w = w.replace(lower, "<bold>".concat(lower,"</bold>"));
                     newinner = newinner.concat(" ...",w, "... ");
                 }
                 $(this).html(newinner);
@@ -166,22 +182,26 @@
             $('#or-search-content .context').each(function(){
                 var searcht = [{% for s in search_list%}{% if forloop.last %} "{{s}}" {% else %} "{{s}}", {% endif %}{% endfor %}];
                 var searchtext = $(this).html();
+                var lookin = searchtext.toLowerCase();
                 var newinner = "";
                 for (var i = searcht.length - 1; i >= 0; i--) {
-                    var index = searchtext.search(searcht[i]);
+                    var lookfor = searcht[i].toLowerCase();
+                    var index = lookin.search(lookfor);
                     if(index > -1){
                         var w = searchtext.substring(Math.max(index-20, 0), index+20);
                         w = w.replace(searcht[i], "<bold>".concat(searcht[i],"</bold>"));
+                        w = w.replace(lookfor, "<bold>".concat(lookfor,"</bold>"));
                         newinner = newinner.concat(" ...",w,"... ");
                     }
-                    searchtext = searchtext.substring(index+1);
-                    index = searchtext.search(searcht[i]);
+                    lookin = lookin.substring(index+1);
+                    index = lookin.search(lookfor);
                     if(index > -1){
                         var w = searchtext.substring(Math.max(index-20, 0), index+20);
                         w = w.replace(searcht[i], "<bold>".concat(searcht[i],"</bold>"));
+                        w = w.replace(lookin, "<bold>".concat(lookin,"</bold>"));
                         newinner = newinner.concat(" ...",w, "... ");
                     }
-                    searchtext = $(this).html();
+                    lookin = $(this).html().toLowerCase();
                 };
                 $(this).html(newinner);
             });

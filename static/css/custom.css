@@ -35,13 +35,16 @@
 }
 
 .search-cell div{
-	margin-left: 10px;
+	margin-left: 20px;
 }
 
 .search-empty {
-	margin-left: 10px;
 	margin-bottom: 5px;
 	border-bottom: 2px solid;
+}
+
+.search-empty div{
+	margin-left: 20px;
 }
 
 .search-result h2{
