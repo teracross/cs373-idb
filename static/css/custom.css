@@ -30,8 +30,8 @@
 }
 
 .search-cell {
-	border-bottom: 2px solid;
-	margin-bottom: 5px;
+	
+	margin-bottom: 20px;
 }
 
 .search-cell div{
@@ -39,8 +39,8 @@
 }
 
 .search-empty {
-	margin-bottom: 5px;
-	border-bottom: 2px solid;
+	margin-bottom: 20px;
+	
 }
 
 .search-empty div{
@@ -67,4 +67,8 @@ bold {
 italic {
 	font-style: italic;
 	color: rgb(67, 129, 189);
+}
+
+.context {
+	color: #545454;
 }

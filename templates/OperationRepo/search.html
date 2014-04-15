@@ -55,15 +55,14 @@
             {% for r in andresults.reviews %}
             <div class="search-cell">
                 <div>
-                    <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
+                    <a href="{% url 'review' r.review_id %}"><h4>Review for {{r.business.name}} by {{r.user.name}}</h4></a>
                     <p>
-                        Date Written: {{r.date}}
+                        <h6>Date Written: {{r.date}}</h6>
                         <div class="context">
                             <div class="review-text">
                                 {{ r.text }}
                             </div>
                         </div>
-                        <a href="{% url 'review' r.review_id %}">view</a>
                     </p>
                 </div>
             </div>
@@ -110,6 +109,7 @@
                     <div>
                         <h4><a href="{% url 'user' u.user_id %}">{{u.name}}</a> </h4>
                         <div class="context">
+                            
                         </div>
                     </div>
                 </div>
@@ -124,14 +124,14 @@
             {% for r in orresults.reviews %}
                 <div class="search-cell">
                     <div>
-                        <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
+                        <a href="{% url 'review' r.review_id %}"><h4>Review for {{r.business.name}} by {{r.user.name}}</h4></a>
                         <p>
+                            <h6>Date Written: {{r.date}}</h6>
                             <div class="context">
                                 <div class="review-text">
                                     {{ r.text }}
                                 </div>
                             </div>
-                            <a href="{% url 'review' r.review_id %}">view</a>
                         </p>
                     </div>
                 </div>
