@@ -57,7 +57,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'debug_toolbar',
+    #'debug_toolbar',
     'OperationRepo'
 )
 
