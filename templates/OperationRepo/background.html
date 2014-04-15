@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	var user_input = false;
+	var bg_selection
+
+	// if (user_input = false)
+	// document.cookie.split()
+	// var currentHour = new Dat().getHour();
+	// if (current) {
+
+	// }
+    function setBgLight(){
+      if (document.body){
+        document.body.style.background="url('{{STATIC_URL}}img/bg_light.jpg') fixed";
+      }
+    }
+    function setBgMed(){
+      if (document.body){
+        document.body.style.background="url('{{STATIC_URL}}img/bg_med.jpg') fixed";
+      }
+    }
+    function setBgDark(){
+      if (document.body){
+        document.body.style.background="url('{{STATIC_URL}}img/bg_dark.jpg') fixed";
+      }
+    }
+</script>
