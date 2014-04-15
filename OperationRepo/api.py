@@ -1,192 +1,354 @@
-from django.contrib.auth.models import *
-from tastypie import fields
-from tastypie.authorization import Authorization
-from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
+from django.shortcuts import get_object_or_404
 from OperationRepo.models import *
-import copy
-from django.forms.models import model_to_dict
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from django.http import HttpResponse
+import json
 
 
-class BusinessResource(ModelResource):
-
-	class Meta:
-		queryset = Business.objects.all()
-		fields = ['business_id','name','city']
-		include_resource_uri = False
-		resource_name = 'business'
-		authorization= Authorization()
-
-	def dehydrate(self, bundle):
-		categories = Categories.objects.filter(business=bundle.data['business_id'])
-		bundle.data['cat'] = [model_to_dict(c) for c in categories]
-		bundle.data['categories'] = [c['name'] for c in bundle.data['cat']]
-		del(bundle.data['cat'])
-		
-		attributes = Attributes.objects.filter(business=bundle.data['business_id'])
-		bundle.data['attr'] = [model_to_dict(c) for c in attributes]
-		bundle.data['attributes'] = {}
-		for v in bundle.data['attr']:
-			s = v['name'].replace(' ', '_').replace('-','').lower()
-			bundle.data['attributes'][s] = v['value'].replace('False', 'false')	.replace('True','true')		
-		del(bundle.data['attr'])
-
-		hours = Hours.objects.filter(business=bundle.data['business_id'])
-		bundle.data['hrs'] = [model_to_dict(c) for c in hours]
-		bundle.data['hours'] = {}
-		for v in bundle.data['hrs']:
-			temp = {}
-			temp['close'] = v['close_hour']
-			temp['open'] = v['open_hour']
-			bundle.data['hours'][v['day_of_week']] = temp
-		del(bundle.data['hrs'])
-		return bundle
-
-	def alter_list_data_to_serialize(self, request, business_dict):
-		if isinstance(business_dict, dict):
-			if 'meta' in business_dict:
-				del(business_dict['meta'])
-		return business_dict['objects']
+BUSINESS_FK = ['neighborhoods','categories','attributes','hours']
+USER_FK = ['votes','elite','compliments']
+REVIEW_FK = ['votes']
 
 
-class CategoriesResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business', full=True)
+# Businesses
+@api_view(['GET', 'POST'])
+def business_all(request):
 
-	class Meta:
-		queryset = Categories.objects.all()
-		resource_name = 'categories'
+    if request.method == 'GET':
+        return Response(list(Business.objects.all().values('business_id','name', 'city')))
+
+    elif request.method == 'POST':
+        business_json = request.DATA.copy()
+        business_json.pop('type',None)
+        categories = business_json.pop('categories', None)
+        attributes = business_json.pop('attributes', None)
+        hours = business_json.pop('hours', None)
+        business_json['is_open'] = business_json.pop('open', None)
+        b = Business(**business_json)
+
+        if not b:
+            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+        b.save()
+
+        for name in categories:
+            Categories(business=b, name=name).save()
+        for key,value in attributes.items():
+            Attributes(business=b, name=key,value=str(value)).save()
+        for day,hour in hours.items():
+            Hours(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
+
+        return Response(request.DATA, status=status.HTTP_201_CREATED)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def business_id(request, business_id):
+    
+    business = get_object_or_404(Business, business_id=business_id)
+    if request.method == 'GET':
+        business.__dict__.pop('_state')
+
+        attr = {}
+        for attribute in Attributes.objects.filter(business=business).values():
+            s = attribute['name'].replace(' ', '_').replace('-','').lower()
+            if "{" in str(attribute['value']) :
+                attr[s] = toJS(attribute['value'])
+            else:
+                attr[s] = attribute['value']
+            
+        business.__dict__['attributes'] = attr
+        business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+        business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+        business.__dict__['type'] = "business"
+
+        return Response(business.__dict__)
+    elif request.method == 'PUT':
+
+        Categories.objects.filter(business=business).delete()
+        for name in request.DATA['categories']:
+            Categories(business=business, name=name).save()
+        for key,value in request.DATA['attributes'].items():
+            Attributes(business=business, name=key,value=str(value)).save()
+        for day,hour in request.DATA['hours'].items():
+            Hours(business=business,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
+
+        for k in request.DATA:
+            if k not in BUSINESS_FK:
+                business.__dict__[k] = request.DATA[k]
+
+        attr = {}
+        for attribute in Attributes.objects.filter(business=business).values():
+            s = attribute['name'].replace(' ', '_').replace('-','').lower()
+            if "{" in str(attribute['value']) :
+                attr[s] = toJS(attribute['value'])
+            else:
+                attr[s] = attribute['value']
+            
+        business.__dict__['attributes'] = attr
+        business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+        business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+        business.__dict__['type'] = "business"
+
+        business.save()
+        business.__dict__.pop('_state',None)
+        return Response(business.__dict__,status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'DELETE':
+        Categories.filter(business_id = business_id).delete()
+        Attributes.filter(business_id = business_id).delete()
+        Hours.filter(business_id = business_id).delete()
+        Business.objects.filter(business_id = business_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+
+@api_view(['GET'])
+def business_id_user(request, business_id):
+    business = get_object_or_404(Business, business_id=business_id)
+    reviews = Review.objects.filter(business=business)
+    for review in reviews:
+        review.user.__dict__.pop('_state')
+        review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
+        review.user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=review.user).values()}
+        review.user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=review.user).values()]
+        review.user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=review.user).values()}
+        review.user.__dict__['type'] = "user"
+    users = [review.user.__dict__ for review in reviews]
+
+    return Response(users)
+
+@api_view(['GET'])
+def business_id_review(request, business_id):
+    business = get_object_or_404(Business, business_id=business_id)
+    reviews = Review.objects.filter(business=business)
+    for review in reviews:
+        review.__dict__.pop('_state')
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['type'] = "review"
+        
+    return Response([review.__dict__ for review in reviews])
+
+# Users
+@api_view(['GET', 'POST'])
+def user_all(request):
+
+    if request.method == 'GET':
+        return Response(list(User.objects.all().values('user_id','name')))
+
+    elif request.method == 'POST':
+        user_json = request.DATA.copy()
+        user_json.pop('type', None)
+        votes = user_json.pop('votes',None)
+        elite = user_json.pop('elite',None)
+        compliments =  user_json.pop('compliments',None)
+
+        u = User(**user_json)
+
+        if not u:
+            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+        u.save()
+
+        for kind,number in votes.items():
+            User_Votes(user=u, vote_type=kind,count=number).save()
+        for leet in elite:
+            Elite(user=u,years_elite=leet).save()
+        for kind,number in compliments.items():
+            Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
+        
+        return Response(request.DATA, status=status.HTTP_201_CREATED)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def user_id(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
+
+    if request.method == 'GET':
+        user.__dict__.pop('_state')
+        user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+        user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+        user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+        user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+        user.__dict__['type'] = "user"
+
+        return Response(user.__dict__)
+
+    elif request.method == 'PUT':
+
+        Elite.objects.filter(user=user).delete()
+        for kind,number in request.DATA['votes'].items():
+            User_Votes(user=user, vote_type=kind,count=number).save()
+        for leet in request.DATA['elite']:
+            Elite(user=user,years_elite=leet).save()
+        for kind,number in request.DATA['compliments'].items():
+            Compliments(user=user,complement_type=kind,num_compliments_of_this_type=number).save()
+
+        for k in request.DATA:
+            if k not in USER_FK:
+                user.__dict__[k] = request.DATA[k]
+
+        user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+        user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+        user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+        user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+        user.__dict__['type'] = "user"
+
+        user.save()
+        user.__dict__.pop('_state',None)
+
+        return Response(user.__dict__,status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'DELETE':
+        User_Votes.objects.filter(user_id = user_id).delete()
+        Elite.objects.filter(user_id = user_id).delete()
+        Compliments.objects.filter(user_id = user_id).delete()
+        User.objects.filter(user_id = user_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
 
 
-class AttributesResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business', full=True)
 
-	class Meta:
-		queryset = Attributes.objects.all()
-		resource_name = 'attributes'
-		filtering = {
-			'business': ALL_WITH_RELATIONS
-		}
+@api_view(['GET'])
+def user_id_business(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
+    reviews = Review.objects.filter(user=user)
+    for review in reviews:
+        review.business.__dict__.pop('_state')
+    businesses = [review.business for review in reviews]
+    for business in businesses:
+        attr = {}
+        for attribute in Attributes.objects.filter(business=business).values():
+            s = attribute['name'].replace(' ', '_').replace('-','').lower()
+            if "{" in str(attribute['value']) :
+                attr[s] = toJS(attribute['value'])
+            else:
+                attr[s] = attribute['value']
+        
+        business.__dict__['attributes'] = attr
+        
+        business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+        business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+        business.__dict__['type'] = "business"
 
-class HoursResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business', full=True)
+    return Response([business.__dict__ for business in businesses])
 
-	class Meta:
-		queryset = Hours.objects.all()
-		resource_name = 'hours'
-		filtering = {
-			'business': ALL_WITH_RELATIONS
-		}
+@api_view(['GET'])
+def user_id_review(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
+    reviews = Review.objects.filter(user=user)
+    for review in reviews:
+        review.__dict__.pop('_state')
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['type'] = "review"
 
-class UserResource(ModelResource):
+    return Response([review.__dict__ for review in reviews])
 
-	class Meta:
-		queryset = User.objects.all()
-		fields = ['user_id','name']
-		include_resource_uri = False
-		authorization= Authorization()
+# Reviews
+@api_view(['GET', 'POST'])
+def review_all(request):
 
-	def dehydrate(self, bundle):
-		user_votes = User_Votes.objects.filter(user=bundle.data['user_id'])
-		bundle.data['uv'] = [model_to_dict(c) for c in user_votes]
-		bundle.data['votes'] = {}		
-		for v in bundle.data['uv']:
-			bundle.data['votes'][v['vote_type']] = v['count']
-		del(bundle.data['uv'])
-
-		elite = Elite.objects.filter(user=bundle.data['user_id'])
-		bundle.data['el'] = [model_to_dict(c) for c in elite]
-		for v in bundle.data['el']:
-			bundle.data['elite'] = v['years_elite']
-		del(bundle.data['el'])
-
-		compliments = Compliments.objects.filter(user=bundle.data['user_id'])
-		bundle.data['comp'] = [model_to_dict(c) for c in compliments]
-		bundle.data['compliments'] = {}		
-		for v in bundle.data['comp']:
-			bundle.data['compliments'][v['complement_type']] = v['num_compliments_of_this_type']
-		del(bundle.data['comp'])
-
-		return bundle
-
-	def alter_list_data_to_serialize(self, request, user_dict):
-		if isinstance(user_dict, dict):
-			if 'meta' in user_dict:
-				del(user_dict['meta'])
-		return user_dict['objects']
-
-class User_VotesResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user', full=True)
-
-	class Meta:
-		queryset = User_Votes.objects.all()
-		resource_name = 'user_votes'
-
-class EliteResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-
-	class Meta:
-		queryset = Elite.objects.all()
-		resource_name = 'elite'
-
-class ComplimentsResource(ModelResource):
-	user = fields.ForeignKey(UserResource, 'user')
-
-	class Meta:
-		queryset = Compliments.objects.all()
-		resource_name = 'compliments'
-
-class ReviewResource(ModelResource):
-	business = fields.ForeignKey(BusinessResource, 'business')
-	user = fields.ForeignKey(UserResource, 'user')
+    if request.method == 'GET':
+        return Response(list(Review.objects.all().values('review_id','business_id','user_id')))
 
 
-	class Meta:
-		queryset = Review.objects.all()
-		#fields = ['review_id','business_id','user_id']
-		include_resource_uri = False
-		authorization= Authorization()
+    elif request.method == 'POST':
+        review_json = request.DATA.copy()
+        review_json.pop('type',None)
+        votes = review_json.pop('votes',None)
 
-	def dehydrate(self, bundle):
-		review_votes = Review_Votes.objects.filter(review=bundle.data['review_id'])
-		bundle.data['rv'] = [model_to_dict(c) for c in review_votes]
-		bundle.data['votes'] = {}		
-		for v in bundle.data['rv']:
-			bundle.data['votes'][v['vote_type']] = v['count']
-		del(bundle.data['rv'])
-		return bundle
+        r = Review(**review_json)
 
-	def alter_list_data_to_serialize(self, request, review_dict):
-		if isinstance(review_dict, dict):
-			if 'meta' in review_dict:
-				del(review_dict['meta'])
-		return review_dict['objects']
+        if not r:
+            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
-class Review_VotesResource(ModelResource):
-	review = fields.ForeignKey(ReviewResource, 'review')
+        r.save()
 
-	class Meta:
-		queryset = Review_Votes.objects.all()
-		resource_name = 'review_votes'
-		excludes = ["business:", "user", "username", "resource_uri"]
+        for kind,number in votes.items():
+            Review_Votes(review=r, vote_type=kind,count=number).save()
+            
+        return Response(request.DATA, status=status.HTTP_201_CREATED)
 
-"""
-class BusinessReviewResource(ModelResource):
-	reviews = fields.ToManyField(ReviewResource, 'reviews', full=True)
-	def prepend_urls(self):
-		return [
-		#(r"^(?P<resource_name>%s)/(?P<pk>\w[\w/-]*)/reviews%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('get_review'), name="api_get_review"),
-		]
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
-	def get_review(self, request, **kwargs):
-		try:
-			bundle = self.build_bundle(data={'pk': kwargs['pk']}, request=request)
-			obj = self.cached_obj_get(bundle=bundle, **self.remove_api_resource_names(kwargs))
-		except ObjectDoesNotExist:
-			return HttpGone()
-		except MultipleObjectsReturned:
-			return HttpMultipleChoices("More than one resource is found at this URI.")
 
-			review_resource = ReviewResource()
-			return review_resource.get_detail(request, parent_id=obj.pk)
-"""
+@api_view(['GET', 'PUT', 'DELETE'])
+def review_id(request, review_id):
+    review = get_object_or_404(Review, review_id=review_id)
 
+    if request.method == 'GET':
+        review.__dict__.pop('_state')
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+        return Response(review.__dict__)
+
+    elif request.method == 'PUT':
+
+        for kind,number in request.DATA['votes'].items():
+            Review_Votes(review=review, vote_type=kind,count=number).save()
+
+        for k in request.DATA:
+            if k not in REVIEW_FK:
+                review.__dict__[k] = request.DATA[k]
+
+        review.__dict__['date'] = str(review.__dict__['date'])
+        review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
+        review.__dict__['type'] = "review"
+
+        review.save()
+        review.__dict__.pop('_state',None)
+
+        return Response(review.__dict__,status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'DELETE':
+        Review_Votes.filter(review_id = review_id).delete()
+        Review.objects.filter(review_id = review_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+    else:
+        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+
+@api_view(['GET'])
+def review_id_business(request, review_id):
+    business = get_object_or_404(Review, review_id=review_id).business
+    business.__dict__.pop('_state')
+    attr = {}
+    for attribute in Attributes.objects.filter(business=business).values():
+        s = attribute['name'].replace(' ', '_').replace('-','').lower()
+        if "{" in str(attribute['value']) :
+            attr[s] = toJS(attribute['value'])
+        else:
+            attr[s] = attribute['value']
+    
+    business.__dict__['attributes'] = attr
+    business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
+    business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
+    business.__dict__['type'] = "business"
+    return Response([business.__dict__])
+
+@api_view(['GET'])
+def review_id_user(request, review_id):
+    user = get_object_or_404(Review, review_id=review_id).user
+    user.__dict__.pop('_state')
+    user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
+    user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
+    user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
+    user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
+    user.__dict__['type'] = "user"
+    return Response([user.__dict__])
+
+def toJS(a):
+    val = str(a).replace("'","\"").replace("True","true").replace("False","false")
+    return json.loads(val)
