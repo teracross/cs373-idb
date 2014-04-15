@@ -69,7 +69,6 @@ def business_id(request, business_id):
     elif request.method == 'PUT':
 
         Categories.objects.filter(business=business).delete()
-<<<<<<< HEAD
         for name in request.DATA['categories']:
             Categories(business=business, name=name).save()
         for key,value in request.DATA['attributes'].items():
