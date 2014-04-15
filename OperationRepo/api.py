@@ -69,6 +69,7 @@ def business_id(request, business_id):
     elif request.method == 'PUT':
 
         Categories.objects.filter(business=business).delete()
+<<<<<<< HEAD
         for name in request.DATA['categories']:
             Categories(business=business, name=name).save()
         for key,value in request.DATA['attributes'].items():
@@ -133,6 +134,7 @@ def business_id_review(request, business_id):
         review.__dict__['type'] = "review"
         
     return Response([review.__dict__ for review in reviews])
+
 
 # Users
 @api_view(['GET', 'POST'])
@@ -253,6 +255,7 @@ def user_id_review(request, user_id):
         review.__dict__['type'] = "review"
 
     return Response([review.__dict__ for review in reviews])
+
 
 # Reviews
 @api_view(['GET', 'POST'])
