@@ -181,7 +181,7 @@
 
             $('#or-search-content .context').each(function(){
                 var searcht = [{% for s in search_list%}{% if forloop.last %} "{{s}}" {% else %} "{{s}}", {% endif %}{% endfor %}];
-                var searchtext = $(this).html();
+                var searchtext = $(this).text();
                 var lookin = searchtext.toLowerCase();
                 var newinner = "";
                 for (var i = searcht.length - 1; i >= 0; i--) {
