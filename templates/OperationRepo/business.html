@@ -39,8 +39,9 @@
         google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
     <style>
-        body {background-image:url("{{STATIC_URL}}img/bg.jpg");}
+        body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
     </style>
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
@@ -55,7 +56,7 @@
             <table>
                 <tbody>
                     <tr><td><h1>{{Business.name}}</h1></td></tr>
-                    <tr><td><fb:share-button href="https://www.facebook.com/pages/Blue-32-Sports-Grill/60133788593" type="icon_link"></fb:share-button></td></tr>
+                    
                 </tbody>
             </table>
             <div><span class="key">Still in Business:</span><span class="value">{% if Business.is_open %}Yes{%else%}{% ifequal Business.is_open False %}No{%else%}Information not available.{%endifequal%}{%endif%}</span></div>

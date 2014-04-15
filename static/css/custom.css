@@ -28,3 +28,12 @@
  margin: 0; 
  padding: 0;
 }
+
+.search-cell {
+	border-bottom: 2px solid;
+	margin-bottom: 5px;
+}
+
+.search-cell div{
+	margin-left: 10px;
+}

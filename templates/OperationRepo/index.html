@@ -8,13 +8,14 @@
     <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <style>
-            body {background-image:url("{{STATIC_URL}}img/bg.jpg");}
+        body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
     </style>
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
   <div class='container'>
-    <h1>Operation Repo - Index </h1>
+    <v><h1 class ="topHeader">Operation Repo - Index </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>Yelp Dataset Challenge Interactive Application</h1>
@@ -28,7 +29,7 @@
         <div class="row">
         <div class="span4">
             <ul class="nav nav-list">
-                <li class="nav-header">Group Members</li>
+                <li class="nav-header well">Group Members</li>
                 <li><a href="https://github.com/teracross">Ed Lee</a></li>
                 <li><a href="https://github.com/aag2423">Anthony Garza</a></li>
                 <li><a href="https://github.com/xavierbeynon">Xavier Beynon</a></li>
@@ -44,5 +45,8 @@
      <!-- Bootstrap -->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+     <!-- scroll to top button -->
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
 </body>
 </html>

@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> Operation Repo - Businesses from Yelp Academic DataSet</title>
   <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
-  <style type="text/css">
-    .key {width: 150px;display:inline-block;}
-    body {background-image:url("{{STATIC_URL}}img/bg.jpg");}
+  <link href="{{STATIC_URL}}css/custom.css" rel="stylesheet" media="screen" type="text/css" />
+  <style>
+    body {background: url("{{STATIC_URL}}img/bg.jpg") fixed;}
   </style>
 </head>
 
@@ -17,28 +17,37 @@
   <h1>Operation Repo - Search </h1>
     {% include "navbar.html" %}
     <div class="jumbotron">
-        
-        <!-- <form class="form-horizontal" method="GET" action="{% url 'search' %}">  
-            <div class="form-group">
-                <div class="col-sm-11">
-                    {{ form.search }}
-                </div>
-                <div class="col-sm-1"><button type="submit" class="btn btn-primary">Search</button></div>
-                
-            </div>
-        </form> --> 
         {% load app_filters %} 
         <h2>Search Results:</h2>
+        <br/><br/>
         <div id="search-content">
             {% for t in results %}
                 {% for r in t %}
                     <div class="search-result">
                         {% if r|className == "Business" %}
-                            Business name = {{r.name}}
+                            <div class="search-cell">
+                                <div>
+                                    <h4><a href="{% url 'business' r.business_id %}">{{r.name}}</a></h4>
+                                </div>
+                            </div>
                         {% elif r|className == "User" %}
-                            User name = {{r.name}}
+                            <div class="search-cell">
+                                <div>
+                                    <h4><a href="{% url 'user' r.user_id %}">{{r.name}}</a> </h4>
+                                </div>
+                            </div>
                         {% elif r|className == "Review" %}
-                            Review for {{r.business.name}} by {{r.user.name}}
+                            <div class="search-cell">
+                                <div>
+                                    <h4>Review for {{r.business.name}} by {{r.user.name}}</h4>
+                                    <p>
+                                        <a href="{% url 'review' r.review_id %}">view</a>
+                                        <div class="review-text">
+                                            {{ r.text }}
+                                        </div>
+                                    </p>
+                                </div>
+                            </div>
                         {% endif %}
                     </div>
                 {% endfor %}
@@ -48,10 +57,10 @@
         </div>
     </div>
 </div>
-
-
-     <!-- Bootstrap -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <!-- scroll to top button -->
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
 </body>
 </html>
