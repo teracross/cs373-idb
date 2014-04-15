@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from OperationRepo.models import *
 from django.http import HttpResponse
 from django.db.models import Avg
+from django.db import connections
 import json
 from OperationRepo.forms import SearchForm
 
@@ -17,6 +18,13 @@ def index(request):
     context_dict = {'message': "Hello World", "form": SearchForm(), "active_page" :"index_nav" }
     return render_to_response('OperationRepo/index.html', context_dict, context)
 
+def dictfetchall(cursor):
+    "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [
+        dict(zip([col[0] for col in desc], row))
+        for row in cursor.fetchall()
+    ]
 
 # Businesses
 def business(request, *z):
@@ -36,7 +44,24 @@ def business(request, *z):
 
     theCategoriesList = Categories.objects.filter(business=thebusiness)
     theHoursList = Hours.objects.filter(business=thebusiness)
-    
+
+    reviewHistoryLabels = []
+    reviewHistoryVolumeData = []
+    reviewHistoryStarsData = []
+    cursor = connections['default'].cursor()
+
+    query = """SELECT date_part('month',date) as month ,date_part('year',date) as year,
+    count(*) as count, AVG(stars) as avg FROM "OperationRepo_review" where business_id='"""+businessID+"""'
+    group by year,month order by year,month"""
+    cursor.execute(query)
+
+    l = dictfetchall(cursor)
+    for g in l :
+        label = str(int(g["month"]))+"/"+str(int(g["year"]))
+        reviewHistoryLabels+=[label]
+        reviewHistoryVolumeData+=[int(g["count"])]
+        reviewHistoryStarsData+=[g["avg"]]
+
     return render_to_response('OperationRepo/business.html', {"Business" : thebusiness,
                                                             "Reviews":thereviews,
                                                             # "ReviewsArray":thereviews,
@@ -46,6 +71,9 @@ def business(request, *z):
                                                             "Hours":theHoursList,
                                                             "MAPS_API_KEY" : 'AIzaSyCJA1o336vHzMhiIAj-3PjLUd2H6xr0be4',
                                                             "form": SearchForm(),
+                                                            "reviewHistoryLabels" : reviewHistoryLabels,
+                                                            "reviewHistoryVolumeData" : reviewHistoryVolumeData,
+                                                            "reviewHistoryStarsData" : reviewHistoryStarsData,
                                                             "active_page" :"business_nav"},context)
 # Reviews
 def review(request, *z):
