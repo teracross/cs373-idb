@@ -6,16 +6,22 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 import json
 
+
+BUSINESS_FK = ['neighborhoods','categories','attributes','hours']
+USER_FK = ['votes','elite','compliments']
+REVIEW_FK = ['votes']
+
+
 # Businesses
 @api_view(['GET', 'POST'])
-def get_business_all(request):
+def business_all(request):
+
     if request.method == 'GET':
         return Response(list(Business.objects.all().values('business_id','name', 'city')))
 
     elif request.method == 'POST':
         business_json = request.DATA
         business_json.pop('type',None)
-        neighborhoods = business_json.pop('neighborhoods', None)
         categories = business_json.pop('categories', None)
         attributes = business_json.pop('attributes', None)
         hours = business_json.pop('hours', None)
@@ -27,8 +33,6 @@ def get_business_all(request):
 
         b.save()
 
-        for neighborhood in neighborhoods:
-            Neighborhood(business=b, name=name).save()
         for name in categories:
             Categories(business=b, name=name).save()
         for key,value in attributes.items():
@@ -42,12 +46,10 @@ def get_business_all(request):
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def get_business_id(request, business_id):
+def business_id(request, business_id):
     
     business = get_object_or_404(Business, business_id=business_id)
-    #business.__dict__.pop('_state')
     if request.method == 'GET':
-        #business = get_object_or_404(Business, business_id=business_id)
         business.__dict__.pop('_state')
 
         attr = {}
@@ -58,15 +60,26 @@ def get_business_id(request, business_id):
             else:
                 attr[s] = attribute['value']
             
-
         business.__dict__['attributes'] = attr
-        business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
         business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
         business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
         business.__dict__['type'] = "business"
 
         return Response(business.__dict__)
     elif request.method == 'PUT':
+
+        Categories.objects.filter(business=business).delete()
+        for name in categories:
+            Categories(business=business, name=name).save()
+        for key,value in attributes.items():
+            Attributes(business=business, name=key,value=str(value)).save()
+        for day,hour in hours.items():
+            Hours(business=business,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
+
+        for k in request.DATA:
+            if k not in BUSINESS_FK:
+                business.__dict__[k] = request.DATA[k]
+
         attr = {}
         for attribute in Attributes.objects.filter(business=business).values():
             s = attribute['name'].replace(' ', '_').replace('-','').lower()
@@ -75,19 +88,13 @@ def get_business_id(request, business_id):
             else:
                 attr[s] = attribute['value']
             
-
         business.__dict__['attributes'] = attr
-        business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
         business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
         business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
         business.__dict__['type'] = "business"
-        diff = [v for v in request.DATA if request.DATA[v] != business.__dict__[v]]
-        #need to create new subkeys if they don't currently exist
-        for v in diff:
-            #works for none nested attributes
-            business.__dict__[v] = request.DATA[v]
+
         business.save()
-        return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
+        return Response(business.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
         Business.objects.filter(business_id = business_id).delete()
@@ -97,15 +104,13 @@ def get_business_id(request, business_id):
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
 
 @api_view(['GET'])
-def get_business_id_user(request, business_id):
+def business_id_user(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     reviews = Review.objects.filter(business=business)
     for review in reviews:
         review.user.__dict__.pop('_state')
         review.user.__dict__['yelping_since'] = str(review.user.__dict__['yelping_since'])
-
         review.user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=review.user).values()}
-
         review.user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=review.user).values()]
         review.user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=review.user).values()}
         review.user.__dict__['type'] = "user"
@@ -114,7 +119,7 @@ def get_business_id_user(request, business_id):
     return Response(users)
 
 @api_view(['GET'])
-def get_business_id_review(request, business_id):
+def business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
     reviews = Review.objects.filter(business=business)
     for review in reviews:
@@ -123,13 +128,12 @@ def get_business_id_review(request, business_id):
         review.__dict__['date'] = str(review.__dict__['date'])
         review.__dict__['type'] = "review"
         
-
     reviews_dict = [review.__dict__ for review in reviews]
     return Response(list(reviews_dict))
 
 # Users
 @api_view(['GET', 'POST'])
-def get_user_all(request):
+def user_all(request):
 
     if request.method == 'GET':
         return Response(list(User.objects.all().values('user_id','name')))
@@ -148,12 +152,13 @@ def get_user_all(request):
 
         u.save()
 
+
         for kind,number in votes.items():
             User_Votes(user=u, vote_type=kind,count=number).save()
         for leet in elite:
             Elite(user=u,years_elite=leet).save()
         for kind,number in compliments.items():
-            Compliments(user=u,complement_type=kind,num_compliments=number).save()    
+            Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
         
         return Response(request.DATA, status=status.HTTP_201_CREATED)
 
@@ -161,7 +166,7 @@ def get_user_all(request):
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def get_user_id(request, user_id):
+def user_id(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
 
     if request.method == 'GET':
@@ -176,20 +181,28 @@ def get_user_id(request, user_id):
 
     elif request.method == 'PUT':
 
+        Elite.objects.filter(user=user).delete()
+        for kind,number in request.DATA['votes'].items():
+            User_Votes(user=user, vote_type=kind,count=number).save()
+        for leet in request.DATA['elite']:
+            Elite(user=user,years_elite=leet).save()
+        for kind,number in request.DATA['compliments'].items():
+            Compliments(user=user,complement_type=kind,num_compliments_of_this_type=number).save()
+
+        for k in request.DATA:
+            if k not in USER_FK:
+                user.__dict__[k] = request.DATA[k]
+
         user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
         user.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in User_Votes.objects.filter(user=user).values()}
         user.__dict__['elite'] = [el['years_elite'] for el in Elite.objects.filter(user=user).values()]
         user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
         user.__dict__['type'] = "user"
 
-        diff = [v for v in request.DATA if request.DATA[v] != user.__dict__[v]]
-        #need to create new subkeys if they don't currently exist
-        for v in diff:
-            #works for none nested attributes
-            user.__dict__[v] = request.DATA[v]
         user.save()
+        user.__dict__.pop('_state',None)
 
-        return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
+        return Response(user.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
         User.objects.filter(user_id = user_id).delete()
@@ -201,7 +214,7 @@ def get_user_id(request, user_id):
 
 
 @api_view(['GET'])
-def get_user_id_business(request, user_id):
+def user_id_business(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     reviews = Review.objects.filter(user=user)
     for review in reviews:
@@ -218,14 +231,13 @@ def get_user_id_business(request, user_id):
         
         business.__dict__['attributes'] = attr
         
-        business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
         business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
         business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
         business.__dict__['type'] = "business"
     return Response([business.__dict__ for business in businesses])
 
 @api_view(['GET'])
-def get_user_id_review(request, user_id):
+def user_id_review(request, user_id):
     user = get_object_or_404(User, user_id=user_id)
     reviews = Review.objects.filter(user=user)
     for review in reviews:
@@ -239,12 +251,11 @@ def get_user_id_review(request, user_id):
 
 # Reviews
 @api_view(['GET', 'POST'])
-def get_review_all(request):
+def review_all(request):
 
     if request.method == 'GET':
         return Response(list(Review.objects.all().values('review_id','business_id','user_id')))
-    #result =[{'user_id':review['user'], 'review_id':review['review_id'], 'business_id':review['business']} for review in Review.objects.all().values('review_id','user','business')]
-    #return Response(result)
+
 
     elif request.method == 'POST':
         review_json = request.DATA
@@ -268,7 +279,7 @@ def get_review_all(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def get_review_id(request, review_id):
+def review_id(request, review_id):
     review = get_object_or_404(Review, review_id=review_id)
 
     if request.method == 'GET':
@@ -279,15 +290,18 @@ def get_review_id(request, review_id):
         return Response(review.__dict__)
 
     elif request.method == 'PUT':
+
+        for kind,number in votes.items():
+            Review_Votes(review=review, vote_type=kind,count=number).save()
+
+        for k in request.DATA:
+            if k not in REVIEW_FK:
+                review.__dict__[k] = request.DATA[k]
+
         review.__dict__['date'] = str(review.__dict__['date'])
         review.__dict__['votes'] = {vote['vote_type']:vote['count'] for vote in Review_Votes.objects.filter(review=review).values()}
         review.__dict__['type'] = "review"
 
-        diff = [v for v in request.DATA if request.DATA[v] != review.__dict__[v]]
-        #need to create new subkeys if they don't currently exist
-        for v in diff:
-            #works for none nested attributes
-            review.__dict__[v] = request.DATA[v]
         review.save()
 
         return Response(request.DATA,status=status.HTTP_204_NO_CONTENT)
@@ -299,13 +313,8 @@ def get_review_id(request, review_id):
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
 
-
-
-
-
-
 @api_view(['GET'])
-def get_review_id_business(request, review_id):
+def review_id_business(request, review_id):
     business = get_object_or_404(Review, review_id=review_id).business
     business.__dict__.pop('_state')
     attr = {}
@@ -317,15 +326,13 @@ def get_review_id_business(request, review_id):
             attr[s] = attribute['value']
     
     business.__dict__['attributes'] = attr
-    
-    business.__dict__['neighborhoods'] = [c['name'] for c in Neighborhoods.objects.filter(business=business).values()]
     business.__dict__['categories'] = [c['name'] for c in Categories.objects.filter(business=business).values()]
     business.__dict__['hours'] = {hour['day_of_week'] : {'open':str(hour['open_hour'])[:-3], 'close':str(hour['close_hour'])[:-3]} for hour in Hours.objects.filter(business=business).values()}
     business.__dict__['type'] = "business"
     return Response([business.__dict__])
 
 @api_view(['GET'])
-def get_review_id_user(request, review_id):
+def review_id_user(request, review_id):
     user = get_object_or_404(Review, review_id=review_id).user
     user.__dict__.pop('_state')
     user.__dict__['yelping_since'] = str(user.__dict__['yelping_since'])
@@ -338,6 +345,3 @@ def get_review_id_user(request, review_id):
 def toJS(a):
     val = str(a).replace("'","\"").replace("True","true").replace("False","false")
     return json.loads(val)
-
-def dict_pop(dict, subkeys):
-    pass
