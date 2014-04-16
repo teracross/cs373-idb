@@ -5,540 +5,126 @@ from django.test import TestCase
 
 class API_Test(TestCase) :
 
-    # -----
-    # get all
-    # -----
-    def test_get_business(self) :
-        request = Request("http://oprepo.apiary.io/api/business")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
+    # base url to test API
+    url = "http://cs373-oprepo.herokuapp.com/OperationRepo/api/"
 
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-            {
-                "business_id": "O_X3PGhk3Y5JWVi866qlJg",
-                "name": "Turf Paradise Race Course"
-            },
-            {
-                "business_id": "QbrM7wqtmoNncqjc6GtFaQ",
-                "name": "Sam's Club Members Only"
-            }
-        ]
-
-        self.assertTrue(content == actual)
-
-
-    def test_get_user(self) :
-        request = Request("http://oprepo.apiary.io/api/user")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-            {
-                "user_id": "2WyMjf6TYATFwg6NA",
-                "name": "Glen"
-            },
-            {
-                "business_id": "gYV6bmTSgbZMGkvXHVCowg",
-                "name": "Paul"
-            }
-        ]
-
-        self.assertTrue(content == actual)
-
-
-    def test_get_review(self) :
-        request = Request("http://oprepo.apiary.io/api/review")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-            {
-                "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
-                "review_id": "0ESSqLfOae77muWTv_zUqA",
-                "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
-            },
-            {
-                "user_id": "SS85hfTApRnbTPcJadra8A",
-                "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-                "business_id": "70p94Ejeu1v5XlIkbKORYQ"
-            }
-        ]
-
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # post
-    # -----
-    def test_post_business(self) :
-        values = dumps({
-            "business_id": "O_X3PGhk3Y5JWVi866qlJg",
-            "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
-            "hours": {"Monday": {"close": "18:00", "open": "11:00"},
-            "Tuesday": {"close": "18:00", "open": "11:00"},
-            "Friday": {"close": "18:00", "open": "11:00"},
-            "Wednesday": {"close": "18:00", "open": "11:00"},
-            "Thursday": {"close": "18:00", "open": "11:00"},
-            "Sunday": {"close": "18:00", "open": "11:00"},
-            "Saturday": {"close": "18:00","open": "11:00"}},
-            "open": True,
-            "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
-            "city": "Phoenix",
-            "review_count": 29,
-            "name": "Turf Paradise Race Course",
-            "neighborhoods": [],
-            "longitude": -112.0923293,
-            "state": "AZ",
-            "stars": 4.0,
-            "latitude": 33.638572699999997,
-            "attributes": {"Take-out": False,
-            "Wi-Fi": "free",
-            "Good For": {"dessert": False,
-            "latenight": False,
-            "lunch": False,
-            "dinner": False,
-            "brunch": False,
-            "breakfast": False},
-            "Noise Level": "average",
-            "Takes Reservations": True,
-            "Has TV": True,
-            "Delivery": False,
-            "Ambience": {"romantic": False,
-            "intimate": False,
-            "touristy": False,
-            "hipster": False,
-            "divey": False,
-            "classy": False,
-            "trendy": False,
-            "upscale": False,
-            "casual": False},
-            "Parking": {"garage": False,
-            "street": False,
-            "validated": False,
-            "lot": True,
-            "valet": True},
-            "Wheelchair Accessible": True,
-            "Outdoor Seating": True,
-            "Attire": "casual",
-            "Alcohol": "full_bar",
-            "Waiter Service": True,
-            "Accepts Credit Cards": True,
-            "Good for Kids": False,
-            "Good For Groups": True,
-            "Price Range": 2},
-            "type": "business"
-        })
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/business", data=values.encode("utf-8"), headers=headers)
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"O_X3PGhk3Y5JWVi866qlJg\" }")
-
-    def test_post_user(self) :
-        values = dumps({
-            "yelping_since": "2011-08",
-            "votes": {"funny": 0,
-            "useful": 1,
-            "cool": 1},
-            "review_count": 5,
-            "name": "Glen",
-            "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-            "friends": [],
-            "fans": 0,
-            "average_stars": 3.6000000000000001,
-            "type": "user",
-            "compliments": {},
-            "elite": []
-        })
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/user", data=values.encode("utf-8"), headers=headers)
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"HzLh-2WyMjf6TYATFwg6NA\" }")
-
-    def test_post_review(self) :
-        values = dumps({
-            "votes": {"funny": 0,
-            "useful": 0,
-            "cool": 0},
-            "user_id": "SS85hfTApRnbTPcJadra8A",
-            "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-            "stars": 5,
-            "date": "2010-05-30",
-            "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-            "type": "review",
-            "business_id": "70p94Ejeu1v5XlIkbKORYQ"
-        })
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/review", data=values.encode("utf-8"), headers=headers)
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 201)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"VyAKIaj_Rmsf_ZCHcGJyUw\" }")
-
-
-    # -----
-    # get single
-    # -----
-    def test_get_business_single(self) :
-        request = Request("http://oprepo.apiary.io/api/business/{id}")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = {'state': 'AZ', 'hours': {'Sunday': {'close': '18:00', 'open': '11:00'}, 'Monday': {'close': '18:00', 'open': '11:00'}, 'Tuesday': {'close': '18:00', 'open': '11:00'}, 'Friday': {'close': '18:00', 'open': '11:00'}, 'Saturday': {'close': '18:00', 'open': '11:00'}, 'Thursday': {'close': '18:00', 'open': '11:00'}, 'Wednesday': {'close': '18:00', 'open': '11:00'}}, 'stars': 4.0, 'full_address': '1501 W Bell Rd\nPhoenix, AZ 85023', 'latitude': 33.6385727, 'attributes': {'takes_reservations': True, 'parking': {'street': False, 'garage': False, 'lot': True, 'valet': True, 'validated': False}, 'price_range': 2, 'ambience': {'classy': False, 'divey': False, 'touristy': False, 'hipster': False, 'romantic': False, 'casual': False, 'trendy': False, 'upscale': False, 'intimate': False}, 'alcohol': 'full_bar', 'waiter_service': True, 'delivery': False, 'has_tv': True, 'take_out': False, 'accepts_credit_cards': True, 'noise_level': 'average', 'wifi': 'free', 'outdoor_seating': True, 'wheelchair_accessible': True, 'good_for_groups': True, 'good_for': {'dinner': False, 'breakfast': False, 'lunch': False, 'brunch': False, 'dessert': False, 'latenight': False}, 'good_for_kids': False, 'attire': 'casual'}, 'categories': ['Active Life', 'Arts & Entertainment', 'Stadiums & Arenas', 'Horse Racing'], 'open': True, 'city': 'Phoenix', 'neighborhoods': [], 'type': 'business', 'review_count': 29, 'name': 'Turf Paradise Race Course', 'longitude': -112.0923293, 'business_id': 'O_X3PGhk3Y5JWVi866qlJg'}
-        self.assertTrue(content == actual)
-
-
-    def test_get_user_single(self) :
-        request = Request("http://oprepo.apiary.io/api/user/{id}")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = {
-            "yelping_since": "2011-08",
-            "votes": {"funny": 0,
-                    "useful": 1,
-                    "cool": 1},
-            "review_count": 5,
-            "name": "Glen",
-            "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-            "friends": [],
-            "fans": 0,
-            "average_stars": 3.6000000000000001,
-            "type": "user",
-            "compliments": {},
-            "elite": []
-        }
-        self.assertTrue(content == actual)
-
-
-    def test_get_review_single(self) :
-        request = Request("http://oprepo.apiary.io/api/review/{id}")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = {
-            "votes": {"funny": 0,
-                    "useful": 0,
-                    "cool": 0},
-            "user_id": "SS85hfTApRnbTPcJadra8A",
-            "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-            "stars": 5,
-            "date": "2010-05-30",
-            "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-            "type": "review",
-            "business_id": "70p94Ejeu1v5XlIkbKORYQ"
-        }
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # delete
-    # -----
-    def test_delete_business(self) :
-        request = Request("http://oprepo.apiary.io/api/business/{id}")
-        request.get_method = lambda: 'DELETE'
-        response = urlopen(request)
-
-        self.assertTrue(response.getcode(), 204)
-
-
-    def test_delete_user(self) :
-        request = Request("http://oprepo.apiary.io/api/user/{id}")
-        request.get_method = lambda: 'DELETE'
-        response = urlopen(request)
-
-        self.assertTrue(response.getcode(), 204)
-
-
-    def test_delete_review(self) :
-        request = Request("http://oprepo.apiary.io/api/review/{id}")
-        request.get_method = lambda: 'DELETE'
-        response = urlopen(request)
-
-        self.assertTrue(response.getcode(), 204)
-
-
-    # -----
-    # get review for business
-    # -----
-    def test_get_business_review(self) :
-        request = Request("http://oprepo.apiary.io/api/business/{id}/review")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-    {
-        "votes": {"funny": 0,
-                "useful": 1,
-                "cool": 0},
-        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
-        "review_id": "s8g8kFZ4JXFAGksbQnEqLw",
-        "stars": 4,
-        "date": "2012-01-07",
-        "text": "I have never been to a race track before so when I saw a Livingsocial deal for this place I thought I'd try it out. It was the best $30 I ever spent! We sat in the Turf Club which I guess is the nicest viewing area. There wasn't a bad table in the place, even the 2 tops which is what we had. The menu is mostly lunch type items, salad, sandwiches, burgers, with a few breakfast options, but the food was surprisingly good and very reasonably priced. I had the tuna melt and it was stuffed with tuna salad and cheese. The BF had the chicken caprese sandwich. The sandwich arrived, I looked up a second later and it was gone. He inhaled it,  he thought it was that good. The bread pudding was ok. The only thing that wasn't awesome was the service. Our waitress was very slow to come around and she didn't have much of a personality. Any time we needed anything I had to flag her down but who knows it could have been an off day for her. We walked around and went to the grandstand and outside viewing area as well. There are stadium type food booths and a couple of bars out there and it looked fun. We would definitely go back again and pay the full price. So worth it.",
-        "type": "review",
-        "business_id": "O_X3PGhk3Y5JWVi866qlJg"
-    }
-]
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # get user who reviewed business
-    # -----
-    def test_get_business_user(self) :
-        request = Request("http://oprepo.apiary.io/api/business/{id}/user")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-    {
-        "yelping_since": "2008-04",
-        "votes": {"funny": 25,
-                "useful": 122,
-                "cool": 31},
-        "review_count": 69,
-        "name": "Mindi",
-        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
-        "friends": ["OroGqv0t7fy-Q3E2PzTEwQ", "SEDFpR4oMPKqXMjbJiMGog", "AYGHNy8gPxl2Q-etTT3hZw", "34gJ_KlP3RM6jotNT6TcDQ", "fHv7k5vWd6ryt8jH4J3teg", "lmiDCrmas8TxRsbIGZX9Pg", "Ts2ipR4zCYClEQTAuJuIjw", "4SFf4irFi5s8Q4QIxFhvUQ"],
-        "fans": 1,
-        "average_stars": 3.5800000000000001,
-        "type": "user",
-        "compliments": {"note": 4,
-                    "funny": 1,
-                    "writer": 3,
-                    "cool": 2},
-        "elite": []
-    }
-]
-
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # get business reviewed by user
-    # -----
-    def test_get_user_business(self) :
-        request = Request("http://oprepo.apiary.io/api/user/{id}/business")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [{'full_address': '3701-3965 Sky Harbor Blvd\nPhoenix, AZ 85034', 'latitude': 33.4336774955193, 'categories': ['Bakeries', 'Food', 'French', 'Restaurants'], 'type': 'business', 'longitude': -112.001445002113, 'name': 'La Madeleine', 'state': 'AZ', 'city': 'Phoenix', 'neighborhoods': [], 'attributes': {'good_for': {'dessert': False, 'latenight': False, 'breakfast': False, 'lunch': False, 'dinner': False, 'brunch': False}, 'accepts_credit_cards': True, 'delivery': False, 'wifi': 'free', 'outdoor_seating': False, 'attire': 'casual', 'waiter_service': False}, 'review_count': 12, 'business_id': 'KWo4geULVPzCirc0Scpcow', 'open': True, 'hours': {}, 'stars': 3.5}]
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # get review by user
-    # -----
-    def test_get_user_review(self) :
-        request = Request("http://oprepo.apiary.io/api/user/{id}/review")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-    {
-        "votes": {"funny": 0,
-                "useful": 1,
-                "cool": 1},
-        "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-        "review_id": "q2H0J8iJvwUgINvUb8L5Bw",
-        "stars": 1,
-        "date": "2013-12-08",
-        "text": "Epic fail. So I order a sandwich that clearly says it comes with Pesto on it, and instead comes drowned in mayo. So I take it back to the counter, point out the error and they take it back. I hear the manager correcting the staff, who mouths off to him. The manager comes back and says that the fixed sandwich will be right back out. They give me the same sandwich, with all the mayo still on it and a gallon of pink goo which I assume is the tomato Pesto. Not going back again. What a waste.",
-        "type": "review",
-        "business_id": "KWo4geULVPzCirc0Scpcow"
-    }
-]
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # get business from review
-    # -----
-    def test_get_review_business(self) :
-        request = Request("http://oprepo.apiary.io/api/review/{id}/business")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [{'latitude': 33.3790657, 'attributes': {'wheelchair_accessible': True, 'accepts_credit_cards': True, 'parking': {'street': False, 'valet': False, 'validated': False, 'lot': True, 'garage': False}, 'by_appointment_only': True, 'price_range': 2, 'good_for_kids': True}, 'stars': 5.0, 'categories': ['Hair Salons', 'Beauty & Spas'], 'open': True, 'state': 'AZ', 'business_id': '70p94Ejeu1v5XlIkbKORYQ', 'longitude': -111.7556025, 'city': 'Gilbert', 'hours': {'Thursday': {'close': '19:00', 'open': '09:00'}, 'Saturday': {'close': '19:00', 'open': '09:00'}, 'Monday': {'close': '19:00', 'open': '09:00'}, 'Wednesday': {'close': '19:00', 'open': '09:00'}, 'Tuesday': {'close': '19:00', 'open': '09:00'}, 'Friday': {'close': '19:00', 'open': '09:00'}}, 'type': 'business', 'review_count': 9, 'name': 'Salon Lola', 'full_address': '3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234', 'neighborhoods': []}]
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # get user from review
-    # -----
-    def test_get_review_user(self) :
-        request = Request("http://oprepo.apiary.io/api/review/{id}/user")
-        response = urlopen(request)
-        self.assertEqual(response.getcode(), 200)
-
-        body_content = response.readall().decode("utf-8")
-        content = loads(body_content)
-        actual = [
-    {
-        "yelping_since": "2010-05",
-        "votes": {"funny": 0,
-                "useful": 4,
-                "cool": 0},
-        "review_count": 1,
-        "name": "Christi",
-        "user_id": "SS85hfTApRnbTPcJadra8A",
-        "friends": [],
-        "fans": 0,
-        "average_stars": 5.0,
-        "type": "user",
-        "compliments": {},
-        "elite": []
-    }
-]
-
-        self.assertTrue(content == actual)
-
-
-    # -----
-    # put
-    # -----
-    def test_put_business(self) :
-        values = "{ \n    \"business_id\": \"O_X3PGhk3Y5JWVi866qlJg\",\n    \"full_address\": \"1501 W Bell Rd\\nPhoenix, AZ 85023\",\n    \"hours\": {\"Monday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Tuesday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Friday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Wednesday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Thursday\": {\"close\": \"18:00\", \"open\": \"11:00\"}, \n            \"Sunday\": {\"close\": \"18:00\", \"open\": \"11:00\"},\n            \"Saturday\": {\"close\": \"18:00\",\"open\": \"11:00\"}},\n    \"open\": true,\n    \"categories\": [\"Active Life\", \"Arts \u0026 Entertainment\", \"Stadiums \u0026 Arenas\", \"Horse Racing\"],\n    \"city\": \"Phoenix\",\n    \"review_count\": 29,\n    \"name\": \"Turf Paradise Race Course\",\n    \"neighborhoods\": [],\n    \"longitude\": -112.0923293,\n    \"state\": \"AZ\",\n    \"stars\": 4.0,\n    \"latitude\": 33.638572699999997,\n    \"attributes\": {\"Take-out\": false,\n                \"Wi-Fi\": \"free\",\n                \"Good For\": {\"dessert\": false,\n                            \"latenight\": false,\n                            \"lunch\": false,\n                            \"dinner\": false,\n                            \"brunch\": false,\n                            \"breakfast\": false},\n                \"Noise Level\": \"average\",\n                \"Takes Reservations\": true,\n                \"Has TV\": true,\n                \"Delivery\": false,\n                \"Ambience\": {\"romantic\": false,\n                            \"intimate\": false,\n                            \"touristy\": false,\n                            \"hipster\": false,\n                            \"divey\": false,\n                            \"classy\": false,\n                            \"trendy\": false,\n                            \"upscale\": false,\n                            \"casual\": false},\n                \"Parking\": {\"garage\": false,\n                            \"street\": false,\n                            \"validated\": false,\n                            \"lot\": true,\n                            \"valet\": true},\n                \"Wheelchair Accessible\": true,\n                \"Outdoor Seating\": true,\n                \"Attire\": \"casual\",\n                \"Alcohol\": \"full_bar\",\n                \"Waiter Service\": true,\n                \"Accepts Credit Cards\": true,\n                \"Good for Kids\": false,\n                \"Good For Groups\": true,\n                \"Price Range\": 2},\n    \"type\": \"business\"\n}"
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/business/{id}", data=values.encode("utf-8"), headers=headers)
-        request.get_method = lambda: 'PUT'
-        response = urlopen(request)
-        self.assertTrue(response.getcode() == 204)
-
-
-    def test_put_user(self) :
-        values = "{ \n    \"yelping_since\": \"2011-08\",\n    \"votes\": {\"funny\": 0,\n            \"useful\": 1,\n            \"cool\": 1},\n    \"review_count\": 5,\n    \"name\": \"Glen\",\n    \"user_id\": \"HzLh-2WyMjf6TYATFwg6NA\",\n    \"friends\": [],\n    \"fans\": 0,\n    \"average_stars\": 3.6000000000000001,\n    \"type\": \"user\",\n    \"compliments\": {},\n    \"elite\": [],\n}"
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/user/{id}", data=values.encode("utf-8"), headers=headers)
-        request.get_method = lambda: 'PUT'
-        response = urlopen(request)
-        self.assertTrue(response.getcode() == 204)
-
-
-    def test_put_review(self) :
-        values = "{ \n    \"votes\": {\"funny\": 0,\n            \"useful\": 0,\n            \"cool\": 0},\n    \"user_id\": \"SS85hfTApRnbTPcJadra8A\",\n    \"review_id\": \"VyAKIaj_Rmsf_ZCHcGJyUw\",\n    \"stars\": 5,\n    \"date\": \"2010-05-30\",\n    \"text\": \"I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.\",\n    \"type\": \"review\",\n    \"business_id\": \"70p94Ejeu1v5XlIkbKORYQ\"\n}"
-        headers = {"Content-Type": "application-json"}
-        request = Request("http://oprepo.apiary.io/api/review/{id}", data=values.encode("utf-8"), headers=headers)
-        request.get_method = lambda: 'PUT'
-        response = urlopen(request)
-        response_body = response.read()
-        self.assertTrue(response.getcode() == 204)
-
+    # tests against actual database
 
     #---
     #api get tests
     #---
     def test_api_get_all_business(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/")
+        request = Request(self.url + "business/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  [{"attributes": {"accepts_credit_cards": "true", "alcohol": "full_bar", "ambience": "{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': true}", "attire": "casual", "coat_check": "false", "delivery": "false", "good_for": "{'latenight': false, 'lunch': true, 'brunch': false, 'dinner': true, 'breakfast': false, 'dessert': true}", "good_for_dancing": "false", "good_for_groups": "true", "good_for_kids": "true", "happy_hour": "true", "has_tv": "true", "music": "{'dj': false, 'karaoke': false, 'live': false, 'video': false, 'jukebox': false, 'background_music': true}", "noise_level": "very_loud", "outdoor_seating": "true", "parking": "{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "2", "smoking": "outdoor", "takeout": "true", "takes_reservations": "false", "waiter_service": "true", "wheelchair_accessible": "true", "wifi": "free"}, "business_id": "00eGk1ntf4RiDxVRY3gaIw", "categories": ["Restaurants", "Salad", "Pizza", "American (Traditional)"], "city": "Mesa", "hours": {"Friday": {"close": "02:00:00", "open": "11:00:00"}, "Monday": {"close": "02:00:00", "open": "11:00:00"}, "Saturday": {"close": "02:00:00", "open": "11:00:00"}, "Sunday": {"close": "02:00:00", "open": "11:00:00"}, "Thursday": {"close": "02:00:00", "open": "11:00:00"}, "Tuesday": {"close": "02:00:00", "open": "11:00:00"}, "Wednesday": {"close": "02:00:00", "open": "11:00:00"}}, "name": "Old Chicago", "neighborhoods": []}, {"attributes": {}, "business_id": "00FGafv0TKfmH_QhVxh4FQ", "categories": ["Car Dealers", "RV Dealers", "Automotive"], "city": "Surprise", "hours": {"Friday": {"close": "17:00:00", "open": "08:30:00"}, "Saturday": {"close": "17:00:00", "open": "08:30:00"}, "Thursday": {"close": "17:00:00", "open": "08:30:00"}, "Tuesday": {"close": "17:00:00", "open": "08:30:00"}, "Wednesday": {"close": "17:00:00", "open": "08:30:00"}}, "name": "Tom's Camperland", "neighborhoods": []}, {"attributes": {"accepts_credit_cards": "true", "parking": "{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "2", "wifi": "no"}, "business_id": "015GCpe-tMj1En4NORROzA", "categories": ["Dry Cleaning & Laundry", "Local Services"], "city": "Phoenix", "hours": {"Friday": {"close": "19:00:00", "open": "07:00:00"}, "Monday": {"close": "19:00:00", "open": "07:00:00"}, "Saturday": {"close": "18:00:00", "open": "09:00:00"}, "Thursday": {"close": "19:00:00", "open": "07:00:00"}, "Tuesday": {"close": "19:00:00", "open": "07:00:00"}, "Wednesday": {"close": "19:00:00", "open": "07:00:00"}}, "name": "Elite Cleaners", "neighborhoods": []}, {"attributes": {"accepts_credit_cards": "true", "alcohol": "full_bar", "ambience": "{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': true}", "coat_check": "false", "delivery": "false", "good_for": "{'latenight': false, 'lunch': false, 'brunch': false, 'dinner': false, 'breakfast': false, 'dessert': false}", "good_for_dancing": "false", "good_for_groups": "true", "happy_hour": "true", "has_tv": "true", "music": "{'dj': false, 'karaoke': false, 'live': false, 'video': false, 'jukebox': false, 'background_music': true}", "noise_level": "average", "outdoor_seating": "true", "parking": "{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "2", "smoking": "outdoor", "takeout": "true", "takes_reservations": "false", "waiter_service": "true", "wheelchair_accessible": "true"}, "business_id": "01cEFI5Pq_RyEwM3GSTopQ", "categories": ["Nightlife", "Sports Bars", "Bars"], "city": "Scottsdale", "hours": {"Friday": {"close": "23:00:00", "open": "11:00:00"}, "Monday": {"close": "22:00:00", "open": "11:00:00"}, "Saturday": {"close": "23:00:00", "open": "11:00:00"}, "Sunday": {"close": "22:00:00", "open": "11:00:00"}, "Thursday": {"close": "22:00:00", "open": "11:00:00"}, "Tuesday": {"close": "22:00:00", "open": "11:00:00"}, "Wednesday": {"close": "22:00:00", "open": "11:00:00"}}, "name": "Blue 32 Sports Grill", "neighborhoods": []}, {"attributes": {}, "business_id": "01cQQpeEwWpzTgv6YUQhAQ", "categories": ["Beauty & Spas", "Hair Salons"], "city": "Glendale", "hours": {}, "name": "Mario's Hair Company", "neighborhoods": []}, {"attributes": {"accepts_credit_cards": "true", "alcohol": "none", "ambience": "{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': false}", "attire": "casual", "caters": "false", "delivery": "false", "drivethru": "false", "good_for": "{'latenight': false, 'lunch': false, 'brunch': false, 'dinner': false, 'breakfast': false, 'dessert': false}", "good_for_groups": "true", "good_for_kids": "true", "has_tv": "true", "noise_level": "quiet", "outdoor_seating": "true", "parking": "{'lot': false, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "1", "takeout": "true", "takes_reservations": "false", "waiter_service": "false", "wifi": "no"}, "business_id": "01euuGhBwvcDhl9KcPTang", "categories": ["Restaurants", "Mexican", "Fast Food", "Breakfast & Brunch"], "city": "Mesa", "hours": {"Friday": {"close": "03:00:00", "open": "08:00:00"}, "Monday": {"close": "00:00:00", "open": "08:00:00"}, "Saturday": {"close": "03:00:00", "open": "08:00:00"}, "Sunday": {"close": "00:00:00", "open": "08:00:00"}, "Thursday": {"close": "00:00:00", "open": "08:00:00"}, "Tuesday": {"close": "00:00:00", "open": "08:00:00"}, "Wednesday": {"close": "00:00:00", "open": "08:00:00"}}, "name": "El Salsita", "neighborhoods": []}, {"attributes": {}, "business_id": "01kU7NKzfCP3tgYmgzXbjQ", "categories": [], "city": "Surprise", "hours": {}, "name": "Water Fountain", "neighborhoods": []}, {"attributes": {"good_for_kids": "true"}, "business_id": "022T8YSRmb3b1BfwzO3F7Q", "categories": ["Bowling", "Active Life"], "city": "Scottsdale", "hours": {}, "name": "Brunswick Via Linda Lanes", "neighborhoods": []}, {"attributes": {}, "business_id": "02Fijjr_ccD42E-5aGOXWQ", "categories": ["Carpet Cleaning", "Local Services"], "city": "Phoenix", "hours": {}, "name": "Pure Air Service Arizona", "neighborhoods": []}, {"attributes": {"accepts_credit_cards": "true", "dogs_allowed": "true", "outdoor_seating": "true", "takes_reservations": "true", "wheelchair_accessible": "true"}, "business_id": "02rrDia_FTc8jN7LGqzIbQ", "categories": ["Restaurants", "Horseback Riding", "Barbeque", "Active Life"], "city": "Goodyear", "hours": {"Friday": {"close": "21:00:00", "open": "10:00:00"}, "Saturday": {"close": "21:00:00", "open": "10:00:00"}, "Sunday": {"close": "18:00:00", "open": "10:00:00"}, "Thursday": {"close": "20:00:00", "open": "10:00:00"}, "Wednesday": {"close": "20:00:00", "open": "10:00:00"}}, "name": "Corral West Arena", "neighborhoods": []}]
+        actual = [ { "city": "Goodyear",  "business_id": "02rrDia_FTc8jN7LGqzIbQ",  "name": "Corral West Arena" },  { "city": "Phoenix",  "business_id": "02Fijjr_ccD42E-5aGOXWQ",  "name": "Pure Air Service Arizona" },  { "city": "Scottsdale",  "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "name": "Brunswick Via Linda Lanes" },  { "city": "Surprise",  "business_id": "01kU7NKzfCP3tgYmgzXbjQ",  "name": "Water Fountain" },  { "city": "Mesa",  "business_id": "01euuGhBwvcDhl9KcPTang",  "name": "El Salsita" },  { "city": "Glendale",  "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "name": "Mario's Hair Company" },  { "city": "Scottsdale",  "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "name": "Blue 32 Sports Grill" },  { "city": "Phoenix",  "business_id": "015GCpe-tMj1En4NORROzA",  "name": "Elite Cleaners" },  { "city": "Surprise",  "business_id": "00FGafv0TKfmH_QhVxh4FQ",  "name": "Tom's Camperland" },  { "city": "Mesa",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "name": "Old Chicago" } ]
         self.assertTrue(content==actual)
 
     def test_api_get_business(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/00eGk1ntf4RiDxVRY3gaIw/")
+        request = Request(self.url + "business/00eGk1ntf4RiDxVRY3gaIw/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  {"attributes": {"accepts_credit_cards": "true", "alcohol": "full_bar", "ambience": "{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': true}", "attire": "casual", "coat_check": "false", "delivery": "false", "good_for": "{'latenight': false, 'lunch': true, 'brunch': false, 'dinner': true, 'breakfast': false, 'dessert': true}", "good_for_dancing": "false", "good_for_groups": "true", "good_for_kids": "true", "happy_hour": "true", "has_tv": "true", "music": "{'dj': false, 'karaoke': false, 'live': false, 'video': false, 'jukebox': false, 'background_music': true}", "noise_level": "very_loud", "outdoor_seating": "true", "parking": "{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}", "price_range": "2", "smoking": "outdoor", "takeout": "true", "takes_reservations": "false", "waiter_service": "true", "wheelchair_accessible": "true", "wifi": "free"}, "business_id": "00eGk1ntf4RiDxVRY3gaIw", "categories": ["Restaurants", "Salad", "Pizza", "American (Traditional)"], "city": "Mesa", "hours": {"Friday": {"close": "02:00:00", "open": "11:00:00"}, "Monday": {"close": "02:00:00", "open": "11:00:00"}, "Saturday": {"close": "02:00:00", "open": "11:00:00"}, "Sunday": {"close": "02:00:00", "open": "11:00:00"}, "Thursday": {"close": "02:00:00", "open": "11:00:00"}, "Tuesday": {"close": "02:00:00", "open": "11:00:00"}, "Wednesday": {"close": "02:00:00", "open": "11:00:00"}}, "name": "Old Chicago", "neighborhoods": []}
+        actual = { "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "hours": { "Saturday": { "open": "11:00",  "close": "02:00" },  "Wednesday": { "open": "11:00",  "close": "02:00" },  "Thursday": { "open": "11:00",  "close": "02:00" },  "Friday": { "open": "11:00",  "close": "02:00" },  "Monday": { "open": "11:00",  "close": "02:00" },  "Tuesday": { "open": "11:00",  "close": "02:00" },  "Sunday": { "open": "11:00",  "close": "02:00" } },  "state": "AZ",  "stars": 3.0,  "categories": [ "American (Traditional)",  "Pizza",  "Salad",  "Restaurants" ],  "full_address": "6821 E Superstition SpringsMesa, AZ 85209",  "type": "business",  "city": "Mesa",  "attributes": { "good_for": { "dinner": True,  "latenight": False,  "brunch": False,  "breakfast": False,  "lunch": True,  "dessert": True },  "wheelchair_accessible": "True",  "good_for_dancing": "False",  "parking": { "valet": False,  "lot": True,  "garage": False,  "validated": False,  "street": False },  "coat_check": "False",  "good_for_groups": "True",  "ambience": { "casual": True,  "divey": False,  "classy": False,  "hipster": False,  "romantic": False,  "intimate": False,  "upscale": False,  "trendy": False,  "touristy": False },  "noise_level": "very_loud",  "outdoor_seating": "True",  "alcohol": "full_bar",  "waiter_service": "True",  "takeout": "True",  "smoking": "outdoor",  "attire": "casual",  "happy_hour": "True",  "good_for_kids": "True",  "accepts_credit_cards": "True",  "delivery": "False",  "price_range": "2",  "has_tv": "True",  "takes_reservations": "False",  "music": { "dj": False,  "jukebox": False,  "video": False,  "background_music": True,  "karaoke": False,  "live": False },  "wifi": "free" },  "is_open": True,  "longitude": -111.6837464,  "name": "Old Chicago",  "review_count": 23,  "latitude": 33.3832251 } 
         self.assertTrue(content==actual)
 
     def test_api_get_bad_business(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/nothere/")
+        request = Request(self.url + "business/nothere/")
         try :
             response = urlopen(request)
-        except HTTPError :
-            return True
+        except HTTPError as e:
+            self.assertTrue(e.code == 404)
+            self.assertTrue(e.reason == "NOT FOUND")
+        return False
+
+    def test_api_get_bad_business2(self):
+        request = Request(self.url + "business/ /")
+        try :
+            response = urlopen(request)
+        except HTTPError as e:
+            self.assertTrue(e.code == 400)
+            self.assertTrue(e.reason == "BAD_REQUEST")
         return False
 
     def test_api_get_all_users(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/")
+        request = Request(self.url + "user/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  [{"compliments": {}, "name": "lisa", "user_id": "x5-yK8bmjQTcMrlWLfgJEg", "votes": {"cool": 1, "funny": 3, "useful": 4}}, {"compliments": {"funny": 1, "plain": 3}, "name": "Amanda", "user_id": "Ae_rbQ293MYrKaywJT6Oeg", "votes": {"cool": 0, "funny": 11, "useful": 12}}, {"compliments": {"cool": 1, "more": 1}, "name": "Brian", "user_id": "8EaO99Q3E_SS8KzOR1rFrA", "votes": {"cool": 7, "funny": 4, "useful": 35}}, {"compliments": {}, "name": "Paul", "user_id": "EsZoGB023YUubq7rC7rm8Q", "votes": {"cool": 2, "funny": 2, "useful": 5}}, {"compliments": {}, "name": "Peter", "user_id": "fdnSC-PGo2mYTgcOEq6Bpw", "votes": {"cool": 0, "funny": 0, "useful": 4}}, {"compliments": {"cool": 158, "cute": 4, "funny": 42, "hot": 147, "list": 15, "more": 11, "note": 80, "photos": 11, "plain": 103, "profile": 5, "writer": 43}, "elite": 2008, "name": "Michael", "user_id": "90a6z--_CUrl84aCzZyPsg", "votes": {"cool": 2384, "funny": 1440, "useful": 3240}}, {"compliments": {}, "name": "Scooter", "user_id": "egm1AgWT-cttbm4nu_FVcQ", "votes": {"cool": 2, "funny": 2, "useful": 12}}, {"compliments": {}, "name": "marty", "user_id": "eqHh3T-QWN8bowagW4KiGg", "votes": {"cool": 5, "funny": 12, "useful": 46}}, {"compliments": {}, "name": "Kris", "user_id": "KbmjlHxkj4dA8t90IWjgpQ", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"compliments": {}, "name": "Ingrid", "user_id": "a8Xp9eCcmtWKhnlB5V4Ghg", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"compliments": {}, "name": "Kate", "user_id": "NFaCr9xvyDBioc2mB1w08w", "votes": {"cool": 1, "funny": 0, "useful": 2}}, {"compliments": {"cool": 2}, "name": "Erin", "user_id": "bZaSmDxmKbVNOOAdzxX_bg", "votes": {"cool": 6, "funny": 2, "useful": 13}}, {"compliments": {}, "name": "John", "user_id": "wBi0I2QcqZtNOh21WlBVKA", "votes": {"cool": 46, "funny": 356, "useful": 127}}, {"compliments": {"cool": 5, "funny": 1, "hot": 6, "more": 1, "note": 7, "plain": 20, "writer": 5}, "elite": 2014, "name": "Ricky", "user_id": "yWBwbPCOy8eBD1wWSH6s_A", "votes": {"cool": 69, "funny": 42, "useful": 271}}, {"compliments": {"cool": 42, "cute": 1, "funny": 7, "hot": 19, "more": 2, "note": 21, "photos": 2, "plain": 42, "writer": 5}, "elite": 2014, "name": "Patrick", "user_id": "Kqvfep2mxS10S50FbVDi4Q", "votes": {"cool": 310, "funny": 188, "useful": 600}}, {"compliments": {"cute": 1}, "name": "Steven", "user_id": "EVSAweqdsY_EWfDxqDYdDg", "votes": {"cool": 0, "funny": 0, "useful": 1}}, {"compliments": {"note": 2}, "name": "Michael", "user_id": "GjNyOTcibcI_XKCzeMgO2g", "votes": {"cool": 6, "funny": 7, "useful": 21}}, {"compliments": {"cool": 82, "funny": 15, "hot": 38, "list": 1, "more": 1, "note": 38, "photos": 5, "plain": 118, "profile": 2, "writer": 35}, "elite": 2014, "name": "Floyd", "user_id": "SEDFpR4oMPKqXMjbJiMGog", "votes": {"cool": 818, "funny": 414, "useful": 1281}}, {"compliments": {"cool": 47, "cute": 2, "funny": 22, "hot": 34, "more": 5, "note": 29, "photos": 3, "plain": 41, "profile": 2, "writer": 11}, "elite": 2014, "name": "Tasia", "user_id": "fl6oI21uXoxVMwfR6lFanQ", "votes": {"cool": 307, "funny": 318, "useful": 532}}, {"compliments": {"cool": 16, "funny": 8, "hot": 21, "list": 1, "more": 3, "note": 4, "plain": 12, "writer": 6}, "elite": 2013, "name": "Christopher", "user_id": "nbofxFWHORebBHh10OgYLA", "votes": {"cool": 187, "funny": 216, "useful": 335}}]
+        actual = [ { "user_id": "x5-yK8bmjQTcMrlWLfgJEg",  "name": "lisa" },  { "user_id": "Ae_rbQ293MYrKaywJT6Oeg",  "name": "Amanda" },  { "user_id": "8EaO99Q3E_SS8KzOR1rFrA",  "name": "Brian" },  { "user_id": "EsZoGB023YUubq7rC7rm8Q",  "name": "Paul" },  { "user_id": "fdnSC-PGo2mYTgcOEq6Bpw",  "name": "Peter" },  { "user_id": "90a6z--_CUrl84aCzZyPsg",  "name": "Michael" },  { "user_id": "egm1AgWT-cttbm4nu_FVcQ",  "name": "Scooter" },  { "user_id": "eqHh3T-QWN8bowagW4KiGg",  "name": "marty" },  { "user_id": "KbmjlHxkj4dA8t90IWjgpQ",  "name": "Kris" },  { "user_id": "a8Xp9eCcmtWKhnlB5V4Ghg",  "name": "Ingrid" },  { "user_id": "NFaCr9xvyDBioc2mB1w08w",  "name": "Kate" },  { "user_id": "bZaSmDxmKbVNOOAdzxX_bg",  "name": "Erin" },  { "user_id": "wBi0I2QcqZtNOh21WlBVKA",  "name": "John" },  { "user_id": "yWBwbPCOy8eBD1wWSH6s_A",  "name": "Ricky" },  { "user_id": "Kqvfep2mxS10S50FbVDi4Q",  "name": "Patrick" },  { "user_id": "EVSAweqdsY_EWfDxqDYdDg",  "name": "Steven" },  { "user_id": "GjNyOTcibcI_XKCzeMgO2g",  "name": "Michael" },  { "user_id": "SEDFpR4oMPKqXMjbJiMGog",  "name": "Floyd" },  { "user_id": "fl6oI21uXoxVMwfR6lFanQ",  "name": "Tasia" },  { "user_id": "nbofxFWHORebBHh10OgYLA",  "name": "Christopher" },  { "user_id": "HVqnEnkir1iGG0185VzYRA",  "name": "Will" },  { "user_id": "3d6Mhk-Bx1p75jmy3AVJWA",  "name": "Drew" },  { "user_id": "LLdbxv769G-mzDYs3Njjcw",  "name": "A." },  { "user_id": "8aBoNgjAi8cn15UsoHWQFw",  "name": "Trisha" },  { "user_id": "jy1qPe0Tz3ewHacAtshmBw",  "name": "Sarah" },  { "user_id": "LdhwY7eudLlx1KFQQe9GwA",  "name": "Josh" },  { "user_id": "33vUIil_GCaT92aUaZhRXA",  "name": "Fairbi" },  { "user_id": "dVomZlKABGY3iX3ULkkQpA",  "name": "Nick" },  { "user_id": "Z9QRZYyh-xPtpM2W9euDiQ",  "name": "Jonathan" },  { "user_id": "E3Koa54vrcDs5o6NoFSEwg",  "name": "Lola" },  { "user_id": "IqJjdWMgT0HxrPP_-kWPmw",  "name": "Cory" },  { "user_id": "f5DSsK2w-b0xQVyz8lZACw",  "name": "Terry" },  { "user_id": "OqgL64SkHicaRtYpw08r9g",  "name": "Whitney" },  { "user_id": "XqMkm-DD9VsdcKx2YVGhSA",  "name": "Bao" },  { "user_id": "RdWhGfwHORbIEyFj6YbZow",  "name": "N" },  { "user_id": "-1F7KZxq3Lib1CKLlybC5Q",  "name": "Barbara" },  { "user_id": "DI1wmnA_Pg9mycZV84_syw",  "name": "Matt" },  { "user_id": "Y66q9-Nggoo6W5BgoP5FbA",  "name": "Karli" },  { "user_id": "OOxLwlNadygUwL_aG8KnSQ",  "name": "Cyn" },  { "user_id": "gSBvJ5FqFeSKRJaPiamttw",  "name": "Bradley" },  { "user_id": "cl9ZMopdCQGGXMlwgruFdg",  "name": "Diana" },  { "user_id": "CjVX1QGNqx3_oDBuRig4-A",  "name": "Sarah" },  { "user_id": "w1LjSa5wMexRIQ-82LKWmQ",  "name": "Amy" },  { "user_id": "DESuUHNcQUULDCS9KlNVcw",  "name": "Theresa" },  { "user_id": "8OrUcPNfWnwjFP0Z5wSRrA",  "name": "Varun" },  { "user_id": "b927p9pWxM9EYoNr_6PxYQ",  "name": "Andrew" },  { "user_id": "syJ-WZZ1vcbQZgtjqmJ1uA",  "name": "Deuce" },  { "user_id": "RNxfe4lnDNjbQWa2-oIdEA",  "name": "Dan" },  { "user_id": "8z2mKSqTW-4pLobAUNvrsQ",  "name": "Crystal" },  { "user_id": "aGvpUCEKjKc4bqbVDiEhlQ",  "name": "Christie" },  { "user_id": "ropG9hxhgqtT865SJ3IALA",  "name": "Marco" },  { "user_id": "iwUN95LIaEr75TZE_JC6bg",  "name": "Diego" },  { "user_id": "4iAjtohAkJvMw6fVcXR_1w",  "name": "James" },  { "user_id": "b8vpDCrjDwjXSr92JVp-PQ",  "name": "Jessica" },  { "user_id": "Lu05r9ITDh8bkCqh2zz5zw",  "name": "James" },  { "user_id": "w4suxL1zlxsihVlugZZDAQ",  "name": "Lindsey" },  { "user_id": "73crJRw-NOUKGELY3hZcSw",  "name": "Julie" },  { "user_id": "Kyc_V-2G77tRfwJsBxwZ4A",  "name": "Darlene" },  { "user_id": "X6vSWes7JpMpQ6tQNtYwmA",  "name": "M" },  { "user_id": "UPtysDF6cUDUxq2KY-6Dcg",  "name": "Matt" },  { "user_id": "67q6sdXeuVRvzgHQNNHHVQ",  "name": "Clint" },  { "user_id": "5gL4Dmm5HGX8aMxvVWoSww",  "name": "Sarah" },  { "user_id": "Sjp6EYsqzdlTvymER6wBfg",  "name": "Bil" },  { "user_id": "9JpnM-xebt0343KkGR_HKQ",  "name": "The Rue" },  { "user_id": "zzmRKNph-pBHDL2qwGv9Fw",  "name": "Matt" },  { "user_id": "ALP87SgltBLmMH5OsgVrMg",  "name": "Ryan" },  { "user_id": "PS0lCxjGNeUrKxYSdpW-Aw",  "name": "Ann Marie" },  { "user_id": "PSadYWspmOQTgDs5FMOBfQ",  "name": "Colby" },  { "user_id": "LS1CRfOX3ydk7xkkCUYgmQ",  "name": "Alex" },  { "user_id": "TYHFPPZnUxvgM9OBfoN8Kg",  "name": "Carla" },  { "user_id": "8d3AGso7vTLYxXrLrkO9aQ",  "name": "Ross" },  { "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",  "name": "Jan" },  { "user_id": "QAYaGDx41V0i3RQfu_5Vlg",  "name": "Matt" },  { "user_id": "MjY15QEdD0y3TIqjKxNrBg",  "name": "Guy" },  { "user_id": "palND-kF1qpMLhkcgAnSxA",  "name": "Andrea" },  { "user_id": "CPKp--5cCh4tx118LDavXQ",  "name": "John" },  { "user_id": "8lm1AvIINFQWcRbxq5blrQ",  "name": "Marie" },  { "user_id": "fczQCSmaWF78toLEmb0Zsw",  "name": "Gabi" },  { "user_id": "8CNEh7fSbLwDuAKhLjDPKQ",  "name": "Chuck" },  { "user_id": "_-Zrzf2QYiw4KHugUTXNYQ",  "name": "Scott" },  { "user_id": "7Zrq87_FzXZ-ZSwGOmas2A",  "name": "Danny" },  { "user_id": "joIzw_aUiNvBTuGoytrH7g",  "name": "Albert" },  { "user_id": "5kIo1qYtTVQzzABCkm32xA",  "name": "Gabe" },  { "user_id": "LpBWKKSNS7QmSCHppitSbg",  "name": "Joe" },  { "user_id": "IKq14A6anAGX47Gp1bsxjA",  "name": "Katie" },  { "user_id": "UquA6GumjoYaJTELY1niIg",  "name": "Eric" },  { "user_id": "-xPKyCJiK9q1OFZ7GCZwBw",  "name": "Amy" },  { "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "name": "Roseanne" },  { "user_id": "8P7ikCyk2ipbiE9Ty7Bjgw",  "name": "Melanie" },  { "user_id": "tVKdmJFkmARVoVEG_pX-Qw",  "name": "Wendy" },  { "user_id": "NvDR3SPVPXrDB_dbKuGoWA",  "name": "Scott" },  { "user_id": "p7VKdqjT3WNvL7dRNNetcw",  "name": "Shirley" },  { "user_id": "Zg2LR5D8jFmdy3GQJnz8vg",  "name": "Laurence" },  { "user_id": "cBJqlNzyoJFak3_XRe2bvw",  "name": "Lauren" },  { "user_id": "EpC7vMp0hg1wGBQ6fzzoQg",  "name": "bret" },  { "user_id": "ZGW2QM4hEFgPsPzcUuBiCg",  "name": "Jake" },  { "user_id": "0ZhANN52GKlx-u9gxN8K7Q",  "name": "Andrea" },  { "user_id": "rTT04qkMm97X6Aze7uBaEg",  "name": "Lori" },  { "user_id": "DrWLhrK8WMZf7Jb-Oqc7ww",  "name": "Brad" },  { "user_id": "ocLuGkq24yjX01LVEE90sQ",  "name": "Neil" },  { "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ",  "name": "Lauren" },  { "user_id": "dUQ4_JCHtqBRAs8sJUo-IA",  "name": "Hugh" },  { "user_id": "OQPPH3MMG7paqfw1THYGsQ",  "name": "Alex" },  { "user_id": "du6KeE54IFbPiXpU3LOd1g",  "name": "Donald" },  { "user_id": "yXa1HFUJ3BtSqkDwTHdAUQ",  "name": "Chad" },  { "user_id": "bPWCuFEaVL5F6dT3JgivLw",  "name": "David" },  { "user_id": "fAiVqZv7P_oc5CzGMX_G9w",  "name": "Jenn" },  { "user_id": "TQ5eVGOFr_qB5_BbEd3Sow",  "name": "MaryLou" },  { "user_id": "d_q279uWxKs9dGGV7_BjcA",  "name": "Nicholette" },  { "user_id": "4M3j1m_vlCN5BRZsDUlzyw",  "name": "Allison" },  { "user_id": "lO1iFok_4Fv_rFfRAWyhkw",  "name": "Lindsy" },  { "user_id": "J1LCKLHsNE4Cqai7WDS5kQ",  "name": "Patrick" },  { "user_id": "VWEMs0Wo98qFLl6t440PhQ",  "name": "Elyssa" },  { "user_id": "2UgCUdRuZ0bYgXAQrHpDpA",  "name": "Nina" },  { "user_id": "w_hcSjqLeSZQL9Rx1UP-Tw",  "name": "Fred" },  { "user_id": "tFyQbNbBQEyEc9oCr1pJUg",  "name": "Tyler" },  { "user_id": "UxqUq_Gq9XfPXbdzUcVhng",  "name": "Juan" },  { "user_id": "B8HTR0tC1NFe4yAuUV3tGw",  "name": "Ricky" },  { "user_id": "gJEdPm1B_gec_aHBuguJkQ",  "name": "Lauren" },  { "user_id": "icf8Tr75xv-QOnI7wZX9Xw",  "name": "Gene" },  { "user_id": "w1b0up5haKq7yOE2lv6rJA",  "name": "Drea" },  { "user_id": "DT_5ucHfprLoh78wgzY7zw",  "name": "SC" },  { "user_id": "pi_f7sm9mclhBMtRHvGL1w",  "name": "Michael" },  { "user_id": "QYgcusG-G0bwUOt0b5rT6w",  "name": "Diana" },  { "user_id": "mE2ll6yfwUvy-W7To3E0AQ",  "name": "Heather" },  { "user_id": "4Nc0DPLqeSZuqvr1gBTy3Q",  "name": "Chris" },  { "user_id": "caELu3OqZm8LkdikpmEB4w",  "name": "Phil" },  { "user_id": "ykTUd9nIYDkQYhpntgcTVw",  "name": "Joan" },  { "user_id": "GZl2QtLSCS70ocIsCbNfcQ",  "name": "Ryan" },  { "user_id": "vArhfZStEAv8is9SM_YOOQ",  "name": "M" },  { "user_id": "rO3WEI9L-_deUR9-JHuNQw",  "name": "Sarah" },  { "user_id": "f32c9cudFdr9qNhyB4ZUTw",  "name": "Kirsten" },  { "user_id": "LeU-A7akKpmPJZuXXmfdqQ",  "name": "JJ" },  { "user_id": "Sw-dAGBjXkpH2zbCRUNytw",  "name": "Paul" },  { "user_id": "yfVTtxbdnlqcWA2jXNjj_Q",  "name": "Pablo" },  { "user_id": "Uo5f4qhP0122j71IcJ1EOg",  "name": "Wheeler" },  { "user_id": "4WyOI4x62W2EsvZO-RV-MQ",  "name": "Phil" },  { "user_id": "ZZpXfbQn0nU22OGDW15TRA",  "name": "Red" },  { "user_id": "Tv9RMLng5zRcS7aFe2fAoA",  "name": "Terry" },  { "user_id": "8otDLb5-bv3ZEH0LWj1u8w",  "name": "Brian" },  { "user_id": "drS3ZN6-zA3sr5WM2fG5tQ",  "name": "Dana" },  { "user_id": "7UAhPt9AT7M3zCBF_8UInw",  "name": "Linda" },  { "user_id": "Syc4pbEkL3bbzjO4X4HhQw",  "name": "Sarah" },  { "user_id": "St8bDCbyyftkKVhXUssPJg",  "name": "Evan" },  { "user_id": "3XsGD0zJDuSQ4lvsQeTxWQ",  "name": "L" },  { "user_id": "BNZG_2nlf8hJn63FicF8Ug",  "name": "Mark" },  { "user_id": "6khNhFYFO3KSnRAM_9YdQw",  "name": "Tabitha" },  { "user_id": "o7NLSPKYo-TCCD2OtqLc2A",  "name": "Michele" },  { "user_id": "EbAgR_Lmwr6-kut0bRhV-g",  "name": "Mara" },  { "user_id": "hbRZTWNlRAVbQpImTC_0wQ",  "name": "Tyler" },  { "user_id": "Yoa2y89jR7tAnWRLSDca7Q",  "name": "Andrew" },  { "user_id": "NFZLYA8V7jIVTev_qJW1ew",  "name": "Katherine" },  { "user_id": "EemOQfYk1UL3W3GmVZADFw",  "name": "Trisha" },  { "user_id": "4ozupHULqGyO42s3zNUzOQ",  "name": "Lindsey" },  { "user_id": "zs9EphhkXylrxHCzxhC_ag",  "name": "Jarratt" },  { "user_id": "v6rb-4YhADpuD99f3RKmgg",  "name": "Marc" },  { "user_id": "kGgAARL2UmvCcTRfiscjug",  "name": "J" },  { "user_id": "NWEKM2JBpPCtvGtIsRAgMw",  "name": "Chloe" },  { "user_id": "e74v9ab0-PgmiwBhdbj_XQ",  "name": "D" },  { "user_id": "hJBOxmNREXmMGTfXgMcGug",  "name": "Derek" },  { "user_id": "qCLYzhd0L_P1iSjZJN0ZLQ",  "name": "Victor" },  { "user_id": "hckr9Hf8BUHcXfOSDv9eJA",  "name": "David" },  { "user_id": "SUcoN2gzxMX3IPfBWp-cSQ",  "name": "Tanveer" },  { "user_id": "kUKH7Mbah6TVgV_9LEnH0g",  "name": "J Ann" } ]
         self.assertTrue(content==actual)
 
     def test_api_get_user(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/x5-yK8bmjQTcMrlWLfgJEg/")
+        request = Request(self.url + "user/x5-yK8bmjQTcMrlWLfgJEg/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  {"compliments": {}, "name": "lisa", "user_id": "x5-yK8bmjQTcMrlWLfgJEg", "votes": {"cool": 1, "funny": 3, "useful": 4}}
+        actual = { "votes": { "useful": 4,  "cool": 1,  "funny": 3 },  "yelping_since": "2007-10-01",  "average_stars": 3.17,  "elite": [],  "fans": 0,  "user_id": "x5-yK8bmjQTcMrlWLfgJEg",  "name": "lisa",  "review_count": 8,  "type": "user",  "compliments": {} }
         self.assertTrue(content==actual)
 
     def test_api_get_bad_user(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/nothere/")
+        request = Request(self.url + "user/nothere/")
         try :
             response = urlopen(request)
-        except HTTPError :
-            return True
+        except HTTPError as e:
+            self.assertTrue(e.code == 404)
+            self.assertTrue(e.reason == "NOT FOUND")
+        return False
+
+    def test_api_get_bad_user2(self):
+        request = Request(self.url + "user/ /")
+        try :
+            response = urlopen(request)
+        except HTTPError as e:
+            self.assertTrue(e.code == 400)
+            self.assertTrue(e.reason == "BAD_REQUEST")
         return False
 
     def test_api_get_all_reviews(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/")
+        request = Request(self.url + "review/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  [{"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2011-01-12", "review_id": "rGWvvzfxIv-aoAKGGGHrMg", "stars": 4.0, "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", "user": "/operationrepo/api/user/xFG4Ca2HHmbxDTkMlmHnjQ/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/00eGk1ntf4RiDxVRY3gaIw/", "date": "2013-08-03", "review_id": "UenRro_ZUAW7vmbS9Hoqrg", "stars": 3.0, "text": "Not a bad place if you like craft beers. I came in to start another mini tour. I always love the food especially the pizza. The service is usually good, however today it sucked. We were seated at the bar 10 minutes before we were greeted by the bartender.  Not a full bar either. The food we ordered was out in a reasonable time and was delicious. My only issue today was with the bartender and the service we got. If I go there again and see her tending I will go to the restaurant part.", "user": "/operationrepo/api/user/icf8Tr75xv-QOnI7wZX9Xw/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/015GCpe-tMj1En4NORROzA/", "date": "2013-10-17", "review_id": "3fhIpynSC-C5NVEjZO-QYg", "stars": 4.0, "text": "I had no problem redeeming the 30-50 coupon. The staff was very friendly and knowledgeable. \nThe clothes came out clean, except one that said they couldn't take the stains off without damaging the item, that item was charge which I don't think it should; since it was not cleaned. \nThe price on my personal opinion it's very expensive. I took 11 pieces and paid with coupon over \\$80.", "user": "/operationrepo/api/user/EbAgR_Lmwr6-kut0bRhV-g/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/00eGk1ntf4RiDxVRY3gaIw/", "date": "2011-08-26", "review_id": "LcEP4Jc8ajplPSdHfiP50A", "stars": 2.0, "text": "Seriously the only reason it is getting two stars tonight is because they have snakebites.\n\nNow I will be the first to say that I frequent Old Chicago quite often, but tonight was down right depressing. The bar area was about 29 degrees warmer than an oven baking cookies, and myself and date were downright sweating at the table. \n\nOrdered two beers, one (mine) perfect, the other was super flat; our waitress was super sweet and took care of it right away, but only after letting us know that the second choice was out.\n\nI will for sure be back to give it one more shot, but it was truly a HUGE disappointment tonight; especially when we were there to enjoy a cool night in with a draft.", "user": "/operationrepo/api/user/CjVX1QGNqx3_oDBuRig4-A/", "votes": {"cool": 0, "funny": 0, "useful": 1}}, {"business": "/operationrepo/api/business/01euuGhBwvcDhl9KcPTang/", "date": "2011-12-30", "review_id": "_VBQ9imkoKh0dsEiDUj8tA", "stars": 4.0, "text": "Love their tortas! They toast their bread so they're not soggy like most places. They also use a good amount of avacado and their prices are low.  They kinda of take a long time to prep the tortas tho. I only order from the drive-thru so I haven't been inside but it looks pretty clean from the outside.", "user": "/operationrepo/api/user/vArhfZStEAv8is9SM_YOOQ/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2010-11-22", "review_id": "rPp8OWlpQX08pmaHGjsxKw", "stars": 4.0, "text": "Was in Scottsdale for an overnight trip and decided to stop by this place to have some dinner and watch the Suns vs Lakers game.  The joint is a really nice sports bar and grill....I've never been to a sports bar that was so nice before, I thought I had the wrong place when I arrived.  The restaurant is well kept and looks like it just opened, at least by the cleanliness and decor.\n\nSince I was alone, I saddled up to the bar and decided to eat and have a few Beers while I watched the game.  The menu is pretty extensive, so I asked the bartender for her recommendation.  She suggested the Boneless Wings (\\$7.99) or the Sliders (\\$7.99 + \\$.50 w/Cheese).....I said, \"What the hell, let's go for both!\".  I asked her to make sure the Boneless Wings were really Spicy.  Since I had been in China for the past 10 days I was in the mood for some heat.....she said that their hottest wing sauce wasn't that hot....but that the cooks could whip up  a Habanero Sauce for me.  I asked her to have the Boneless Wings prepared with Hot Sauce and put the Habanero Sauce on the side, just to be on the safe side, LOL.  To wash it down, I had a 22 oz SunUp Trooper IPA (\\$5.50).\n\nI watched the Lakers vs Suns game for a while and made some new friends at the bar while I waited for my food.  After a short wait the first dish to come out was the Boneless Wings.  The Habanero Sauce was so Hot that when they placed it down in front of me I choked on the fumes....and this was with the Sauce on the Side!  I had to move the plate off to the side, just so I could breathe....perfect!  I took one piece of Boneless Wing, dipped it into the Habanero Sauce, and took a bite....wow, it packed a big punch!  Very spicy and soooo good!  The Chicken was moist and juicy and cooked just right.....not too crunchy and not too soft....and full of flavor.\n\nThe Sliders came out a few minutes later....so I left 1/2 my Wing order to go try the Sliders.  There were 4 Sliders on the plate.  I tried it with a little Blue Cheese Dressing.....yum!  Then I dipped them in a little Blue Cheese then with the Habanero Sauce that came with the Wings....even better!  I told the bartender to tell the cooks that their Habanero Sauce was a huge hit and to thank them for me.\n\nIt took me a while, but I devoured everything I ordered.  2 IPA's later and with a Lakers' loss in the making, I asked the bartender to change up the Beer order and asked for her recommendation.  She suggested the 4 Peaks Peach Ale (22 oz \\$5.50)....ok, I normally don't do Peach flavored Beer but went with it anyway.  I'm glad I did, it had a nice smooth finish and you could barely taste the Peach flavor....it didn't overwhelm the brew.\n\nDespite a Lakers loss, I had a great time and meal here.  Kudos to the staff for making a patron happy by whipping up a spicy Habanero Sauce on the fly....you can almost feel the heat in the pics I took.\n\nWill I return?  You bet I will!", "user": "/operationrepo/api/user/kGgAARL2UmvCcTRfiscjug/", "votes": {"cool": 7, "funny": 4, "useful": 6}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2010-08-04", "review_id": "WSEPR6x1xmdst6pe8imQ7g", "stars": 4.0, "text": "I can tell this is going to become a great local hangout (they just opened up two weeks ago). We visited on Monday night with some friends. The vibe is \"upscale sports grill\" with lots of flat TVs, a marble bar top, and fine furnishings throughout. I was very impressed with their service and the food, everything the four of us ordered was done just right. I'm looking forward to spending more quality time hanging at Blue 32!", "user": "/operationrepo/api/user/90a6z--_CUrl84aCzZyPsg/", "votes": {"cool": 3, "funny": 2, "useful": 4}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2011-08-29", "review_id": "bmOg5OJg4EMdTa2voSKEBg", "stars": 4.0, "text": "I was pleasantly surprised at this sports bar. Not your typical bar-food menu - though plenty of those staples as well. The menu was a bit longer than most sports bar type establishments, and varied. I had the grilled shrimp w/ rice and broccoli which sounds incredibly boring and possibly bland - it was neither. Grilled shrimp can easily come out dry and/or rubbery and this dish was tender, flavorful and the rice was flavored with a cilantro lime sauce. So yummy! My husband had Buffalo chicken sandwich that he ooohed and aahed over, so I guess he loved it. \n\nI was pleased to be able to get a decent wine by the glass! They also offer many specialty cocktails in addition to beer (of course). \n\nSpacious, modern decor. Lots of big booths, plenty of seating and many large TVs for those of you specifically looking for a place to watch the game. \n\nAlso, the server was a new trainee who clearly had worked in restaurants before because she displayed absolutely no \"Newness\" and her trainer was helpful and attentive as well.", "user": "/operationrepo/api/user/cl9ZMopdCQGGXMlwgruFdg/", "votes": {"cool": 0, "funny": 0, "useful": 1}}, {"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2011-07-13", "review_id": "Nhxu5YD1O3NbQ00fmioKWg", "stars": 2.0, "text": "Notice how I gave this place 2 stars....It's because their service is pretty much Number 2! They would not put up gutter guards for my sisters, who are not too good at bowling. They have some cranky guy running the only counter and seriously the only upside to this place is the Cosmic Bowling.", "user": "/operationrepo/api/user/8OrUcPNfWnwjFP0Z5wSRrA/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2012-11-08", "review_id": "4Ch-4JeCWsSms0AoUXIiOw", "stars": 4.0, "text": "I came here on a Saturday night to watch an ASU game and have a nice dinner. It's located right off Scottsdale Road, easily visible from the street. There was no wait when we came (around 8PM) but very packed. We were seated at a bar top and were quickly greeted by our waiter. I decided to order a raspberry margarita, which was pretty good. I do prefer margaritas on the rocks and this one was frozen. I ordered a caesar salad to start and the chicken alfredo. The alfredo pasta came with rotini noodles, which I liked but reminded me slightly of a macaroni and cheese. The portion was HUGE though, definitely share or plan to take a lot home! Everything was good, the place has a bunch of TV's and the bar area with the TV on was really loud. If you don't like to watch sports while eating/drinking, I probably wouldn't come here. But, if you don't mind it or like it, it's a fun place to check out. \n\nOverall, I had a good time and would recommend.", "user": "/operationrepo/api/user/cBJqlNzyoJFak3_XRe2bvw/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01kU7NKzfCP3tgYmgzXbjQ/", "date": "2011-03-01", "review_id": "ZYByZs1t5CiS3k51Dc7apA", "stars": 2.0, "text": "Price of water went up. \nFrozen yogurt is either vanilla or chocolate. \nSome hot food eg: nachos, hot dogs\nSmells musty. \nStaff is slow.", "user": "/operationrepo/api/user/8z2mKSqTW-4pLobAUNvrsQ/", "votes": {"cool": 0, "funny": 1, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2010-08-22", "review_id": "GmkYnZW9Q8rf9BZWoD3V_A", "stars": 4.0, "text": "With football season just around the corner, I am so happy to have Blue 32 open in my neighborhood! (Now I have no reason to ever step in Zipp's again, I definitely won't miss the smell of dirty rags and the crappy food!) \n\nI decided to check it out on Saturday for lunch, I thought that I should try to preview it before it becomes packed during football season. Blue 32 is an upscale sports bar, the inside is crisp and clean and there are TONS of flat-screen TVs all over the place! The menu is huge....so many options and many of them unique that you don't see on a regular sports bar menu. \n\nWe started with a basket of onion rings, and wow, yummy! They batter was light, but they had added a touch of heat to the batter, that made them perfect for dunking in cool, creamy ranch dressing! \n\nI ordered the Shrimp & Bacon Quesadilla off of the appetizer section, which I though was a nice change from the standard chicken quesadilla (which they do have for traditionalists). The quesadilla was huge, filled with shrimp, bacon and cheese and served with guacamole and sour cream, it was amazing and big enough that I got to bring home leftovers! \n\nMy friends tried the BBQ Chicken Flatbread and the classic BLT. They both really liked their dishes, and like the quesadilla, both portions were big and required take home boxes! \n\nThis is my new go to place, I can't wait to try out more of the menu and watch 4 football games at once!", "user": "/operationrepo/api/user/fAiVqZv7P_oc5CzGMX_G9w/", "votes": {"cool": 1, "funny": 0, "useful": 1}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2011-06-15", "review_id": "Io_AFAWeSHtyHVe3HD69-Q", "stars": 4.0, "text": "Met some friends here to watch the Boston/Vancouver game 6. Big, open modern upscale space with plenty of high-quality Panasonic 50\" TV's all over the place. This is important to me being from the audio/video business- many sports bars buy the cheapest HDTV's they can find and it really shows.\n\nGreat beer specials- \\$2.75 domestic drafts till 7pm, our group loved the fish tacos and huge chicken wings that you can order how you like (all drums please).\n\nDefinitely will be back.\n\nBOTTOM LINE: Blue 32 I'll be a regular here too.", "user": "/operationrepo/api/user/_-Zrzf2QYiw4KHugUTXNYQ/", "votes": {"cool": 0, "funny": 0, "useful": 2}}, {"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2012-03-20", "review_id": "Zuc_PEXMphLDn3mjc_nZEg", "stars": 2.0, "text": "We have been going here for several years and every time the only thing consistent is the rude staff behind the front desk.\nMy grandson was visiting from Cali for spring break and wanted to go bowling yesterday.  I am on their email list and had received a coupon for two hours of bowling with shoes, food, etc for \\$7.99.  I asked for the special rate and was very rudely told that it doesn't apply during spring break and that lanes were \\$3+ and shoes were \\$4.50.  When I asked about who has spring break now he rudely replied Paradise Valley schools.  Really????  This was Scottsdale, wtf?\nSo I paid over \\$30 for three of us to bowl.  When I asked for two lanes (one w/ bumper for grandson) he acted really put out.\nWe had a good time, but both my daughter and myself have our own shoes and I felt ripped off and hate rude workers, so I was mad.\nThen afterwords we went to the game part of the place and almost every game was broken or did not give out tickets.  My grandson wanted to play ski ball he loves and they were broken too.  Of course the desk people could care less.\nWe will not be going back here again. Too many times they have treated us like crap and I would much rather take my money somewhere else where I am appreciated and provides even some sort of customer service.", "user": "/operationrepo/api/user/eqHh3T-QWN8bowagW4KiGg/", "votes": {"cool": 0, "funny": 0, "useful": 2}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2010-08-16", "review_id": "VKWoV25wNpdNWLXzUwgUpA", "stars": 4.0, "text": "These guys have a nice place in a great location.\n\nI sat at a table in the bar and watched part of the Saturday round of the PGA.  As previous reviewers have mentioned, there are plenty of flat screens here.\n\nI ordered a grinder, fries and iced tea.  They were all very good.\n\nThe service was super friendly and I'm looking forward to coming back soon.", "user": "/operationrepo/api/user/Kqvfep2mxS10S50FbVDi4Q/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2012-06-15", "review_id": "6H5NYBjN_IiiRq2xAxbOWg", "stars": 4.0, "text": "Big sports bar with more TVs than you can count, ice (and I mean ice, frosty) cold beer, delicious food (try the mushroom swiss burger, and definitely the onion rings), and fantastic service.  What more could you ask for??  For catching any big game this is the place to be!", "user": "/operationrepo/api/user/Yoa2y89jR7tAnWRLSDca7Q/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2012-09-23", "review_id": "y1vMRm5hml7AnilMCv6ivg", "stars": 5.0, "text": "great sports bar. TV's galore. Good food. Outside patio. While many places claim to be sports bars, for some reason they wind up not paying attention to the TV's and wind up with hair removal infomercials playing.\n\nThis place knows what they are doing with the tv's. I was watching the manager who looked like had a spreadsheet with every game planned out and on what tv's. They also play the sound from the premier game.", "user": "/operationrepo/api/user/e74v9ab0-PgmiwBhdbj_XQ/", "votes": {"cool": 0, "funny": 0, "useful": 3}}, {"business": "/operationrepo/api/business/00eGk1ntf4RiDxVRY3gaIw/", "date": "2009-01-31", "review_id": "eOGI5qb_fBf1sbZxB1mu-w", "stars": 3.0, "text": "Buffalo Wings are pretty good.  i had them with the mojo ipa which is perfect with spicy food.  then we had a deep dish classic pizza.  good dough and decent cheese/topping/sauce ratio.", "user": "/operationrepo/api/user/EpC7vMp0hg1wGBQ6fzzoQg/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2013-05-13", "review_id": "SziI2G4DcMEA7TIxVYRtrQ", "stars": 2.0, "text": "Got serviced by Brad. Very disappointed with the experience because of him.", "user": "/operationrepo/api/user/0ZhANN52GKlx-u9gxN8K7Q/", "votes": {"cool": 0, "funny": 0, "useful": 0}}, {"business": "/operationrepo/api/business/01cEFI5Pq_RyEwM3GSTopQ/", "date": "2011-12-31", "review_id": "xWAvESbLyNmdpdvK32zz5g", "stars": 4.0, "text": "Good food and able to manage a large group easily. Our party had 11 and there wasn't a long wait at all. Highlights: spinach and artichoke dip, onion rings, and tortilla soup. Total tab was only \\$160 for the whole group.", "user": "/operationrepo/api/user/4Nc0DPLqeSZuqvr1gBTy3Q/", "votes": {"cool": 0, "funny": 0, "useful": 0}}]
+        actual = [ { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ",  "review_id": "rGWvvzfxIv-aoAKGGGHrMg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "icf8Tr75xv-QOnI7wZX9Xw",  "review_id": "UenRro_ZUAW7vmbS9Hoqrg" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "EbAgR_Lmwr6-kut0bRhV-g",  "review_id": "3fhIpynSC-C5NVEjZO-QYg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "CjVX1QGNqx3_oDBuRig4-A",  "review_id": "LcEP4Jc8ajplPSdHfiP50A" },  { "business_id": "01euuGhBwvcDhl9KcPTang",  "user_id": "vArhfZStEAv8is9SM_YOOQ",  "review_id": "_VBQ9imkoKh0dsEiDUj8tA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "kGgAARL2UmvCcTRfiscjug",  "review_id": "rPp8OWlpQX08pmaHGjsxKw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "90a6z--_CUrl84aCzZyPsg",  "review_id": "WSEPR6x1xmdst6pe8imQ7g" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "cl9ZMopdCQGGXMlwgruFdg",  "review_id": "bmOg5OJg4EMdTa2voSKEBg" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "8OrUcPNfWnwjFP0Z5wSRrA",  "review_id": "Nhxu5YD1O3NbQ00fmioKWg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "cBJqlNzyoJFak3_XRe2bvw",  "review_id": "4Ch-4JeCWsSms0AoUXIiOw" },  { "business_id": "01kU7NKzfCP3tgYmgzXbjQ",  "user_id": "8z2mKSqTW-4pLobAUNvrsQ",  "review_id": "ZYByZs1t5CiS3k51Dc7apA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "fAiVqZv7P_oc5CzGMX_G9w",  "review_id": "GmkYnZW9Q8rf9BZWoD3V_A" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "_-Zrzf2QYiw4KHugUTXNYQ",  "review_id": "Io_AFAWeSHtyHVe3HD69-Q" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "eqHh3T-QWN8bowagW4KiGg",  "review_id": "Zuc_PEXMphLDn3mjc_nZEg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Kqvfep2mxS10S50FbVDi4Q",  "review_id": "VKWoV25wNpdNWLXzUwgUpA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Yoa2y89jR7tAnWRLSDca7Q",  "review_id": "6H5NYBjN_IiiRq2xAxbOWg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "e74v9ab0-PgmiwBhdbj_XQ",  "review_id": "y1vMRm5hml7AnilMCv6ivg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "EpC7vMp0hg1wGBQ6fzzoQg",  "review_id": "eOGI5qb_fBf1sbZxB1mu-w" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "0ZhANN52GKlx-u9gxN8K7Q",  "review_id": "SziI2G4DcMEA7TIxVYRtrQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "4Nc0DPLqeSZuqvr1gBTy3Q",  "review_id": "xWAvESbLyNmdpdvK32zz5g" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "icf8Tr75xv-QOnI7wZX9Xw",  "review_id": "AaCOibzNjcJFO390GcfD1A" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "UxqUq_Gq9XfPXbdzUcVhng",  "review_id": "IG2CInbE0snsx690yKahsQ" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "dVomZlKABGY3iX3ULkkQpA",  "review_id": "915iB3PrBesqopvLj5aVJw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "fdnSC-PGo2mYTgcOEq6Bpw",  "review_id": "GjdzF2h0oN7wcMGeDmrwNA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Y66q9-Nggoo6W5BgoP5FbA",  "review_id": "xkXwxdz-sy6-33RgNoYwtg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "fl6oI21uXoxVMwfR6lFanQ",  "review_id": "7NgHS_RBr9jt_OqexRINag" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "3d6Mhk-Bx1p75jmy3AVJWA",  "review_id": "gmuri_8LSyqdMBByN-4hFA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "MjY15QEdD0y3TIqjKxNrBg",  "review_id": "rXBH7bdWh-y_Bui4DPwXDg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "drS3ZN6-zA3sr5WM2fG5tQ",  "review_id": "kJjnyz33CuMjD-XJFKzjLA" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "hbRZTWNlRAVbQpImTC_0wQ",  "review_id": "jUn0Hbwnb793MkIRE-B8aw" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "9JpnM-xebt0343KkGR_HKQ",  "review_id": "HsSOBodtfPIWnla94VxHqg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Uo5f4qhP0122j71IcJ1EOg",  "review_id": "OvNvLfzrsnHHYnt1mKdiXA" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "8EaO99Q3E_SS8KzOR1rFrA",  "review_id": "5oZjdpzWeHUSborcAmMX_Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "ALP87SgltBLmMH5OsgVrMg",  "review_id": "77kPd412-N1RZRdz3CDDTA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Sw-dAGBjXkpH2zbCRUNytw",  "review_id": "xTieoOg2q6xMN10L1JFJ-Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "gJEdPm1B_gec_aHBuguJkQ",  "review_id": "X8qTDQQ6knx-AlXTMiiqRA" },  { "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "user_id": "a8Xp9eCcmtWKhnlB5V4Ghg",  "review_id": "JEXQ7rvQkVzPNG-i9H-mUg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "w4suxL1zlxsihVlugZZDAQ",  "review_id": "cPoLz2KNAgIZ1Y7n6ebI5Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "DrWLhrK8WMZf7Jb-Oqc7ww",  "review_id": "7HiR1HaktPUP5-GhPM2_0w" },  { "business_id": "01euuGhBwvcDhl9KcPTang",  "user_id": "ropG9hxhgqtT865SJ3IALA",  "review_id": "5PMeBQmYOrK_4WQZNumM6A" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "yfVTtxbdnlqcWA2jXNjj_Q",  "review_id": "B4QL7BJp0ymzVg00k5d0mQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "NvDR3SPVPXrDB_dbKuGoWA",  "review_id": "cQwOq-mBrwyHd0H1zp1jPg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "w4suxL1zlxsihVlugZZDAQ",  "review_id": "-Mvy8Ks9NPH-QV04V0H94g" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "rTT04qkMm97X6Aze7uBaEg",  "review_id": "P5scCbOjZO2LWlbfS3ACSg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "4M3j1m_vlCN5BRZsDUlzyw",  "review_id": "Ar0NpGVlipRwkvLvkSoL1A" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "33vUIil_GCaT92aUaZhRXA",  "review_id": "a7mgWk7cgTgycY8fcCb0RQ" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "6khNhFYFO3KSnRAM_9YdQw",  "review_id": "PbuDkUXeEAhtTIANrld58A" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "4ozupHULqGyO42s3zNUzOQ",  "review_id": "mdk4rg48GxZZLAH_H9gnBg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "bZaSmDxmKbVNOOAdzxX_bg",  "review_id": "PZKssqIzCkF3fHc29MaRBg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "mE2ll6yfwUvy-W7To3E0AQ",  "review_id": "Prb-DF36Fi3T4WE6a6VT8w" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "palND-kF1qpMLhkcgAnSxA",  "review_id": "xqrumFoO1WaDVoisauqokA" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "TYHFPPZnUxvgM9OBfoN8Kg",  "review_id": "5qQ3cAUChavXkU2-2c0Zqw" },  { "business_id": "02rrDia_FTc8jN7LGqzIbQ",  "user_id": "f32c9cudFdr9qNhyB4ZUTw",  "review_id": "MXqncDc4mtqJvzvdNMMeAg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "BNZG_2nlf8hJn63FicF8Ug",  "review_id": "3NFiEmlEeq3auZL_5jE8aA" },  { "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "user_id": "joIzw_aUiNvBTuGoytrH7g",  "review_id": "bb0aYS-bSz8dkDGvOJ87Yg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "Syc4pbEkL3bbzjO4X4HhQw",  "review_id": "11v21s_RbE_b5Fg4GY0pZg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "LpBWKKSNS7QmSCHppitSbg",  "review_id": "N8e1lM3PpMXda8NCwDjXXg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "IKq14A6anAGX47Gp1bsxjA",  "review_id": "qKtePERw-WTTLdmjeqsxFg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "yXa1HFUJ3BtSqkDwTHdAUQ",  "review_id": "YyZjfu1p1fmMzc98-zfRoA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "w1b0up5haKq7yOE2lv6rJA",  "review_id": "h1GbFx-L5doQQGgQfVAVBA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "NWEKM2JBpPCtvGtIsRAgMw",  "review_id": "PPddOO15yP97VCm2BaxTsA" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "73crJRw-NOUKGELY3hZcSw",  "review_id": "vCmp8YMWcu_2733scNEsWw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "SUcoN2gzxMX3IPfBWp-cSQ",  "review_id": "dFphPvqgmZ_I-ldW1evaUA" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "d_q279uWxKs9dGGV7_BjcA",  "review_id": "x3PrP8aFCHx_0M1Ux9hIMw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "tFyQbNbBQEyEc9oCr1pJUg",  "review_id": "pUYrlcMdhJl-c7MfuW5nNA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "4WyOI4x62W2EsvZO-RV-MQ",  "review_id": "9r7_Gig9MlOesi9upn3_iw" },  { "business_id": "02Fijjr_ccD42E-5aGOXWQ",  "user_id": "NFaCr9xvyDBioc2mB1w08w",  "review_id": "WdPfWC7KrYR2O6mqEtTmzQ" },  { "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "user_id": "EVSAweqdsY_EWfDxqDYdDg",  "review_id": "8WFqRBUsKteXRTQuF6HMnQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "ykTUd9nIYDkQYhpntgcTVw",  "review_id": "jezLTk8M9APeK6xSLFjtuQ" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "w1LjSa5wMexRIQ-82LKWmQ",  "review_id": "a07rFWrQOq1aCCiYmIi4ow" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "J1LCKLHsNE4Cqai7WDS5kQ",  "review_id": "3qb9v5y6Bk-qQwUf_aM30Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "caELu3OqZm8LkdikpmEB4w",  "review_id": "Hx_IKhMODEokUcxf0YlCDA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "VWEMs0Wo98qFLl6t440PhQ",  "review_id": "6R1QXcOg4hV_-iBktVzwoQ" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "QYgcusG-G0bwUOt0b5rT6w",  "review_id": "RcN9r2S9FuGFoY7VmqksAA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "lO1iFok_4Fv_rFfRAWyhkw",  "review_id": "8-82pTh14s49IGO2L-h4kQ" },  { "business_id": "00FGafv0TKfmH_QhVxh4FQ",  "user_id": "QAYaGDx41V0i3RQfu_5Vlg",  "review_id": "xkhgcsgWTWJtDqq_gmTTZQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Ae_rbQ293MYrKaywJT6Oeg",  "review_id": "iWS1WakFB3hSepiItIUmhg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "du6KeE54IFbPiXpU3LOd1g",  "review_id": "RJS350XdAgbbF1BO3gFygA" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "7Zrq87_FzXZ-ZSwGOmas2A",  "review_id": "r5-ua0khSlgRAWYv1vhrwA" },  { "business_id": "02rrDia_FTc8jN7LGqzIbQ",  "user_id": "RNxfe4lnDNjbQWa2-oIdEA",  "review_id": "oo-KXq7dLHbEn8HrUmq7ow" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "LdhwY7eudLlx1KFQQe9GwA",  "review_id": "5iyjPz267lZgq-2F--V4-g" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "OOxLwlNadygUwL_aG8KnSQ",  "review_id": "3Y8leeubNc1pCWZJwXvsTw" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "b8vpDCrjDwjXSr92JVp-PQ",  "review_id": "1Y5jHFT6Xu9BI4JMfwdfVQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "bPWCuFEaVL5F6dT3JgivLw",  "review_id": "FSfYvhvWTRxWkzMGIMGpyw" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "DESuUHNcQUULDCS9KlNVcw",  "review_id": "XeQQoUGicvPymSmxMWQ9dw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "v6rb-4YhADpuD99f3RKmgg",  "review_id": "kVVL5yzqJH8NA8gWYvwgvg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "Kyc_V-2G77tRfwJsBxwZ4A",  "review_id": "3HUIq9kO1qYOyJdMI3VEvw" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "syJ-WZZ1vcbQZgtjqmJ1uA",  "review_id": "ccrpnUwF3WnBv2dxGHXqcg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "UPtysDF6cUDUxq2KY-6Dcg",  "review_id": "1NHba9hGNq2NRh-GGyXiZg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "2UgCUdRuZ0bYgXAQrHpDpA",  "review_id": "bENjzPqNOyOOmRQJza0dgw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "IqJjdWMgT0HxrPP_-kWPmw",  "review_id": "b9o_dVOlVeZlMoEBYkay1g" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "jy1qPe0Tz3ewHacAtshmBw",  "review_id": "xmkqZgfMbQtjmKykzlr9Rg" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "PS0lCxjGNeUrKxYSdpW-Aw",  "review_id": "9SgKmQD97UuWbXwchtT8cA" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "kGgAARL2UmvCcTRfiscjug",  "review_id": "u2NF5830MGdwgQQo74ti0Q" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "8CNEh7fSbLwDuAKhLjDPKQ",  "review_id": "GcqutPohaLV84mJniadloA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "qCLYzhd0L_P1iSjZJN0ZLQ",  "review_id": "o1OUDrBnGfXuePz3xMCf9Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "GZl2QtLSCS70ocIsCbNfcQ",  "review_id": "inEq3Q-U-SDXQQUVk7mYqA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "-xPKyCJiK9q1OFZ7GCZwBw",  "review_id": "N1xBOH3r6-1X55evn7HQ-Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "EsZoGB023YUubq7rC7rm8Q",  "review_id": "kcAq576gPEm3jglIMgZ53g" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "DT_5ucHfprLoh78wgzY7zw",  "review_id": "zBbI95K3ZEZKI0O4EVs1zA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "LeU-A7akKpmPJZuXXmfdqQ",  "review_id": "wUlYVQqedDVxAhYVByAABg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "4iAjtohAkJvMw6fVcXR_1w",  "review_id": "cQUcFUdJZwQGLKqEUhID-A" },  { "business_id": "01euuGhBwvcDhl9KcPTang",  "user_id": "TQ5eVGOFr_qB5_BbEd3Sow",  "review_id": "WvvOhGbPF9LAumTXmVSw2w" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "NFZLYA8V7jIVTev_qJW1ew",  "review_id": "r3sX7t5L4d-j-VmBHVxAnQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "OqgL64SkHicaRtYpw08r9g",  "review_id": "4LTSvtEIUFH_a1MHFJ0ekw" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "DI1wmnA_Pg9mycZV84_syw",  "review_id": "k88Z4z4EoWczNm2nLdC2Lg" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "8P7ikCyk2ipbiE9Ty7Bjgw",  "review_id": "0f0TmR2FlfJRteY7_ja0Yw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "kGgAARL2UmvCcTRfiscjug",  "review_id": "mKeU-8MNiCU6ELuviVyk7Q" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "St8bDCbyyftkKVhXUssPJg",  "review_id": "yaCGEGcI1jAtj-lsy23Ckg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "rO3WEI9L-_deUR9-JHuNQw",  "review_id": "XtgTrCTsktB8V0HpzQqI0w" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "OQPPH3MMG7paqfw1THYGsQ",  "review_id": "eAQlWAz2VRAi_hG-DEXn1g" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Sjp6EYsqzdlTvymER6wBfg",  "review_id": "kbNTTb77cdj-0FbvVcOBRg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "o7NLSPKYo-TCCD2OtqLc2A",  "review_id": "m5oSBFgl17qKFBhnGR-kOw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "hJBOxmNREXmMGTfXgMcGug",  "review_id": "_VfzqglaYhnNAgj4ycQczw" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "hckr9Hf8BUHcXfOSDv9eJA",  "review_id": "TDMTnedCuDWfd-pBIesg5w" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "b927p9pWxM9EYoNr_6PxYQ",  "review_id": "5Mm0vndA22WmlcQDpyl16g" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "gSBvJ5FqFeSKRJaPiamttw",  "review_id": "voctzxHkFjCsBmalhZWIsg" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "PSadYWspmOQTgDs5FMOBfQ",  "review_id": "EiUqNFEF6qTYBrnwMW2Olw" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "Lu05r9ITDh8bkCqh2zz5zw",  "review_id": "ncXK-yAHddX5aOWDtwqq5g" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "8lm1AvIINFQWcRbxq5blrQ",  "review_id": "nSCfHf8pB2-ypKpeDC5TRA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "f5DSsK2w-b0xQVyz8lZACw",  "review_id": "o-WYwSaJsDlLiY5PRiV9Vg" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "x5-yK8bmjQTcMrlWLfgJEg",  "review_id": "pndwlFbXLejg5HbE_IX1Qw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "8aBoNgjAi8cn15UsoHWQFw",  "review_id": "PTmGUdGB3uFhqyfAWFQjwA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "67q6sdXeuVRvzgHQNNHHVQ",  "review_id": "EbaMqCZZA0II0BoRKTR3UQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "wBi0I2QcqZtNOh21WlBVKA",  "review_id": "NVO3LXK0ViZ8ykOSiZWZtw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "RdWhGfwHORbIEyFj6YbZow",  "review_id": "hopulvB3krQQirExRfpuCg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "X6vSWes7JpMpQ6tQNtYwmA",  "review_id": "WtqJz_Awc5-oU345bolrEw" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "ZZpXfbQn0nU22OGDW15TRA",  "review_id": "UHOWw8ypHoFOwsTp86bSLg" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "E3Koa54vrcDs5o6NoFSEwg",  "review_id": "u2JZBYvXsaQiRYUNQ7X_6w" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",  "review_id": "jI14f-NzSaf5Rf3cGUgaHg" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "B8HTR0tC1NFe4yAuUV3tGw",  "review_id": "ogGpPRsAGg3KW_c47dS04A" },  { "business_id": "01kU7NKzfCP3tgYmgzXbjQ",  "user_id": "-1F7KZxq3Lib1CKLlybC5Q",  "review_id": "gRrG53-jMO8m0ZeYh3mMpA" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "zs9EphhkXylrxHCzxhC_ag",  "review_id": "IUe-42SCjoO4P49yIwPLyA" },  { "business_id": "02rrDia_FTc8jN7LGqzIbQ",  "user_id": "3XsGD0zJDuSQ4lvsQeTxWQ",  "review_id": "xZrZAqXu8DODC_t3l8QBdA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "UquA6GumjoYaJTELY1niIg",  "review_id": "mBat3LENcuf2YMKsmYl-Pw" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "Z9QRZYyh-xPtpM2W9euDiQ",  "review_id": "1QLhcHXLyeh6AOnAFpgKSQ" },  { "business_id": "02Fijjr_ccD42E-5aGOXWQ",  "user_id": "LLdbxv769G-mzDYs3Njjcw",  "review_id": "q_JF8pVHEimRzVxjkrWIWQ" },  { "business_id": "01kU7NKzfCP3tgYmgzXbjQ",  "user_id": "SEDFpR4oMPKqXMjbJiMGog",  "review_id": "H4HYAYx4_-acHc1Hz9aBPA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "E3Koa54vrcDs5o6NoFSEwg",  "review_id": "buWaZy82d33iPbahsoZAGA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "KbmjlHxkj4dA8t90IWjgpQ",  "review_id": "5I52C6pzq59Yzj_bDde_Dw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "aGvpUCEKjKc4bqbVDiEhlQ",  "review_id": "MOZDvsYt4ydT6gy4svMVsA" },  { "business_id": "00FGafv0TKfmH_QhVxh4FQ",  "user_id": "LS1CRfOX3ydk7xkkCUYgmQ",  "review_id": "JRRADUxxp7S3iVuogXQwdg" },  { "business_id": "02Fijjr_ccD42E-5aGOXWQ",  "user_id": "ocLuGkq24yjX01LVEE90sQ",  "review_id": "3BmQffTk8O3Zvzuv_hUISQ" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "4ozupHULqGyO42s3zNUzOQ",  "review_id": "jmuHKO8sWu8KSR5vwdIccg" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "ZGW2QM4hEFgPsPzcUuBiCg",  "review_id": "aoOG4BxL1cM5vm5fwtpbqQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "p7VKdqjT3WNvL7dRNNetcw",  "review_id": "MeUl2-uHuvWu2q9_njrmcw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "iwUN95LIaEr75TZE_JC6bg",  "review_id": "4taqMH-iO7JOqp6BEFGC4g" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "8otDLb5-bv3ZEH0LWj1u8w",  "review_id": "8vIoEvd21wEZXKgUvPxV5w" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "yWBwbPCOy8eBD1wWSH6s_A",  "review_id": "eLsmNIfoTU51IyH_yiAiHA" },  { "business_id": "01euuGhBwvcDhl9KcPTang",  "user_id": "nbofxFWHORebBHh10OgYLA",  "review_id": "300c4z25RYJmbTq-gqVFrA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "pi_f7sm9mclhBMtRHvGL1w",  "review_id": "sZMUjLKuxXnzgfEGDDbQow" },  { "business_id": "02Fijjr_ccD42E-5aGOXWQ",  "user_id": "egm1AgWT-cttbm4nu_FVcQ",  "review_id": "gYGsJ_hU0SxisA45THHXQw" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "zzmRKNph-pBHDL2qwGv9Fw",  "review_id": "zl1WJNgcoK7DjqPFSyhyEA" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "5kIo1qYtTVQzzABCkm32xA",  "review_id": "zqMLKzUgq_VEBT0vSoNiHQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "EemOQfYk1UL3W3GmVZADFw",  "review_id": "Od9hE-Mt2pks1upSsw8SlA" },  { "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "user_id": "Zg2LR5D8jFmdy3GQJnz8vg",  "review_id": "jeRaTLs8mF3txiFDsUPbSQ" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "DESuUHNcQUULDCS9KlNVcw",  "review_id": "5w7zQ-Ek5S2FbNnzpnj85g" },  { "business_id": "01cQQpeEwWpzTgv6YUQhAQ",  "user_id": "7UAhPt9AT7M3zCBF_8UInw",  "review_id": "6RqL_mDur6trj7mRSUijwQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "GjNyOTcibcI_XKCzeMgO2g",  "review_id": "HSa0SMZB_Jd_DrBTExwjhQ" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "90a6z--_CUrl84aCzZyPsg",  "review_id": "7OwjuLOgs_WdBvJyg4glsw" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "XqMkm-DD9VsdcKx2YVGhSA",  "review_id": "YxZL_AJUWp7ejS_S4gNn1A" },  { "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "user_id": "tVKdmJFkmARVoVEG_pX-Qw",  "review_id": "aRYsv5K7R6MMrTVGKJLXEQ" },  { "business_id": "00FGafv0TKfmH_QhVxh4FQ",  "user_id": "kUKH7Mbah6TVgV_9LEnH0g",  "review_id": "E3qstWP4nnj9Xrfzd8K51A" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "fczQCSmaWF78toLEmb0Zsw",  "review_id": "Ns-Rnd5mNAFRm2C2DHMpnQ" },  { "business_id": "015GCpe-tMj1En4NORROzA",  "user_id": "5gL4Dmm5HGX8aMxvVWoSww",  "review_id": "tl86EaBeiHV98VgnLG3wBQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "CPKp--5cCh4tx118LDavXQ",  "review_id": "SpiaXtkFogAVFbepNovdTQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "w_hcSjqLeSZQL9Rx1UP-Tw",  "review_id": "72qnAssI-1kWh-2AIbcNew" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "Tv9RMLng5zRcS7aFe2fAoA",  "review_id": "ufaAc5lqzPAirWN3SnylMA" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "8d3AGso7vTLYxXrLrkO9aQ",  "review_id": "4cTnfiJuNtLxzTRrJhcRdQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "dUQ4_JCHtqBRAs8sJUo-IA",  "review_id": "T4bnSU_hb0hQmtzB-uPivQ" },  { "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "user_id": "HVqnEnkir1iGG0185VzYRA",  "review_id": "wW92ebtfbllo0dmBMf_qOQ" },  { "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "review_id": "vm3Xh6hYzcCZQtyEUeWPhA" } ]
         self.assertTrue(content==actual)
 
     def test_api_get_review(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/rGWvvzfxIv-aoAKGGGHrMg/")
+        request = Request(self.url + "review/rGWvvzfxIv-aoAKGGGHrMg/")
         response = urlopen(request)
         self.assertEqual(response.getcode(), 200)
 
         body_content = response.readall().decode("utf-8")
         content = loads(body_content)
-        actual =  {"business": "/operationrepo/api/business/022T8YSRmb3b1BfwzO3F7Q/", "date": "2011-01-12", "review_id": "rGWvvzfxIv-aoAKGGGHrMg", "stars": 4.0, "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", "user": "/operationrepo/api/user/xFG4Ca2HHmbxDTkMlmHnjQ/", "votes": {"cool": 0, "funny": 0, "useful": 0}}
+        actual = { "votes": { "useful": 0,  "cool": 0,  "funny": 0 },  "business_id": "022T8YSRmb3b1BfwzO3F7Q",  "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!",  "review_id": "rGWvvzfxIv-aoAKGGGHrMg",  "type": "review",  "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ",  "date": "2011-01-12",  "stars": 4.0 }
         self.assertTrue(content==actual)
 
     def test_api_get_bad_review(self):
-        request = Request("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/nothere/")
+        request = Request(self.url + "review/nothere/")
         try :
             response = urlopen(request)
-        except HTTPError :
-            return True
+        except HTTPError as e:
+            self.assertTrue(e.code == 404)
+            self.assertTrue(e.reason == "NOT FOUND")
+        return False
+
+    def test_api_get_bad_review2(self):
+        request = Request(self.url + "review/ /")
+        try :
+            response = urlopen(request)
+        except HTTPError as e:
+            self.assertTrue(e.code == 400)
+            self.assertTrue(e.reason == "BAD_REQUEST")
         return False
 
     #api post tests
@@ -553,6 +139,7 @@ class API_Test(TestCase) :
         self.assertEqual(response.getcode(), 201)
 
         response_body = response.read()
+        print (reponse.read().decode("utf-8"))
         self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
 
     def test_api_post_business(self) :
