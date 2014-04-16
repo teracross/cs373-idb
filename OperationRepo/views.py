@@ -62,7 +62,7 @@ def index(request):
         q3a+=[a]
         q3b+=[b]        
 
-    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b}, context)
+    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav" }, context)
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
