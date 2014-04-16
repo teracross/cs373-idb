@@ -23,7 +23,7 @@
             -moz-border-radius: 150px;
             margin-left: 45px;
             margin-right: 45px;
-            margin-bottom: 5px;
+            margin-bottom: 5px;          
         }
     </style>
 </head>
@@ -42,53 +42,18 @@
                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
               </ol>
 
-              <!-- Wrapper for slides -->
               <div class="carousel-inner">
                 <div class="item active">
                     <h4 id="chartTitle" style="text-align: center;">Do people with more compliments give higher ratings?</h4>
                     <canvas id="complimentsBar" width="1000" height="400"></canvas>
-                    <script type="text/javascript">
-                        //Get context with jQuery - using jQuery's .get() method.
-                        var ctx = $("#complimentsBar").get(0).getContext("2d");
-                        var data =
-                        {
-                            labels: {{q2a}},
-                            datasets :
-                            [
-                                {
-                                    fillColor : "rgba(151,187,205,0.5)",
-                                    strokeColor : "rgba(151,187,205,1)",
-                                    data : {{q2b}}
-                                }
-                            ]
-                        }
-                        new Chart(ctx).Bar(data);
-                    </script>
                 </div>
+
                 <div class="item">
                     <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words to use in a review?</h4>
                     <canvas id="commonWordsBar" width="1000" height="400"></canvas>
-                    <script type="text/javascript">
-                        //Get context with jQuery - using jQuery's .get() method.
-                        var ctx = $("#commonWordsBar").get(0).getContext("2d");
-                        var data =
-                        {
-                            labels: {{q3a|safe}},
-                            datasets :
-                            [
-                                {
-                                    fillColor : "rgba(151,187,205,0.5)",
-                                    strokeColor : "rgba(151,187,205,1)",
-                                    data : {{q3b}}
-                                }
-                            ]
-                        }
-                        new Chart(ctx).Radar(data);
-                    </script>
                 </div>
               </div>
 
-              <!-- Controls -->
               <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
               </a>
@@ -101,12 +66,12 @@
         <div class="span4">
             <table>
                 <tr>
-                    <td ><img src="{{STATIC_URL}}img/ed.png"/></td>
-                    <td ><img src="{{STATIC_URL}}img/anthony.png"/></td>
-                    <td ><img src="{{STATIC_URL}}img/xavier.png"/></td>
-                    <td ><img src="{{STATIC_URL}}img/pochen.jpg"/></td>
-                    <td ><img src="{{STATIC_URL}}img/chukwudi.png"/></td>
-                    <td ><img src="{{STATIC_URL}}img/will.jpg"/</td>
+                    <td ><a href="https://github.com/teracross"><img class="abc" src="{{STATIC_URL}}img/ed.png"/></a></td>
+                    <td ><a href="https://github.com/aag2423"><img class="abc" src="{{STATIC_URL}}img/anthony.png"/></a></td>
+                    <td ><a href="https://github.com/xavierbeynon"><img class="abc" src="{{STATIC_URL}}img/xavier.png"/></a></td>
+                    <td ><a href="https://github.com/pcyang"><img class="abc" src="{{STATIC_URL}}img/pochen.jpg"/></a></td>
+                    <td ><a href="https://github.com/weeziemist"><img class="abc" src="{{STATIC_URL}}img/chukwudi.png"/></a></td>
+                    <td ><a href="https://github.com/wnation"><img class="abc" src="{{STATIC_URL}}img/will.jpg"/></a></td>
                 </tr>
                 <tr style="text-align: center">
                     <td><a href="https://github.com/teracross">Ed Lee</td>
@@ -119,7 +84,62 @@
             </table>
         </div>
     </div>
-       
+    <script type="text/javascript">
+        function q2()
+        {
+            var ctx = $("#complimentsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q2a}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q2b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Bar(data);
+        }
+        function q3()
+        {
+            //Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#commonWordsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q3a|safe}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q3b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Radar(data);                            
+        }
+        $(".abc").mouseover(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 0,
+                "webkit-border-radius": 0, 
+                "moz-border-radius": 0
+            },300,function(){});
+        });
+        $(".abc").mouseout(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 150,
+                "webkit-border-radius": 150, 
+                "moz-border-radius": 150
+            },300,function(){});
+        });        
+        q2();
+        q3();
+    </script>
 </body>
-
 </html>
