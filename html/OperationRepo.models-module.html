@@ -77,80 +77,157 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Business-class.html" class="summary-name">Business</a>
+        <a href="OperationRepo.models.Business-class.html" class="summary-name">Business</a><br />
+      Business objects contain basic information about local businesses.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Neighborhoods-class.html" class="summary-name">Neighborhoods</a>
+        <a href="OperationRepo.models.Categories-class.html" class="summary-name">Categories</a><br />
+      A multivalued attribute for Business representing what category the 
+      business belongs to.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Categories-class.html" class="summary-name">Categories</a>
+        <a href="OperationRepo.models.Attributes-class.html" class="summary-name">Attributes</a><br />
+      A multivalued attribute for Business containing all of the additional
+      features the business has.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Attributes-class.html" class="summary-name">Attributes</a>
+        <a href="OperationRepo.models.Hours-class.html" class="summary-name">Hours</a><br />
+      A multivalued attribute for Business representing the business hour 
+      of the business.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Hours-class.html" class="summary-name">Hours</a>
+        <a href="OperationRepo.models.User-class.html" class="summary-name">User</a><br />
+      User objects contain aggregate information about a single user across
+      all of Yelp (including businesses and reviews not in this dataset).
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.User-class.html" class="summary-name">User</a>
+        <a href="OperationRepo.models.User_Votes-class.html" class="summary-name">User_Votes</a><br />
+      A multivalued attribute for User representing the different type of 
+      vote the user has and the counts of each type of vote.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.User_Votes-class.html" class="summary-name">User_Votes</a>
+        <a href="OperationRepo.models.Elite-class.html" class="summary-name">Elite</a><br />
+      A multivalued attribute for User containing the years that the user 
+      is elite.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Elite-class.html" class="summary-name">Elite</a>
+        <a href="OperationRepo.models.Compliments-class.html" class="summary-name">Compliments</a><br />
+      A multivalued attribute for User containing all of the different 
+      compliments the user gave and the count of each compliments.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Compliments-class.html" class="summary-name">Compliments</a>
+        <a href="OperationRepo.models.Review-class.html" class="summary-name">Review</a><br />
+      Review objects contain the review text, the star rating, and 
+      information on votes Yelp users have cast on the review.
     </td>
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a href="OperationRepo.models.Review-class.html" class="summary-name">Review</a>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a href="OperationRepo.models.Review_Votes-class.html" class="summary-name">Review_Votes</a>
+        <a href="OperationRepo.models.Review_Votes-class.html" class="summary-name">Review_Votes</a><br />
+      A multivalued attribute for Review representing the different type of
+      vote the review has and the counts of each type of vote.
     </td>
   </tr>
 </table>
+<!-- ==================== VARIABLES ==================== -->
+<a name="section-Variables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Variables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="OperationRepo.models-module.html#DAYS" class="summary-name">DAYS</a> = <code title="'Mon', 'Monday', ('Tue', 'Tuesday'), ('Wed', 'Wednesday'), ('Thur', 'T\
+hursday'), ('Fri', 'Friday'), ('Sat', 'Saturday'), ('Sun', 'Sunday'),">'Mon', 'Monday', ('Tue', 'Tuesday'), ('Wed', 'Wednesday<code class="variable-ellipsis">...</code></code><br />
+      Enum to represent day_of_week.
+    </td>
+  </tr>
+</table>
+<!-- ==================== VARIABLES DETAILS ==================== -->
+<a name="section-VariablesDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Variables Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-VariablesDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="DAYS"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">DAYS</h3>
+  <p>Enum to represent day_of_week.</p>
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+'Mon', 'Monday', ('Tue', 'Tuesday'), ('Wed', 'Wednesday'), ('Thur', 'T<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+hursday'), ('Fri', 'Friday'), ('Sat', 'Saturday'), ('Sun', 'Sunday'),
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -177,7 +254,7 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%%">
   <tr>
     <td align="left" class="footer">
-    Generated by Epydoc 3.0.1 on Sat Apr  5 21:57:49 2014
+    Generated by Epydoc 3.0.1 on Wed Apr 16 18:54:26 2014
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

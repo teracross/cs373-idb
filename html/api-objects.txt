@@ -1,4 +1,5 @@
 OperationRepo.models	OperationRepo.models-module.html
+OperationRepo.models.DAYS	OperationRepo.models-module.html#DAYS
 OperationRepo.models.Attributes	OperationRepo.models.Attributes-class.html
 OperationRepo.models.Attributes.__unicode__	OperationRepo.models.Attributes-class.html#__unicode__
 OperationRepo.models.Attributes.value	OperationRepo.models.Attributes-class.html#value
@@ -15,6 +16,7 @@ OperationRepo.models.Business.is_open	OperationRepo.models.Business-class.html#i
 OperationRepo.models.Business.longitude	OperationRepo.models.Business-class.html#longitude
 OperationRepo.models.Business.stars	OperationRepo.models.Business-class.html#stars
 OperationRepo.models.Business.latitude	OperationRepo.models.Business-class.html#latitude
+OperationRepo.models.Business.yelp_url	OperationRepo.models.Business-class.html#yelp_url
 OperationRepo.models.Business.__unicode__	OperationRepo.models.Business-class.html#__unicode__
 OperationRepo.models.Categories	OperationRepo.models.Categories-class.html
 OperationRepo.models.Categories.__unicode__	OperationRepo.models.Categories-class.html#__unicode__
@@ -30,15 +32,10 @@ OperationRepo.models.Elite.years_elite	OperationRepo.models.Elite-class.html#yea
 OperationRepo.models.Elite.user	OperationRepo.models.Elite-class.html#user
 OperationRepo.models.Elite.__unicode__	OperationRepo.models.Elite-class.html#__unicode__
 OperationRepo.models.Hours	OperationRepo.models.Hours-class.html
-OperationRepo.models.Hours.__unicode__	OperationRepo.models.Hours-class.html#__unicode__
 OperationRepo.models.Hours.close_hour	OperationRepo.models.Hours-class.html#close_hour
 OperationRepo.models.Hours.open_hour	OperationRepo.models.Hours-class.html#open_hour
 OperationRepo.models.Hours.day_of_week	OperationRepo.models.Hours-class.html#day_of_week
 OperationRepo.models.Hours.business	OperationRepo.models.Hours-class.html#business
-OperationRepo.models.Neighborhoods	OperationRepo.models.Neighborhoods-class.html
-OperationRepo.models.Neighborhoods.__unicode__	OperationRepo.models.Neighborhoods-class.html#__unicode__
-OperationRepo.models.Neighborhoods.name	OperationRepo.models.Neighborhoods-class.html#name
-OperationRepo.models.Neighborhoods.business	OperationRepo.models.Neighborhoods-class.html#business
 OperationRepo.models.Review	OperationRepo.models.Review-class.html
 OperationRepo.models.Review.review_id	OperationRepo.models.Review-class.html#review_id
 OperationRepo.models.Review.business	OperationRepo.models.Review-class.html#business
