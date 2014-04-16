@@ -67,11 +67,11 @@
             <table>
                 <tr>
                     <td ><a href="https://github.com/teracross"><img class="abc" src="{{STATIC_URL}}img/ed.png"/></a></td>
-                    <td ><a href="https://github.com/aag2423"><img src="{{STATIC_URL}}img/anthony.png"/></a></td>
-                    <td ><a href="https://github.com/xavierbeynon"><img src="{{STATIC_URL}}img/xavier.png"/></a></td>
-                    <td ><a href="https://github.com/pcyang"><img src="{{STATIC_URL}}img/pochen.jpg"/></a></td>
-                    <td ><a href="https://github.com/weeziemist"><img src="{{STATIC_URL}}img/chukwudi.png"/></a></td>
-                    <td ><a href="https://github.com/wnation"><img src="{{STATIC_URL}}img/will.jpg"/></a></td>
+                    <td ><a href="https://github.com/aag2423"><img class="abc" src="{{STATIC_URL}}img/anthony.png"/></a></td>
+                    <td ><a href="https://github.com/xavierbeynon"><img class="abc" src="{{STATIC_URL}}img/xavier.png"/></a></td>
+                    <td ><a href="https://github.com/pcyang"><img class="abc" src="{{STATIC_URL}}img/pochen.jpg"/></a></td>
+                    <td ><a href="https://github.com/weeziemist"><img class="abc" src="{{STATIC_URL}}img/chukwudi.png"/></a></td>
+                    <td ><a href="https://github.com/wnation"><img class="abc" src="{{STATIC_URL}}img/will.jpg"/></a></td>
                 </tr>
                 <tr style="text-align: center">
                     <td><a href="https://github.com/teracross">Ed Lee</td>
@@ -120,6 +120,24 @@
             }
             new Chart(ctx).Radar(data);                            
         }
+        $(".abc").mouseover(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 0,
+                "webkit-border-radius": 0, 
+                "moz-border-radius": 0
+            },300,function(){});
+        });
+        $(".abc").mouseout(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 150,
+                "webkit-border-radius": 150, 
+                "moz-border-radius": 150
+            },300,function(){});
+        });        
         q2();
         q3();
     </script>
