@@ -24,7 +24,7 @@ def business(request, *z):
     context = RequestContext(request)
     businessID = z[0]
     thebusiness = get_object_or_404(Business, business_id=str(businessID))
-    thereviews = Review.objects.filter(business = thebusiness).order_by('-date')
+    thereviews = Review.objects.filter(business = thebusiness).order_by('-date').select_related()
 
     theAttributesList = Attributes.objects.filter(business=thebusiness)
     multiAtrributesDict = {}
@@ -102,24 +102,29 @@ def search (request):
             search = form.cleaned_data['search']
             searchlist = search.split(" ")
             
+            qor = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0])) 
+            qor2 = Q(name__icontains = str(searchlist[0]))
+            qand = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0]))
+            qand2 = Q(name__icontains = str(searchlist[0]))
+
+            # create qors for queries. or and and 
+            for s in searchlist[1:] :
+                qor = qor | Q(text__icontains = str(s)) | Q(business__name__icontains = str(s))
+                qor2 = qor2 | Q(name__icontains = str(s))
+                qand = qand & (Q(text__icontains = str(s)) | Q(business__name__icontains = str(s)))
+                qand2 = qand2 & Q(name__icontains = str(s))
+
             # and search results
-            andreviews = Review.objects.filter(text__icontains = str(search))
-            andbusinesses = Business.objects.filter(name__icontains = str(search))
-            andusers = User.objects.filter(name__icontains = str(search))
+            andreviews = Review.objects.filter(qand).select_related()
+            andbusinesses = Business.objects.filter(qand2)
+            andusers = User.objects.filter(qand2)
             and_results = {"reviews" : andreviews, "businesses" : andbusinesses, "users" : andusers}
-            or_results = {}
+
             # or search results
-            # use set 
-            if len(searchlist) > 1:
-                qset = Q(text__icontains = str(searchlist[0]))
-                qset2 = Q(name__icontains = str(searchlist[0]))
-                for s in searchlist :
-                    qset = qset | Q(text__icontains = str(s))
-                    qset2 = qset2 | Q(name__icontains = str(s))
-                orreviews = Review.objects.filter(qset).exclude(text__icontains = str(search))
-                orusers = User.objects.filter(qset2).exclude(name__icontains = str(search))
-                orbusinesses = Business.objects.filter(qset2).exclude(name__icontains = str(search))
-                or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
+            orreviews = Review.objects.filter(qor).select_related()
+            orusers = User.objects.filter(qor2)
+            orbusinesses = Business.objects.filter(qor2)
+            or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
 
             form = SearchForm()
             context_dict["form"] = form
