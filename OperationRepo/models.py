@@ -1,9 +1,18 @@
 from django.db import models
 
+DAYS = (
+  ('Mon', 'Monday'),
+  ('Tue', 'Tuesday'),
+  ('Wed', 'Wednesday'),
+  ('Thur', 'Thursday'),
+  ('Fri', 'Friday'),
+  ('Sat', 'Saturday'),
+  ('Sun', 'Sunday'),
+)
+
 """
 Business objects contain basic information about local businesses.
 """
-
 class Business(models.Model):
   business_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128)
@@ -41,7 +50,7 @@ class Attributes(models.Model):
 
 class Hours(models.Model):
   business = models.ForeignKey(Business)
-  day_of_week = models.CharField(max_length=50)
+  day_of_week = models.CharField(max_length=50, choices=DAYS)
   open_hour = models.TimeField(blank=True, null=True)
   close_hour = models.TimeField(blank=True, null=True)
 #############################################################
