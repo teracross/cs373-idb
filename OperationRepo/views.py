@@ -121,9 +121,9 @@ def search (request):
             and_results = {"reviews" : andreviews, "businesses" : andbusinesses, "users" : andusers}
 
             # or search results
-            orreviews = Review.objects.filter(qor).select_related()
-            orusers = User.objects.filter(qor2)
-            orbusinesses = Business.objects.filter(qor2)
+            orreviews = Review.objects.filter(qor).exclude(qand).select_related()
+            orusers = User.objects.filter(qor2).exclude(qand2)
+            orbusinesses = Business.objects.filter(qor2).exclude(qand2)
             or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
 
             form = SearchForm()
