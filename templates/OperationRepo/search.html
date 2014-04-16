@@ -187,12 +187,7 @@
                 var index = lookin.search(lookfor);
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
-                    //console.log(w);
                     w = w.replace(new RegExp('('+lookfor+')', 'gi'), "<b>$1</b>");
-                    //w.replace(searcht[i], "<b>".concat(searcht[i],"</b>"));
-                    //console.log(w);
-                    //w = w.replace(lookfor, "<b>".concat(lookfor,"</b>"));
-                    //console.log(w);
                     newinner = newinner.concat(" ...",w,"... ");
                 }
 
@@ -201,8 +196,6 @@
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
                     w = w.replace(new RegExp('('+lookfor+')', 'gi'), "<b>$1</b>");
-                    // w = w.replace(searcht[i], "<b>".concat(searcht[i],"</b>"));
-                    //w = w.replace(lookin, "<b>".concat(lookin,"</b>"));
                     newinner = newinner.concat(" ...",w, "... ");
                 }
                 lookin = $(this).html().toLowerCase();
@@ -220,16 +213,14 @@
                 var index = lookin.search(lookfor);
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
-                    w = w.replace(searcht[i], "<b>".concat(searcht[i],"</b>"));
-                    w = w.replace(lookfor, "<b>".concat(lookfor,"</b>"));
+                    w = w.replace(new RegExp('('+lookfor+')', 'gi'), "<b>$1</b>");
                     newinner = newinner.concat(" ...",w,"... ");
                 }
                 lookin = lookin.substring(index+1);
                 index = lookin.search(lookfor);
                 if(index > -1){
                     var w = searchtext.substring(Math.max(index-20, 0), index+20);
-                    w = w.replace(searcht[i], "<b>".concat(searcht[i],"</b>"));
-                    w = w.replace(lookin, "<b>".concat(lookin,"</b>"));
+                    w = w.replace(new RegExp('('+lookfor+')', 'gi'), "<b>$1</b>");
                     newinner = newinner.concat(" ...",w, "... ");
                 }
                 lookin = $(this).html().toLowerCase();
