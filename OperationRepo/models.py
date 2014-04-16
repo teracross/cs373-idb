@@ -1,9 +1,18 @@
 from django.db import models
 
+DAYS = (
+  ('Mon', 'Monday'),
+  ('Tue', 'Tuesday'),
+  ('Wed', 'Wednesday'),
+  ('Thur', 'Thursday'),
+  ('Fri', 'Friday'),
+  ('Sat', 'Saturday'),
+  ('Sun', 'Sunday'),
+)
+
 """
 Business objects contain basic information about local businesses.
 """
-
 class Business(models.Model):
   business_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128)
@@ -16,6 +25,7 @@ class Business(models.Model):
   review_count = models.IntegerField(default=0)
   #open is a keyword in Python, so use is_open instead
   is_open = models.NullBooleanField(blank=True, null=True)
+  yelp_url = models.URLField(blank=True, null=True, max_length=200);
   
   def __unicode__(self):
     return self.business_id
@@ -23,17 +33,6 @@ class Business(models.Model):
 #############################################################
 ## subkeys for Business
 #############################################################
-"""
-Neighborhoods holds a foreign key to a business. 
-name is the name of the neighborhood
-"""
-class Neighborhoods(models.Model):
-  business = models.ForeignKey(Business)
-  name = models.CharField(max_length=128)
-  
-  def __unicode__(self):
-    return self.name
-
 class Categories(models.Model):
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128)
@@ -51,12 +50,9 @@ class Attributes(models.Model):
 
 class Hours(models.Model):
   business = models.ForeignKey(Business)
-  day_of_week = models.CharField(max_length=50)
+  day_of_week = models.CharField(max_length=50, choices=DAYS)
   open_hour = models.TimeField(blank=True, null=True)
   close_hour = models.TimeField(blank=True, null=True)
-  
-  def __unicode__(self):
-    return self.name
 #############################################################
 
 """

@@ -20,23 +20,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'h#tb420ho@#ob%u&a=rc&t2e6*m!4s-e-m538zzywi9k^8xcz@'
 if 'test' in sys.argv:
-	DATABASES = {
-		'default' : {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': '/tmp/pa-test.db'
-		}
-	}
+    DATABASES = {
+        'default' : {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/tmp/pa-test.db'
+        }
+    }
 else :
-	DATABASES = {
-	  'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': 'df98p68pr0jihl',
-		'HOST': 'ec2-54-225-101-124.compute-1.amazonaws.com',
-		'PORT': 5432,
-		'USER': 'raaguazpllzfjc',
-		'PASSWORD': 'iB4dOm4cQY0-rnYBJzkYvJf6kH'
-	  }
-	}
+    DATABASES = {
+      'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'df98p68pr0jihl',
+        'HOST': 'ec2-54-225-101-124.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'raaguazpllzfjc',
+        'PASSWORD': 'iB4dOm4cQY0-rnYBJzkYvJf6kH'
+      }
+    }
 SITE_ID=1
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -57,7 +57,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'OperationRepo'
+    'OperationRepo',
+    'rest_framework'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -118,4 +119,3 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates/OperationRepo')
 )
 
-TASTYPIE_DEFAULT_FORMATS = ['json']
