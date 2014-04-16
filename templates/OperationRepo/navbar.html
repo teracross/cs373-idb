@@ -1,17 +1,27 @@
 
 <!-- load the script for changing the background using the buttons -->
-<script></script>
+
 
 <!-- Responsive Nav Bar -->
 <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
+      
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
+      </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li id="project_page_nav"><a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a></li>
           <li id="index_nav"><a href="{% url 'index' %}">Home Page</a></li>
           <li id="business_nav"><a href="{% url 'business_splash' %}">Businesses</a></li>
           <li id="review_nav"><a href="{% url 'review_splash' %}">Reviews</a></li>
           <li id="user_nav"><a href="{% url 'user_splash' %}">Users</a></li>
+        </ul>
           <!-- the search bar -->
           <div class="col-sm-4 col-md-4 pull-right"> 
             <form class="navbar-form" role="search" method="GET" action="{% url 'search' %}">
@@ -24,6 +34,7 @@
                 </div><!--/.container-fluid -->
             </form>
           </div>
+        <ul class="nav navbar-nav">
           <li class="btn-group dropdown">
             <button type="button" class="btn btn-default navbar-btn dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
             <ul class="dropdown-menu">
@@ -32,14 +43,13 @@
               <li id="set_dark"><input type="button" value="dark" onclick="setBgDark()"></li>
             </ul>
           </li>
-          <!-- </div> -->
-          {% include "background.html"%}          
-          <!-- button for manual user control of background -->
-          
         </ul>
+          <!-- </div> -->       
+          <!-- button for manual user control of background -->
       </div><!--/.nav-collapse -->
   </div>
 </div>
+{% include "background.html"%}   
 <!-- END Responsive Nav Bar --> 
 
 <script type="text/javascript">
