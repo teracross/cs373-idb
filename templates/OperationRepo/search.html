@@ -15,6 +15,11 @@
     {% include "navbar.html" %}
     <div class="jumbotron">
         <div class="search-result">
+        {% if not search_terms %}
+        <h2> No search results...</h2>
+        {% elif andresults.businesses|length <= 0 and andresults.reviews|length <= 0 and andresults.users|length <= 0 and orresults.businesses|length <= 0 and orresults.reviews|length <= 0 and orresults.users|length <= 0 %}
+        <h2> No search results...</h2>
+        {% endif %}
         <!-- AND  search results -->
         {% if andresults.businesses|length > 0 or andresults.reviews|length > 0 or andresults.users|length > 0  %}
         <h2>Search Results for 
@@ -72,9 +77,7 @@
                     <p>
                         <h6>Date Written: {{r.date}}</h6>
                         <div class="context">
-                            <div class="review-text">
                                 {{ r.text }}
-                            </div>
                         </div>
                     </p>
                 </div>
@@ -147,9 +150,7 @@
                         <p>
                             <h6>Date Written: {{r.date}}</h6>
                             <div class="context">
-                                <div class="review-text">
-                                    {{ r.text }}
-                                </div>
+                                {{ r.text }}
                             </div>
                         </p>
                     </div>
