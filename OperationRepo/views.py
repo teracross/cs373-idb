@@ -220,16 +220,28 @@ def api_fun (request):
     
     businesses_dict = {}
     pk = 1;
-    # for d in json_result :
-        # ratings = 
-        # businesses_dict['' + str(pk)] = {{'name', d["business_name"]}. {'id', d["business_id"]}, {'reviews', ratings}}
+    for d in json_result:
+        #returns a list dictionaries 
+        businesses_dict['' + str(pk)] = {'name':d["name"], 'id':d["business_id"], 'reviews':ratingsPuller(d["business_id"])}
+        return HttpResponse(ratingsPuller(d["business_id"]))
+        pk += 1
+
+    # format of list returned 
+    # [{'name':business_name,'id':business_id, 'review_stars': [stars from review]}, ... for each of the 10 business]
 
     return render_to_response("dict", businesses_dict)
 
-def ratingsPuller() :
-    context = RequestContext(request)
+def ratingsPuller(b_id) :
 
-    return render_to_response("dict", businesses_dict)
+    # get the list of the reviews for the business using api call
+    req = "http://cs373-oprepo.herokuapp.com/operationrepo/api/business/" + b_id + "/review"
+    get_reviews = urllib.request.urlopen(req + "?format=json").read().decode("utf-8")
+    reviews_json = json.loads(get_reviews)
+    count = [0,0,0,0,0]
+    for d  in reviews_json :
+        count[int(d['stars'])-1] += 1
+
+    return count
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
