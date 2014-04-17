@@ -128,55 +128,28 @@ class API_Test(TestCase) :
         self.assertEqual(response.status_code, 201)
 
 """
-    def test_api_put_user(self) :
-        values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
-        response = urlopen(requests.)
-        self.assertEqual(response.status_code, 204)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-
-    def test_api_put_business(self) :
-        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
-        response = urlopen(requests.)
-        self.assertEqual(response.status_code, 204)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-
-    def test_api_put_review(self) :
-        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/AHzLh-2WyMjf6TYATFwg6N", data=values.encode("utf-8"), headers=headers, method="PUT")
-        response = urlopen(requests.)
-        self.assertEqual(response.status_code, 204)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-
-    def test_api_delete_user(self) :
-        values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/user/", data=values.encode("utf-8"), headers=headers, method="DELETE")
-        response = urlopen(requests.)
-        self.assertEqual(response.status_code, 204)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+   
 
     def test_api_delete_business(self) :
-        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/", data=values.encode("utf-8"), headers=headers, method="DELETE")
-        response = urlopen(requests.)
+        business_id = "test-business/"
+        response = requests.delete(self.url + business_id)
         self.assertEqual(response.status_code, 204)
 
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+        response = requests.get(self.url + business_id)
+        self.assertTrue(response.status_code, 404)
+        self.assertTrue(response.reason, "NOT FOUND")
+
+        #response_body = response.read()
+        #self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+
+    def test_api_delete_users(self) :
+        user_id = "test-user/"
+        response = requests.delete(self.url + user_id)
+        self.assertEqual(response.status_code, 204)
+
+        response = requests.get(self.url + user_id)
+        self.assertTrue(response.status_code, 404)
+        self.assertTrue(response.reason, "NOT FOUND")
 
     def test_api_delete_review(self) :
         values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
@@ -189,3 +162,11 @@ class API_Test(TestCase) :
         self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
 print ("Done")
 """
+        review_id = "test-review/"
+        response = requests.delete(self.url + review_id)
+        self.assertEqual(response.status_code, 204)
+
+        response = requests.get(self.url + review_id)
+        self.assertTrue(response.status_code, 404)
+        self.assertTrue(response.reason, "NOT FOUND")
+print ("Done")
