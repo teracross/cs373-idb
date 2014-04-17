@@ -281,13 +281,8 @@ def review_all(request):
         for kind,number in votes.items():
             Review_Votes(review=r, vote_type=kind,count=number).save()
         
-<<<<<<< HEAD
-
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
-=======
         response = {"review_id": request.DATA['review_id']}
         return Response(response, status=status.HTTP_201_CREATED)
->>>>>>> 5f96186750c6895bf1d118db488aad6c89a74557
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
