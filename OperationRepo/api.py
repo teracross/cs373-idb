@@ -164,7 +164,8 @@ def user_all(request):
         for kind,number in compliments.items():
             Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
         
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        response = {"user_id": request.DATA['user_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
@@ -280,8 +281,8 @@ def review_all(request):
         for kind,number in votes.items():
             Review_Votes(review=r, vote_type=kind,count=number).save()
         
-
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        response = {"review_id": request.DATA['review_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
