@@ -219,17 +219,15 @@ def api_fun (request):
     json_result = json.loads(get)
     
     businesses_dict = {}
-    pk = 1;
+    k = 1;
     for d in json_result:
         #returns a list dictionaries 
-        businesses_dict['' + str(pk)] = {'name':d["name"], 'id':d["business_id"], 'reviews':ratingsPuller(d["business_id"])}
-        return HttpResponse(ratingsPuller(d["business_id"]))
-        pk += 1
+        businesses_dict[k] = {'name':d["name"], 'id':d["business_id"], 'reviews':ratingsPuller(d["business_id"])}
+        k += 1
 
     # format of list returned 
     # [{'name':business_name,'id':business_id, 'review_stars': [stars from review]}, ... for each of the 10 business]
-
-    return render_to_response("dict", businesses_dict)
+    return render_to_response('OperationRepo/apifun.html', {'dict': businesses_dict, 'form': SearchForm()}, context)
 
 def ratingsPuller(b_id) :
 
