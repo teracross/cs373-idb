@@ -9,11 +9,15 @@ DAYS = (
   ('Sat', 'Saturday'),
   ('Sun', 'Sunday'),
 )
+"""Enum to represent day_of_week."""
 
-"""
-Business objects contain basic information about local businesses.
-"""
 class Business(models.Model):
+  """
+  Business objects contain basic information about local businesses.
+  Each businesses has a set of L{Review}. 
+
+  Business also contains other attributes that need to be represented by a multivalued attribute: L{Categories}, L{Attributes}, L{Hours}
+  """
   business_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128)
   full_address = models.CharField(max_length=128, blank=True, null=True)
@@ -23,7 +27,6 @@ class Business(models.Model):
   longitude = models.FloatField(blank=True, null=True)
   stars = models.FloatField(blank=True, null=True)
   review_count = models.IntegerField(default=0)
-  #open is a keyword in Python, so use is_open instead
   is_open = models.NullBooleanField(blank=True, null=True)
   yelp_url = models.URLField(blank=True, null=True, max_length=200);
   
@@ -34,6 +37,9 @@ class Business(models.Model):
 ## subkeys for Business
 #############################################################
 class Categories(models.Model):
+  """
+  A multivalued attribute for L{Business} representing what category the business belongs to.
+  """
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128)
   
@@ -41,6 +47,9 @@ class Categories(models.Model):
     return self.name
 
 class Attributes(models.Model):
+  """
+  A multivalued attribute for L{Business} containing all of the additional features the business has.
+  """
   business = models.ForeignKey(Business)
   name = models.CharField(max_length=128)
   value = models.TextField(blank=True, null=True)
@@ -49,16 +58,22 @@ class Attributes(models.Model):
     return self.name
 
 class Hours(models.Model):
+  """
+  A multivalued attribute for L{Business} representing the business hour of the business.
+  """
   business = models.ForeignKey(Business)
   day_of_week = models.CharField(max_length=50, choices=DAYS)
   open_hour = models.TimeField(blank=True, null=True)
   close_hour = models.TimeField(blank=True, null=True)
 #############################################################
 
-"""
-User objects contain aggregate information about a single user across all of Yelp (including businesses and reviews not in this dataset).
-"""
 class User(models.Model):
+  """
+  User objects contain aggregate information about a single user across all of Yelp (including businesses and reviews not in this dataset).
+  Each user has a set of L{Review}.
+
+  User also contains other attributes that need to be represented by a multivalued attribute: L{User_Votes}, L{Elite}, L{Compliments}
+  """
   user_id = models.CharField(max_length=128, primary_key=True)
   name = models.CharField(max_length=128)
   review_count = models.IntegerField(default=0)
@@ -73,6 +88,9 @@ class User(models.Model):
 ## subkeys for User
 #############################################################
 class User_Votes(models.Model):
+  """
+  A multivalued attribute for L{User} representing the different type of vote the user has and the counts of each type of vote.
+  """
   user = models.ForeignKey(User)
   vote_type = models.CharField(max_length=128)
   count = models.IntegerField(default=0)
@@ -81,6 +99,9 @@ class User_Votes(models.Model):
     return self.vote_type
 
 class Elite(models.Model):
+  """
+  A multivalued attribute for L{User} containing the years that the user is elite.
+  """
   user = models.ForeignKey(User)
   years_elite = models.IntegerField()
   
@@ -88,6 +109,9 @@ class Elite(models.Model):
     return self.years_elite
 
 class Compliments(models.Model):
+  """
+  A multivalued attribute for L{User} containing all of the different compliments the user gave and the count of each compliments.
+  """
   user = models.ForeignKey(User)
   complement_type = models.CharField(max_length=128)
   num_compliments_of_this_type = models.IntegerField(default=0)
@@ -95,10 +119,14 @@ class Compliments(models.Model):
   def __unicode__(self):
     return self.complement_type
 #############################################################
-"""
-Review objects contain the review text, the star rating, and information on votes Yelp users have cast on the review. 
-"""
+
 class Review(models.Model):
+  """
+  Review objects contain the review text, the star rating, and information on votes Yelp users have cast on the review. 
+  Each review is written by a L{User} for a L{Business}
+
+  Review also contains an attribute that need to be represented by multivalued attribute: L{Review_Votes}
+  """
   business = models.ForeignKey(Business)
   user = models.ForeignKey(User)
   review_id = models.CharField(max_length=128, primary_key=True)
@@ -113,6 +141,9 @@ class Review(models.Model):
 ## subkeys for Review
 #############################################################
 class Review_Votes(models.Model):
+  """
+  A multivalued attribute for L{Review} representing the different type of vote the review has and the counts of each type of vote.
+  """
   review = models.ForeignKey(Review)
   vote_type = models.CharField(max_length=128)
   count = models.IntegerField(default=0)
