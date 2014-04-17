@@ -4,15 +4,20 @@ import requests
 from requests.exceptions import HTTPError
 import copy
 
+test_business = { "name": "Raising Canes", "is_open": True, "stars": 3.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
+test_user = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 4.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
+test_review = { "votes": { "cool": 1,  "funny": 2,  "useful": 1 },  "type": "review",  "text": "This is a test",  "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "date": "2014-04-13",  "stars": 5.0,  "review_id": "test-review" }
 
 class API_Test(TestCase) :
 
     # base url to test API
     url = "http://cs373-oprepo.herokuapp.com/OperationRepo/api/"
 
-    test_business = { "name": "Raising Canes", "is_open": True, "stars": 3.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
-    test_user = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 4.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
-    test_review = { "votes": { "cool": 1,  "funny": 2,  "useful": 1 },  "type": "review",  "text": "This is a test",  "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "date": "2014-04-13",  "stars": 5.0,  "review_id": "test-review" }
+    
+
+    #test_business = { "name": "Raising Canes", "is_open": True, "stars": 3.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
+    #test_user = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 4.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
+    #test_review = { "votes": { "cool": 1,  "funny": 2,  "useful": 1 },  "type": "review",  "text": "This is a test",  "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "date": "2014-04-13",  "stars": 5.0,  "review_id": "test-review" }
     # IMPORTANT: need pip install requests.s    
     # tests against actual database
 
@@ -106,7 +111,7 @@ class API_Test(TestCase) :
     def test_api_post_business(self) :
         business_id = "test-business"
         headers = {'content-type': 'application/json'}
-        values = self.test_business
+        values = test_business
         response = requests.post(self.url + "business/", data =dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
@@ -117,7 +122,7 @@ class API_Test(TestCase) :
     def test_api_post_user(self) :
         user_id = "test-user"
         headers = {'content-type': 'application/json'}
-        values = self.test_user
+        values = test_user
         response = requests.post(self.url + "user/", data=dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
@@ -129,7 +134,7 @@ class API_Test(TestCase) :
     def test_api_post_review(self) :
         review_id = "test-review"
         headers = {'content-type': 'application/json'}
-        values = self.test_review
+        values = test_review
         response = requests.post(self.url + "review/", data=dumps(values),headers=headers)
         self.assertEqual(response.status_code, 201)
 
@@ -143,35 +148,35 @@ class API_Test(TestCase) :
     # -----
     def test_api_put_business(self) :
         business_id = "business/test-business/"
-        values = self.test_business.copy()
+        values = test_business.copy()
         values['stars'] = 5.0
         headers = {'content-type': 'application/json'}
         response = requests.put(self.url + business_id,data=dumps(values),headers=headers)
         self.assertTrue(response.status_code, 204)
 
-        actual = self.test_business
+        actual = test_business
         self.assertTrue(actual,values)
 
     def test_api_put_user(self) :
         user_id = "user/test-user/"
-        values = self.test_user.copy()
+        values = test_user.copy()
         values['average_stars'] = 5.0
         headers = {'content-type': 'application/json'}
         response = requests.put(self.url + user_id,data=dumps(values),headers=headers)
         self.assertTrue(response.status_code, 204)
 
-        actual = self.test_user
+        actual = test_user
         self.assertTrue(actual,values)        
 
     def test_api_put_review(self) :
         review_id = "review/test-review/"
-        values = self.test_review.copy()
+        values = test_review.copy()
         values['text']= "Passing the test (hopefully)"
         headers = {'content-type': 'application/json'}
         response = requests.put(self.url + review_id,data=dumps(values),headers=headers)
         self.assertTrue(response.status_code, 204)
 
-        actual = self.test_review
+        actual = test_review
         self.assertTrue(actual,values)
 
     def test_api_get_business_user(self) :
@@ -198,7 +203,7 @@ class API_Test(TestCase) :
         self.assertEqual(response.status_code, 200)
 
         content = response.json()
-        actual = [ { "city": "Mesa",  "yelp_url": "test",  "name": "Old Chicago",  "is_open": True,  "hours": { "Monday": { "open": "11:00",  "close": "02:00" },  "Wednesday": { "open": "11:00",  "close": "02:00" },  "Thursday": { "open": "11:00",  "close": "02:00" },  "Saturday": { "open": "11:00",  "close": "02:00" },  "Friday": { "open": "11:00",  "close": "02:00" },  "Tuesday": { "open": "11:00",  "close": "02:00" },  "Sunday": { "open": "11:00",  "close": "02:00" } },  "latitude": 33.3832251,  "type": "business",  "categories": [ "American (Traditional)",  "Pizza",  "Salad",  "Restaurants" ],  "longitude": -111.6837464,  "attributes": { "wifi": "free",  "noise_level": "very_loud",  "happy_hour": "True",  "coat_check": "False",  "waiter_service": "True",  "price_range": "2",  "wheelchair_accessible": "True",  "outdoor_seating": "True",  "accepts_credit_cards": "True",  "good_for_kids": "True",  "good_for_groups": "True",  "good_for_dancing": "False",  "takeout": "True",  "good_for": { "dinner": True,  "dessert": True,  "latenight": False,  "breakfast": False,  "lunch": True,  "brunch": False },  "delivery": "False",  "music": { "karaoke": False,  "video": False,  "jukebox": False,  "dj": False,  "live": False,  "background_music": True },  "has_tv": "True",  "smoking": "outdoor",  "takes_reservations": "False",  "parking": { "validated": False,  "lot": True,  "street": False,  "valet": False,  "garage": False },  "attire": "casual",  "ambience": { "intimate": False,  "touristy": False,  "trendy": False,  "casual": True,  "romantic": False,  "hipster": False,  "classy": False,  "divey": False,  "upscale": False },  "alcohol": "full_bar" },  "full_address": "6821 E Superstition Springs\nMesa, AZ 85209",  "state": "AZ",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "stars": 3.0,  "review_count": 23 } ]
+        actual = [ { "city": "Mesa",  "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3",  "name": "Old Chicago",  "is_open": True,  "hours": { "Monday": { "open": "11:00",  "close": "02:00" },  "Wednesday": { "open": "11:00",  "close": "02:00" },  "Thursday": { "open": "11:00",  "close": "02:00" },  "Saturday": { "open": "11:00",  "close": "02:00" },  "Friday": { "open": "11:00",  "close": "02:00" },  "Tuesday": { "open": "11:00",  "close": "02:00" },  "Sunday": { "open": "11:00",  "close": "02:00" } },  "latitude": 33.3832251,  "type": "business",  "categories": [ "American (Traditional)",  "Pizza",  "Salad",  "Restaurants" ],  "longitude": -111.6837464,  "attributes": { "wifi": "free",  "noise_level": "very_loud",  "happy_hour": "True",  "alcohol": "full_bar",  "delivery": "False",  "price_range": "2",  "good_for_kids": "True",  "outdoor_seating": "True",  "accepts_credit_cards": "True",  "wheelchair_accessible": "True",  "good_for_groups": "True",  "coat_check": "False",  "good_for_dancing": "False",  "takeout": "True",  "good_for": { "dinner": True,  "dessert": True,  "latenight": False,  "breakfast": False,  "lunch": True,  "brunch": False },  "waiter_service": "True",  "music": { "karaoke": False,  "video": False,  "jukebox": False,  "dj": False,  "live": False,  "background_music": True },  "has_tv": "True",  "smoking": "outdoor",  "takes_reservations": "False",  "attire": "casual",  "parking": { "validated": False,  "lot": True,  "street": False,  "valet": False,  "garage": False },  "ambience": { "touristy": False,  "intimate": False,  "upscale": False,  "casual": True,  "hipster": False,  "romantic": False,  "trendy": False,  "classy": False,  "divey": False } },  "full_address": "6821 E Superstition SpringsMesa, AZ 85209",  "state": "AZ",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "stars": 3.0,  "review_count": 23 } ]
         self.assertTrue(content==actual)
 
     def test_api_get_user_review(self) :
@@ -216,7 +221,7 @@ class API_Test(TestCase) :
         self.assertEqual(response.status_code, 200)
 
         content = response.json()
-        actual = [ { "city": "Mesa",  "yelp_url": null,  "name": "Old Chicago",  "is_open": true,  "hours": { "Monday": { "open": "11:00",  "close": "02:00" },  "Wednesday": { "open": "11:00",  "close": "02:00" },  "Thursday": { "open": "11:00",  "close": "02:00" },  "Saturday": { "open": "11:00",  "close": "02:00" },  "Friday": { "open": "11:00",  "close": "02:00" },  "Tuesday": { "open": "11:00",  "close": "02:00" },  "Sunday": { "open": "11:00",  "close": "02:00" } },  "latitude": 33.3832251,  "type": "business",  "categories": [ "American (Traditional)",  "Pizza",  "Salad",  "Restaurants" ],  "longitude": -111.6837464,  "attributes": { "wifi": "free",  "noise_level": "very_loud",  "happy_hour": "True",  "alcohol": "full_bar",  "delivery": "False",  "price_range": "2",  "good_for_kids": "True",  "outdoor_seating": "True",  "accepts_credit_cards": "True",  "wheelchair_accessible": "True",  "good_for_groups": "True",  "coat_check": "False",  "good_for_dancing": "False",  "takeout": "True",  "good_for": { "dinner": true,  "dessert": true,  "latenight": false,  "breakfast": false,  "lunch": true,  "brunch": false },  "waiter_service": "True",  "music": { "karaoke": false,  "video": false,  "jukebox": false,  "dj": false,  "live": false,  "background_music": true },  "has_tv": "True",  "smoking": "outdoor",  "takes_reservations": "False",  "attire": "casual",  "parking": { "validated": false,  "lot": true,  "street": false,  "valet": false,  "garage": false },  "ambience": { "touristy": false,  "intimate": false,  "upscale": false,  "casual": true,  "hipster": false,  "romantic": false,  "trendy": false,  "classy": false,  "divey": false } },  "full_address": "6821 E Superstition Springs\nMesa, AZ 85209",  "state": "AZ",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "stars": 3.0,  "review_count": 23 } ]
+        actual = [ { "city": "Mesa",  "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3",  "name": "Old Chicago",  "is_open": True,  "hours": { "Monday": { "open": "11:00",  "close": "02:00" },  "Wednesday": { "open": "11:00",  "close": "02:00" },  "Thursday": { "open": "11:00",  "close": "02:00" },  "Saturday": { "open": "11:00",  "close": "02:00" },  "Friday": { "open": "11:00",  "close": "02:00" },  "Tuesday": { "open": "11:00",  "close": "02:00" },  "Sunday": { "open": "11:00",  "close": "02:00" } },  "latitude": 33.3832251,  "type": "business",  "categories": [ "American (Traditional)",  "Pizza",  "Salad",  "Restaurants" ],  "longitude": -111.6837464,  "attributes": { "wifi": "free",  "noise_level": "very_loud",  "happy_hour": "True",  "alcohol": "full_bar",  "delivery": "False",  "price_range": "2",  "good_for_kids": "True",  "outdoor_seating": "True",  "accepts_credit_cards": "True",  "wheelchair_accessible": "True",  "good_for_groups": "True",  "coat_check": "False",  "good_for_dancing": "False",  "takeout": "True",  "good_for": { "dinner": True,  "dessert": True,  "latenight": False,  "breakfast": False,  "lunch": True,  "brunch": False },  "waiter_service": "True",  "music": { "karaoke": False,  "video": False,  "jukebox": False,  "dj": False,  "live": False,  "background_music": True },  "has_tv": "True",  "smoking": "outdoor",  "takes_reservations": "False",  "attire": "casual",  "parking": { "validated": False,  "lot": True,  "street": False,  "valet": False,  "garage": False },  "ambience": { "touristy": False,  "intimate": False,  "upscale": False,  "casual": True,  "hipster": False,  "romantic": False,  "trendy": False,  "classy": False,  "divey": False } },  "full_address": "6821 E Superstition SpringsMesa, AZ 85209",  "state": "AZ",  "business_id": "00eGk1ntf4RiDxVRY3gaIw",  "stars": 3.0,  "review_count": 23 } ] 
         self.assertTrue(content==actual)
 
     def test_api_get_review_user(self) :
@@ -262,6 +267,9 @@ class API_Test(TestCase) :
         response = requests.get(self.url + review_id)
         self.assertTrue(response.status_code, 404)
         self.assertTrue(response.reason, "NOT FOUND")
+
+
+
 
 print ("Done")
 
