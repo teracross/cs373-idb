@@ -19,7 +19,7 @@
         <h2> No search results...</h2>
         {% elif andresults.businesses|length <= 0 and andresults.reviews|length <= 0 and andresults.users|length <= 0 and orresults.businesses|length <= 0 and orresults.reviews|length <= 0 and orresults.users|length <= 0 %}
         <h2> No search results...</h2>
-        {% endif %}
+        {% else %}
         <!-- AND  search results -->
         {% if andresults.businesses|length > 0 or andresults.reviews|length > 0 or andresults.users|length > 0  %}
         <h2>Search Results for 
@@ -164,6 +164,7 @@
             {% endfor %}
             {% endif %}
         </div>
+        {% endif %}
         {% endif %}
         </div>
     </div>

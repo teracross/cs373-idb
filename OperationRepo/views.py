@@ -145,7 +145,7 @@ def search (request):
             return render_to_response('OperationRepo/search.html', context_dict, context)
         else:
             form = SearchForm() #create form to display
-    return render_to_response('OperationRepo/search.html', {"andresults": {}, "orresults" :{}, 'form':form}, context)
+    return render_to_response('OperationRepo/search.html', {'form':form}, context)
 
 
 def toJS(a):
