@@ -13,9 +13,70 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/grid.locale-en.js"></script>
     <script src="{{STATIC_URL}}js/jquery.jqGrid.min.js"></script>
+    <script src="{{STATIC_URL}}js/Chart.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        colors = {
+        "funny" : "#F38630",
+        "useful" : "#E0E4CC",
+        "cool" : "#69D2E7",
+        "hot" : "#5ad5c1",
+        "photos" : "#3c100f",
+        "more" : "#52e75b",
+        "writer" : "#5ab454",
+        "note" : "#b9ba82",
+        "profile" : "#409f95",
+        "plain" : "#7ac0f7",
+        "cute" : "#ba7665"};
+
+        var ctx = $("#votesPie").get(0).getContext("2d");
+        var data =
+        [
+          {
+            value: {{User_Votes_List.0.count}},
+            color: colors["funny"]
+          },
+          {
+            value : {{User_Votes_List.1.count}},
+            color : colors["useful"]
+          },
+          {
+            value : {{User_Votes_List.2.count}},
+            color : colors["cool"]
+          }
+        ]
+        new Chart(ctx).Pie(data, {});
+
+        var ctx = $("#complimentsPie").get(0).getContext("2d");
+        i = 0
+        var data =
+        [
+            {% for compliment in Compliments_List %}
+                {
+                    value: {{compliment.num_compliments_of_this_type}},
+                    color: colors["{{compliment.complement_type}}"]
+                },
+            {% endfor %}
+            {value: 0, color: "#000000"}
+        ]
+        new Chart(ctx).Pie(data, {});        
+    });
+    </script>       
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+        .funny {background-color: #F38630}
+        .useful {background-color: #E0E4CC}
+        .cool {background-color: #69D2E7}
+        .hot {background-color: #5ad5c1;}
+        .photos {background-color: #3c100f;}
+        .more {background-color: #52e75b;}
+        .writer {background-color: #5ab454;}
+        .note {background-color: #b9ba82;}
+        .profile {background-color: #409f95;}
+        .plain {background-color: #7ac0f7;}    
+        .cute {background-color: #ba7665;}     
     </style>
 </head>
 
@@ -69,21 +130,22 @@
       </div>
       <div>
         <h2>Votes</h2>
-
+        <canvas id="votesPie" width="100" height="100"></canvas>
         <div><span class="key">Fans: </span><span class="value">{{User.fans }} </span></div>
         {% if User_Votes_List|length <= 0 %}
             <div>N/A</div>
         {% endif %}
         {% for user_votes in User_Votes_List %}
-        <div><span class="key">Voted {{user_votes.vote_type}}: </span><span class="value">{{user_votes.count }} </span></div>
+        <div><span class="key">Voted {{user_votes.vote_type}}(<span class="square {{user_votes.vote_type}}"></span>): </span><span class="value">{{user_votes.count }} </span></div>
         {% endfor %}
       </div>
       <div>
         <h2>Compliments</h2>
+        <canvas id="complimentsPie" width="100" height="100"></canvas>
         <div>
             {% if Compliments_List|length > 0 %}
             {% for compliment in Compliments_List %}
-              <div><span class="key">{{ compliment.complement_type }}:</span><span class="value">{{compliment.num_compliments_of_this_type}}</span></div>
+              <div><span class="key">{{ compliment.complement_type }}(<span class="square {{compliment.complement_type}}"></span>):</span><span class="value">{{compliment.num_compliments_of_this_type}}</span></div>
             {% endfor %}
             {% else %}
               <div>No compliments to display. </div>
