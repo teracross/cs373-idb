@@ -104,34 +104,30 @@ class API_Test(TestCase) :
         business_id = "test-business"
         headers = {'content-type': 'application/json'}
         values = { "name": "Raising Canes", "is_open": True, "stars": 3.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
-        response = requests.post(self.url + "business/", data = dumps(values), headers=headers)
+        response = requests.post(self.url + "business/", data =dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
         #response_body = response.read()
         #print (reponse.read().decode("utf-8"))
         #self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
 
-    """
+    
     def test_api_post_user(self) :
-        values = "{\"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/business/", data=values.encode("utf-8"), headers=headers, method="POST")
-        response = urlopen(requests.)
+        user_id = "test-user"
+        headers = {'content-type': 'application/json'}
+        values = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 4.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
+        response = requests.post(self.url + "user/", data=dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"business_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
 
     def test_api_post_review(self) :
-        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/", data=values.encode("utf-8"), headers=headers, method="POST")
-        response = urlopen(requests.)
+        review_id = "test-review"
+        headers = {'content-type': 'application/json'}
+        values = { "review_id": "test-review",  "user_id": "test-user",  "stars": 2.0,  "votes": { "useful": 1,  "cool": 0,  "funny": 0 },  "business_id": "test-business",  "type": "review",  "text": "This is a test",  "date": "2014-02-22" }
+        response = requests.post(self.url + "review/", data=dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-
+"""
     def test_api_put_user(self) :
         values = "{\"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
         headers = {"Content-Type": "application-json"}
