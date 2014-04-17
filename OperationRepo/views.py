@@ -64,7 +64,7 @@ def index(request):
         q3a+=[a]
         q3b+=[b]        
 
-    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav" }, context)
+    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav", "allcategories":allCategories()}, context)
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
@@ -122,14 +122,15 @@ def business(request, *z):
                                                             "reviewHistoryLabels" : reviewHistoryLabels,
                                                             "reviewHistoryVolumeData" : reviewHistoryVolumeData,
                                                             "reviewHistoryStarsData" : reviewHistoryStarsData,
-                                                            "active_page" :"business_nav"},context)
+                                                            "active_page" :"business_nav",
+                                                            "allcategories":allCategories()},context)
 # Reviews
 def review(request, *z):
     context = RequestContext(request)
     reviewID = z[0]
     review = get_object_or_404(Review, review_id=reviewID)
     review_votes_list = Review_Votes.objects.filter(review=review)
-    return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list, "form": SearchForm(), "active_page" :"review_nav"},context)
+    return render_to_response('OperationRepo/review.html', {"Review":review, "Review_Votes_List":review_votes_list, "form": SearchForm(), "active_page" :"review_nav","allcategories":allCategories()},context)
 
 # Reviews
 def user(request, *z):
@@ -147,25 +148,40 @@ def user(request, *z):
         "Elite_List":elite_list, "Compliments_List":compliments_list,
         "reviews":users_reviews,
         "form": SearchForm(),
-        "active_page" :"user_nav" },context)
+        "active_page" :"user_nav" ,"allcategories":allCategories()},context)
 
 def business_splash (request):
     context = RequestContext(request)
-    allBusinesses = Business.objects.all().order_by('name')
+    categoryName = request.GET.get('category', '')
+    if(len(categoryName)>0) :
+        categories = Categories.objects.filter(name=categoryName).order_by('name').select_related()
+        allBusinesses = [c.business for c in categories]
+    else :
+        allBusinesses = Business.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses, "form": SearchForm(), "active_page" :"business_nav"},context)
+    return render_to_response('OperationRepo/business_splash.html', {"bdict": allBusinesses, "form": SearchForm(), "active_page" :"business_nav","allcategories":allCategories()},context)
 
 def review_splash (request):
     context = RequestContext(request)
-    allReviews = Review.objects.all().order_by("-date")
-    avgInfo = allReviews.aggregate(Avg('stars'))
-    return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo, "form": SearchForm(), "active_page" :"review_nav"},context)
+    numStars = request.GET.get('star', '')
+    if len(numStars)>0 :
+        allReviews = Review.objects.filter(stars=numStars).order_by("-date")
+        avgInfo = allReviews.aggregate(Avg('stars'))
+    else :
+        allReviews = Review.objects.all().order_by("-date")
+        avgInfo = allReviews.aggregate(Avg('stars'))
+    return render_to_response('OperationRepo/review_splash.html', {"rdict": allReviews, "avgInfo" : avgInfo, "form": SearchForm(), "active_page" :"review_nav","allcategories":allCategories()},context)
 
 def user_splash (request):
     context = RequestContext(request)
-    allUsers = User.objects.all().order_by('name')
+    firstletter = request.GET.get('firstletter', '')
+    print("***"+str(firstletter))
+    if len(firstletter) > 0 :
+        allUsers = User.objects.filter(name__startswith=firstletter).order_by('name')
+    else :
+        allUsers = User.objects.all().order_by('name')
 
-    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers, "form": SearchForm(), "active_page" :"user_nav"},context)
+    return render_to_response('OperationRepo/user_splash.html', {"userList": allUsers, "form": SearchForm(), "active_page" :"user_nav","allcategories":allCategories()},context)
 
 def search (request):
     context = RequestContext(request)
@@ -234,3 +250,6 @@ def ratingsPuller() :
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))
     return json.loads(val)
+
+def allCategories() :
+    return Categories.objects.distinct('name').order_by('name')
