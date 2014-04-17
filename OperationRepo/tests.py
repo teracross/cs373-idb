@@ -107,11 +107,10 @@ class API_Test(TestCase) :
         response = requests.post(self.url + "business/", data =dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
-        #response_body = response.read()
-        #print (reponse.read().decode("utf-8"))
-        #self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
+        content = response.json()
+        actual = {"business_id": business_id}
+        self.assertEqual(content, actual)
 
-    
     def test_api_post_user(self) :
         user_id = "test-user"
         headers = {'content-type': 'application/json'}
@@ -119,54 +118,63 @@ class API_Test(TestCase) :
         response = requests.post(self.url + "user/", data=dumps(values), headers=headers)
         self.assertEqual(response.status_code, 201)
 
+        content = response.json()
+        actual = {"user_id": user_id}
+        self.assertEqual(content, actual)
 
     def test_api_post_review(self) :
         review_id = "test-review"
         headers = {'content-type': 'application/json'}
-        values = { "review_id": "test-review",  "user_id": "test-user",  "stars": 2.0,  "votes": { "useful": 1,  "cool": 0,  "funny": 0 },  "business_id": "test-business",  "type": "review",  "text": "This is a test",  "date": "2014-02-22" }
-        response = requests.post(self.url + "review/", data=dumps(values), headers=headers)
+        values = { "review_id": "test-review", "user_id": "test-user", "stars": 2.0, "votes": { "useful": 1, "cool": 0, "funny": 0 }, "business_id": "test-business", "type": "review", "text": "This is a test", "date": "2014-02-22" }
+        response = requests.post(self.url + "review/", data=dumps(values),headers=headers)
         self.assertEqual(response.status_code, 201)
 
-"""
-   
+        content = response.json()
+        actual = {"review_id": review_id}
+        self.assertEqual(content, actual)
 
+    def test_api_put_user(self) :
+        business_id = "test-user"
+        values = {"average_stars": "5.0"}
+        headers = {'content-type': 'application/json'}
+        response = requests.put(self.url + business_id,data=dumps(values),headers=headers)
+        actual = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 5.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
+        print (response.status_code)
+        content = response.json()
+        self.assertTrue(actual,content)
+
+
+    #api delete tests
+    # -----
+    # delete
+    # -----
+    
     def test_api_delete_business(self) :
-        business_id = "test-business/"
+        business_id = "business/test-business/"
         response = requests.delete(self.url + business_id)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.text, '204')
 
         response = requests.get(self.url + business_id)
         self.assertTrue(response.status_code, 404)
         self.assertTrue(response.reason, "NOT FOUND")
-
-        #response_body = response.read()
-        #self.assertTrue(response_body.decode("utf-8") == "{ \"user_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-
+    
     def test_api_delete_users(self) :
-        user_id = "test-user/"
+        user_id = "user/test-user/"
         response = requests.delete(self.url + user_id)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.text, '204')
 
         response = requests.get(self.url + user_id)
         self.assertTrue(response.status_code, 404)
         self.assertTrue(response.reason, "NOT FOUND")
 
     def test_api_delete_review(self) :
-        values = "{\"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\"}"
-        headers = {"Content-Type": "application-json"}
-        requests. = requests.("http://cs373-oprepo.herokuapp.com/OperationRepo/api/review/", data=values.encode("utf-8"), headers=headers, method="DELETE")
-        response = urlopen(requests.)
-        self.assertEqual(response.status_code, 204)
-
-        response_body = response.read()
-        self.assertTrue(response_body.decode("utf-8") == "{ \"review_id\": \"AHzLh-2WyMjf6TYATFwg6N\" }")
-print ("Done")
-"""
-        review_id = "test-review/"
+        review_id = "review/test-review/"
         response = requests.delete(self.url + review_id)
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.text, '204')
 
         response = requests.get(self.url + review_id)
         self.assertTrue(response.status_code, 404)
         self.assertTrue(response.reason, "NOT FOUND")
+
+
 print ("Done")
