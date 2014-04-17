@@ -42,6 +42,7 @@
                 <div class="item active">
                     <h4 id="chartTitle" style="text-align: center;">Do people with more compliments give higher ratings?</h4>
                     <canvas id="complimentsBar" width="1000" height="400"></canvas>
+                    <div style="text-align: center">Number of Compliments Given</div>
                 </div>
 
 
@@ -51,6 +52,7 @@
                 <div class="item">
                     <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words used in a review?</h4>
                     <canvas id="commonWordsBar" width="1000" height="400"></canvas>
+                    <div style="text-align: center">Word vs. Frequency</div>
                 </div>
               </div>
 
@@ -61,24 +63,16 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
               </a>
             </div>
-            <a href="{% url 'api_fun' %}" class="btn btn-large btn-success">Example API Use Case</a>
+            
        </div>
-        <div class="container" style="width:1140px">
+        <div class="container">
             <div class="row" id="imgbar" style="text-align:center">
-                <div class="col-md-2"><a href="https://github.com/teracross"><img  src="{{STATIC_URL}}img/ed.png"/></a></div>
-                <div class="col-md-2"><a href="https://github.com/aag2423"><img  src="{{STATIC_URL}}img/anthony.png"/></a></div>
-                <div class="col-md-2"><a href="https://github.com/xavierbeynon"><img  src="{{STATIC_URL}}img/xavier.png"/></a></div>
-                <div class="col-md-2"><a href="https://github.com/pcyang"><img  src="{{STATIC_URL}}img/pochen.jpg"/></a></div>
-                <div class="col-md-2"><a href="https://github.com/weeziemist"><img  src="{{STATIC_URL}}img/chukwudi.png"/></a></div>
-                <div class="col-md-2"><a href="https://github.com/wnation"><img  src="{{STATIC_URL}}img/will.jpg"/></a></div>
-            </div>
-            <div class="row" style="text-align:center">
-                <div class="col-md-2"><a href="https://github.com/teracross">Ed Lee</a></div>
-                <div class="col-md-2"><a href="https://github.com/aag2423">Anthony Garza</a></div>
-                <div class="col-md-2"><a href="https://github.com/xavierbeynon">Xavier Beynon</a></div>
-                <div class="col-md-2"><a href="https://github.com/pcyang">Po-Chen Yang</a></div>
-                <div class="col-md-2"><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></div>
-                <div class="col-md-2"><a href="https://github.com/wnation">William Nation</a></div>
+                <div class="col-md-2"><a href="https://github.com/teracross"><img  src="{{STATIC_URL}}img/ed.png"/></a><br/><a href="https://github.com/teracross">Ed Lee</a></div>
+                <div class="col-md-2"><a href="https://github.com/aag2423"><img  src="{{STATIC_URL}}img/anthony.png"/></a><br/><a href="https://github.com/aag2423">Anthony Garza</a></div>
+                <div class="col-md-2"><a href="https://github.com/xavierbeynon"><img  src="{{STATIC_URL}}img/xavier.png"/></a><br/><a href="https://github.com/xavierbeynon">Xavier Beynon</a></div>
+                <div class="col-md-2"><a href="https://github.com/pcyang"><img  src="{{STATIC_URL}}img/pochen.jpg"/></a><br/><a href="https://github.com/pcyang">Po-Chen Yang</a></div>
+                <div class="col-md-2"><a href="https://github.com/weeziemist"><img  src="{{STATIC_URL}}img/chukwudi.png"/></a><br/><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></div>
+                <div class="col-md-2"><a href="https://github.com/wnation"><img  src="{{STATIC_URL}}img/will.jpg"/></a><br/><a href="https://github.com/wnation">William Nation</a></div>
             </div>
         </div>
 
