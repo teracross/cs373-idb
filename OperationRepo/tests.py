@@ -133,13 +133,34 @@ class API_Test(TestCase) :
         actual = {"review_id": review_id}
         self.assertEqual(content, actual)
 
-    def test_api_put_user(self) :
-        business_id = "test-user"
-        values = {"average_stars": "5.0"}
+    #api put tests
+    # -----
+    # put
+    # -----
+    def test_api_put_business(self) :
+        business_id = "test-business/"
+        values = {"stars": 5.0}
         headers = {'content-type': 'application/json'}
         response = requests.put(self.url + business_id,data=dumps(values),headers=headers)
+        actual = { "name": "Raising Canes", "is_open": True, "stars": 5.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
+        content = response.json()
+        self.assertTrue(actual,content)
+
+    def test_api_put_user(self) :
+        user_id = "test-user/"
+        values = {"average_stars": "5.0"}
+        headers = {'content-type': 'application/json'}
+        response = requests.put(self.url + user_id,data=dumps(values),headers=headers)
         actual = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 5.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
-        print (response.status_code)
+        content = response.json()
+        self.assertTrue(actual,content)
+
+    def test_api_put_review(self) :
+        review_id = "test-review/"
+        values = {"text": "Passing the test (hopefully)"}
+        headers = {'content-type': 'application/json'}
+        response = requests.put(self.url + review_id,data=dumps(values),headers=headers)
+        actual = { "review_id": "test-review", "user_id": "test-user", "stars": 2.0, "votes": { "useful": 1, "cool": 0, "funny": 0 }, "business_id": "test-business", "type": "review", "text": "Passing the test (hopefully)", "date": "2014-02-22" }
         content = response.json()
         self.assertTrue(actual,content)
 
