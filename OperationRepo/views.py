@@ -102,12 +102,12 @@ def search (request):
             search = form.cleaned_data['search']
             searchlist = search.split(" ")
             
-            qor = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0])) 
-            qor2 = Q(name__icontains = str(searchlist[0]))
+            qor = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0]))  
+            qor2 = Q(name__icontains = str(searchlist[0])) 
             qand = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0]))
             qand2 = Q(name__icontains = str(searchlist[0]))
 
-            # create qors for queries. or and and 
+            # create qsets for queries. or and and 
             for s in searchlist[1:] :
                 qor = qor | Q(text__icontains = str(s)) | Q(business__name__icontains = str(s))
                 qor2 = qor2 | Q(name__icontains = str(s))
