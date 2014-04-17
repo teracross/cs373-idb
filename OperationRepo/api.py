@@ -40,7 +40,8 @@ def business_all(request):
         for day,hour in hours.items():
             Hours(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
 
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        response = {"business_id": request.DATA['business_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
@@ -98,9 +99,9 @@ def business_id(request, business_id):
         return Response(business.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
-        Categories.filter(business_id = business_id).delete()
-        Attributes.filter(business_id = business_id).delete()
-        Hours.filter(business_id = business_id).delete()
+        Categories.objects.filter(business_id = business_id).delete()
+        Attributes.objects.filter(business_id = business_id).delete()
+        Hours.objects.filter(business_id = business_id).delete()
         Business.objects.filter(business_id = business_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
@@ -278,7 +279,8 @@ def review_all(request):
 
         for kind,number in votes.items():
             Review_Votes(review=r, vote_type=kind,count=number).save()
-            
+        
+
         return Response(request.DATA, status=status.HTTP_201_CREATED)
 
     else:
@@ -315,8 +317,8 @@ def review_id(request, review_id):
         return Response(review.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
-        Review_Votes.filter(review_id = review_id).delete()
-        Review.objects.filter(review_id = review_id).delete()
+        Review_Votes.objects.filter(review_id = review_id).delete()
+        Review.objects.objects.filter(review_id = review_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
     else:
