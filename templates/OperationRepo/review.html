@@ -77,7 +77,6 @@ size(true);
 
 <body>
     <div class="container">
-        <h1 class="topHeader">Operation Repo - Review {{ a }} </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>Review for <a href="{% url 'business' Review.business.business_id %}">{{ Review.business.name }}</a> by <a href="{% url 'user' Review.user.user_id %}"> {{ Review.user.name }} </a> </h1>
