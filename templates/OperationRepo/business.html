@@ -38,6 +38,64 @@
         google.maps.event.addDomListener(window, 'load', genMap);   
         google.maps.event.addDomListener(window, 'resize', genMap);
     </script>
+        <script type="text/javascript">
+    (function(){
+var t;
+function size(animate){
+  if (animate == undefined){
+    animate = false;
+  }
+  clearTimeout(t);
+  t = setTimeout(function(){
+    $("canvas").each(function(i,el){
+      $(el).attr({
+        "width":$(el).parent().width(),
+        "height":$(el).parent().outerHeight()
+      });
+    });
+    redraw(animate);
+    var m = 0;
+    $(".widget").height("");
+    $(".widget").each(function(i,el){ m = Math.max(m,$(el).height()); });
+    $(".widget").height(m);
+  }, 30);
+}
+$(window).on('resize', function(){ size(false); });
+function redraw(animation){
+  var options = {};
+  if (!animation){
+    options.animation = false;
+  } else {
+    options.animation = true;
+  }
+    var ctx = $("#reviewHistoryChart").get(0).getContext("2d");
+    var data =
+    {
+        labels : {{reviewHistoryLabels|safe}},
+        datasets :
+        [
+            {
+                fillColor : "rgba(151,187,205,0.5)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                data : {{reviewHistoryVolumeData|safe}}
+            },
+            {
+                fillColor : "rgba(214,151,151,0.5)",
+                strokeColor : "rgba(214,151,151,0.5)",
+                pointColor : "rgba(214,151,151,0.5)",
+                pointStrokeColor : "#fff",
+                data : {{reviewHistoryStarsData|safe}}
+            }
+        ]
+    }
+
+    new Chart(ctx).Line(data, options);
+  }
+size(true);
+    }());
+    </script> 
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
@@ -48,6 +106,11 @@
             height: 12px;
             display: inline-block;
         }
+.canvas-container {
+    max-width: 1000px;
+    max-height: 400px;
+    position: relative;
+}
     </style>
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
@@ -97,34 +160,9 @@
             </div>
             <h2>Reviews:</h2>
             <h4 style="text-align: center">Historical Number of Reviews(<span style="background-color:#97BBCD" class="square"></span>) vs. Average Stars(<span style="background-color:#D69797" class="square"></span>)</h4>
+                                <div class="canvas-container">
             <canvas id="reviewHistoryChart" width="1000" height="400"></canvas>
-            <script type="text/javascript">
-            //Get context with jQuery - using jQuery's .get() method.
-            var ctx = $("#reviewHistoryChart").get(0).getContext("2d");
-            var data =
-            {
-                labels : {{reviewHistoryLabels|safe}},
-                datasets :
-                [
-                    {
-                        fillColor : "rgba(151,187,205,0.5)",
-                        strokeColor : "rgba(151,187,205,1)",
-                        pointColor : "rgba(151,187,205,1)",
-                        pointStrokeColor : "#fff",
-                        data : {{reviewHistoryVolumeData|safe}}
-                    },
-                    {
-                        fillColor : "rgba(214,151,151,0.5)",
-                        strokeColor : "rgba(214,151,151,0.5)",
-                        pointColor : "rgba(214,151,151,0.5)",
-                        pointStrokeColor : "#fff",
-                        data : {{reviewHistoryStarsData|safe}}
-                    }
-                ]
-            }
-
-            new Chart(ctx).Line(data);
-            </script>
+                    </div>
             {% if not Business.review_count and not Business.stars and not Reviews %}
                 Reviews not available.
             {% endif %}
