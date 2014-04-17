@@ -55,12 +55,15 @@
 
 <script type="text/javascript">
   var f = document.getElementById('id_search')
-  f.className = f.className + " form-control"
-  {% if search_terms %}
-      f.value = "{{ search_terms }}"
-  {% else %}
-      f.placeholder = "Enter Search..."
-  {% endif %}
+  if(f != null){
+    f.className = f.className + " form-control"
+    {% if search_terms %}
+        f.value = "{{ search_terms }}"
+    {% else %}
+        f.placeholder = "Enter Search..."
+    {% endif %}
+  }
   var a = document.getElementById('{{ active_page }}')
-  a.className = "active"
+  if(a != null)
+    a.className = "active"
 </script>
