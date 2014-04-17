@@ -220,9 +220,9 @@ def api_fun (request):
     
     businesses_dict = {}
     pk = 1;
-    for d in json_result :
-        ratings = 
-        businesses_dict['' + str(pk)] = {{'name', d["business_name"]}. {'id', d["business_id"]}, {'reviews', ratings}}
+    # for d in json_result :
+        # ratings = 
+        # businesses_dict['' + str(pk)] = {{'name', d["business_name"]}. {'id', d["business_id"]}, {'reviews', ratings}}
 
     return render_to_response("dict", businesses_dict)
 
