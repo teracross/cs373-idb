@@ -3,11 +3,12 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.shortcuts import get_object_or_404
 from OperationRepo.models import *
-from django.http import HttpResponse
+from django.http import StreamingHttpResponse
 from django.db.models import Avg
 import json
 from OperationRepo.forms import SearchForm
 from django.db.models import Q
+from django.core import serializers
 
 
 
@@ -100,6 +101,7 @@ def search (request):
         if form.is_valid():
             #form has been submitted
             search = form.cleaned_data['search']
+            format = form.cleaned_data['format']
             searchlist = search.split(" ")
             
             qor = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0])) 
@@ -127,11 +129,19 @@ def search (request):
             or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
 
             form = SearchForm()
+            if format == "json":
+                context_dict["andresults"] = [serializers.serialize("json", andreviews), serializers.serialize("json", andusers),serializers.serialize("json", andbusinesses)]
+                context_dict["orresults"] = [serializers.serialize("json", orreviews), serializers.serialize("json", orusers), serializers.serialize("json", orbusinesses)]
+                context_dict["search_terms"] = search
+                #context_dict["search_list"] = searchlist
+                return StreamingHttpResponse(json.dumps(context_dict))
+
             context_dict["form"] = form
             context_dict["andresults"] = and_results
             context_dict["orresults"] = or_results 
-            context_dict["search_terms"] = str(search)
+            context_dict["search_terms"] = search
             context_dict["search_list"] = searchlist
+
             return render_to_response('OperationRepo/search.html', context_dict, context)
         else:
             form = SearchForm() #create form to display
