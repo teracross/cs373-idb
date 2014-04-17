@@ -8,6 +8,8 @@ from django.db.models import Avg
 from django.db import connections
 import json
 from OperationRepo.forms import SearchForm
+from django.db.models import Q
+import urllib
 
 
 
@@ -121,22 +123,67 @@ def user_splash (request):
 
 def search (request):
     context = RequestContext(request)
+    context_dict = {}
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
             #form has been submitted
             search = form.cleaned_data['search']
-            search_results = []
-            reviews = Review.objects.filter(text__contains = str(search))
-            businesses = Business.objects.filter(name__contains = str(search))
-            users = User.objects.filter(name__contains = str(search))
-            search_results = [reviews, businesses, users]
+            searchlist = search.split(" ")
+            
+            qor = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0])) 
+            qor2 = Q(name__icontains = str(searchlist[0]))
+            qand = Q(text__icontains = str(searchlist[0])) | Q(business__name__icontains = str(searchlist[0]))
+            qand2 = Q(name__icontains = str(searchlist[0]))
+
+            # create qors for queries. or and and 
+            for s in searchlist[1:] :
+                qor = qor | Q(text__icontains = str(s)) | Q(business__name__icontains = str(s))
+                qor2 = qor2 | Q(name__icontains = str(s))
+                qand = qand & (Q(text__icontains = str(s)) | Q(business__name__icontains = str(s)))
+                qand2 = qand2 & Q(name__icontains = str(s))
+
+            # and search results
+            andreviews = Review.objects.filter(qand).select_related()
+            andbusinesses = Business.objects.filter(qand2)
+            andusers = User.objects.filter(qand2)
+            and_results = {"reviews" : andreviews, "businesses" : andbusinesses, "users" : andusers}
+
+            # or search results
+            orreviews = Review.objects.filter(qor).exclude(qand).select_related()
+            orusers = User.objects.filter(qor2).exclude(qand2)
+            orbusinesses = Business.objects.filter(qor2).exclude(qand2)
+            or_results = {"reviews" : orreviews, "users" : orusers, "businesses" : orbusinesses}
+
             form = SearchForm()
-            return render_to_response('OperationRepo/search.html', {"results" : search_results, "form" : form, "search_terms": str(search)}, context)
+            context_dict["form"] = form
+            context_dict["andresults"] = and_results
+            context_dict["orresults"] = or_results 
+            context_dict["search_terms"] = str(search)
+            context_dict["search_list"] = searchlist
+            return render_to_response('OperationRepo/search.html', context_dict, context)
         else:
             form = SearchForm() #create form to display
-    return render_to_response('OperationRepo/search.html', {"results": [], 'form':form}, context)
+    return render_to_response('OperationRepo/search.html', {"andresults": {}, "orresults" :{}, 'form':form}, context)
 
+def api_fun (request):
+    context = RequestContext(request)
+    url = "http://cs373-oprepo.herokuapp.com/operationrepo/api/business/"
+    get = urllib.request.urlopen(url + "?format=json").read().decode("utf-8")
+    json_result = json.loads(get)
+    
+    businesses_dict = {}
+    pk = 1;
+    for d in json_result :
+        ratings = 
+        businesses_dict['' + str(pk)] = {{'name', d["business_name"]}. {'id', d["business_id"]}, {'reviews', ratings}}
+
+    return render_to_response("dict", businesses_dict)
+
+def ratingsPuller() :
+    context = RequestContext(request)
+
+    return render_to_response("dict", businesses_dict)
 
 def toJS(a):
     val = str(a.replace("'","\"").replace("True","true").replace("False","false"))

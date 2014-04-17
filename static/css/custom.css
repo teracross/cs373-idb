@@ -30,10 +30,41 @@
 }
 
 .search-cell {
-	border-bottom: 2px solid;
-	margin-bottom: 5px;
+	
+	margin-bottom: 30px;
 }
 
 .search-cell div{
+	margin-left: 20px;
+}
+
+.search-empty {
+	margin-bottom: 20px;
+	
+}
+
+.search-empty div{
+	margin-left: 20px;
+}
+
+.search-result h2{
+	text-decoration: none;
+	clear:both;
+}
+
+#and-search-content {
 	margin-left: 10px;
+}
+
+#or-search-content {
+	margin-left: 10px;
+}
+
+italic {
+	font-style: italic;
+	color: rgb(67, 129, 189);
+}
+
+.context {
+	color: #545454;
 }
