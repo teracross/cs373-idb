@@ -319,7 +319,7 @@ def review_id(request, review_id):
 
     elif request.method == 'DELETE':
         Review_Votes.objects.filter(review_id = review_id).delete()
-        Review.objects.objects.filter(review_id = review_id).delete()
+        Review.objects.filter(review_id = review_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
     else:
