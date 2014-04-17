@@ -12,10 +12,56 @@ should link back to user reviewing and business reviewed-->
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/Chart.min.js"></script>
-    <script src="{{STATIC_URL}}js/drawPieChart.js"></script>
     <script type="text/javascript">
     (function(){
-      drawPieChart("reviewRatingPie", {{Review_Votes_List}})
+var t;
+function size(animate){
+  if (animate == undefined){
+    animate = false;
+  }
+  clearTimeout(t);
+  t = setTimeout(function(){
+    $("canvas").each(function(i,el){
+      $(el).attr({
+        "width":$(el).parent().width(),
+        "height":$(el).parent().outerHeight()
+      });
+    });
+    redraw(animate);
+    var m = 0;
+    $(".widget").height("");
+    $(".widget").each(function(i,el){ m = Math.max(m,$(el).height()); });
+    $(".widget").height(m);
+  }, 30);
+}
+$(window).on('resize', function(){ size(false); });
+function redraw(animation){
+  var options = {};
+  if (!animation){
+    options.animation = false;
+  } else {
+    options.animation = true;
+  }
+    //Get context with jQuery - using jQuery's .get() method.
+    var ctx = $("#reviewRatingPie").get(0).getContext("2d");
+    var data =
+    [
+      {
+        value: {{Review_Votes_List.0.count}},
+        color:"#F38630"
+      },
+      {
+        value : {{Review_Votes_List.1.count}},
+        color : "#E0E4CC"
+      },
+      {
+        value : {{Review_Votes_List.2.count}},
+        color : "#69D2E7"
+      }
+    ]
+      new Chart(ctx).Pie(data, options);
+  }
+size(true);
     }());
     </script>     
     <style>
@@ -45,7 +91,7 @@ should link back to user reviewing and business reviewed-->
             <div>
               <h2>Votes</h2>
               {% if Review_Votes_List.0.count|add:Review_Votes_List.1.count|add:Review_Votes_List.2.count > 0 %}
-              <h4 id="chartTitle" style="text-align: center">Review rating: useful(<span style="background-color:#F38630" class="square"></span>) cool(<span style="background-color:#E0E4CC" class="square"></span>) funny (<span style="background-color:#69D2E7" class="square"></span>)</h4>
+              <h4 id="chartTitle" style="text-align: center">Review rating: {{Review_Votes_List.0.vote_type}}(<span style="background-color:#F38630" class="square"></span>) {{Review_Votes_List.1.vote_type}}(<span style="background-color:#E0E4CC" class="square"></span>) {{Review_Votes_List.2.vote_type}} (<span style="background-color:#69D2E7" class="square"></span>)</h4>
 
                     <div class="canvas-container">
               <canvas id="reviewRatingPie" width="1000" height="400"></canvas>
