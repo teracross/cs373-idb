@@ -9,7 +9,7 @@ DAYS = (
   ('Sat', 'Saturday'),
   ('Sun', 'Sunday'),
 )
-  """Enum to represent day_of_week."""
+"""Enum to represent day_of_week."""
 
 class Business(models.Model):
   """
