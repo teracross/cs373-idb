@@ -4,4 +4,11 @@ h1.topHeader {
 	text-shadow:  5px 5px 5px #E5D8C7;
 }
 
+h1.display {
+	font-size: 300%;
+}
+
+h4.contrast {
+	text-shadow:  1px 1px 1px #E5D8C7;
+}
 

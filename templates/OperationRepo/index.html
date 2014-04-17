@@ -8,8 +8,23 @@
     <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/Chart.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>    
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+        .span4 img
+        {
+            width: 100px;
+            height: 100px;
+            border-radius: 150px;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+            margin-left: 45px;
+            margin-right: 45px;
+            margin-bottom: 5px;          
+        }
     </style>
 </head>
 
@@ -18,37 +33,118 @@
     <h1 class ="topHeader">Operation Repo - Index </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
-            <h1>Yelp Dataset Challenge Interactive Application</h1>
+            <h1 style="text-align: center">Yelp Dataset Browser</h1>
 
-            <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+              </ol>
+
+              <div class="carousel-inner">
+                <div class="item active">
+                    <h4 id="chartTitle" style="text-align: center;">Do people with more compliments give higher ratings?</h4>
+                    <canvas id="complimentsBar" width="1000" height="400"></canvas>
+                </div>
 
             <a href="{% url 'api_fun' %}" class="btn btn-large btn-success">Example API Use Case</a>
 
           <!--  <a href="#" class="btn btn-large btn-success">Get Started</a> -->
             
+
+                <div class="item">
+                    <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words to use in a review?</h4>
+                    <canvas id="commonWordsBar" width="1000" height="400"></canvas>
+                </div>
+              </div>
+
+              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
         </div>
         
-        <div class="row">
         <div class="span4">
-            <ul class="nav nav-list">
-                <li class="nav-header">Group Members</li>
-                <li><a href="https://github.com/teracross">Ed Lee</a></li>
-                <li><a href="https://github.com/aag2423">Anthony Garza</a></li>
-                <li><a href="https://github.com/xavierbeynon">Xavier Beynon</a></li>
-                <li><a href="https://github.com/pcyang">Po-Chen Yang</a></li>
-                <li><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></li>
-                <li><a href="https://github.com/wnation">William Nation</a></li>
-            </ul>
-        </div>
+            <table>
+                <tr>
+                    <td ><a href="https://github.com/teracross"><img class="abc" src="{{STATIC_URL}}img/ed.png"/></a></td>
+                    <td ><a href="https://github.com/aag2423"><img class="abc" src="{{STATIC_URL}}img/anthony.png"/></a></td>
+                    <td ><a href="https://github.com/xavierbeynon"><img class="abc" src="{{STATIC_URL}}img/xavier.png"/></a></td>
+                    <td ><a href="https://github.com/pcyang"><img class="abc" src="{{STATIC_URL}}img/pochen.jpg"/></a></td>
+                    <td ><a href="https://github.com/weeziemist"><img class="abc" src="{{STATIC_URL}}img/chukwudi.png"/></a></td>
+                    <td ><a href="https://github.com/wnation"><img class="abc" src="{{STATIC_URL}}img/will.jpg"/></a></td>
+                </tr>
+                <tr style="text-align: center">
+                    <td><a href="https://github.com/teracross">Ed Lee</td>
+                    <td><a href="https://github.com/aag2423">Anthony Garza</td>
+                    <td><a href="https://github.com/xavierbeynon">Xavier Beynon</td>
+                    <td><a href="https://github.com/pcyang">Po-Chen Yang</td>
+                    <td><a href="https://github.com/weeziemist">Chukwudi Iwueze</td>
+                    <td><a href="https://github.com/wnation">William Nation</a></td>
+                </tr>
+            </table>
         </div>
     </div>
-
-     <!-- Bootstrap -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
-
-     <!-- scroll to top button -->
-    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
+    <script type="text/javascript">
+        function q2()
+        {
+            var ctx = $("#complimentsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q2a}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q2b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Bar(data);
+        }
+        function q3()
+        {
+            //Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#commonWordsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q3a|safe}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q3b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Radar(data);                            
+        }
+        $(".abc").mouseover(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 0,
+                "webkit-border-radius": 0, 
+                "moz-border-radius": 0
+            },300,function(){});
+        });
+        $(".abc").mouseout(function(e) 
+        {
+            $(this).animate(
+            {
+                "border-radius": 150,
+                "webkit-border-radius": 150, 
+                "moz-border-radius": 150
+            },300,function(){});
+        });        
+        q2();
+        q3();
+    </script>
 </body>
-
 </html>

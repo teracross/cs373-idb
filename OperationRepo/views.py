@@ -18,7 +18,53 @@ def index(request):
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
     context_dict = {'message': "Hello World", "form": SearchForm(), "active_page" :"index_nav" }
-    return render_to_response('OperationRepo/index.html', context_dict, context)
+
+    query = """
+    SELECT sub.count as "Number of Compliments",
+    ROUND(CAST(SUM(sub.average_stars)/COUNT(*) AS NUMERIC),2) as "Average Stars Given" 
+    FROM 
+    (
+        SELECT u.user_id,COUNT(*),
+        u.average_stars 
+        FROM "OperationRepo_compliments" c
+        join "OperationRepo_user" u on c.user_id=u.user_id
+        group by u.user_id
+    ) sub
+    group by sub.count
+    order by "Number of Compliments" """
+
+    q2a = []
+    q2b = []
+    cursor = connections['default'].cursor()
+    cursor.execute(query)
+    l = dictfetchall(cursor)
+
+    for g in l :
+        a = int(g["Number of Compliments"])
+        b = float(g["Average Stars Given"])
+        q2a+=[a]
+        q2b+=[b]
+
+    query = """
+    SELECT COUNT(*), regexp_split_to_table(regexp_replace(lower(text),'[^\sa-zA-Z0-9=+-]','','g'),'\s') as word
+    from "OperationRepo_review" as r
+    group by word
+    order by count desc
+    limit 10;"""
+
+    q3a = []
+    q3b = []
+    cursor = connections['default'].cursor()
+    cursor.execute(query)
+    l = dictfetchall(cursor)
+
+    for g in l :
+        a = str(g["word"])
+        b = int(g["count"])
+        q3a+=[a]
+        q3b+=[b]        
+
+    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav" }, context)
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
