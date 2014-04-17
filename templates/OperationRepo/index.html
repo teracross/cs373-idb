@@ -14,23 +14,19 @@
     <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>    
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
-        .span4 img
+        #imgbar img
         {
             width: 100px;
             height: 100px;
             border-radius: 150px;
             -webkit-border-radius: 150px;
             -moz-border-radius: 150px;
-            margin-left: 45px;
-            margin-right: 45px;
-            margin-bottom: 5px;          
         }
     </style>
 </head>
 
 <body>
   <div class='container'>
-    <h1 class ="topHeader">Operation Repo - Index </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
             <h1 style="text-align: center">Yelp Dataset Browser</h1>
@@ -53,7 +49,7 @@
             
 
                 <div class="item">
-                    <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words to use in a review?</h4>
+                    <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words used in a review?</h4>
                     <canvas id="commonWordsBar" width="1000" height="400"></canvas>
                 </div>
               </div>
@@ -66,28 +62,26 @@
               </a>
             </div>
             <a href="{% url 'api_fun' %}" class="btn btn-large btn-success">Example API Use Case</a>
+       </div>
+        <div class="container" style="width:1140px">
+            <div class="row" id="imgbar" style="text-align:center">
+                <div class="col-md-2"><a href="https://github.com/teracross"><img  src="{{STATIC_URL}}img/ed.png"/></a></div>
+                <div class="col-md-2"><a href="https://github.com/aag2423"><img  src="{{STATIC_URL}}img/anthony.png"/></a></div>
+                <div class="col-md-2"><a href="https://github.com/xavierbeynon"><img  src="{{STATIC_URL}}img/xavier.png"/></a></div>
+                <div class="col-md-2"><a href="https://github.com/pcyang"><img  src="{{STATIC_URL}}img/pochen.jpg"/></a></div>
+                <div class="col-md-2"><a href="https://github.com/weeziemist"><img  src="{{STATIC_URL}}img/chukwudi.png"/></a></div>
+                <div class="col-md-2"><a href="https://github.com/wnation"><img  src="{{STATIC_URL}}img/will.jpg"/></a></div>
+            </div>
+            <div class="row" style="text-align:center">
+                <div class="col-md-2"><a href="https://github.com/teracross">Ed Lee</a></div>
+                <div class="col-md-2"><a href="https://github.com/aag2423">Anthony Garza</a></div>
+                <div class="col-md-2"><a href="https://github.com/xavierbeynon">Xavier Beynon</a></div>
+                <div class="col-md-2"><a href="https://github.com/pcyang">Po-Chen Yang</a></div>
+                <div class="col-md-2"><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></div>
+                <div class="col-md-2"><a href="https://github.com/wnation">William Nation</a></div>
+            </div>
         </div>
-        
-        <div class="span4">
-            <table>
-                <tr>
-                    <td ><a href="https://github.com/teracross"><img class="abc" src="{{STATIC_URL}}img/ed.png"/></a></td>
-                    <td ><a href="https://github.com/aag2423"><img class="abc" src="{{STATIC_URL}}img/anthony.png"/></a></td>
-                    <td ><a href="https://github.com/xavierbeynon"><img class="abc" src="{{STATIC_URL}}img/xavier.png"/></a></td>
-                    <td ><a href="https://github.com/pcyang"><img class="abc" src="{{STATIC_URL}}img/pochen.jpg"/></a></td>
-                    <td ><a href="https://github.com/weeziemist"><img class="abc" src="{{STATIC_URL}}img/chukwudi.png"/></a></td>
-                    <td ><a href="https://github.com/wnation"><img class="abc" src="{{STATIC_URL}}img/will.jpg"/></a></td>
-                </tr>
-                <tr style="text-align: center">
-                    <td><a href="https://github.com/teracross">Ed Lee</td>
-                    <td><a href="https://github.com/aag2423">Anthony Garza</td>
-                    <td><a href="https://github.com/xavierbeynon">Xavier Beynon</td>
-                    <td><a href="https://github.com/pcyang">Po-Chen Yang</td>
-                    <td><a href="https://github.com/weeziemist">Chukwudi Iwueze</td>
-                    <td><a href="https://github.com/wnation">William Nation</a></td>
-                </tr>
-            </table>
-        </div>
+
     </div>
     <script type="text/javascript">
         function q2()
@@ -125,24 +119,6 @@
             }
             new Chart(ctx).Radar(data);                            
         }
-        $(".abc").mouseover(function(e) 
-        {
-            $(this).animate(
-            {
-                "border-radius": 0,
-                "webkit-border-radius": 0, 
-                "moz-border-radius": 0
-            },300,function(){});
-        });
-        $(".abc").mouseout(function(e) 
-        {
-            $(this).animate(
-            {
-                "border-radius": 150,
-                "webkit-border-radius": 150, 
-                "moz-border-radius": 150
-            },300,function(){});
-        });        
         q2();
         q3();
     </script>
