@@ -12,8 +12,20 @@ should link back to user reviewing and business reviewed-->
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="{{STATIC_URL}}js/Chart.min.js"></script>
+    <script src="{{STATIC_URL}}js/drawPieChart.js"></script>
+    <script type="text/javascript">
+    (function(){
+      drawPieChart("reviewRatingPie", {{Review_Votes_List}})
+    }());
+    </script>     
     <style>
       body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+
+.canvas-container {
+    max-width: 1000px;
+    max-height: 400px;
+    position: relative;
+}
     </style>
     <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
@@ -32,33 +44,13 @@ should link back to user reviewing and business reviewed-->
 
             <div>
               <h2>Votes</h2>
-              <h4 id="chartTitle" style="text-align: center;display:none">Review rating: useful(<span style="background-color:#F38630" class="square"></span>) cool(<span style="background-color:#E0E4CC" class="square"></span>) funny (<span style="background-color:#69D2E7" class="square"></span>)</h4>
-              <canvas id="reviewRatingPie" style="display:none" width="1000" height="400"></canvas>
-              <script type="text/javascript">
-                //Get context with jQuery - using jQuery's .get() method.
-                var ctx = $("#reviewRatingPie").get(0).getContext("2d");
-                var data =
-                [
-                  {
-                    value: {{Review_Votes_List.0.count}},
-                    color:"#F38630"
-                  },
-                  {
-                    value : {{Review_Votes_List.1.count}},
-                    color : "#E0E4CC"
-                  },
-                  {
-                    value : {{Review_Votes_List.2.count}},
-                    color : "#69D2E7"
-                  }
-                ]
-              if({{Review_Votes_List.0.count}}+{{Review_Votes_List.1.count}}+{{Review_Votes_List.2.count}}>0)
-              {
-                $("#chartTitle").show();
-                $("#reviewRatingPie").show();
-                new Chart(ctx).Pie(data);
-              }
-              </script>              
+              {% if Review_Votes_List.0.count|add:Review_Votes_List.1.count|add:Review_Votes_List.2.count > 0 %}
+              <h4 id="chartTitle" style="text-align: center">Review rating: useful(<span style="background-color:#F38630" class="square"></span>) cool(<span style="background-color:#E0E4CC" class="square"></span>) funny (<span style="background-color:#69D2E7" class="square"></span>)</h4>
+
+                    <div class="canvas-container">
+              <canvas id="reviewRatingPie" width="1000" height="400"></canvas>
+                    </div>
+              {% endif %}
               {%for stuff in Review_Votes_List%}
               <div><span class="key">{{stuff.vote_type}}: </span><span class="value">{{stuff.count}} </span></div>
               {%endfor%}
