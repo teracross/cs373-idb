@@ -1,11 +1,7 @@
-<!-- load the script for changing the background using the buttons -->
-
-
 <!-- Responsive Nav Bar -->
 <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-
-        <div class="navbar-header">
+       <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -99,6 +95,7 @@
             <div class="col-sm-4 col-md-4 pull-right">
                 <form class="navbar-form" role="search" method="GET" action="{% url 'search' %}">
                     <div class="input-group">
+                        {{ form.format.as_hidden }}
                         {{ form.search }}
                         <div class="input-group-btn">
                             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
@@ -120,7 +117,6 @@
                     </ul>
                 </li>
             </ul>
-            <!-- </div> -->
             <!-- button for manual user control of background -->
         </div>
         <!--/.nav-collapse -->
@@ -129,16 +125,18 @@
 {% include "background.html"%}
 <!-- END Responsive Nav Bar -->
 
+
 <script type="text/javascript">
   var f = document.getElementById('id_search')
-  f.className = f.className + " form-control"
-  {% if search_terms %}
-      f.value = "{{ search_terms }}"
-  {% else %}
-      f.placeholder = "Enter Search..."
-  {% endif %}
+  if(f != null){
+    f.className = f.className + " form-control"
+    {% if search_terms %}
+        f.value = "{{ search_terms }}"
+    {% else %}
+        f.placeholder = "Enter Search..."
+    {% endif %}
+  }
   var a = document.getElementById('{{ active_page }}')
-  a.className = "active"
-
-
+  if(a != null)
+    a.className = "active"
 </script>
