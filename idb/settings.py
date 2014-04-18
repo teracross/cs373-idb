@@ -37,6 +37,7 @@ else :
         'PASSWORD': 'iB4dOm4cQY0-rnYBJzkYvJf6kH'
       }
     }
+
 SITE_ID=1
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -59,6 +60,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'OperationRepo',
     'rest_framework'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,7 +91,7 @@ WSGI_APPLICATION = 'idb.wsgi.application'
 #   }
 # }
 
-
+#DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

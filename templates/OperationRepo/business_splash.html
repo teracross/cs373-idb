@@ -9,11 +9,15 @@
   <style type="text/css">
     .key {width: 150px;display:inline-block;}
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <style>
+      body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+  </style>
+  <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
 </head>
 
 <body>
 <div class="container">
-  <h1>Operation Repo - All Businesses </h1>
   {% include "navbar.html" %}
   <div class="jumbotron">
             <table class="table table-striped">
@@ -29,9 +33,10 @@
     </div>
 </div>
 
+    <!-- scroll to top button -->
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
 
      <!-- Bootstrap -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
 </body>
 </html>

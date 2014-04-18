@@ -23,300 +23,352 @@ GET /api/business
 < Content-Type: application/json
 [
     {
-   "attributes":{
-      "accepts_credit_cards":"true",
-      "alcohol":"full_bar",
-      "ambience":"{'trendy': false, 'classy': false, 'hipster': false, 'romantic': false, 'divey': false, 'intimate': false, 'upscale': false, 'touristy': false, 'casual': true}",
-      "attire":"casual",
-      "coat_check":"false",
-      "delivery":"false",
-      "good_for":"{'latenight': false, 'lunch': true, 'brunch': false, 'dinner': true, 'breakfast': false, 'dessert': true}",
-      "good_for_dancing":"false",
-      "good_for_groups":"true",
-      "good_for_kids":"true",
-      "happy_hour":"true",
-      "has_tv":"true",
-      "music":"{'dj': false, 'karaoke': false, 'live': false, 'video': false, 'jukebox': false, 'background_music': true}",
-      "noise_level":"very_loud",
-      "outdoor_seating":"true",
-      "parking":"{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}",
-      "price_range":"2",
-      "smoking":"outdoor",
-      "takeout":"true",
-      "takes_reservations":"false",
-      "waiter_service":"true",
-      "wheelchair_accessible":"true",
-      "wifi":"free"
-   },
-   "business_id":"00eGk1ntf4RiDxVRY3gaIw",
-   "categories":[
-      "Restaurants",
-      "Salad",
-      "Pizza",
-      "American (Traditional)"
-   ],
-   "city":"Mesa",
-   "hours":{
-      "Friday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Monday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Saturday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Sunday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Thursday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Tuesday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      },
-      "Wednesday":{
-         "close":"02:00:00",
-         "open":"11:00:00"
-      }
-   },
-   "name":"Old Chicago",
-   "neighborhoods":[]
-    },
+        "city": "Goodyear", 
+        "business_id": "02rrDia_FTc8jN7LGqzIbQ", 
+        "name": "Corral West Arena"
+    }, 
     {
-   "attributes":{
-      "accepts_credit_cards":"true",
-      "parking":"{'lot': true, 'valet': false, 'validated': false, 'street': false, 'garage': false}",
-      "price_range":"2",
-      "wifi":"no"
-   },
-   "business_id":"015GCpe-tMj1En4NORROzA",
-   "categories":[
-      "Dry Cleaning & Laundry",
-      "Local Services"
-   ],
-   "city":"Phoenix",
-   "hours":{
-      "Friday":{
-         "close":"19:00:00",
-         "open":"07:00:00"
-      },
-      "Monday":{
-         "close":"19:00:00",
-         "open":"07:00:00"
-      },
-      "Saturday":{
-         "close":"18:00:00",
-         "open":"09:00:00"
-      },
-      "Thursday":{
-         "close":"19:00:00",
-         "open":"07:00:00"
-      },
-      "Tuesday":{
-         "close":"19:00:00",
-         "open":"07:00:00"
-      },
-      "Wednesday":{
-         "close":"19:00:00",
-         "open":"07:00:00"
-      }
-   },
-   "name":"Elite Cleaners",
-   "neighborhoods":[]
-   }
+        "city": "Phoenix", 
+        "business_id": "02Fijjr_ccD42E-5aGOXWQ", 
+        "name": "Pure Air Service Arizona"
+    }
 ]
 
 Creates a new business entry
 POST /api/business
 > Content-Type: application/json
-{ 
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
-    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
-    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
-            "Tuesday": {"close": "18:00", "open": "11:00"},
-            "Friday": {"close": "18:00", "open": "11:00"},
-            "Wednesday": {"close": "18:00", "open": "11:00"},
-            "Thursday": {"close": "18:00", "open": "11:00"}, 
-            "Sunday": {"close": "18:00", "open": "11:00"},
-            "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": true,
-    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
-    "city": "Phoenix",
-    "review_count": 29,
-    "name": "Turf Paradise Race Course",
-    "neighborhoods": [],
-    "longitude": -112.0923293,
-    "state": "AZ",
-    "stars": 4.0,
-    "latitude": 33.638572699999997,
-    "attributes": {"take_out": false,
-                "wifi": "free",
-                "good_for": {"dessert": false,
-                            "latenight": false,
-                            "lunch": false,
-                            "dinner": false,
-                            "brunch": false,
-                            "breakfast": false},
-                "noise_level": "average",
-                "takes_reservations": true,
-                "has_tv": true,
-                "delivery": false,
-                "ambience": {"romantic": false,
-                            "intimate": false,
-                            "touristy": false,
-                            "hipster": false,
-                            "divey": false,
-                            "classy": false,
-                            "trendy": false,
-                            "upscale": false,
-                            "casual": false},
-                "parking": {"garage": false,
-                            "street": false,
-                            "validated": false,
-                            "lot": true,
-                            "valet": true},
-                "wheelchair_accessible": true,
-                "outdoor_seating": true,
-                "attire": "casual",
-                "alcohol": "full_bar",
-                "waiter_service": true,
-                "accepts_credit_cards": true,
-                "good_for_kids": false,
-                "good_for_groups": true,
-                "price_range": 2},
-    "type": "business"
+{
+    "city": "Mesa", 
+    "review_count": 23, 
+    "name": "Old Chicago", 
+    "type": "business", 
+    "business_id": "00eGk1ntf4RiDxVRY3gaIw", 
+    "full_address": "6821 E Superstition SpringsMesa, AZ 85209", 
+    "hours": {
+        "Monday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Tuesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Friday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Wednesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Thursday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Sunday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Saturday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }
+    }, 
+    "state": "AZ", 
+    "is_open": true, 
+    "longitude": -111.6837464, 
+    "stars": 3.0, 
+    "latitude": 33.3832251, 
+    "attributes": {
+        "outdoor_seating": "True", 
+        "noise_level": "very_loud", 
+        "coat_check": "False", 
+        "good_for_kids": "True", 
+        "good_for_dancing": "False", 
+        "parking": {
+            "garage": false, 
+            "street": false, 
+            "validated": false, 
+            "lot": true, 
+            "valet": false
+        }, 
+        "alcohol": "full_bar", 
+        "music": {
+            "dj": false, 
+            "background_music": true, 
+            "jukebox": false, 
+            "live": false, 
+            "video": false, 
+            "karaoke": false
+        }, 
+        "attire": "casual", 
+        "ambience": {
+            "romantic": false, 
+            "intimate": false, 
+            "classy": false, 
+            "upscale": false, 
+            "divey": false, 
+            "touristy": false, 
+            "trendy": false, 
+            "hipster": false, 
+            "casual": true
+        }, 
+        "accepts_credit_cards": "True", 
+        "has_tv": "True", 
+        "takes_reservations": "False", 
+        "smoking": "outdoor", 
+        "price_range": "2", 
+        "delivery": "False", 
+        "wheelchair_accessible": "True", 
+        "wifi": "free", 
+        "good_for_groups": "True", 
+        "good_for": {
+            "dessert": true, 
+            "latenight": false, 
+            "lunch": true, 
+            "dinner": true, 
+            "brunch": false, 
+            "breakfast": false
+        }, 
+        "takeout": "True", 
+        "happy_hour": "True", 
+        "waiter_service": "True"
+    }, 
+    "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3", 
+    "categories": [
+        "American (Traditional)", 
+        "Pizza", 
+        "Salad", 
+        "Restaurants"
+    ]
 }
 < 201
 < Content-Type: application/json
-{ "business_id": "O_X3PGhk3Y5JWVi866qlJg" }
+{ "business_id": "00eGk1ntf4RiDxVRY3gaIw" }
+
+List the gps coordinates of all the businesses
+GET /api/business/gps
+< 200
+< Content-Type: application/json
+"[new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.6385713,-112.3106224),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.4483771,-112.0740373),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.3703984,-112.3718919),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.4161829,-111.839574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6385838,-112.3554635),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.542167,-111.925061),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.6704382,-112.1879299),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.49413,-111.977756),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.3832251,-111.6837464),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574),new google.maps.LatLng(33.5693722,-111.885574)]"
 
 Retrieves the information for a particular business. id is the primary key for the database
 GET /api/business/{id}
 < 200
 < Content-Type: application/json
 {
-    "business_id": "O_X3PGhk3Y5JWVi866qlJg",
-    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
-    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
-            "Tuesday": {"close": "18:00", "open": "11:00"},
-            "Friday": {"close": "18:00", "open": "11:00"},
-            "Wednesday": {"close": "18:00", "open": "11:00"},
-            "Thursday": {"close": "18:00", "open": "11:00"}, 
-            "Sunday": {"close": "18:00", "open": "11:00"},
-            "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": true,
-    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
-    "city": "Phoenix",
-    "review_count": 29,
-    "name": "Turf Paradise Race Course",
-    "neighborhoods": [],
-    "longitude": -112.0923293,
-    "state": "AZ",
-    "stars": 4.0,
-    "latitude": 33.638572699999997,
-    "attributes": {"take_out": false,
-                "wifi": "free",
-                "good_for": {"dessert": false,
-                            "latenight": false,
-                            "lunch": false,
-                            "dinner": false,
-                            "brunch": false,
-                            "breakfast": false},
-                "noise_level": "average",
-                "takes_reservations": true,
-                "has_tv": true,
-                "delivery": false,
-                "ambience": {"romantic": false,
-                            "intimate": false,
-                            "touristy": false,
-                            "hipster": false,
-                            "divey": false,
-                            "classy": false,
-                            "trendy": false,
-                            "upscale": false,
-                            "casual": false},
-                "parking": {"garage": false,
-                            "street": false,
-                            "validated": false,
-                            "lot": true,
-                            "valet": true},
-                "wheelchair_accessible": true,
-                "outdoor_seating": true,
-                "attire": "casual",
-                "alcohol": "full_bar",
-                "waiter_service": true,
-                "accepts_credit_cards": true,
-                "good_for_kids": false,
-                "good_for_groups": true,
-                "price_range": 2},
-    "type": "business"
+    "city": "Mesa", 
+    "review_count": 23, 
+    "name": "Old Chicago", 
+    "type": "business", 
+    "business_id": "00eGk1ntf4RiDxVRY3gaIw", 
+    "full_address": "6821 E Superstition SpringsMesa, AZ 85209", 
+    "hours": {
+        "Monday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Tuesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Friday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Wednesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Thursday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Sunday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Saturday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }
+    }, 
+    "state": "AZ", 
+    "is_open": true, 
+    "longitude": -111.6837464, 
+    "stars": 3.0, 
+    "latitude": 33.3832251, 
+    "attributes": {
+        "outdoor_seating": "True", 
+        "noise_level": "very_loud", 
+        "coat_check": "False", 
+        "good_for_kids": "True", 
+        "good_for_dancing": "False", 
+        "parking": {
+            "garage": false, 
+            "street": false, 
+            "validated": false, 
+            "lot": true, 
+            "valet": false
+        }, 
+        "alcohol": "full_bar", 
+        "music": {
+            "dj": false, 
+            "background_music": true, 
+            "jukebox": false, 
+            "live": false, 
+            "video": false, 
+            "karaoke": false
+        }, 
+        "attire": "casual", 
+        "ambience": {
+            "romantic": false, 
+            "intimate": false, 
+            "classy": false, 
+            "upscale": false, 
+            "divey": false, 
+            "touristy": false, 
+            "trendy": false, 
+            "hipster": false, 
+            "casual": true
+        }, 
+        "accepts_credit_cards": "True", 
+        "has_tv": "True", 
+        "takes_reservations": "False", 
+        "smoking": "outdoor", 
+        "price_range": "2", 
+        "delivery": "False", 
+        "wheelchair_accessible": "True", 
+        "wifi": "free", 
+        "good_for_groups": "True", 
+        "good_for": {
+            "dessert": true, 
+            "latenight": false, 
+            "lunch": true, 
+            "dinner": true, 
+            "brunch": false, 
+            "breakfast": false
+        }, 
+        "takeout": "True", 
+        "happy_hour": "True", 
+        "waiter_service": "True"
+    }, 
+    "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3", 
+    "categories": [
+        "American (Traditional)", 
+        "Pizza", 
+        "Salad", 
+        "Restaurants"
+    ]
 }
 
 Updates an existing business
 PUT /api/business/{id}
 > Content-Type: application/json
-{ 
-    "full_address": "1501 W Bell Rd\nPhoenix, AZ 85023",
-    "hours": {"Monday": {"close": "18:00", "open": "11:00"},
-            "Tuesday": {"close": "18:00", "open": "11:00"},
-            "Friday": {"close": "18:00", "open": "11:00"},
-            "Wednesday": {"close": "18:00", "open": "11:00"},
-            "Thursday": {"close": "18:00", "open": "11:00"}, 
-            "Sunday": {"close": "18:00", "open": "11:00"},
-            "Saturday": {"close": "18:00","open": "11:00"}},
-    "open": true,
-    "categories": ["Active Life", "Arts & Entertainment", "Stadiums & Arenas", "Horse Racing"],
-    "city": "Phoenix",
-    "review_count": 29,
-    "name": "Turf Paradise Race Course",
-    "neighborhoods": [],
-    "longitude": -112.0923293,
-    "state": "AZ",
-    "stars": 4.0,
-    "latitude": 33.638572699999997,
-    "attributes": {"take_out": false,
-                "wifi": "free",
-                "good_for": {"dessert": false,
-                            "latenight": false,
-                            "lunch": false,
-                            "dinner": false,
-                            "brunch": false,
-                            "breakfast": false},
-                "noise_level": "average",
-                "takes_reservations": true,
-                "has_tv": true,
-                "delivery": false,
-                "ambience": {"romantic": false,
-                            "intimate": false,
-                            "touristy": false,
-                            "hipster": false,
-                            "divey": false,
-                            "classy": false,
-                            "trendy": false,
-                            "upscale": false,
-                            "casual": false},
-                "parking": {"garage": false,
-                            "street": false,
-                            "validated": false,
-                            "lot": true,
-                            "valet": true},
-                "wheelchair_accessible": true,
-                "outdoor_seating": true,
-                "attire": "casual",
-                "alcohol": "full_bar",
-                "waiter_service": true,
-                "accepts_credit_cards": true,
-                "good_for_kids": false,
-                "good_for_groups": true,
-                "price_range": 2},
-    "type": "business"
+{
+    "city": "Mesa", 
+    "review_count": 23, 
+    "name": "Old Chicago", 
+    "type": "business", 
+    "business_id": "00eGk1ntf4RiDxVRY3gaIw", 
+    "full_address": "6821 E Superstition SpringsMesa, AZ 85209", 
+    "hours": {
+        "Monday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Tuesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Friday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Wednesday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Thursday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Sunday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }, 
+        "Saturday": {
+            "close": "02:00", 
+            "open": "11:00"
+        }
+    }, 
+    "state": "AZ", 
+    "is_open": true, 
+    "longitude": -111.6837464, 
+    "stars": 3.0, 
+    "latitude": 33.3832251, 
+    "attributes": {
+        "outdoor_seating": "True", 
+        "noise_level": "very_loud", 
+        "coat_check": "False", 
+        "good_for_kids": "True", 
+        "good_for_dancing": "False", 
+        "parking": {
+            "garage": false, 
+            "street": false, 
+            "validated": false, 
+            "lot": true, 
+            "valet": false
+        }, 
+        "alcohol": "full_bar", 
+        "music": {
+            "dj": false, 
+            "background_music": true, 
+            "jukebox": false, 
+            "live": false, 
+            "video": false, 
+            "karaoke": false
+        }, 
+        "attire": "casual", 
+        "ambience": {
+            "romantic": false, 
+            "intimate": false, 
+            "classy": false, 
+            "upscale": false, 
+            "divey": false, 
+            "touristy": false, 
+            "trendy": false, 
+            "hipster": false, 
+            "casual": true
+        }, 
+        "accepts_credit_cards": "True", 
+        "has_tv": "True", 
+        "takes_reservations": "False", 
+        "smoking": "outdoor", 
+        "price_range": "2", 
+        "delivery": "False", 
+        "wheelchair_accessible": "True", 
+        "wifi": "free", 
+        "good_for_groups": "True", 
+        "good_for": {
+            "dessert": true, 
+            "latenight": false, 
+            "lunch": true, 
+            "dinner": true, 
+            "brunch": false, 
+            "breakfast": false
+        }, 
+        "takeout": "True", 
+        "happy_hour": "True", 
+        "waiter_service": "True"
+    }, 
+    "yelp_url": "http://www.yelp.com/biz/old-chicago-mesa-3", 
+    "categories": [
+        "American (Traditional)", 
+        "Pizza", 
+        "Salad", 
+        "Restaurants"
+    ]
 }
 < 204
 
@@ -332,21 +384,44 @@ GET /api/business/{id}/user
 < Content-Type: application/json
 [
     {
-        "yelping_since": "2008-04",
-        "votes": {"funny": 25,
-                "useful": 122,
-                "cool": 31},
-        "review_count": 69,
-        "name": "Mindi",
-        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
-        "friends": ["OroGqv0t7fy-Q3E2PzTEwQ", "SEDFpR4oMPKqXMjbJiMGog", "AYGHNy8gPxl2Q-etTT3hZw", "34gJ_KlP3RM6jotNT6TcDQ", "fHv7k5vWd6ryt8jH4J3teg", "lmiDCrmas8TxRsbIGZX9Pg", "Ts2ipR4zCYClEQTAuJuIjw", "4SFf4irFi5s8Q4QIxFhvUQ"],
-        "fans": 1,
-        "average_stars": 3.5800000000000001,
-        "type": "user",
-        "compliments": {"note": 4,
-                    "funny": 1,
-                    "writer": 3,
-                    "cool": 2},
+        "yelping_since": "2013-05-01", 
+        "votes": {
+            "funny": 9, 
+            "useful": 45, 
+            "cool": 15
+        }, 
+        "user_id": "icf8Tr75xv-QOnI7wZX9Xw", 
+        "name": "Gene", 
+        "type": "user", 
+        "compliments": {
+            "note": 2, 
+            "plain": 8, 
+            "hot": 1, 
+            "writer": 1, 
+            "cool": 3
+        }, 
+        "fans": 2, 
+        "average_stars": 3.89, 
+        "review_count": 105, 
+        "elite": []
+    }, 
+    {
+        "yelping_since": "2009-11-01", 
+        "votes": {
+            "funny": 1, 
+            "useful": 10, 
+            "cool": 1
+        }, 
+        "user_id": "CjVX1QGNqx3_oDBuRig4-A", 
+        "name": "Sarah", 
+        "type": "user", 
+        "compliments": {
+            "plain": 1, 
+            "more": 1
+        }, 
+        "fans": 0, 
+        "average_stars": 4.56, 
+        "review_count": 9, 
         "elite": []
     }
 ]
@@ -356,19 +431,38 @@ GET /api/business/{id}/review
 < 200
 < Content-Type: application/json
 [
+
     {
-        "votes": {"funny": 0,
-                "useful": 1,
-                "cool": 0},
-        "user_id": "oexyVjQSZ62qT7tpxgOcKg",
-        "review_id": "s8g8kFZ4JXFAGksbQnEqLw",
-        "stars": 4,
-        "date": "2012-01-07",
-        "text": "I have never been to a race track before so when I saw a Livingsocial deal for this place I thought I'd try it out. It was the best $30 I ever spent! We sat in the Turf Club which I guess is the nicest viewing area. There wasn't a bad table in the place, even the 2 tops which is what we had. The menu is mostly lunch type items, salad, sandwiches, burgers, with a few breakfast options, but the food was surprisingly good and very reasonably priced. I had the tuna melt and it was stuffed with tuna salad and cheese. The BF had the chicken caprese sandwich. The sandwich arrived, I looked up a second later and it was gone. He inhaled it,  he thought it was that good. The bread pudding was ok. The only thing that wasn't awesome was the service. Our waitress was very slow to come around and she didn't have much of a personality. Any time we needed anything I had to flag her down but who knows it could have been an off day for her. We walked around and went to the grandstand and outside viewing area as well. There are stadium type food booths and a couple of bars out there and it looked fun. We would definitely go back again and pay the full price. So worth it.",
-        "type": "review",
-        "business_id": "O_X3PGhk3Y5JWVi866qlJg"
+        "votes": {
+            "funny": 0, 
+            "useful": 0, 
+            "cool": 0
+        }, 
+        "user_id": "icf8Tr75xv-QOnI7wZX9Xw", 
+        "review_id": "UenRro_ZUAW7vmbS9Hoqrg", 
+        "text": "Not a bad place if you like craft beers. I came in to start another mini tour. I always love the food especially the pizza. The service is usually good, however today it sucked. We were seated at the bar 10 minutes before we were greeted by the bartender.  Not a full bar either. The food we ordered was out in a reasonable time and was delicious. My only issue today was with the bartender and the service we got. If I go there again and see her tending I will go to the restaurant part.", 
+        "business_id": "00eGk1ntf4RiDxVRY3gaIw", 
+        "stars": 3.0, 
+        "date": "2013-08-03", 
+        "type": "review"
+    }, 
+    {
+        "votes": {
+            "funny": 0, 
+            "useful": 1, 
+            "cool": 0
+        }, 
+        "user_id": "CjVX1QGNqx3_oDBuRig4-A", 
+        "review_id": "LcEP4Jc8ajplPSdHfiP50A", 
+        "text": "Seriously the only reason it is getting two stars tonight is because they have snakebites.\n\nNow I will be the first to say that I frequent Old Chicago quite often, but tonight was down right depressing. The bar area was about 29 degrees warmer than an oven baking cookies, and myself and date were downright sweating at the table. \n\nOrdered two beers, one (mine) perfect, the other was super flat; our waitress was super sweet and took care of it right away, but only after letting us know that the second choice was out.\n\nI will for sure be back to give it one more shot, but it was truly a HUGE disappointment tonight; especially when we were there to enjoy a cool night in with a draft.", 
+        "business_id": "00eGk1ntf4RiDxVRY3gaIw", 
+        "stars": 2.0, 
+        "date": "2011-08-26", 
+        "type": "review"
     }
 ]
+
+
 
 --
 User Data
@@ -379,74 +473,86 @@ GET /api/user
 < Content-Type: application/json
 [
     {
-        "user_id": "2WyMjf6TYATFwg6NA",
-        "name": "Glen"
-    },
+        "user_id": "Ae_rbQ293MYrKaywJT6Oeg", 
+        "name": "Amanda"
+    }, 
     {
-        "business_id": "gYV6bmTSgbZMGkvXHVCowg",
-        "name": "Paul"
+        "user_id": "8EaO99Q3E_SS8KzOR1rFrA", 
+        "name": "Brian"
     }
 ]
 
 Creates a new user entry
 POST /api/user
 > Content-Type: application/json
-{ 
-    "yelping_since": "2011-08",
-    "votes": {"funny": 0,
-            "useful": 1,
-            "cool": 1},
-    "review_count": 5,
-    "name": "Glen",
-    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-    "friends": [],
-    "fans": 0,
-    "average_stars": 3.6000000000000001,
-    "type": "user",
-    "compliments": {},
+{
+    "yelping_since": "2010-04-01", 
+    "votes": {
+        "funny": 11, 
+        "useful": 12, 
+        "cool": 0
+    }, 
+    "user_id": "Ae_rbQ293MYrKaywJT6Oeg", 
+    "name": "Amanda", 
+    "type": "user", 
+    "compliments": {
+        "funny": 1, 
+        "plain": 3
+    }, 
+    "fans": 1, 
+    "average_stars": 3.0, 
+    "review_count": 8, 
     "elite": []
 }
 < 201
 < Content-Type: application/json
-{ "user_id": "HzLh-2WyMjf6TYATFwg6NA" }
+{ "user_id": "Ae_rbQ293MYrKaywJT6Oeg" }
 
 Retrieves the information for a particular user. id is the primary key for the database
 GET /api/user/{id}
 > Accept: application/json
 < 200
 < Content-Type: application/json
-{ 
-    "yelping_since": "2011-08",
-    "votes": {"funny": 0,
-            "useful": 1,
-            "cool": 1},
-    "review_count": 5,
-    "name": "Glen",
-    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-    "friends": [],
-    "fans": 0,
-    "average_stars": 3.6000000000000001,
-    "type": "user",
-    "compliments": {},
+{
+    "yelping_since": "2010-04-01", 
+    "votes": {
+        "funny": 11, 
+        "useful": 12, 
+        "cool": 0
+    }, 
+    "user_id": "Ae_rbQ293MYrKaywJT6Oeg", 
+    "name": "Amanda", 
+    "type": "user", 
+    "compliments": {
+        "funny": 1, 
+        "plain": 3
+    }, 
+    "fans": 1, 
+    "average_stars": 3.0, 
+    "review_count": 8, 
     "elite": []
 }
 
 Updates an existing user
 PUT /api/user/{id}
 > Content-Type: application/json
-{ 
-    "yelping_since": "2011-08",
-    "votes": {"funny": 0,
-            "useful": 1,
-            "cool": 1},
-    "review_count": 5,
-    "name": "Glen",
-    "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-    "friends": [],
-    "fans": 0,
-    "average_stars": 3.6000000000000001,
-    "type": "user",
-    "compliments": {},
+{
+    "yelping_since": "2010-04-01", 
+    "votes": {
+        "funny": 11, 
+        "useful": 12, 
+        "cool": 0
+    }, 
+    "user_id": "Ae_rbQ293MYrKaywJT6Oeg", 
+    "name": "Amanda", 
+    "type": "user", 
+    "compliments": {
+        "funny": 1, 
+        "plain": 3
+    }, 
+    "fans": 1, 
+    "average_stars": 3.0, 
+    "review_count": 8, 
     "elite": []
 }
 < 204
@@ -463,34 +569,108 @@ GET /api/user/{id}/business
 < Content-Type: application/json
 [
     {
-        "business_id": "KWo4geULVPzCirc0Scpcow",
-        "full_address": "3701-3965 Sky Harbor Blvd\nPhoenix, AZ 85034",
-        "hours": {},
-        "open": true,
-        "categories": ["Bakeries", "Food", "French", "Restaurants"],
-        "city": "Phoenix",
-        "review_count": 12,
-        "name": "La Madeleine",
-        "neighborhoods": [],
-        "longitude": -112.001445002113,
-        "state": "AZ",
-        "stars": 3.5,
-        "latitude": 33.433677495519298,
-        "attributes": {"wifi": "free",
-                    "good_for": {"dessert": false,
-                                "latenight": false,
-                                "lunch": false,
-                                "dinner": false,
-                                "brunch": false,
-                                "breakfast": false},
-                    "delivery": false,
-                    "outdoor_seating": false,
-                    "attire": "casual",
-                    "waiter_service": false,
-                    "accepts_credit_cards": true},
-        "type": "business"
+        "city": "Scottsdale", 
+        "review_count": 95, 
+        "name": "Blue 32 Sports Grill", 
+        "type": "business", 
+        "business_id": "01cEFI5Pq_RyEwM3GSTopQ", 
+        "full_address": "7293 N Scottsdale RdScottsdale, AZ 85258", 
+        "hours": {
+            "Monday": {
+                "close": "22:00", 
+                "open": "11:00"
+            }, 
+            "Tuesday": {
+                "close": "22:00", 
+                "open": "11:00"
+            }, 
+            "Friday": {
+                "close": "23:00", 
+                "open": "11:00"
+            }, 
+            "Wednesday": {
+                "close": "22:00", 
+                "open": "11:00"
+            }, 
+            "Thursday": {
+                "close": "22:00", 
+                "open": "11:00"
+            }, 
+            "Sunday": {
+                "close": "22:00", 
+                "open": "11:00"
+            }, 
+            "Saturday": {
+                "close": "23:00", 
+                "open": "11:00"
+            }
+        }, 
+        "state": "AZ", 
+        "is_open": true, 
+        "longitude": -111.925061, 
+        "stars": 3.5, 
+        "latitude": 33.542167, 
+        "attributes": {
+            "takes_reservations": "False", 
+            "has_tv": "True", 
+            "alcohol": "full_bar", 
+            "noise_level": "average", 
+            "accepts_credit_cards": "True", 
+            "wheelchair_accessible": "True", 
+            "coat_check": "False", 
+            "outdoor_seating": "True", 
+            "good_for_groups": "True", 
+            "good_for": {
+                "dessert": false, 
+                "latenight": false, 
+                "lunch": false, 
+                "dinner": false, 
+                "brunch": false, 
+                "breakfast": false
+            }, 
+            "delivery": "False", 
+            "waiter_service": "True", 
+            "music": {
+                "dj": false, 
+                "background_music": true, 
+                "jukebox": false, 
+                "live": false, 
+                "video": false, 
+                "karaoke": false
+            }, 
+            "happy_hour": "True", 
+            "good_for_dancing": "False", 
+            "parking": {
+                "garage": false, 
+                "street": false, 
+                "validated": false, 
+                "lot": true, 
+                "valet": false
+            }, 
+            "ambience": {
+                "romantic": false, 
+                "intimate": false, 
+                "touristy": false, 
+                "hipster": false, 
+                "divey": false, 
+                "classy": false, 
+                "trendy": false, 
+                "upscale": false, 
+                "casual": true
+            }, 
+            "smoking": "outdoor", 
+            "price_range": "2", 
+            "takeout": "True"
+        }, 
+        "yelp_url": "http://www.yelp.com/biz/blue-32-sports-grill-scottsdale-2", 
+        "categories": [
+            "Bars", 
+            "Sports Bars", 
+            "Nightlife"
+        ]
     }
 ]
+
 
 Lists all related review
 GET /api/user/{id}/review
@@ -498,16 +678,18 @@ GET /api/user/{id}/review
 < Content-Type: application/json
 [
     {
-        "votes": {"funny": 0,
-                "useful": 1,
-                "cool": 1},
-        "user_id": "HzLh-2WyMjf6TYATFwg6NA",
-        "review_id": "q2H0J8iJvwUgINvUb8L5Bw",
-        "stars": 1,
-        "date": "2013-12-08",
-        "text": "Epic fail. So I order a sandwich that clearly says it comes with Pesto on it, and instead comes drowned in mayo. So I take it back to the counter, point out the error and they take it back. I hear the manager correcting the staff, who mouths off to him. The manager comes back and says that the fixed sandwich will be right back out. They give me the same sandwich, with all the mayo still on it and a gallon of pink goo which I assume is the tomato Pesto. Not going back again. What a waste.",
-        "type": "review",
-        "business_id": "KWo4geULVPzCirc0Scpcow"
+        "votes": {
+            "funny": 0, 
+            "useful": 0, 
+            "cool": 0
+        }, 
+        "user_id": "Ae_rbQ293MYrKaywJT6Oeg", 
+        "review_id": "iWS1WakFB3hSepiItIUmhg", 
+        "text": "For bar food this place rocks. Best onion rings in town. Yum!", 
+        "business_id": "01cEFI5Pq_RyEwM3GSTopQ", 
+        "stars": 5.0, 
+        "date": "2011-07-14", 
+        "type": "review"
     }
 ]
 
@@ -521,67 +703,73 @@ GET /api/review
 < Content-Type: application/json
 [
     {
-        "user_id": "r-t7IiTSD0QZdt8lOUCqeQ",
-        "review_id": "0ESSqLfOae77muWTv_zUqA",
-        "business_id": "WIcDFpHEnC3ihNmS7-6-ZA"
-    },
+        "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ", 
+        "review_id": "rGWvvzfxIv-aoAKGGGHrMg", 
+        "business_id": "022T8YSRmb3b1BfwzO3F7Q"
+    }, 
     {
-        "user_id": "SS85hfTApRnbTPcJadra8A",
-        "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-        "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+        "user_id": "icf8Tr75xv-QOnI7wZX9Xw", 
+        "review_id": "UenRro_ZUAW7vmbS9Hoqrg", 
+        "business_id": "00eGk1ntf4RiDxVRY3gaIw"
     }
 ]
 
 Creates a new review entry
 POST /api/review
 > Content-Type: application/json
-{ 
-    "votes": {"funny": 0,
-            "useful": 0,
-            "cool": 0},
-    "user_id": "SS85hfTApRnbTPcJadra8A",
-    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-    "stars": 5,
-    "date": "2010-05-30",
-    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-    "type": "review",
-    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+{
+    "votes": {
+        "funny": 0, 
+        "useful": 0, 
+        "cool": 0
+    }, 
+    "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ", 
+    "review_id": "rGWvvzfxIv-aoAKGGGHrMg", 
+    "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", 
+    "business_id": "022T8YSRmb3b1BfwzO3F7Q", 
+    "stars": 4.0, 
+    "date": "2011-01-12", 
+    "type": "review"
 }
 < 201
 < Content-Type: application/json
-{ "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw" }
+{ "review_id": "rGWvvzfxIv-aoAKGGGHrMg" }
 
 Retrieves the information for a particular review. id is the primary key for the database
 GET /api/review/{id}
 < 200
 < Content-Type: application/json
-{ 
-    "votes": {"funny": 0,
-            "useful": 0,
-            "cool": 0},
-    "user_id": "SS85hfTApRnbTPcJadra8A",
-    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-    "stars": 5,
-    "date": "2010-05-30",
-    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-    "type": "review",
-    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+{
+    "votes": {
+        "funny": 0, 
+        "useful": 0, 
+        "cool": 0
+    }, 
+    "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ", 
+    "review_id": "rGWvvzfxIv-aoAKGGGHrMg", 
+    "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", 
+    "business_id": "022T8YSRmb3b1BfwzO3F7Q", 
+    "stars": 4.0, 
+    "date": "2011-01-12", 
+    "type": "review"
 }
 
 Updates an existing review
 PUT /api/review/{id}
 > Content-Type: application/json
-{ 
-    "votes": {"funny": 0,
-            "useful": 0,
-            "cool": 0},
-    "user_id": "SS85hfTApRnbTPcJadra8A",
-    "review_id": "VyAKIaj_Rmsf_ZCHcGJyUw",
-    "stars": 5,
-    "date": "2010-05-30",
-    "text": "I love Marilo!  She understands my hair type and knows exactly what to do with my hair.  She keeps a record of my previous visits.  She recommends what is best for my hair.  She is pleasant to work with: easygoing, friendly, and respectful.  I've been going to her since 2008.  I'm really picky with hair people, and I used to go back to Chicago for haircuts.  Now, I stick to Marilo.",
-    "type": "review",
-    "business_id": "70p94Ejeu1v5XlIkbKORYQ"
+{
+    "votes": {
+        "funny": 0, 
+        "useful": 0, 
+        "cool": 0
+    }, 
+    "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ", 
+    "review_id": "rGWvvzfxIv-aoAKGGGHrMg", 
+    "text": "Fun place! We've mostly just been here for our league's cosmic bowling nights. It's a fun place to socialize and have fun with your friends. The prices are good too!", 
+    "business_id": "022T8YSRmb3b1BfwzO3F7Q", 
+    "stars": 4.0, 
+    "date": "2011-01-12", 
+    "type": "review"
 }
 < 204
 
@@ -597,18 +785,26 @@ GET /api/review/{id}/user
 < Content-Type: application/json
 [
     {
-        "yelping_since": "2010-05",
-        "votes": {"funny": 0,
-                "useful": 4,
-                "cool": 0},
-        "review_count": 1,
-        "name": "Christi",
-        "user_id": "SS85hfTApRnbTPcJadra8A",
-        "friends": [],
-        "fans": 0,
-        "average_stars": 5.0,
-        "type": "user",
-        "compliments": {},
+        "yelping_since": "2011-01-01", 
+        "votes": {
+            "funny": 35, 
+            "useful": 174, 
+            "cool": 41
+        }, 
+        "user_id": "xFG4Ca2HHmbxDTkMlmHnjQ", 
+        "name": "Lauren", 
+        "type": "user", 
+        "compliments": {
+            "funny": 1, 
+            "plain": 1, 
+            "note": 4, 
+            "photos": 1, 
+            "hot": 2, 
+            "cool": 4
+        }, 
+        "fans": 2, 
+        "average_stars": 3.64, 
+        "review_count": 292, 
         "elite": []
     }
 ]
@@ -619,34 +815,25 @@ GET /api/review/{id}/business
 < Content-Type: application/json
 [
     {
-        "business_id": "70p94Ejeu1v5XlIkbKORYQ",
-        "full_address": "3479 E Baseline Rd\nSte 18\nGilbert, AZ 85234",
-        "hours": {"Monday": {"close": "19:00", "open": "09:00"},
-                "Tuesday": {"close": "19:00", "open": "09:00"},
-                "Friday": {"close": "19:00", "open": "09:00"},
-                "Wednesday": {"close": "19:00", "open": "09:00"},
-                "Thursday": {"close": "19:00", "open": "09:00"},
-                "Saturday": {"close": "19:00", "open": "09:00"}},
-        "open": true,
-        "categories": ["Hair Salons", "Beauty & Spas"],
-        "city": "Gilbert",
-        "review_count": 9,
-        "name": "Salon Lola",
-        "neighborhoods": [],
-        "longitude": -111.75560249999999,
-        "state": "AZ",
-        "stars": 5.0,
-        "latitude": 33.379065699999998,
-        "attributes": {"price_range": 2,
-                    "parking": {"garage": false,
-                                "street": false,
-                                "validated": false,
-                                "lot": true,
-                                "valet": false},
-                    "by_appointment_only": true,
-                    "accepts_credit_cards": true,
-                    "good_for_kids": true,
-                    "wheelchair_accessible": true},
-        "type": "business"
+        "city": "Scottsdale", 
+        "review_count": 24, 
+        "name": "Brunswick Via Linda Lanes", 
+        "type": "business", 
+        "business_id": "022T8YSRmb3b1BfwzO3F7Q", 
+        "full_address": "9027 E Via LindaScottsdale, AZ 85258", 
+        "hours": {}, 
+        "state": "AZ", 
+        "is_open": true, 
+        "longitude": -111.885574, 
+        "stars": 4.0, 
+        "latitude": 33.5693722, 
+        "attributes": {
+            "good_for_kids": "True"
+        }, 
+        "yelp_url": "http://www.yelp.com/biz/brunswick-via-linda-lanes-scottsdale", 
+        "categories": [
+            "Active Life", 
+            "Bowling"
+        ]
     }
 ]

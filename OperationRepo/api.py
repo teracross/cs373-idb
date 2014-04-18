@@ -12,6 +12,17 @@ USER_FK = ['votes','elite','compliments']
 REVIEW_FK = ['votes']
 
 
+
+@api_view(['GET'])
+def business_gps(request):
+    if request.method == 'GET':
+        reviews = Review.objects.order_by("-date").select_related();
+        arr = "["
+        for r in reviews :
+            for i in range(0,int(r.stars)) :
+                arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
+        arr = arr[:-1]+"]"
+        return Response(arr)
 # Businesses
 @api_view(['GET', 'POST'])
 def business_all(request):
@@ -40,7 +51,8 @@ def business_all(request):
         for day,hour in hours.items():
             Hours(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
 
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        response = {"business_id": request.DATA['business_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
@@ -98,9 +110,9 @@ def business_id(request, business_id):
         return Response(business.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
-        Categories.filter(business_id = business_id).delete()
-        Attributes.filter(business_id = business_id).delete()
-        Hours.filter(business_id = business_id).delete()
+        Categories.objects.filter(business_id = business_id).delete()
+        Attributes.objects.filter(business_id = business_id).delete()
+        Hours.objects.filter(business_id = business_id).delete()
         Business.objects.filter(business_id = business_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
@@ -163,7 +175,8 @@ def user_all(request):
         for kind,number in compliments.items():
             Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
         
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        response = {"user_id": request.DATA['user_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
@@ -278,8 +291,9 @@ def review_all(request):
 
         for kind,number in votes.items():
             Review_Votes(review=r, vote_type=kind,count=number).save()
-            
-        return Response(request.DATA, status=status.HTTP_201_CREATED)
+        
+        response = {"review_id": request.DATA['review_id']}
+        return Response(response, status=status.HTTP_201_CREATED)
 
     else:
         return Response("nope", status=status.HTTP_400_BAD_REQUEST)
@@ -315,7 +329,7 @@ def review_id(request, review_id):
         return Response(review.__dict__,status=status.HTTP_204_NO_CONTENT)
 
     elif request.method == 'DELETE':
-        Review_Votes.filter(review_id = review_id).delete()
+        Review_Votes.objects.filter(review_id = review_id).delete()
         Review.objects.filter(review_id = review_id).delete()
         return Response(status.HTTP_204_NO_CONTENT)
 
