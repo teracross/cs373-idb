@@ -28,16 +28,15 @@ if 'test' in sys.argv:
     }
 else :
     DATABASES = {
-    'default':
-    {
+      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbclbiroo6chk4',
-        'HOST': 'ec2-54-204-37-113.compute-1.amazonaws.com',
+        'NAME': 'df98p68pr0jihl',
+        'HOST': 'ec2-54-225-101-124.compute-1.amazonaws.com',
         'PORT': 5432,
-        'USER': 'mlsprslbyogyne',
-        'PASSWORD': 'RWzrOqD9IWPhEQujKh2wkYd59J'
+        'USER': 'raaguazpllzfjc',
+        'PASSWORD': 'iB4dOm4cQY0-rnYBJzkYvJf6kH'
+      }
     }
-}
 
 SITE_ID=1
 
