@@ -16,7 +16,13 @@ REVIEW_FK = ['votes']
 @api_view(['GET'])
 def business_gps(request):
     if request.method == 'GET':
-        return Response(list(Business.objects.all().values('business_id','latitude','longitude')))
+        reviews = Review.objects.order_by("-date").select_related();
+        arr = "["
+        for r in reviews :
+            for i in range(0,int(r.stars)) :
+                arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
+        arr = arr[:-1]+"]"
+        return Response(arr)
 # Businesses
 @api_view(['GET', 'POST'])
 def business_all(request):
