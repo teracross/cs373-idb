@@ -39,10 +39,12 @@
                 <div class="canvas-container">
                   <canvas id="reviewHistoryChart" width="1000" height="400"></canvas>
                   <div style="text-align: center">Number of each Stars Rating</div>
+
+    <button id="leftBtn" type="button" onclick="left()"style="float: left;"><</button>
+    <button id="rightBtn" type="button" onclick="right()" style="float: right;">></button>
                 </div>
         </div>
     </div>
-
      <!-- Bootstrap -->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
      <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
@@ -50,6 +52,18 @@
      <!-- scroll to top button -->
     <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
      <script type="text/javascript">
+
+    var index = parseInt(getURLParameter('index'));
+    if(index < 1)
+        $("#leftBtn").hide();
+    if(index > 9)
+        $("#rightBtn").hide();
+    function left(){
+       window.location.href = "?index="+(index-1);
+    };
+    function right(){
+       window.location.href = "?index="+(index+1);
+    };
     function drawGraph(index){
     url="http://cs373-oprepo.herokuapp.com/operationrepo/api/business/?format=json";
     $.getJSON(url,function(data) {
@@ -94,7 +108,6 @@
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
-var index = getURLParameter('index');
 drawGraph(index);
     
     </script>
