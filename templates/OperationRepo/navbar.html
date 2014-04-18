@@ -1,37 +1,133 @@
+<!-- load the script for changing the background using the buttons -->
+
+
 <!-- Responsive Nav Bar -->
 <div class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li id="index_nav"><a href="{% url 'index' %}">Home Page</a></li>
-          <li id="business_nav"><a href="{% url 'business_splash' %}">Businesses</a></li>
-          <li id="review_nav"><a href="{% url 'review_splash' %}">Reviews</a></li>
-          <li id="user_nav"><a href="{% url 'user_splash' %}">Users</a></li>
-        </ul>
-        <div class="col-sm-4 col-md-4 pull-right">
-          <form class="navbar-form" role="search" method="GET" action="{% url 'search' %}">
-              <div class="input-group">
-                  {{ form.search }}
-                  <div class="input-group-btn">
-                      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                  </div>
-              <!-- search input end -->
-              </div><!--/.container-fluid -->
-          </form>
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.cs.utexas.edu/users/downing/cs373/drupal/idb2">CS 373 IDB2</a>
         </div>
-      </div><!--/.nav-collapse -->
-  </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li id="index_nav"><a href="{% url 'index' %}">Home Page</a></li>
+                <li id="business_nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Businesses <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'business_splash' %}">All</a></li>
+                        <li class="divider"></li>
+                        {% for c in allcategories %}
+                        <li><a href="{% url 'business_splash' %}?category={{c.name}}">{{c.name}}</a></li>
+                        {%endfor %}
+                    </ul>
+                </li>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reviews<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'review_splash' %}">All</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'review_splash' %}?star=1">
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span></a>
+                        </li>
+                        <li><a href="{% url 'review_splash' %}?star=2">
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span></a>
+                        </li>
+                        <li><a href="{% url 'review_splash' %}?star=3">
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span></a>
+                        </li>
+                        <li><a href="{% url 'review_splash' %}?star=4">
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span></a>
+                        </li>
+                        <li><a href="{% url 'review_splash' %}?star=5">
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span>
+                            <span class="glyphicon glyphicon-star" style="color: rgb(67, 129, 189);"></span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'user_splash' %}">All</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=A">A</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=B">B</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=C">C</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=D">D</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=E">E</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=F">F</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=G">G</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=H">H</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=I">I</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=J">J</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=K">K</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=L">L</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=M">M</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=N">N</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=O">O</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=P">P</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=Q">Q</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=R">R</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=S">S</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=T">T</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=U">U</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=V">V</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=W">W</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=X">X</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=Y">Y</a></li>
+                        <li><a href="{% url 'user_splash' %}?firstletter=Z">Z</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- the search bar -->
+            <div class="col-sm-4 col-md-4 pull-right">
+                <form class="navbar-form" role="search" method="GET" action="{% url 'search' %}">
+                    <div class="input-group">
+                        {{ form.search }}
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </div>
+                        <!-- search input end -->
+                    </div>
+                    <!--/.container-fluid -->
+                </form>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="btn-group dropdown">
+                    <button type="button" class="btn btn-default navbar-btn dropdown-toggle" type="button"
+                            data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
+                    <ul class="dropdown-menu">
+                        <li id="set_light"><input type="button" value="light" onclick="setBgLight()"></li>
+                        <li id="set_med"><input type="button" value="med" onclick="setBgMed()"></li>
+                        <li id="set_dark"><input type="button" value="dark" onclick="setBgDark()"></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- </div> -->
+            <!-- button for manual user control of background -->
+        </div>
+        <!--/.nav-collapse -->
+    </div>
 </div>
-<!-- END Responsive Nav Bar --> 
+{% include "background.html"%}
+<!-- END Responsive Nav Bar -->
 
 <script type="text/javascript">
   var f = document.getElementById('id_search')
@@ -41,8 +137,8 @@
   {% else %}
       f.placeholder = "Enter Search..."
   {% endif %}
-  {% if active_page %}
-      var a = document.getElementById('{{ active_page }}')
-      a.className = "active"
-  {% endif %}
+  var a = document.getElementById('{{ active_page }}')
+  a.className = "active"
+
+
 </script>

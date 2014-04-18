@@ -7,39 +7,147 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title> Operation Repo - Businesses, Users and Reviews from Yelp Academic DataSet </title>
     <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/Chart.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>    
+    <style>
+        body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+        #imgbar img
+        {
+            width: 100px;
+            height: 100px;
+            border-radius: 150px;
+            -webkit-border-radius: 150px;
+            -moz-border-radius: 150px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
+
+    <script type="text/javascript">
+        var heatData = {{heatmap|safe}}
+        function genMap(){
+            var myLatlng = new google.maps.LatLng(33.465817,-112.095673);
+            var mapOptions = {
+              zoom: 10,
+              center: myLatlng
+            }
+          map = new google.maps.Map(document.getElementById('map-canvas'),
+              mapOptions);
+
+          var pointArray = new google.maps.MVCArray(heatData);
+
+          heatmap = new google.maps.visualization.HeatmapLayer({
+            data: pointArray
+          });
+
+          heatmap.setMap(map);
+          heatmap.set('radius', 40);
+        }
+
+        google.maps.event.addDomListener(window, 'load', genMap);
+        //google.maps.event.addDomListener(window, 'resize', genMap);
+    </script>
 </head>
 
 <body>
   <div class='container'>
-    <h1>Operation Repo - Index </h1>
         {% include "navbar.html" %}
         <div class="jumbotron">
-            <h1>Yelp Dataset Challenge Interactive Application</h1>
+            <h1 style="text-align: center">Yelp Dataset Browser</h1>
 
-            <p>Here we have created an easy to use application to view the data distributed by Yelp in their Yelp Dataset Challenge.</p>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+              </ol>
 
-          <!--  <a href="#" class="btn btn-large btn-success">Get Started</a> -->
-            
+              <div class="carousel-inner">
+                <div class="item active">
+                    <div id="map-canvas" style="height:500px">
+
+                    </div>
+                </div>
+                <div class="item">
+                    <h4 id="chartTitle" style="text-align: center;">Do people with more compliments give higher ratings?</h4>
+                    <canvas id="complimentsBar" width="1000" height="400"></canvas>
+                    <div style="text-align: center">Number of Compliments Given</div>
+                </div>
+                <div class="item">
+                    <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words used in a review?</h4>
+                    <canvas id="commonWordsBar" width="1000" height="400"></canvas>
+                    <div style="text-align: center">Word vs. Frequency</div>
+                </div>
+              </div>
+
+              <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+            </div>
+            <a href="{% url 'api_fun' %}" class="btn btn-large btn-success">Example API Use Case</a>
+            <br/><br/>
+            <a href="{{STATIC_URL}}txt/InterestingQueriesOutput.txt" class="btn btn-large btn-success">Interesting SQL Queries</a>
+       </div>
+        <div class="container">
+            <div class="row" id="imgbar" style="text-align:center">
+                <div class="col-md-2"><a href="https://github.com/teracross"><img  src="{{STATIC_URL}}img/ed.png"/></a><br/><a href="https://github.com/teracross">Ed Lee</a></div>
+                <div class="col-md-2"><a href="https://github.com/aag2423"><img  src="{{STATIC_URL}}img/anthony.png"/></a><br/><a href="https://github.com/aag2423">Anthony Garza</a></div>
+                <div class="col-md-2"><a href="https://github.com/xavierbeynon"><img  src="{{STATIC_URL}}img/xavier.png"/></a><br/><a href="https://github.com/xavierbeynon">Xavier Beynon</a></div>
+                <div class="col-md-2"><a href="https://github.com/pcyang"><img  src="{{STATIC_URL}}img/pochen.jpg"/></a><br/><a href="https://github.com/pcyang">Po-Chen Yang</a></div>
+                <div class="col-md-2"><a href="https://github.com/weeziemist"><img  src="{{STATIC_URL}}img/chukwudi.png"/></a><br/><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></div>
+                <div class="col-md-2"><a href="https://github.com/wnation"><img  src="{{STATIC_URL}}img/will.jpg"/></a><br/><a href="https://github.com/wnation">William Nation</a></div>
+            </div>
         </div>
-        
-        <div class="row">
-        <div class="span4">
-            <ul class="nav nav-list">
-                <li class="nav-header">Group Members</li>
-                <li><a href="https://github.com/teracross">Ed Lee</a></li>
-                <li><a href="https://github.com/aag2423">Anthony Garza</a></li>
-                <li><a href="https://github.com/xavierbeynon">Xavier Beynon</a></li>
-                <li><a href="https://github.com/pcyang">Po-Chen Yang</a></li>
-                <li><a href="https://github.com/weeziemist">Chukwudi Iwueze</a></li>
-                <li><a href="https://github.com/wnation">William Nation</a></li>
-            </ul>
-        </div>
-        </div>
-        
+
     </div>
+    <script type="text/javascript">
+        function q2()
+        {
+            var ctx = $("#complimentsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q2a}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q2b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Bar(data);
+        }
+        function q3()
+        {
+            //Get context with jQuery - using jQuery's .get() method.
+            var ctx = $("#commonWordsBar").get(0).getContext("2d");
+            var data =
+            {
+                labels: {{q3a|safe}},
+                datasets :
+                [
+                    {
+                        fillColor : "rgba(151,187,205,0.5)",
+                        strokeColor : "rgba(151,187,205,1)",
+                        data : {{q3b}}
+                    }
+                ]
+            }
+            new Chart(ctx).Radar(data);                            
+        }
+        function q4()
+        {
 
-     <!-- Bootstrap -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+        }
+        q2();
+        q3();
+    </script>
 </body>
 </html>

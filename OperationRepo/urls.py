@@ -24,4 +24,5 @@ urlpatterns = patterns('',
     url(r'^api/review/(\S+)/$',api.review_id, name='review_id'),
     url(r'^api/review/(\S+)/business$',api.review_id_business, name='review_id_business'),
     url(r'^api/review/(\S+)/user$',api.review_id_user, name='review_id_user'),
+    url(r'^apifun/$', views.api_fun, name='api_fun'),
 )
