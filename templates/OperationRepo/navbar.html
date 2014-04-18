@@ -24,7 +24,7 @@
                         <li><a href="{% url 'business_splash' %}">All</a></li>
                         <li class="divider"></li>
                         {% for c in allcategories %}
-                        <li><a href="{% url 'business_splash' %}?category={{c.name}}">{{c.name}}</a></li>
+                        <li><a href="{% url 'business_splash' %}?category={{c.name|urlencode}}">{{c.name}}</a></li>
                         {%endfor %}
                     </ul>
                 </li>
