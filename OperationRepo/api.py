@@ -23,7 +23,6 @@ def business_gps(request):
         return Response(arr)
 
 # Businesses
-@csrf_exempt
 @api_view(['GET', 'POST'])
 def business_all(request):
 
@@ -133,8 +132,7 @@ def business_id_user(request, business_id):
     users = [review.user.__dict__ for review in reviews]
 
     return Response(users)
-    
-@csrf_exempt
+
 @api_view(['GET'])
 def business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)
