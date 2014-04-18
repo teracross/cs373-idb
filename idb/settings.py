@@ -28,15 +28,17 @@ if 'test' in sys.argv:
     }
 else :
     DATABASES = {
-      'default': {
+    'default':
+    {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'df98p68pr0jihl',
-        'HOST': 'ec2-54-225-101-124.compute-1.amazonaws.com',
+        'NAME': 'dbclbiroo6chk4',
+        'HOST': 'ec2-54-204-37-113.compute-1.amazonaws.com',
         'PORT': 5432,
-        'USER': 'raaguazpllzfjc',
-        'PASSWORD': 'iB4dOm4cQY0-rnYBJzkYvJf6kH'
-      }
+        'USER': 'mlsprslbyogyne',
+        'PASSWORD': 'RWzrOqD9IWPhEQujKh2wkYd59J'
     }
+}
+
 SITE_ID=1
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -59,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'OperationRepo',
     'rest_framework'
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,7 +92,7 @@ WSGI_APPLICATION = 'idb.wsgi.application'
 #   }
 # }
 
-
+#DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

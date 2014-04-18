@@ -1,0 +1,81 @@
+<!-- Our fun api page to demonstrate the restful api. -->
+<!DOCTYPE html>
+<html>
+<head> 
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> Operation Repo - API Fun </title>
+    <link href="{{STATIC_URL}}css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css" />
+    <link href="{{STATIC_URL}}css/background.css" rel="stylesheet" media="screen" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}js/Chart.min.js"></script>
+    <style>
+        body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
+    </style>
+
+    <style type="text/css">
+        .square
+        {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+        }
+        .canvas-container {
+            max-width: 1000px;
+            max-height: 500px;
+            position: relative;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+  <div class='container'>
+    <h1 class ="topHeader">API Fun </h1>
+        {% include "navbar.html" %}
+        <div class="jumbotron">
+            <h1>Sample ClientSide api calls</h1>
+
+            {% for k, business in dict.items %}
+              <h3> {{business.name}} </h3>
+              <h4> Everything is Awesome! </h4>
+               <h4 style="text-align: center">Star Ratings for {{business.name}}(<span style="background-color:#97BBCD" class="square"></span>) </h4>
+                <div class="canvas-container">
+                  <canvas id="reviewHistoryChart" width="1000" height="400"></canvas>
+                </div>
+                <script type="text/javascript">
+                //Get context with jQuery - using jQuery's .get() method.
+                var ctx = $("#reviewHistoryChart{{business.}}").get(0).getContext("2d");
+                var data =
+                {
+                    labels : [1,2,3,4,5],
+                    datasets :
+                    [
+                        {
+                            fillColor : "rgba(151,187,205,0.5)",
+                            strokeColor : "rgba(151,187,205,1)",
+                            pointColor : "rgba(151,187,205,1)",
+                            pointStrokeColor : "#fff",
+                            data : {{business.reviews|safe}}
+                        },
+                    ]
+                }
+
+                new Chart(ctx).Line(data);
+                </script>
+
+            {% endfor %}
+            
+        </div>
+    </div>
+
+     <!-- Bootstrap -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+
+     <!-- scroll to top button -->
+    <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
+</body>
+
+</html>
