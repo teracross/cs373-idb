@@ -13,41 +13,6 @@
     <style>
         body {background: url("{{STATIC_URL}}img/bg_light.jpg") fixed;}
     </style>
-    <script type="text/javascript">
-    url="http://0.0.0.0:9000/operationrepo/api/business/?format=json";
-    $.getJSON(url,function(data) {
-    index = 1;
-    console.log(data[index]['business_id']);
-    inner_url="http://0.0.0.0:9000/operationrepo/api/business/"+data[index]['business_id']+"/review?format=json";
-    // for each business
-    var ratings = [0,0,0,0,0];
-    $.getJSON(inner_url,function(reviews) {
-        // for each of the business's review
-        for(var i in reviews)
-        {
-            ratings[Math.round(reviews[i]['stars']-1)]++;
-        }
-    }).done(function() {
-        //Get context with jQuery - using jQuery's .get() method.
-        var ctx = $("#reviewHistoryChart{{business.}}").get(0).getContext("2d");
-        var data =
-        {
-            labels : [1,2,3,4,5],
-            datasets :
-            [
-                {
-                    fillColor : "rgba(151,187,205,0.5)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    data : ratings
-                },
-            ]
-        }
-        new Chart(ctx).Bar(data);
-    });
-
-    });
-    
-    </script>
     <style type="text/css">
         .square
         {
@@ -70,19 +35,11 @@
         {% include "navbar.html" %}
         <div class="jumbotron">
             <h1>Sample ClientSide api calls</h1>
-
-            {% for k, business in dict.items %}
-              <h3> {{business.name}} </h3>
-              <h4> Everything is Awesome! </h4>
-               <h4 style="text-align: center">Star Ratings for {{business.name}}(<span style="background-color:#97BBCD" class="square"></span>) </h4>
+              <h3><div id="business_name"></div></h3>
                 <div class="canvas-container">
                   <canvas id="reviewHistoryChart" width="1000" height="400"></canvas>
+                  <div style="text-align: center">Number of each Stars Rating</div>
                 </div>
-                <script type="text/javascript">
-                </script>
-
-            {% endfor %}
-            
         </div>
     </div>
 
@@ -92,6 +49,55 @@
 
      <!-- scroll to top button -->
     <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
+     <script type="text/javascript">
+    function drawGraph(index){
+    url="http://0.0.0.0:9000/operationrepo/api/business/?format=json";
+    $.getJSON(url,function(data) {
+    $( "#business_name" ).append(data[index]['name']);
+    inner_url="http://0.0.0.0:9000/operationrepo/api/business/"+data[index]['business_id']+"/review?format=json";
+    // for each business
+    var ratings = [0,0,0,0,0];
+    $.getJSON(inner_url,function(reviews) {
+        // for each of the business's review
+        for(var i in reviews)
+        {
+            ratings[Math.round(reviews[i]['stars']-1)]++;
+        }
+    }).done(function() {
+        //Get context with jQuery - using jQuery's .get() method.
+        var ctx = $("#reviewHistoryChart").get(0).getContext("2d");
+        var max = Math.max.apply( Math, ratings );
+        var steps = 3;
+        var options = {
+            scaleOverride: true,
+            scaleSteps: steps,
+            scaleStepWidth: Math.ceil(max / steps),
+            scaleStartValue: 0
+        }
+        var data =
+        {
+            labels : [1,2,3,4,5],
+            datasets :
+            [
+                {
+                    fillColor : "rgba(151,187,205,0.5)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    data : ratings
+                },
+            ]
+        }
+        new Chart(ctx).Bar(data,options);
+    });
+
+    });
+};
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+var index = getURLParameter('index');
+drawGraph(index);
+    
+    </script>
 </body>
 
 </html>
