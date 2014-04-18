@@ -11,8 +11,6 @@ BUSINESS_FK = ['neighborhoods','categories','attributes','hours']
 USER_FK = ['votes','elite','compliments']
 REVIEW_FK = ['votes']
 
-
-
 @api_view(['GET'])
 def business_gps(request):
     if request.method == 'GET':
@@ -23,7 +21,9 @@ def business_gps(request):
                 arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
         arr = arr[:-1]+"]"
         return Response(arr)
+
 # Businesses
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def business_all(request):
 
@@ -133,7 +133,8 @@ def business_id_user(request, business_id):
     users = [review.user.__dict__ for review in reviews]
 
     return Response(users)
-
+    
+@csrf_exempt
 @api_view(['GET'])
 def business_id_review(request, business_id):
     business = get_object_or_404(Business, business_id=business_id)

@@ -51,10 +51,10 @@
     <script src = "{{STATIC_URL}}js/scrollToTop.js"></script>
      <script type="text/javascript">
     function drawGraph(index){
-    url="http://0.0.0.0:9000/operationrepo/api/business/?format=json";
+    url="http://cs373-oprepo.herokuapp.com/operationrepo/api/business/?format=json";
     $.getJSON(url,function(data) {
     $( "#business_name" ).append(data[index]['name']);
-    inner_url="http://0.0.0.0:9000/operationrepo/api/business/"+data[index]['business_id']+"/review?format=json";
+    inner_url="http://cs373-oprepo.herokuapp.com/operationrepo/api/business/"+data[index]['business_id']+"/review?format=json";
     // for each business
     var ratings = [0,0,0,0,0];
     $.getJSON(inner_url,function(reviews) {

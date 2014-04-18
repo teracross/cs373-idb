@@ -236,20 +236,7 @@ def search (request):
 
 def api_fun (request):
     context = RequestContext(request)
-    url = "http://cs373-oprepo.herokuapp.com/operationrepo/api/business/"
-    get = urllib.request.urlopen(url + "?format=json").read().decode("utf-8")
-    json_result = json.loads(get)
-    
-    businesses_dict = {}
-    k = 1;
-    for d in json_result:
-        #returns a list dictionaries 
-        businesses_dict[k] = {'name':d["name"], 'id':d["business_id"], 'reviews':ratingsPuller(d["business_id"])}
-        k += 1
-
-    # format of list returned 
-    # [{'name':business_name,'id':business_id, 'review_stars': [stars from review]}, ... for each of the 10 business]
-    return render_to_response('OperationRepo/apifun.html', {'dict': businesses_dict, 'form': SearchForm()}, context)
+    return render_to_response('OperationRepo/apifun.html', {}, context)
 
 def ratingsPuller(b_id) :
 
