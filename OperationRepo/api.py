@@ -11,8 +11,6 @@ BUSINESS_FK = ['neighborhoods','categories','attributes','hours']
 USER_FK = ['votes','elite','compliments']
 REVIEW_FK = ['votes']
 
-
-
 @api_view(['GET'])
 def business_gps(request):
     if request.method == 'GET':
