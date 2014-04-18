@@ -12,6 +12,11 @@ USER_FK = ['votes','elite','compliments']
 REVIEW_FK = ['votes']
 
 
+
+@api_view(['GET'])
+def business_gps(request):
+    if request.method == 'GET':
+        return Response(list(Business.objects.all().values('business_id','latitude','longitude')))
 # Businesses
 @api_view(['GET', 'POST'])
 def business_all(request):
