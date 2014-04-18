@@ -246,7 +246,7 @@ def search (request):
 
 def api_fun (request):
     context = RequestContext(request)
-    return render_to_response('OperationRepo/apifun.html', {}, context)
+    return render_to_response('OperationRepo/apifun.html', {'form':SearchForm()}, context)
 
 def ratingsPuller(b_id) :
 
