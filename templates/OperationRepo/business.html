@@ -211,7 +211,7 @@
                 <h2>Categories:</h2>
                 {% if Categories|length > 0 %}
                     {% for category in Categories %}
-                        {{category.name}},
+                        <a class="label label-primary" href="{% url 'business_splash' %}?category={{category.name}}">{{category.name}}</a>
                     {%endfor%}
                 {% else %}
                     Categories not available.

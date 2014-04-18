@@ -19,6 +19,13 @@ def index(request):
     context = RequestContext(request)
     context_dict = {'message': "Hello World", "form": SearchForm(), "active_page" :"index_nav" }
 
+    reviews = Review.objects.order_by("-date").select_related();
+    arr = "["
+    for r in reviews :
+        for i in range(0,int(r.stars)) :
+            arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
+    arr = arr[:-1]+"]"
+
     query = """
     SELECT sub.count as "Number of Compliments",
     ROUND(CAST(SUM(sub.average_stars)/COUNT(*) AS NUMERIC),2) as "Average Stars Given" 
@@ -64,7 +71,7 @@ def index(request):
         q3a+=[a]
         q3b+=[b]        
 
-    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav", "allcategories":allCategories()}, context)
+    return render_to_response('OperationRepo/index.html', {"q2a":q2a,"q2b":q2b, "q3a":q3a,"q3b":q3b, "form": SearchForm(), "active_page" :"index_nav", "allcategories":allCategories(), "heatmap":arr}, context)
 
 def dictfetchall(cursor):
     "Returns all rows from a cursor as a dict"
@@ -175,7 +182,6 @@ def review_splash (request):
 def user_splash (request):
     context = RequestContext(request)
     firstletter = request.GET.get('firstletter', '')
-    print("***"+str(firstletter))
     if len(firstletter) > 0 :
         allUsers = User.objects.filter(name__startswith=firstletter).order_by('name')
     else :

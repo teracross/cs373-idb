@@ -23,6 +23,32 @@
             -moz-border-radius: 150px;
         }
     </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization"></script>
+
+    <script type="text/javascript">
+        var heatData = {{heatmap|safe}}
+        function genMap(){
+            var myLatlng = new google.maps.LatLng(33.465817,-112.095673);
+            var mapOptions = {
+              zoom: 10,
+              center: myLatlng
+            }
+          map = new google.maps.Map(document.getElementById('map-canvas'),
+              mapOptions);
+
+          var pointArray = new google.maps.MVCArray(heatData);
+
+          heatmap = new google.maps.visualization.HeatmapLayer({
+            data: pointArray
+          });
+
+          heatmap.setMap(map);
+          heatmap.set('radius', 40);
+        }
+
+        google.maps.event.addDomListener(window, 'load', genMap);
+        //google.maps.event.addDomListener(window, 'resize', genMap);
+    </script>
 </head>
 
 <body>
@@ -36,19 +62,20 @@
               <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
               </ol>
 
               <div class="carousel-inner">
                 <div class="item active">
+                    <div id="map-canvas" style="height:500px">
+
+                    </div>
+                </div>
+                <div class="item">
                     <h4 id="chartTitle" style="text-align: center;">Do people with more compliments give higher ratings?</h4>
                     <canvas id="complimentsBar" width="1000" height="400"></canvas>
                     <div style="text-align: center">Number of Compliments Given</div>
                 </div>
-
-
-          <!--  <a href="#" class="btn btn-large btn-success">Get Started</a> -->
-            
-
                 <div class="item">
                     <h4 id="commonWordsTitle" style="text-align: center;">What are the most popular words used in a review?</h4>
                     <canvas id="commonWordsBar" width="1000" height="400"></canvas>
@@ -114,6 +141,10 @@
                 ]
             }
             new Chart(ctx).Radar(data);                            
+        }
+        function q4()
+        {
+
         }
         q2();
         q3();
