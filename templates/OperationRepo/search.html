@@ -197,6 +197,8 @@
                 }
                 searchtext = $(this).text();
             };
+            if(newinner == "")
+                newinner = "<red style=\"color: red;\">Key words not mentioned...</red>"
             $(this).html(newinner);
         });
      });
