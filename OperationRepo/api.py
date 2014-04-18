@@ -23,6 +23,7 @@ def business_gps(request):
                 arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
         arr = arr[:-1]+"]"
         return Response(arr)
+
 # Businesses
 @api_view(['GET', 'POST'])
 def business_all(request):
@@ -40,7 +41,7 @@ def business_all(request):
         b = Business(**business_json)
 
         if not b:
-            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+            return Response("No business created", status=status.HTTP_400_BAD_REQUEST)
 
         b.save()
 
@@ -55,7 +56,7 @@ def business_all(request):
         return Response(response, status=status.HTTP_201_CREATED)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def business_id(request, business_id):
@@ -117,7 +118,7 @@ def business_id(request, business_id):
         return Response(status.HTTP_204_NO_CONTENT)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)  
 
 @api_view(['GET'])
 def business_id_user(request, business_id):
@@ -164,7 +165,7 @@ def user_all(request):
         u = User(**user_json)
 
         if not u:
-            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+            return Response("No user created", status=status.HTTP_400_BAD_REQUEST)
 
         u.save()
 
@@ -179,7 +180,7 @@ def user_all(request):
         return Response(response, status=status.HTTP_201_CREATED)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def user_id(request, user_id):
@@ -228,7 +229,7 @@ def user_id(request, user_id):
         return Response(status.HTTP_204_NO_CONTENT)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)  
 
 
 
@@ -285,7 +286,7 @@ def review_all(request):
         r = Review(**review_json)
 
         if not r:
-            return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+            return Response("No review created", status=status.HTTP_400_BAD_REQUEST)
 
         r.save()
 
@@ -296,7 +297,7 @@ def review_all(request):
         return Response(response, status=status.HTTP_201_CREATED)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -334,7 +335,7 @@ def review_id(request, review_id):
         return Response(status.HTTP_204_NO_CONTENT)
 
     else:
-        return Response("nope", status=status.HTTP_400_BAD_REQUEST)  
+        return Response("Method not allowed", status=status.HTTP_400_BAD_REQUEST)  
 
 @api_view(['GET'])
 def review_id_business(request, review_id):
