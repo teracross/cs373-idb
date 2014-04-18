@@ -1,5 +1,5 @@
 #1
---Compare the average business rating for the west, east side of Phoenix
+--Does the West side of Phoneix have an average higher rating than the East side?
 SELECT 
 'East Side' as Region,
 round(CAST(SUM("OperationRepo_review".stars)/COUNT(*) AS NUMERIC),2) as "Average Review",
