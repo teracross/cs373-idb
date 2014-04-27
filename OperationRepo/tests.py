@@ -12,13 +12,6 @@ class API_Test(TestCase) :
     # base url to test API
     url = "http://cs373-oprepo.herokuapp.com/OperationRepo/api/"
 
-    
-
-    #test_business = { "name": "Raising Canes", "is_open": True, "stars": 3.0, "city": "Mesa", "hours": { "Saturday": { "open": "11:00", "close": "02:00" }, "Monday": { "open": "11:00", "close": "02:00" }, "Sunday": { "open": "11:00", "close": "02:00" }, "Wednesday": { "open": "11:00", "close": "02:00" }, "Thursday": { "open": "11:00", "close": "02:00" }, "Friday": { "open": "11:00", "close": "02:00" }, "Tuesday": { "open": "11:00", "close": "02:00" } }, "full_address": "6821 E Superstition SpringsMesa, AZ 85209", "state": "AZ", "attributes": { "alcohol": "full_bar", "attire": "casual", "noise_level": "very_loud", "takeout": "True", "has_tv": "True", "good_for_kids": "True", "good_for": { "lunch": True, "dinner": True, "latenight": False, "breakfast": False, "dessert": True, "brunch": False }, "smoking": "outdoor", "waiter_service": "True", "ambience": { "romantic": False, "upscale": False, "intimate": False, "divey": False, "hipster": False, "casual": True, "touristy": False, "classy": False, "trendy": False }, "happy_hour": "True", "good_for_dancing": "False", "wheelchair_accessible": "True", "wifi": "free", "price_range": "2", "music": { "dj": False, "jukebox": False, "karaoke": False, "live": False, "background_music": True, "video": False }, "takes_reservations": "False", "coat_check": "False", "parking": { "valet": False, "lot": True, "garage": False, "street": False, "validated": False }, "accepts_credit_cards": "True", "delivery": "False", "good_for_groups": "True", "outdoor_seating": "True" }, "categories": [ "American (Traditional)", "Chicken", "Restaurants" ], "review_count": 23, "type": "business", "business_id": "test-business", "yelp_url": "http://www.yelp.com/biz/raising-cains", "longitude": -111.6837464, "latitude": 33.3832251 }
-    #test_user = { "name": "Will",  "review_count": 1,  "compliments": { "funny": 60 },  "average_stars": 4.0,  "votes": { "useful": 7,  "cool": 1,  "funny": 1 },  "yelping_since": "2014-03-01",  "user_id": "test-user",  "elite": [2015],  "fans": 0,  "type": "user" }
-    #test_review = { "votes": { "cool": 1,  "funny": 2,  "useful": 1 },  "type": "review",  "text": "This is a test",  "user_id": "4YreLEqgAJrg3dgPtKLuQw",  "business_id": "01cEFI5Pq_RyEwM3GSTopQ",  "date": "2014-04-13",  "stars": 5.0,  "review_id": "test-review" }
-    # IMPORTANT: need pip install requests.s    
-    # tests against actual database
 
     #---
     #api get tests
