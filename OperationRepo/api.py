@@ -11,17 +11,6 @@ BUSINESS_FK = ['neighborhoods','categories','attributes','hours']
 USER_FK = ['votes','elite','compliments']
 REVIEW_FK = ['votes']
 
-@api_view(['GET'])
-def business_gps(request):
-    if request.method == 'GET':
-        reviews = Review.objects.order_by("-date").select_related();
-        arr = "["
-        for r in reviews :
-            for i in range(0,int(r.stars)) :
-                arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
-        arr = arr[:-1]+"]"
-        return Response(arr)
-
 # Businesses
 @api_view(['GET', 'POST'])
 def business_all(request):
@@ -42,13 +31,15 @@ def business_all(request):
             return Response("No business created", status=status.HTTP_400_BAD_REQUEST)
 
         b.save()
-
-        for name in categories:
-            Categories(business=b, name=name).save()
-        for key,value in attributes.items():
-            Attributes(business=b, name=key,value=str(value)).save()
-        for day,hour in hours.items():
-            Hours(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
+        if categories:
+            for name in categories:
+                Categories(business=b, name=name).save()
+        if attributes:
+            for key,value in attributes.items():
+                Attributes(business=b, name=key,value=str(value)).save()
+        if hours:
+            for day,hour in hours.items():
+                Hours(business=b,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
 
         response = {"business_id": request.DATA['business_id']}
         return Response(response, status=status.HTTP_201_CREATED)
@@ -79,13 +70,16 @@ def business_id(request, business_id):
         return Response(business.__dict__)
     elif request.method == 'PUT':
 
-        Categories.objects.filter(business=business).delete()
-        for name in request.DATA['categories']:
-            Categories(business=business, name=name).save()
-        for key,value in request.DATA['attributes'].items():
-            Attributes(business=business, name=key,value=str(value)).save()
-        for day,hour in request.DATA['hours'].items():
-            Hours(business=business,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
+        if 'categories' in request.DATA.keys():
+            Categories.objects.filter(business=business).delete()
+            for name in request.DATA['categories']:
+                Categories(business=business, name=name).save()
+        if 'attributes' in request.DATA.keys():
+            for key,value in request.DATA['attributes'].items():
+                Attributes(business=business, name=key,value=str(value)).save()
+        if 'hours' in request.DATA.keys():
+            for day,hour in request.DATA['hours'].items():
+                Hours(business=business,day_of_week=day,open_hour=hour['open'],close_hour=hour['close']).save()
 
         for k in request.DATA:
             if k not in BUSINESS_FK:
@@ -167,12 +161,15 @@ def user_all(request):
 
         u.save()
 
-        for kind,number in votes.items():
-            User_Votes(user=u, vote_type=kind,count=number).save()
-        for leet in elite:
-            Elite(user=u,years_elite=leet).save()
-        for kind,number in compliments.items():
-            Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
+        if votes:
+            for kind,number in votes.items():
+                User_Votes(user=u, vote_type=kind,count=number).save()
+        if elite:
+            for leet in elite:
+                Elite(user=u,years_elite=leet).save()
+        if compliments:
+            for kind,number in compliments.items():
+                Compliments(user=u,complement_type=kind,num_compliments_of_this_type=number).save()    
         
         response = {"user_id": request.DATA['user_id']}
         return Response(response, status=status.HTTP_201_CREATED)
@@ -195,14 +192,16 @@ def user_id(request, user_id):
         return Response(user.__dict__)
 
     elif request.method == 'PUT':
-
-        Elite.objects.filter(user=user).delete()
-        for kind,number in request.DATA['votes'].items():
-            User_Votes(user=user, vote_type=kind,count=number).save()
-        for leet in request.DATA['elite']:
-            Elite(user=user,years_elite=leet).save()
-        for kind,number in request.DATA['compliments'].items():
-            Compliments(user=user,complement_type=kind,num_compliments_of_this_type=number).save()
+        if 'elite' in request.DATA.keys():
+            Elite.objects.filter(user=user).delete()
+            for leet in request.DATA['elite']:
+                Elite(user=user,years_elite=leet).save()
+        if 'votes' in request.DATA.keys():
+            for kind,number in request.DATA['votes'].items():
+                User_Votes(user=user, vote_type=kind,count=number).save()
+        if 'compliments' in request.DATA.keys():
+            for kind,number in request.DATA['compliments'].items():
+                Compliments(user=user,complement_type=kind,num_compliments_of_this_type=number).save()
 
         for k in request.DATA:
             if k not in USER_FK:
@@ -288,8 +287,9 @@ def review_all(request):
 
         r.save()
 
-        for kind,number in votes.items():
-            Review_Votes(review=r, vote_type=kind,count=number).save()
+        if votes:
+            for kind,number in votes.items():
+                Review_Votes(review=r, vote_type=kind,count=number).save()
         
         response = {"review_id": request.DATA['review_id']}
         return Response(response, status=status.HTTP_201_CREATED)
@@ -311,8 +311,9 @@ def review_id(request, review_id):
 
     elif request.method == 'PUT':
 
-        for kind,number in request.DATA['votes'].items():
-            Review_Votes(review=review, vote_type=kind,count=number).save()
+        if 'votes' in request.DATA.keys():
+            for kind,number in request.DATA['votes'].items():
+                Review_Votes(review=review, vote_type=kind,count=number).save()
 
         for k in request.DATA:
             if k not in REVIEW_FK:
@@ -363,6 +364,17 @@ def review_id_user(request, review_id):
     user.__dict__['compliments'] ={compliment['complement_type']:compliment['num_compliments_of_this_type'] for compliment in Compliments.objects.filter(user=user).values()}
     user.__dict__['type'] = "user"
     return Response([user.__dict__])
+
+@api_view(['GET'])
+def business_gps(request):
+    if request.method == 'GET':
+        reviews = Review.objects.order_by("-date").select_related();
+        arr = "["
+        for r in reviews :
+            for i in range(0,int(r.stars)) :
+                arr += "new google.maps.LatLng("+str(r.business.latitude)+","+str(r.business.longitude)+"),"
+        arr = arr[:-1]+"]"
+        return Response(arr)
 
 def toJS(a):
     val = str(a).replace("'","\"").replace("True","true").replace("False","false")
